@@ -1,0 +1,812 @@
+[14/05/2012 11:57:16.480] Connexion ok : 127.0.0.1 4242
+[14/05/2012 11:57:16.480] Message send error : GRAPHIC
+[14/05/2012 11:57:16.500] Receipt from server : BIENVENUE
+[14/05/2012 11:57:16.500] Synchronisation... 
+[14/05/2012 11:57:16.500] Receipt from server : msz 20 20
+[14/05/2012 11:57:16.638] Command execute : msz 20 20
+[14/05/2012 11:57:16.638] Receipt from server : sgt 10
+[14/05/2012 11:57:16.638] Command execute : sgt 10
+[14/05/2012 11:57:16.638] Receipt from server : bct 0 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 1 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 1 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 2 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 2 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 3 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 3 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 9 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 9 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 11 0 1 0 2 0 1 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 11 0 1 0 2 0 1 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 16 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 16 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 17 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.639] Command execute : bct 0 17 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Receipt from server : bct 0 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.639] Command execute : bct 0 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 3 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 3 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 5 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 5 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 8 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 8 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 9 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 9 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 11 0 2 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 11 0 2 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 12 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 12 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 14 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 14 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 15 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 15 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.640] Receipt from server : bct 1 17 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.640] Command execute : bct 1 17 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 1 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.641] Command execute : bct 1 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 1 19 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.641] Command execute : bct 1 19 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 3 0 0 2 1 0 1 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 3 0 0 2 1 0 1 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 6 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 6 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 8 0 0 0 1 0 0 1
+[14/05/2012 11:57:16.641] Command execute : bct 2 8 0 0 0 1 0 0 1
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 9 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 9 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 14 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 14 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Command execute : bct 2 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.641] Receipt from server : bct 2 16 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 2 16 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 2 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 2 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 2 18 0 1 2 1 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 2 18 0 1 2 1 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 2 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 2 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 0 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 0 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 3 0 2 0 0 1 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 3 0 2 0 0 1 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 4 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 4 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 5 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 5 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 7 0 1 1 0 1 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 7 0 1 1 0 1 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 8 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 8 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 9 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 9 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 13 0 1 0 0 1 0 0
+[14/05/2012 11:57:16.642] Command execute : bct 3 13 0 1 0 0 1 0 0
+[14/05/2012 11:57:16.642] Receipt from server : bct 3 14 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 14 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 3 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 3 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 3 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 3 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 3 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 3 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 0 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 0 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 3 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 3 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 5 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 5 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 7 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 7 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 8 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 8 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 9 0 1 0 0 2 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 9 0 1 0 0 2 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 11 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.643] Command execute : bct 4 11 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.643] Receipt from server : bct 4 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 16 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 16 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 17 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 17 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 4 19 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 4 19 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 0 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 0 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 1 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 1 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 3 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 3 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 4 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 4 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 6 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 6 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 8 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 8 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 9 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.644] Command execute : bct 5 9 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.644] Receipt from server : bct 5 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 11 0 0 0 0 1 1 1
+[14/05/2012 11:57:16.645] Command execute : bct 5 11 0 0 0 0 1 1 1
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 13 0 0 0 0 0 2 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 13 0 0 0 0 0 2 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 14 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 14 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 17 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 17 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 18 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 18 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 5 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 5 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 1 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 1 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 3 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 3 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 5 0 0 1 2 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 5 0 0 1 2 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.645] Receipt from server : bct 6 9 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.645] Command execute : bct 6 9 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 10 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 10 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 12 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 12 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 13 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 13 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 15 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 15 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 16 0 1 1 0 0 0 1
+[14/05/2012 11:57:16.646] Command execute : bct 6 16 0 1 1 0 0 0 1
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 18 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 18 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 6 19 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.646] Command execute : bct 6 19 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 0 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 0 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 2 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 2 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 3 0 0 0 3 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 3 0 0 0 3 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 5 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 5 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.646] Receipt from server : bct 7 8 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.646] Command execute : bct 7 8 0 1 1 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 9 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 9 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 10 0 1 1 1 0 1 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 10 0 1 1 1 0 1 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 11 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 11 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 12 0 2 0 0 0 1 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 12 0 2 0 0 0 1 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 15 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 15 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 17 0 0 1 2 1 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 17 0 0 1 2 1 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 7 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 7 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 2 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 2 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 3 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 3 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 4 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 4 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 6 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.647] Receipt from server : bct 8 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.647] Command execute : bct 8 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 8 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 8 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 9 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 9 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 10 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 10 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 12 0 1 2 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 12 0 1 2 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 13 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 13 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 15 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 15 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 16 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 16 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 8 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 8 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 2 0 0 0 0 3 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 2 0 0 0 0 3 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 3 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 3 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 4 0 2 0 1 1 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 4 0 2 0 1 1 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 6 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 6 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.648] Receipt from server : bct 9 7 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.648] Command execute : bct 9 7 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 8 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 8 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 9 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 9 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 10 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 10 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 16 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 16 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 9 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 9 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 0 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 0 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 1 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 1 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 2 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 2 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 3 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 3 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 4 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 4 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 5 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 5 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.649] Receipt from server : bct 10 6 0 1 1 1 0 0 0
+[14/05/2012 11:57:16.649] Command execute : bct 10 6 0 1 1 1 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 7 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 7 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 8 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 8 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 12 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 12 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 13 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 13 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 14 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 14 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 15 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 15 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 18 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 10 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 10 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 11 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 1 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.650] Command execute : bct 11 1 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 11 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 3 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 11 3 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 11 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.650] Receipt from server : bct 11 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.650] Command execute : bct 11 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 7 0 2 0 0 0 1 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 7 0 2 0 0 0 1 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 8 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 8 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 11 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 11 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 12 0 0 1 1 0 1 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 12 0 0 1 1 0 1 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 16 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 16 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 18 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 18 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 11 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 11 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 1 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 1 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 3 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 3 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.651] Receipt from server : bct 12 5 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.651] Command execute : bct 12 5 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 6 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 6 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 7 0 2 0 1 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 7 0 2 0 1 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 9 0 0 0 0 2 1 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 9 0 0 0 0 2 1 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 12 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 12 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 16 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 16 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 17 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 17 0 0 0 2 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 18 0 0 0 0 0 2 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 18 0 0 0 0 0 2 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 12 19 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.652] Command execute : bct 12 19 0 0 1 0 0 1 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 0 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.652] Command execute : bct 13 0 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 13 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 2 0 0 0 1 0 2 0
+[14/05/2012 11:57:16.652] Command execute : bct 13 2 0 0 0 1 0 2 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 3 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 13 3 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 13 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.652] Receipt from server : bct 13 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.652] Command execute : bct 13 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 9 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 9 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 10 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 13 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 13 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 14 0 0 1 2 1 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 14 0 0 1 2 1 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 16 0 0 0 1 2 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 16 0 0 0 1 2 0 0
+[14/05/2012 11:57:16.653] Receipt from server : bct 13 17 0 0 0 1 2 0 0
+[14/05/2012 11:57:16.653] Command execute : bct 13 17 0 0 0 1 2 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 13 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 13 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 13 19 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 13 19 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 1 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 1 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 3 0 2 1 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 3 0 2 1 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 4 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 5 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 5 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 7 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 7 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.654] Receipt from server : bct 14 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.654] Command execute : bct 14 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 10 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 12 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 12 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 13 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 13 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 18 0 0 2 0 0 1 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 18 0 0 2 0 0 1 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 14 19 0 1 1 0 0 1 0
+[14/05/2012 11:57:16.655] Command execute : bct 14 19 0 1 1 0 0 1 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 0 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 15 0 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 1 0 0 0 1 0 2 0
+[14/05/2012 11:57:16.655] Command execute : bct 15 1 0 0 0 1 0 2 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 2 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.655] Command execute : bct 15 2 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 3 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 15 3 0 0 2 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 15 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.655] Receipt from server : bct 15 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.655] Command execute : bct 15 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 7 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 7 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 9 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 9 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 10 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 10 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 12 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 12 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 13 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 13 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 14 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 14 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 15 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.656] Command execute : bct 15 15 0 0 0 0 0 0 1
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 17 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 17 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 18 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 15 19 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 15 19 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 1 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 1 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 2 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 2 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 3 0 1 2 0 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 3 0 1 2 0 0 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 4 0 2 1 1 1 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 4 0 2 1 1 1 0 0
+[14/05/2012 11:57:16.656] Receipt from server : bct 16 5 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.656] Command execute : bct 16 5 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 7 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 7 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 11 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 12 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 12 0 0 0 0 0 1 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 14 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 14 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 15 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 16 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 18 0 0 0 1 0 0 1
+[14/05/2012 11:57:16.657] Command execute : bct 16 18 0 0 0 1 0 0 1
+[14/05/2012 11:57:16.657] Receipt from server : bct 16 19 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 16 19 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 17 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 17 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 17 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 17 1 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 17 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Command execute : bct 17 2 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 17 3 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.657] Command execute : bct 17 3 0 1 0 1 0 1 0
+[14/05/2012 11:57:16.657] Receipt from server : bct 17 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 5 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 6 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 7 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 8 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 8 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 9 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 9 0 1 0 0 0 1 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 10 0 2 1 1 0 1 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 10 0 2 1 1 0 1 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 11 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 12 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 12 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 14 0 0 0 0 0 1 1
+[14/05/2012 11:57:16.658] Command execute : bct 17 14 0 0 0 0 0 1 1
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Command execute : bct 17 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.658] Receipt from server : bct 17 16 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 17 16 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 17 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 17 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 17 18 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.660] Command execute : bct 17 18 0 0 0 0 1 1 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 17 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 17 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 0 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 1 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 2 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 2 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 3 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 3 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 4 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 5 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 5 0 0 1 0 1 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 6 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 7 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 7 0 0 1 1 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 8 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 8 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 9 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.660] Command execute : bct 18 10 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.660] Receipt from server : bct 18 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 12 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 14 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 14 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 15 0 1 0 2 1 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 15 0 1 0 2 1 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 16 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 16 0 0 0 1 1 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 17 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 18 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 18 19 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 0 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 1 0 1 0 1 1 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 1 0 1 0 1 1 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 2 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 2 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 3 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 3 0 0 0 0 1 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 4 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 5 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 5 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 6 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 6 0 1 0 1 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 7 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 8 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 9 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Command execute : bct 19 9 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.661] Receipt from server : bct 19 10 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 10 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 11 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 12 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 12 0 0 0 1 0 1 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 13 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 14 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 15 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 16 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 16 0 0 1 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 17 0 1 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 18 0 0 0 1 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : bct 19 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Command execute : bct 19 19 0 0 0 0 0 0 0
+[14/05/2012 11:57:16.662] Receipt from server : tna titi
+[14/05/2012 11:57:16.662] Command execute : tna titi
+[14/05/2012 11:57:16.662] Receipt from server : tna toto
+[14/05/2012 11:57:16.662] Command execute : tna toto
