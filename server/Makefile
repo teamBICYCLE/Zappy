@@ -5,7 +5,7 @@
 ## Login   <jonathan.machado@epitech.net>
 ## 
 ## Started on  Sat May 12 14:30:37 2012 Jonathan Machado
-## Last update Mon May 14 20:33:08 2012 Jonathan Machado
+## Last update Mon May 14 20:34:45 2012 Jonathan Machado
 ##
 
 CC		= gcc
@@ -28,16 +28,13 @@ OBJS		= $(SRCS:%.c=%.o)
 OBJS		:= $(notdir $(OBJS))
 OBJS		:= $(addprefix $(OBJS_DIR), $(OBJS))
 
-$(NAME)		: lib $(OBJS)
+$(NAME)		: $(OBJS)
 		  $(CC) -o $(NAME) $(OBJS) $(LFLAGS)
 
 $(OBJS_DIR)%.o	: $(SRCS_DIR)%.c $(INCLUDES)
 		  $(CC) -c $(CFLAGS) $(IFLAGS) $< -o $@
 
 all		: $(NAME)
-
-lib		:
-		make -C lib
 
 clean		:
 		  $(RM) $(OBJS)
