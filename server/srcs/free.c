@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:51:15 2012 Jonathan Machado
-** Last update Mon May 14 20:30:02 2012 Jonathan Machado
+** Last update Mon Jun  4 15:06:53 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -22,7 +22,7 @@ void		free_users(void *ptr)
 
   u = ptr;
   close(u->socket);
-   delete_list(u->messages, &free);
+  delete_list(u->messages, &free);
   delete_ringbuffer(u->readring);
   free(ptr);
 }

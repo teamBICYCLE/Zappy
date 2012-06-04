@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon May 14 20:12:14 2012 Jonathan Machado
+** Last update Mon Jun  4 16:29:15 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -17,6 +17,7 @@
 # include <sys/select.h>
 # include "libdatac_list.h"
 # include "ringbuffer.h"
+# include "args.h"
 
 typedef void (*sighandler_t)(int);
 
@@ -39,15 +40,18 @@ struct          s_infos
   fd_set        readfds;
   t_list        *users;
   t_list	*tasks;
+  t_arg_infos	world_info;
 };
 
-void    run(int port);
+void    run(void);
 
 void   	add_user(void);
 void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 
+/* TOOLS */
 int    	cmp_socket(void *a, void *b);
+void	print_serv_conf(t_arg_infos *world_info);
 
 void   	free_tasks(void *ptr);
 void   	free_users(void *ptr);

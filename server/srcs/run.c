@@ -5,9 +5,8 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Mon May 14 20:23:47 2012 Jonathan Machado
+** Last update Mon Jun  4 16:27:34 2012 lois burg
 */
-
 
 #include <stdlib.h>
 #include <signal.h>
@@ -18,7 +17,7 @@
 #include <stdio.h>
 #include "server.h"
 
-t_infos			g_info;
+extern t_infos		g_info;
 
 static int		get_protocol(void)
 {
@@ -60,6 +59,7 @@ static void		init(int port)
   bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin));
   listen(g_info.ss, 5);
   g_info.smax = g_info.ss;
+  printf("Listening on port %d...\n", port);
 }
 
 static void	set_fd(void *ptr)
@@ -71,9 +71,10 @@ static void	set_fd(void *ptr)
   FD_SET(user->socket, &g_info.readfds);
 }
 
-void		run(int port)
+void		run(void)
 {
-  init(port);
+  init(g_info.world_info.port);
+  print_serv_conf(&g_info.world_info);
   while (1)
     {
       FD_ZERO(&g_info.writefds);
