@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon Jun  4 16:29:15 2012 lois burg
+** Last update Wed Jun  6 17:25:16 2012 Jonathan Machado
 */
 
 #ifndef __SERVER_H__
@@ -15,6 +15,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <sys/select.h>
+# include "map.h"
 # include "libdatac_list.h"
 # include "ringbuffer.h"
 # include "args.h"
@@ -40,6 +41,7 @@ struct          s_infos
   fd_set        readfds;
   t_list        *users;
   t_list	*tasks;
+  t_map		*map;
   t_arg_infos	world_info;
 };
 

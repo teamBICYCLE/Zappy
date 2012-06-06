@@ -5,7 +5,11 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Wed Jun  6 16:56:10 2012 lois burg
+<<<<<<< HEAD
+** Last update Wed Jun  6 19:49:51 2012 lois burg
+=======
+** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
+>>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
 */
 
 #include <stdlib.h>
@@ -16,6 +20,7 @@
 #include <sys/socket.h>
 #include <stdio.h>
 #include "diamond_generation.h"
+#include "map.h"
 #include "server.h"
 
 extern t_infos		g_info;
@@ -49,6 +54,7 @@ static void		init(int port)
   g_info.ss = -1;
   g_info.users = new_list();
   g_info.tasks = new_list();
+  g_info.map = new_map(g_info.world_info.world_x, g_info.world_info.world_y);
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
