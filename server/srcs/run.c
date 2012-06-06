@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Mon Jun  4 16:27:34 2012 lois burg
+** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -15,6 +15,7 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <stdio.h>
+#include "map.h"
 #include "server.h"
 
 extern t_infos		g_info;
@@ -48,6 +49,7 @@ static void		init(int port)
   g_info.ss = -1;
   g_info.users = new_list();
   g_info.tasks = new_list();
+  g_info.map = new_map(g_info.world_info.world_x, g_info.world_info.world_y);
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
