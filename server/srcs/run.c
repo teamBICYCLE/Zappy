@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Mon Jun  4 16:27:34 2012 lois burg
+** Last update Wed Jun  6 16:56:10 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -15,6 +15,7 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <stdio.h>
+#include "diamond_generation.h"
 #include "server.h"
 
 extern t_infos		g_info;
@@ -70,9 +71,10 @@ static void	set_fd(void *ptr)
   FD_SET(user->socket, &g_info.writefds);
   FD_SET(user->socket, &g_info.readfds);
 }
-
+#include <time.h>
 void		run(void)
 {
+  generate_map(g_info.world_info.world_x, g_info.world_info.world_y, time(NULL));
   init(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);
   while (1)
