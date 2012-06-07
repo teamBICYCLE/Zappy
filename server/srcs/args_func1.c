@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Thu Jun  7 10:28:16 2012 Jonathan Machado
+** Last update Thu Jun  7 16:56:37 2012 lois burg
 */
 
 #include <string.h>
@@ -20,7 +20,7 @@ void	get_port(t_arg_infos *infos, char *argv[])
   if (contains_only_digits(optarg))
     infos->port = strtol(optarg, NULL, 10);
   else
-    fprintf(stderr, "-p: Invalid port number.\n");
+    invalid_param(infos, "-p: Invalid port. Must be a positive numeric value.");
 }
 
 void	get_world_x(t_arg_infos *infos, char *argv[])
@@ -29,7 +29,7 @@ void	get_world_x(t_arg_infos *infos, char *argv[])
   if (contains_only_digits(optarg))
     infos->world_x = strtol(optarg, NULL, 10);
   else
-    fprintf(stderr, "-x: Invalid size.\n");
+    invalid_param(infos, "-x: Invalid size. Must be a positive numeric value.");
 }
 
 void	get_world_y(t_arg_infos *infos, char *argv[])
@@ -38,7 +38,7 @@ void	get_world_y(t_arg_infos *infos, char *argv[])
   if (contains_only_digits(optarg))
     infos->world_y = strtol(optarg, NULL, 10);
   else
-    fprintf(stderr, "-y: Invalid size.\n");
+    invalid_param(infos, "-y: Invalid size. Must be a positive numeric value.");
 }
 
 void	get_teams_names(t_arg_infos *infos, char *argv[])
@@ -60,5 +60,5 @@ void	get_clients_per_team(t_arg_infos *infos, char *argv[])
   if (contains_only_digits(optarg))
     infos->clients_per_team = strtol(optarg, NULL, 10);
   else
-    fprintf(stderr, "-c: Invalid number.\n");
+    invalid_param(infos, "-c: Invalid number. Must be a positive numeric value.");
 }

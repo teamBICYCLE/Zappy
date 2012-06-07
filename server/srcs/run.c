@@ -6,10 +6,14 @@
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
 <<<<<<< HEAD
-** Last update Thu Jun  7 17:04:27 2012 Jonathan Machado
+<<<<<<< HEAD
+** Last update Thu Jun  7 17:05:43 2012 Jonathan Machado
 =======
 ** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
 >>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
+=======
+** Last update Thu Jun  7 16:10:35 2012 lois burg
+>>>>>>> 46a558c3493b21bbea0d1d444b61e730fe0c62e2
 */
 
 #include <stdlib.h>
@@ -81,6 +85,7 @@ static void	set_fd(void *ptr)
 
 void		run(void)
 {
+
   init_world(g_info.world_info.world_x, g_info.world_info.world_y, g_info.world_info.seed);
   init_network(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);

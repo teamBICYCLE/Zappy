@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:33:47 2012 Jonathan Machado
-** Last update Thu Jun  7 10:40:02 2012 lois burg
+** Last update Thu Jun  7 16:53:16 2012 lois burg
 */
 
 #include <stdio.h>
@@ -19,7 +19,8 @@ int	main(int argc, char *argv[])
   parse_args(argc, argv, &g_info.world_info);
   if (!g_info.world_info.help_showed)
     {
-      if (g_info.world_info.teams_names->size)
+      if (g_info.world_info.teams_names->size &&
+	  !g_info.world_info.error)
 	{
 	  if (g_info.world_info.teams_names->size >= 2)
 	    run();

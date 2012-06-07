@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Thu Jun  7 09:19:49 2012 lois burg
+** Last update Thu Jun  7 14:03:00 2012 lois burg
 */
 
 #include <string.h>
@@ -30,7 +30,7 @@ static void	diamond_step(const int x, const int y, const int s, double **map)
   avg = map[y][x] + map[y + s][x] + map[y + s][x + s] + map[y][x + s];
   avg /= 4;
   map[y + (s / 2)][x + (s / 2)] =
-    avg + (((double)rand() / (double)RAND_MAX) * 2 * RAND_RANGE) - RAND_RANGE;
+    avg + (((double)rand() / (double)RAND_MAX) * RAND_RANGE);
 }
 
 static void	square_step(const int x, const int y, t_dmap *dmap, const int size)
@@ -112,12 +112,12 @@ void		generate_map(const int x, const int y, int seed)
     {
       i = 0;
       while (i < size)
-	{
-	  printf("[%.1f]", dmap.map[j][i]);
-	  ++i;
-	  if (i < size)
-	    printf(" ");
-	}
+  	{
+  	  printf("[%.1f]", dmap.map[j][i]);
+  	  ++i;
+  	  if (i < size)
+  	    printf(" ");
+  	}
       ++j;
       printf("\n");
     }

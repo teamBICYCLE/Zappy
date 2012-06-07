@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Thu Jun  7 10:39:24 2012 lois burg
+** Last update Thu Jun  7 16:55:30 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -32,6 +32,8 @@ struct	s_arg_infos
   int		clients_per_team;
   int		action_delay;
   bool		help_showed;
+  int		seed;
+  bool		error;
 };
 
 void	parse_args(int argc, char *argv[], t_arg_infos *infos);
@@ -45,8 +47,10 @@ void	get_clients_per_team(t_arg_infos *infos, char *argv[]);
 void	get_action_delay(t_arg_infos *infos, char *argv[]);
 void	unknown_options(t_arg_infos *infos, char *argv[]);
 void	print_help(t_arg_infos *infos, char *argv[]);
+void	set_seed(t_arg_infos *infos, char *argv[]);
 
 /* TOOLS */
 int	contains_only_digits(char *str);
+void	invalid_param(t_arg_infos *infos, const char *msg);
 
 #endif /* !__ARGS_H__*/
