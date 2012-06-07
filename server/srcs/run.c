@@ -6,7 +6,7 @@
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
 <<<<<<< HEAD
-** Last update Wed Jun  6 19:49:51 2012 lois burg
+** Last update Thu Jun  7 16:59:34 2012 Jonathan Machado
 =======
 ** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
 >>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
@@ -25,19 +25,6 @@
 
 extern t_infos		g_info;
 
-static int		get_protocol(void)
-{
-  struct protoent	*pe;
-
-  pe = getprotobyname("TCP");
-  if (pe == NULL)
-    {
-      perror("protocol error: ");
-      exit(EXIT_FAILURE);
-    }
-  return (pe->p_proto);
-}
-
 static	void		server_quit(int i)
 {
   (void)i;
@@ -47,25 +34,39 @@ static	void		server_quit(int i)
   exit(EXIT_SUCCESS);
 }
 
-static void		init(int port)
+static void		init_world(void)
 {
-  struct sockaddr_in    sin;
-
   g_info.ss = -1;
   g_info.users = new_list();
   g_info.tasks = new_list();
-  g_info.map = new_map(g_info.world_info.world_x, g_info.world_info.world_y);
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
-  g_info.ss = socket(AF_INET, SOCK_STREAM, get_protocol());
+  g_info.map = new_map(g_info.world_info.world_x, g_info.world_info.world_y);
+  generate_map(g_info.world_info.world_x, g_info.world_info.world_y, time(NULL));
+  // convertir la map en t_map
+}
+
+static void		init_network(int port)
+{
+  struct sockaddr_in    sin;
+  struct protoent	*pe;
+
   memset(&sin, 0, sizeof(sin));
+  pe = getprotobyname("TCP");
+  if (pe == NULL)
+    {
+      perror("protocol error: ");
+      exit(EXIT_FAILURE);
+    }
+  g_info.ss = socket(AF_INET, SOCK_STREAM, pe->p_proto);
   sin.sin_family = AF_INET;
   sin.sin_port = htons(port);
   sin.sin_addr.s_addr = INADDR_ANY;
   bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin));
   listen(g_info.ss, 5);
   g_info.smax = g_info.ss;
+  endprotoent();
   printf("Listening on port %d...\n", port);
 }
 
@@ -80,8 +81,8 @@ static void	set_fd(void *ptr)
 #include <time.h>
 void		run(void)
 {
-  generate_map(g_info.world_info.world_x, g_info.world_info.world_y, time(NULL));
-  init(g_info.world_info.port);
+  init_world();
+  init_network(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);
   while (1)
     {
