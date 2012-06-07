@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Mon Jun  4 17:03:36 2012 lois burg
+** Last update Thu Jun  7 10:39:11 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -27,4 +27,19 @@ void	unknown_options(t_arg_infos *infos, char *argv[])
   (void)infos;
   (void)argv;
   fprintf(stderr, "%d: Unknown option.\n", optopt);
+}
+
+void	print_help(t_arg_infos *infos, char *argv[])
+{
+  (void)argv;
+  printf("How does this server work ?\n");
+  printf("Here are the valid options:\n");
+  printf("\t-p <int>: Port to use (default is 24542).\n");
+  printf("\t-x <int>: World width (default is 20).\n");
+  printf("\t-y <int>: World height (default is 20).\n");
+  printf("\t-n <string> ...: Team names. This parameter is mandatory.\n");
+  printf("\t-c <int>: Max clients number allowed per team (default is 1).\n");
+  printf("\t-t <int>: Delay between actions (default is 100).\n");
+  printf("\t-h: Display this help and quits.\n");
+  infos->help_showed = true;
 }
