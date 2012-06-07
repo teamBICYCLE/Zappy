@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jun  7 17:32:52 2012 lois burg
+** Last update Thu Jun  7 19:09:49 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -77,7 +77,7 @@ static void	set_fd(void *ptr)
 
 void		run(void)
 {
-
+  printf("Minimum delay: %fs\n", g_info.world_info.smallest_t.tv_sec + (g_info.world_info.smallest_t.tv_usec / 100000.f));
   init_world(g_info.world_info.world_x, g_info.world_info.world_y, g_info.world_info.seed);
   init_network(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);

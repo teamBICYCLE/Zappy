@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jun  7 17:37:32 2012 lois burg
+** Last update Thu Jun  7 19:23:05 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -13,11 +13,20 @@
 #include <stdio.h>
 #include "args.h"
 
-void	get_action_delay(t_arg_infos *infos, char *argv[])
+void		get_action_delay(t_arg_infos *infos, char *argv[])
 {
+  int		integer;
+  double	decimal;
+
   (void)argv;
   if (contains_only_digits(optarg) && strtol(optarg, NULL, 10) != 0)
-    infos->action_delay = strtol(optarg, NULL, 10);
+    {
+      infos->action_delay = strtol(optarg, NULL, 10);
+      integer = 7 / infos->action_delay;
+      decimal = (7.f / infos->action_delay) - integer;
+      infos->smallest_t.tv_sec = integer;
+      infos->smallest_t.tv_usec = decimal * 100000.f;
+    }
   else
     invalid_param(infos, "-t: Invalid time. "
 		  "Must be a positive, non-null numeric value.");
