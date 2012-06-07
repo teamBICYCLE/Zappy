@@ -5,15 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-<<<<<<< HEAD
-<<<<<<< HEAD
-** Last update Thu Jun  7 17:05:43 2012 Jonathan Machado
-=======
-** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
->>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
-=======
-** Last update Thu Jun  7 16:10:35 2012 lois burg
->>>>>>> 46a558c3493b21bbea0d1d444b61e730fe0c62e2
+** Last update Thu Jun  7 19:33:17 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -49,6 +41,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   g_info.map = new_map(x, y);
   generate_map(x, y, seed);
   // convertir la map en t_map
+  print_serv_conf(&g_info.world_info);
 }
 
 static void		init_network(int const port)
@@ -83,28 +76,32 @@ static void	set_fd(void *ptr)
   FD_SET(user->socket, &g_info.readfds);
 }
 
-void		run(void)
+void			run(void)
 {
+  struct timeval	loop;
 
-  init_world(g_info.world_info.world_x, g_info.world_info.world_y, g_info.world_info.seed);
+  memcpy(&loop, &g_info.world_info.smallest_t, sizeof(loop));
+  init_world(g_info.world_info.world_x, g_info.world_info.world_y,
+	     g_info.world_info.seed);
   init_network(g_info.world_info.port);
-  print_serv_conf(&g_info.world_info);
   while (1)
     {
       FD_ZERO(&g_info.writefds);
       FD_ZERO(&g_info.readfds);
       FD_SET(g_info.ss, &g_info.readfds);
       iterate(g_info.users, &set_fd);
-      /* select non bloquant */
       if (select(g_info.smax + 1, &g_info.readfds,
-		 &g_info.writefds, NULL, NULL) != -1)
+		 &g_info.writefds, NULL, &loop) != -1)
 	{
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
-	  // mise a jour map + parcour des client avec pop des task faite
+	  if (loop.tv_sec == 0 && loop.tv_usec == 0)
+	    {
+	      // mise a jour map + parcour des client avec pop des task faite
+	      memcpy(&loop, &g_info.world_info.smallest_t, sizeof(loop));
+	    }
 	  iterate(g_info.users, &write_user);
-	  // sleep
 	}
     }
 }
