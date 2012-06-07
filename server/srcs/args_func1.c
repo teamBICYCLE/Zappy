@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Mon Jun  4 17:05:28 2012 lois burg
+** Last update Thu Jun  7 10:28:16 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -46,10 +46,10 @@ void	get_teams_names(t_arg_infos *infos, char *argv[])
   int	i;
 
   i = optind;
-  push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg)));
+  push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
   while (argv[i] && argv[i][0] != '-')
     {
-      push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i])));
+      push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
       ++i;
     }
 }
