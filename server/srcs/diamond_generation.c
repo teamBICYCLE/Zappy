@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Wed Jun  6 19:42:28 2012 lois burg
+** Last update Thu Jun  7 08:51:27 2012 lois burg
 */
 
 #include <string.h>
@@ -103,7 +103,7 @@ void		generate_map(const int x, const int y, int seed)
     {
       do_step(nb_iter, &dmap, size);
       dmap.step /= 2;
-      ++nb_iter;
+      nb_iter *= 2;
     }
 
   //TEMPORARY
