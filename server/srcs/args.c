@@ -5,9 +5,10 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Thu Jun  7 10:39:02 2012 lois burg
+** Last update Thu Jun  7 16:52:17 2012 lois burg
 */
 
+#include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "args.h"
@@ -21,6 +22,7 @@ static	t_arg_func	g_arg_func_tab[] =
     {'c', &get_clients_per_team},
     {'t', &get_action_delay},
     {'h', &print_help},
+    {'s', &set_seed},
     {'?', &unknown_options},
     {-1, NULL}
   };
@@ -34,6 +36,8 @@ static void	init_args_infos(t_arg_infos *infos)
   infos->clients_per_team = 1;
   infos->action_delay = 100;
   infos->help_showed = false;
+  infos->seed = time(NULL);
+  infos->error = false;
 }
 
 void	parse_args(int argc, char *argv[], t_arg_infos *infos)
@@ -42,7 +46,7 @@ void	parse_args(int argc, char *argv[], t_arg_infos *infos)
   int	opt;
 
   init_args_infos(infos);
-  while ((opt = getopt(argc, argv, "p:x:y:n:c:t:h")) != -1)
+  while ((opt = getopt(argc, argv, "p:x:y:n:c:t:s:h")) != -1)
     {
       i = 0;
       while (g_arg_func_tab[i].arg != -1 && g_arg_func_tab[i].arg != opt)

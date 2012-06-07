@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:39 2012 lois burg
-** Last update Thu Jun  7 11:18:40 2012 lois burg
+** Last update Thu Jun  7 13:51:42 2012 lois burg
 */
 
 #ifndef		__DIAMOND_GENERATION_H__

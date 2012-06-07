@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Mon Jun  4 16:35:19 2012 lois burg
+** Last update Thu Jun  7 16:55:13 2012 lois burg
 */
 
 #include <ctype.h>
@@ -59,4 +59,10 @@ void	print_serv_conf(t_arg_infos *world_info)
     }
   else
     fprintf(stderr, "Invalid world information (nullptr).\n");
+}
+
+void	invalid_param(t_arg_infos *infos, const char *msg)
+{
+  fprintf(stderr, "%s\n", msg);
+  infos->error = true;
 }

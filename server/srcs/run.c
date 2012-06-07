@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jun  7 11:19:51 2012 lois burg
+** Last update Thu Jun  7 16:10:35 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -73,10 +73,11 @@ static void	set_fd(void *ptr)
   FD_SET(user->socket, &g_info.writefds);
   FD_SET(user->socket, &g_info.readfds);
 }
-#include <time.h>
+
 void		run(void)
 {
-  generate_map(g_info.world_info.world_x, g_info.world_info.world_y, time(NULL));
+  generate_map(g_info.world_info.world_x,
+	       g_info.world_info.world_y, g_info.world_info.seed);
   init(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);
   while (1)

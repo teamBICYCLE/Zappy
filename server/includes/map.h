@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:13:05 2012 Jonathan Machado
-** Last update Wed Jun  6 17:23:29 2012 Jonathan Machado
+** Last update Thu Jun  7 16:36:44 2012 lois burg
 */
 
 #ifndef __MAP_H__
@@ -17,6 +17,7 @@ typedef struct s_case  	t_case;
 enum
   {
     FOOD = 0,
+    PLAYER,
     EGG,
     LINEMATE,
     DERAUMERE,

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Thu Jun  7 11:18:34 2012 lois burg
+** Last update Thu Jun  7 14:03:00 2012 lois burg
 */
 
 #include <string.h>
@@ -112,12 +112,12 @@ void		generate_map(const int x, const int y, int seed)
     {
       i = 0;
       while (i < size)
-	{
-	  printf("[%.1f]", dmap.map[j][i]);
-	  ++i;
-	  if (i < size)
-	    printf(" ");
-	}
+  	{
+  	  printf("[%.1f]", dmap.map[j][i]);
+  	  ++i;
+  	  if (i < size)
+  	    printf(" ");
+  	}
       ++j;
       printf("\n");
     }
