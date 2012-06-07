@@ -6,7 +6,7 @@
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
 <<<<<<< HEAD
-** Last update Thu Jun  7 16:59:34 2012 Jonathan Machado
+** Last update Thu Jun  7 17:04:27 2012 Jonathan Machado
 =======
 ** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
 >>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
@@ -34,7 +34,7 @@ static	void		server_quit(int i)
   exit(EXIT_SUCCESS);
 }
 
-static void		init_world(void)
+static void		init_world(unsigned int const x, unsigned int const  y, int const seed)
 {
   g_info.ss = -1;
   g_info.users = new_list();
@@ -42,12 +42,12 @@ static void		init_world(void)
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
-  g_info.map = new_map(g_info.world_info.world_x, g_info.world_info.world_y);
-  generate_map(g_info.world_info.world_x, g_info.world_info.world_y, time(NULL));
+  g_info.map = new_map(x, y);
+  generate_map(x, y, seed);
   // convertir la map en t_map
 }
 
-static void		init_network(int port)
+static void		init_network(int const port)
 {
   struct sockaddr_in    sin;
   struct protoent	*pe;
@@ -78,10 +78,10 @@ static void	set_fd(void *ptr)
   FD_SET(user->socket, &g_info.writefds);
   FD_SET(user->socket, &g_info.readfds);
 }
-#include <time.h>
+
 void		run(void)
 {
-  init_world();
+  init_world(g_info.world_info.world_x, g_info.world_info.world_y, g_info.world_info.seed);
   init_network(g_info.world_info.port);
   print_serv_conf(&g_info.world_info);
   while (1)
