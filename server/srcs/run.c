@@ -5,11 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-<<<<<<< HEAD
-** Last update Wed Jun  6 19:49:51 2012 lois burg
-=======
-** Last update Wed Jun  6 17:27:17 2012 Jonathan Machado
->>>>>>> 2ccf6678672f14b280168bcc37b5dab0378c583d
+** Last update Thu Jun  7 11:19:51 2012 lois burg
 */
 
 #include <stdlib.h>
