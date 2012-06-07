@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:33:47 2012 Jonathan Machado
-** Last update Mon Jun  4 17:08:59 2012 lois burg
+** Last update Thu Jun  7 10:40:02 2012 lois burg
 */
 
 #include <stdio.h>
@@ -17,16 +17,19 @@ t_infos			g_info;
 int	main(int argc, char *argv[])
 {
   parse_args(argc, argv, &g_info.world_info);
-  if (g_info.world_info.teams_names->size)
+  if (!g_info.world_info.help_showed)
     {
-      if (g_info.world_info.teams_names->size >= 2)
-	run();
+      if (g_info.world_info.teams_names->size)
+	{
+	  if (g_info.world_info.teams_names->size >= 2)
+	    run();
+	  else
+	    fprintf(stderr, "Error: At least two teams are needed to run the game.\n");
+	}
       else
-	fprintf(stderr, "Error: At least two teams are needed to run the game.\n");
+	fprintf(stderr, "Usage : %s [-p port] [-x world_x] [-y world_y] "\
+		"[-c max_clients] [-t speed] -n team1 team2...\n", argv[0]);
     }
-  else
-    fprintf(stderr, "Usage : %s [-p port] [-x world_x] [-y world_y] "\
-	            "[-c max_clients] [-t speed] -n team1 team2...\n", argv[0]);
   free(g_info.world_info.teams_names);
   return (0);
 }

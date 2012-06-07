@@ -5,12 +5,13 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Mon Jun  4 17:03:04 2012 lois burg
+** Last update Thu Jun  7 10:39:24 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
 # define	__ARGS_H__
 
+# include	<stdbool.h>
 # include	"libdatac_list.h"
 
 typedef	struct s_arg_func	t_arg_func;
@@ -30,6 +31,7 @@ struct	s_arg_infos
   t_list	*teams_names;
   int		clients_per_team;
   int		action_delay;
+  bool		help_showed;
 };
 
 void	parse_args(int argc, char *argv[], t_arg_infos *infos);
@@ -42,6 +44,7 @@ void	get_teams_names(t_arg_infos *infos, char *argv[]);
 void	get_clients_per_team(t_arg_infos *infos, char *argv[]);
 void	get_action_delay(t_arg_infos *infos, char *argv[]);
 void	unknown_options(t_arg_infos *infos, char *argv[]);
+void	print_help(t_arg_infos *infos, char *argv[]);
 
 /* TOOLS */
 int	contains_only_digits(char *str);
