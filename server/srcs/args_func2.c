@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jun  7 16:57:55 2012 lois burg
+** Last update Thu Jun  7 17:37:32 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -35,7 +35,7 @@ void	print_help(t_arg_infos *infos, char *argv[])
   (void)argv;
   printf("How does this server work ?\n");
   printf("Here are the valid options:\n");
-  printf("\t-p <int>: Port to use (default is 24542).\n");
+  printf("\t-p <int>: Port to use (default is 4242).\n");
   printf("\t-x <int>: World width (default is 20).\n");
   printf("\t-y <int>: World height (default is 20).\n");
   printf("\t-n <string> ...: Team names. This parameter is mandatory.\n");

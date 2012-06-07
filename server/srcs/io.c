@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Mon May 14 20:31:32 2012 Jonathan Machado
+** Last update Thu Jun  7 17:39:12 2012 lois burg
 */
 
 #include <stdio.h>
@@ -19,9 +19,20 @@ extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
 {
-  (void)u;
+  char		**cmd;
+  int		i;
 
+  (void)u;
   printf("%i -> %s\n", u->socket, str);
+  cmd = parse(str, " \t\n");
+  puts("Parsed command:");
+  i = 0;
+  while (cmd && cmd[i])
+    {
+      printf("%s\n", cmd[i]);
+      ++i;
+    }
+  free(cmd);
   free(str);
 }
 

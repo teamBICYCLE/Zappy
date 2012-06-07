@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Thu Jun  7 16:52:17 2012 lois burg
+** Last update Thu Jun  7 17:37:16 2012 lois burg
 */
 
 #include <time.h>
@@ -29,7 +29,7 @@ static	t_arg_func	g_arg_func_tab[] =
 
 static void	init_args_infos(t_arg_infos *infos)
 {
-  infos->port = 24542;
+  infos->port = 4242;
   infos->world_x = 20;
   infos->world_y = 20;
   infos->teams_names = new_list();
