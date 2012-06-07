@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jun  7 19:33:17 2012 Jonathan Machado
+** Last update Thu Jun  7 19:35:25 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -83,6 +83,9 @@ void			run(void)
   memcpy(&loop, &g_info.world_info.smallest_t, sizeof(loop));
   init_world(g_info.world_info.world_x, g_info.world_info.world_y,
 	     g_info.world_info.seed);
+
+  printf("Minimum delay: %fs\n", g_info.world_info.smallest_t.tv_sec + (g_info.world_info.smallest_t.tv_usec / 100000.f));
+
   init_network(g_info.world_info.port);
   while (1)
     {

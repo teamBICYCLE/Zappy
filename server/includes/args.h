@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Thu Jun  7 16:55:30 2012 lois burg
+** Last update Thu Jun  7 19:04:06 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -25,15 +25,16 @@ struct	s_arg_func
 
 struct	s_arg_infos
 {
-  int		port;
-  int		world_x;
-  int		world_y;
-  t_list	*teams_names;
-  int		clients_per_team;
-  int		action_delay;
-  bool		help_showed;
-  int		seed;
-  bool		error;
+  int			port;
+  int			world_x;
+  int			world_y;
+  t_list		*teams_names;
+  int			clients_per_team;
+  int			action_delay;
+  struct timeval	smallest_t;
+  bool			help_showed;
+  int			seed;
+  bool			error;
 };
 
 void	parse_args(int argc, char *argv[], t_arg_infos *infos);

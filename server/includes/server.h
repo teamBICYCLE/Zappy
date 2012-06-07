@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jun  6 17:25:16 2012 Jonathan Machado
+** Last update Thu Jun  7 17:35:26 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -54,6 +54,7 @@ void   	read_user(void *ptr);
 /* TOOLS */
 int    	cmp_socket(void *a, void *b);
 void	print_serv_conf(t_arg_infos *world_info);
+char	**parse(char *str, const char *delim);
 
 void   	free_tasks(void *ptr);
 void   	free_users(void *ptr);

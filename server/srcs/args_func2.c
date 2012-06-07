@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jun  7 16:57:55 2012 lois burg
+** Last update Thu Jun  7 19:23:05 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -13,11 +13,20 @@
 #include <stdio.h>
 #include "args.h"
 
-void	get_action_delay(t_arg_infos *infos, char *argv[])
+void		get_action_delay(t_arg_infos *infos, char *argv[])
 {
+  int		integer;
+  double	decimal;
+
   (void)argv;
   if (contains_only_digits(optarg) && strtol(optarg, NULL, 10) != 0)
-    infos->action_delay = strtol(optarg, NULL, 10);
+    {
+      infos->action_delay = strtol(optarg, NULL, 10);
+      integer = 7 / infos->action_delay;
+      decimal = (7.f / infos->action_delay) - integer;
+      infos->smallest_t.tv_sec = integer;
+      infos->smallest_t.tv_usec = decimal * 100000.f;
+    }
   else
     invalid_param(infos, "-t: Invalid time. "
 		  "Must be a positive, non-null numeric value.");
@@ -35,7 +44,7 @@ void	print_help(t_arg_infos *infos, char *argv[])
   (void)argv;
   printf("How does this server work ?\n");
   printf("Here are the valid options:\n");
-  printf("\t-p <int>: Port to use (default is 24542).\n");
+  printf("\t-p <int>: Port to use (default is 4242).\n");
   printf("\t-x <int>: World width (default is 20).\n");
   printf("\t-y <int>: World height (default is 20).\n");
   printf("\t-n <string> ...: Team names. This parameter is mandatory.\n");
