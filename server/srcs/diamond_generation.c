@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Thu Jun  7 14:03:00 2012 lois burg
+** Last update Fri Jun  8 11:49:19 2012 lois burg
 */
 
 #include <string.h>
@@ -23,14 +23,18 @@ static size_t	pow_two(size_t nbr)
   return (power);
 }
 
-static void	diamond_step(const int x, const int y, const int s, double **map)
+static void	diamond_step(const int x, const int y, t_dmap *dmap)
 {
   double	avg;
+  double	**map = dmap->map;
+  const int	s = dmap->step;
 
   avg = map[y][x] + map[y + s][x] + map[y + s][x + s] + map[y][x + s];
   avg /= 4;
-  map[y + (s / 2)][x + (s / 2)] =
-    avg + (((double)rand() / (double)RAND_MAX) * RAND_RANGE);
+  avg += (((double)rand() / (double)RAND_MAX) * RAND_RANGE);
+  map[y + (s / 2)][x + (s / 2)] = avg;
+  if (avg > dmap->max_val)
+    dmap->max_val = avg;
 }
 
 static void	square_step(const int x, const int y, t_dmap *dmap, const int size)
@@ -56,7 +60,7 @@ static void	do_step(const int nb_iter, t_dmap *dmap, const int size)
       x = 0;
       while (x < nb_iter)
 	{
-	  diamond_step(x * dmap->step, y * dmap->step, dmap->step, dmap->map);
+	  diamond_step(x * dmap->step, y * dmap->step, dmap);
 	  square_step(x * dmap->step, y * dmap->step, dmap, size);
 	  ++x;
 	}
@@ -64,47 +68,30 @@ static void	do_step(const int nb_iter, t_dmap *dmap, const int size)
     }
 }
 
-static double	**alloc_map(int size)
-{
-  int		i;
-  double	**map;
-
-  i = 0;
-  map = malloc(size * sizeof(*map));
-  while (i < size)
-    {
-      map[i] = malloc(size * sizeof(**map));
-      memset(map[i], 0, size * sizeof(**map));
-      ++i;
-    }
-  return (map);
-}
-
-void		generate_map(const int x, const int y, int seed)
+t_map		*generate_map(const int x, const int y, const int seed)
 {
   const int	size = ODDIFY(pow_two(MAX(x, y)));
   int		nb_iter;
-  t_dmap	dmap;
+  t_dmap	*dmap;
+  t_map		*map;
 
-  printf("Generating map of size %d...\n", size - 1);
-  dmap.map = alloc_map(size);
+  puts("Generating map...");
+  dmap = new_dmap(size);
   nb_iter = 1;
-  dmap.step = size - 1;
   srand(seed);
-  dmap.map[0][0] = rand() % RAND_RANGE;
-  dmap.map[size - 1][0] = rand() % RAND_RANGE;
-  dmap.map[size - 1][size - 1] = rand() % RAND_RANGE;
-  dmap.map[0][size - 1] = rand() % RAND_RANGE;
-  printf("map[0][0] = %.1f\n", dmap.map[0][0]);
-  printf("map[s][0] = %.1f\n", dmap.map[size - 1][0]);
-  printf("map[s][s] = %.1f\n", dmap.map[size - 1][size - 1]);
-  printf("map[0][s] = %.1f\n", dmap.map[0][size - 1]);
-  while (dmap.step > 1)
+  dmap->map[0][0] = rand() % RAND_RANGE;
+  dmap->map[size - 1][0] = rand() % RAND_RANGE;
+  dmap->map[size - 1][size - 1] = rand() % RAND_RANGE;
+  dmap->map[0][size - 1] = rand() % RAND_RANGE;
+  while (dmap->step > 1)
     {
-      do_step(nb_iter, &dmap, size);
-      dmap.step /= 2;
+      do_step(nb_iter, dmap, size);
+      dmap->step /= 2;
       nb_iter *= 2;
     }
+  map = generate_ressources(x, y, dmap);
+  puts("Done!");
+  printf("Max value: %.1f\n", dmap->max_val);
 
   //TEMPORARY
   int i = 0, j = 0;
@@ -113,7 +100,7 @@ void		generate_map(const int x, const int y, int seed)
       i = 0;
       while (i < size)
   	{
-  	  printf("[%.1f]", dmap.map[j][i]);
+  	  printf("[%.1f]", dmap->map[j][i]);
   	  ++i;
   	  if (i < size)
   	    printf(" ");
@@ -121,5 +108,7 @@ void		generate_map(const int x, const int y, int seed)
       ++j;
       printf("\n");
     }
-  free(dmap.map);
+  i = 0;
+  free_dmap(&dmap);
+  return (map);
 }

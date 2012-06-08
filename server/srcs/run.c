@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jun  7 19:35:25 2012 Jonathan Machado
+** Last update Fri Jun  8 10:25:17 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -41,7 +41,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   g_info.map = new_map(x, y);
   generate_map(x, y, seed);
   // convertir la map en t_map
-  print_serv_conf(&g_info.world_info);
+  print_serv_conf(&g_info.world);
 }
 
 static void		init_network(int const port)
@@ -80,13 +80,10 @@ void			run(void)
 {
   struct timeval	loop;
 
-  memcpy(&loop, &g_info.world_info.smallest_t, sizeof(loop));
-  init_world(g_info.world_info.world_x, g_info.world_info.world_y,
-	     g_info.world_info.seed);
-
-  printf("Minimum delay: %fs\n", g_info.world_info.smallest_t.tv_sec + (g_info.world_info.smallest_t.tv_usec / 100000.f));
-
-  init_network(g_info.world_info.port);
+  memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
+  init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
+  printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
+  init_network(g_info.world.port);
   while (1)
     {
       FD_ZERO(&g_info.writefds);
@@ -102,7 +99,7 @@ void			run(void)
 	  if (loop.tv_sec == 0 && loop.tv_usec == 0)
 	    {
 	      // mise a jour map + parcour des client avec pop des task faite
-	      memcpy(&loop, &g_info.world_info.smallest_t, sizeof(loop));
+	      memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
 	    }
 	  iterate(g_info.users, &write_user);
 	}

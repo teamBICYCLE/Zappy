@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Thu Jun  7 16:56:37 2012 lois burg
+** Last update Fri Jun  8 10:25:41 2012 lois burg
 */
 
 #include <string.h>
@@ -27,7 +27,7 @@ void	get_world_x(t_arg_infos *infos, char *argv[])
 {
   (void)argv;
   if (contains_only_digits(optarg))
-    infos->world_x = strtol(optarg, NULL, 10);
+    infos->x = strtol(optarg, NULL, 10);
   else
     invalid_param(infos, "-x: Invalid size. Must be a positive numeric value.");
 }
@@ -36,7 +36,7 @@ void	get_world_y(t_arg_infos *infos, char *argv[])
 {
   (void)argv;
   if (contains_only_digits(optarg))
-    infos->world_y = strtol(optarg, NULL, 10);
+    infos->y = strtol(optarg, NULL, 10);
   else
     invalid_param(infos, "-y: Invalid size. Must be a positive numeric value.");
 }
