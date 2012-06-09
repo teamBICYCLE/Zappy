@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:13:05 2012 Jonathan Machado
-** Last update Thu Jun  7 16:36:44 2012 lois burg
+** Last update Sat Jun  9 10:25:22 2012 lois burg
 */
 
 #ifndef __MAP_H__

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Fri Jun  8 11:49:19 2012 lois burg
+** Last update Sat Jun  9 11:18:26 2012 lois burg
 */
 
 #include <string.h>
@@ -92,6 +92,7 @@ t_map		*generate_map(const int x, const int y, const int seed)
   map = generate_ressources(x, y, dmap);
   puts("Done!");
   printf("Max value: %.1f\n", dmap->max_val);
+  dump_map(map);
 
   //TEMPORARY
   int i = 0, j = 0;
