@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:39 2012 lois burg
-** Last update Sat Jun  9 12:04:50 2012 lois burg
+** Last update Mon Jun 11 11:13:01 2012 lois burg
 */
 
 #ifndef		__DIAMOND_GENERATION_H__
@@ -51,18 +51,7 @@ struct	s_map_iteration
 double		avg_diamond(const int x, const int y, t_dmap *map, const int size);
 t_dmap		*new_dmap(const int size);
 void		free_dmap(t_dmap **dmap);
-t_map		*generate_map(const int x, const int y, const int seed);
-t_map		*generate_ressources(const int x, const int y, t_dmap *dmap);
-void		fill_map_ud(t_dmap *dmap, t_map *map, t_map_iteration *it, const double pctg);
-void		fill_map_lr(t_dmap *dmap, t_map *map, t_map_iteration *it, const double pctg);
-
-/* RESSOURCES FUNC */
-void	generate_food(t_map *map, t_dmap *dmap);
-void	generate_linemate(t_map *map, t_dmap *dmap);
-void	generate_deraumere(t_map *map, t_dmap *dmap);
-void	generate_sibur(t_map *map, t_dmap *dmap);
-void	generate_mendiane(t_map *map, t_dmap *dmap);
-void	generate_phiras(t_map *map, t_dmap *dmap);
-void	generate_thystame(t_map *map, t_dmap *dmap);
+t_map		*generate_map(const int x, const int y, int seed);
+t_dmap		*compute_dmap(const int x, const int y, const int seed);
 
 #endif /* !__DIAMOND_GENERATION_H__*/

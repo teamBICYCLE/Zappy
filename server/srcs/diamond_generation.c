@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Sat Jun  9 11:18:26 2012 lois burg
+** Last update Mon Jun 11 11:10:09 2012 lois burg
 */
 
 #include <string.h>
@@ -68,14 +68,12 @@ static void	do_step(const int nb_iter, t_dmap *dmap, const int size)
     }
 }
 
-t_map		*generate_map(const int x, const int y, const int seed)
+t_dmap		*compute_dmap(const int x, const int y, const int seed)
 {
   const int	size = ODDIFY(pow_two(MAX(x, y)));
   int		nb_iter;
   t_dmap	*dmap;
-  t_map		*map;
 
-  puts("Generating map...");
   dmap = new_dmap(size);
   nb_iter = 1;
   srand(seed);
@@ -89,27 +87,22 @@ t_map		*generate_map(const int x, const int y, const int seed)
       dmap->step /= 2;
       nb_iter *= 2;
     }
-  map = generate_ressources(x, y, dmap);
-  puts("Done!");
   printf("Max value: %.1f\n", dmap->max_val);
-  dump_map(map);
 
-  //TEMPORARY
-  int i = 0, j = 0;
-  while (j < size)
-    {
-      i = 0;
-      while (i < size)
-  	{
-  	  printf("[%.1f]", dmap->map[j][i]);
-  	  ++i;
-  	  if (i < size)
-  	    printf(" ");
-  	}
-      ++j;
-      printf("\n");
-    }
-  i = 0;
-  free_dmap(&dmap);
-  return (map);
+  /* //TEMPORARY */
+  /* int i = 0, j = 0; */
+  /* while (j < size) */
+  /*   { */
+  /*     i = 0; */
+  /*     while (i < size) */
+  /* 	{ */
+  /* 	  printf("[%.1f]", dmap->map[j][i]); */
+  /* 	  ++i; */
+  /* 	  if (i < size) */
+  /* 	    printf(" "); */
+  /* 	} */
+  /*     ++j; */
+  /*     printf("\n"); */
+  /*   } */
+  return (dmap);
 }

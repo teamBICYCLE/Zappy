@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun  8 10:25:17 2012 lois burg
+** Last update Mon Jun 11 11:08:40 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -38,9 +38,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
-  g_info.map = new_map(x, y);
-  generate_map(x, y, seed);
-  // convertir la map en t_map
+  g_info.map = generate_map(x, y, seed);
   print_serv_conf(&g_info.world);
 }
 
