@@ -17,5 +17,4 @@ function img_preloader() {
     {
 	imgLoad.src = paths[i];
     }
-    alert('Loading done.');
 }
