@@ -15,7 +15,7 @@ exports.feed = function(buffer, cache) {
 		{
 			current = arrayBuffer[i].split(" ");
 			if (typeof(ptr[current[0]]) != "undefined")
-				ptr[current[0]](current, cache);
+			    ptr[current[0]](current, cache);
 		}	
 	}
 }
@@ -48,7 +48,7 @@ var tnaFct = function(arg, cache){
 }
 
 var pnwFct = function(arg, cache){
-	console.log("----> pnwFct");
+    cache.addPlayer(arg);
 }
 
 var ptr = {

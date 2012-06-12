@@ -8,7 +8,8 @@ var xsize_ = 0,
 	ysize_ = 0,
 	currentTimeUnit_ = 0,
 	teams_ = new Array(),
-	map_ = new (require("./objects/map.js"));
+	map_ = new (require("./objects/map.js")),
+	player_ = new Array();
 	
 /* SET */
 
@@ -28,6 +29,11 @@ exports.addTeam = function(name) {
 
 exports.setCase = function(x, y, ressources) {
 	map_.setCase(this, x, y, ressources);
+}
+
+exports.addPlayer = function(arg) {
+    var Player = require("./objects/player.js");
+    player_.push(new Player(arg));
 }
 
 /* GET */
@@ -66,6 +72,7 @@ exports.dump = function() {
     console.log("y : " + ysize_);
     console.log("currentTimeUnit : " + currentTimeUnit_);
     console.log("teams : " + teams_);
+    console.log("player : " + players_);
     // var Case = new (require("./objects/mapCase.js"));
     // if (xsize_ != 0 && ysize_ != 0)
     // {

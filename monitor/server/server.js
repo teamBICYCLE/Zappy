@@ -24,7 +24,8 @@ if (process.argv.length >= 3)
 		var Case = new (require("./objects/mapCase.js"));
 		Case.dump(zappy.getCache().getMap().getCase(zappy.getCache(), 2, 2));
 		//zappy.getCache().getMap().getCase(zappy.getCache(), 19, 19).dump();
-		console.log("=================");
+	    // test creation player
+	    console.log("=================");
 		//update();
 	});
 }
