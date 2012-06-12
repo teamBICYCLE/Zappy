@@ -8,13 +8,14 @@ exports.feed = function(buffer, cache) {
 	var arrayBuffer = buffer.split("\n"),
 		current;
 		
+	//console.log(buffer);
 	for (var i = 0; i != arrayBuffer.length; i++)
 	{
 		if (arrayBuffer[i] != "")
 		{
 			current = arrayBuffer[i].split(" ");
-			if (match.indexOf(current[0]) != -1)
-				matchPtr[match.indexOf(current[0])](current, cache);
+			if (typeof(ptr[current[0]]) != "undefined")
+				ptr[current[0]](current, cache);
 		}	
 	}
 }
@@ -30,12 +31,30 @@ var sgtFct = function(arg, cache){
 }
 
 var bctFct = function(arg, cache){
-	//console.log("bctFct call !");
+	
+	arg = arg.reverse();
+	
+	arg.pop();
+	var x = arg.pop(),
+		y = arg.pop();
+	
+	arg = arg.reverse();
+	console.log(arg);
+	cache.setCase(x, y, arg);
 }
 
 var tnaFct = function(arg, cache){
 	cache.addTeam(arg[1]);
 }
 
-var match = ["msz", "sgt", "bct", "tna"];
-var matchPtr = [mszFct, sgtFct, bctFct, tnaFct];
+var pnwFct = function(arg, cache){
+	console.log("----> pnwFct");
+}
+
+var ptr = {
+  "msz": mszFct, 
+  "sgt": sgtFct,
+  "bct": bctFct,
+  "tna": tnaFct,
+  "pnw": pnwFct
+};
