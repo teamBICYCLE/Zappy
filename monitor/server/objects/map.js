@@ -31,7 +31,8 @@ Map.prototype.make = function(x, y) {
 Map.prototype.getCase = function(cache, x, y) {
 	var target = (y * cache.getYSize()) + x;
 
-	if (cache.getYSize() != 0 && cache.getXSize() != 0)
+	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
+		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)
 	{
 		for (var i = 0; i != data_.length; i++)
 		{
@@ -43,17 +44,24 @@ Map.prototype.getCase = function(cache, x, y) {
 }
 
 Map.prototype.setCase = function(cache, x, y, ressources) {
-	var target = (y * cache.getYSize()) + x;
+	var target = parseInt(y * cache.getYSize()) + parseInt(x);
 	
-	for (var i = 0; i != data_.length; i++)
+	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
+		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)
 	{
-		if (i == target)
+		for (var i = 0; i != data_.length; i++)
 		{
-			data_[i] = new Case(ressources[0], ressources[1],
-								ressources[2], ressources[3], 
-								ressources[4], ressources[5], ressources[6]);
+			if (i == target)
+			{
+				data_[i] = new Case(ressources[0], ressources[1],
+									ressources[2], ressources[3], 
+									ressources[4], ressources[5], ressources[6]);
+			}
 		}
+		
 	}
+	else
+		console.log("Something wrong in Cache.setCase()");
 }
 
 Map.prototype.length = function() {

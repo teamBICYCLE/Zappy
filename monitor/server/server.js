@@ -21,6 +21,9 @@ if (process.argv.length >= 3)
 	zappy.on('cacheWhole', function(){
 		console.log("done !");
 		zappy.getCache().dump();
+		var Case = new (require("./objects/mapCase.js"));
+		Case.dump(zappy.getCache().getMap().getCase(zappy.getCache(), 2, 2));
+		//zappy.getCache().getMap().getCase(zappy.getCache(), 19, 19).dump();
 		console.log("=================");
 		//update();
 	});

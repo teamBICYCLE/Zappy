@@ -8,7 +8,7 @@ exports.feed = function(buffer, cache) {
 	var arrayBuffer = buffer.split("\n"),
 		current;
 		
-	//console.log(buffer);
+		console.log(buffer);
 	for (var i = 0; i != arrayBuffer.length; i++)
 	{
 		if (arrayBuffer[i] != "")
@@ -33,13 +33,13 @@ var sgtFct = function(arg, cache){
 var bctFct = function(arg, cache){
 	
 	arg = arg.reverse();
-	
+
 	arg.pop();
+	
 	var x = arg.pop(),
 		y = arg.pop();
 	
 	arg = arg.reverse();
-	console.log(arg);
 	cache.setCase(x, y, arg);
 }
 

@@ -42,6 +42,18 @@ MapCase.prototype.getRessources = function() {
 	return ret;
 };
 
+
+// MapCase.prototype.dump = function() {
+	// console.log("============");
+	// console.log(this.food_);
+	// console.log(this.linemate_);
+	// console.log(this.deraumere_);
+	// console.log(this.sibur_);
+	// console.log(this.mendiane_);
+	// console.log(this.phiras_);
+	// console.log(this.thystame_);
+// }
+
 MapCase.prototype.dump = function(obj) {
 	console.log("============");
 	console.log(obj.food_);

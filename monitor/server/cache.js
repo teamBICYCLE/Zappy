@@ -27,10 +27,7 @@ exports.addTeam = function(name) {
 }
 
 exports.setCase = function(x, y, ressources) {
-	if (xsize_ > 0 && ysize_ > 0)
-		map_.setCase(this, x, y, ressources);
-	else
-		console.log("Something wrong in Cache.setCase()");
+	map_.setCase(this, x, y, ressources);
 }
 
 /* GET */
@@ -65,7 +62,6 @@ exports.isWhole = function() {
 }
 
 exports.dump = function() {
-	console.log("dump : " + xsize_);
     console.log("x : " + xsize_);
     console.log("y : " + ysize_);
     console.log("currentTimeUnit : " + currentTimeUnit_);
@@ -74,6 +70,6 @@ exports.dump = function() {
     // if (xsize_ != 0 && ysize_ != 0)
     // {
     	// //console.log("Dump case !" + xsize_ + ysize_);
-    	// Case.dump(map_.getCase(this, 0, 0));
+    	// Case.dump(map_.getCase(this, 2, 2));
     // }
 };
