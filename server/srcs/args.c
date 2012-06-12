@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Thu Jun  7 19:23:13 2012 lois burg
+** Last update Fri Jun  8 10:25:49 2012 lois burg
 */
 
 #include <time.h>
@@ -33,8 +33,8 @@ static void	init_args_infos(t_arg_infos *infos)
   double	decimal;
 
   infos->port = 4242;
-  infos->world_x = 20;
-  infos->world_y = 20;
+  infos->x = 20;
+  infos->y = 20;
   infos->teams_names = new_list();
   infos->clients_per_team = 1;
   infos->action_delay = 100;

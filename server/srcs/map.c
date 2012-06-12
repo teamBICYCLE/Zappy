@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:54:05 2012 Jonathan Machado
-** Last update Wed Jun  6 17:23:07 2012 Jonathan Machado
+** Last update Sat Jun  9 10:36:58 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -59,7 +59,15 @@ void		dump_map(t_map *map)
       while (x < map->x)
 	{
 	  printf("Case %u %u\n", x , y);
-	  printf("Elements : \n");
+	  printf("\tFood : %u\n", map->cases[y][x].elements[FOOD]);
+	  printf("\tPlayer : %u\n", map->cases[y][x].elements[PLAYER]);
+	  printf("\tEgg : %u\n", map->cases[y][x].elements[EGG]);
+	  printf("\tLinemate : %u\n", map->cases[y][x].elements[LINEMATE]);
+	  printf("\tDeraumere : %u\n", map->cases[y][x].elements[DERAUMERE]);
+	  printf("\tSibur : %u\n", map->cases[y][x].elements[SIBUR]);
+	  printf("\tMendiane : %u\n", map->cases[y][x].elements[MENDIANE]);
+	  printf("\tPhiras : %u\n", map->cases[y][x].elements[PHIRAS]);
+	  printf("\tThystame : %u\n", map->cases[y][x].elements[THYSTAME]);
 	  ++x;
 	}
       ++y;

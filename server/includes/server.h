@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Thu Jun  7 17:35:26 2012 lois burg
+** Last update Fri Jun  8 10:17:36 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -42,7 +42,7 @@ struct          s_infos
   t_list        *users;
   t_list	*tasks;
   t_map		*map;
-  t_arg_infos	world_info;
+  t_arg_infos	world;
 };
 
 void    run(void);

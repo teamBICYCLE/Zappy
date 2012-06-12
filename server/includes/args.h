@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Thu Jun  7 19:04:06 2012 lois burg
+** Last update Fri Jun  8 10:25:26 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -26,8 +26,8 @@ struct	s_arg_func
 struct	s_arg_infos
 {
   int			port;
-  int			world_x;
-  int			world_y;
+  int			x;
+  int			y;
   t_list		*teams_names;
   int			clients_per_team;
   int			action_delay;

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Thu Jun  7 19:08:45 2012 lois burg
+** Last update Fri Jun  8 10:26:22 2012 lois burg
 */
 
 #include <ctype.h>
@@ -45,17 +45,17 @@ static	void	prt_team_name(void *name)
   printf("\tName: %s\n", (char*)name);
 }
 
-void	print_serv_conf(t_arg_infos *world_info)
+void	print_serv_conf(t_arg_infos *world)
 {
-  if (world_info)
+  if (world)
     {
       printf("Server configuration:\n");
-      printf("\tMax client: %d\n", world_info->clients_per_team);
+      printf("\tMax client: %d\n", world->clients_per_team);
       printf("\tWorld size:\n\t\tX: %d\n\t\tY: %d\n",
-	     world_info->world_x, world_info->world_y);
-      printf("\tDelay: %d\n", world_info->action_delay);
+	     world->x, world->y);
+      printf("\tDelay: %d\n", world->action_delay);
       printf("Teams:\n");
-      iterate(world_info->teams_names, &prt_team_name);
+      iterate(world->teams_names, &prt_team_name);
     }
   else
     fprintf(stderr, "Invalid world information (nullptr).\n");
