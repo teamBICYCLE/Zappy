@@ -2,22 +2,20 @@
 
 $(function() {
 
-	$("#connect").click(function() {
-		var ip = $("#ip").val();
-		
-		exp = new RegExp("([0-9]{1,3}.){3}([0-9]{1,3})", "g");
-		if (exp.test(ip))
-			connect_initNodeServer($("#ip").val());
-		else
-			alert("Bad ip !");
+	$("#send").click(function() {
+		sendCmd($(".cmd").val());
 	});
 
 });
 
 /* Node */
 
-function connect_initNodeServer(ip){
-	//console.log(ip);
-	var socket = io.connect('http://localhost', {port:4242});
-	socket.emit('initNodeServer', {ip_: ip});
+function sendCmd(cmd){
+	console.log(cmd);
+	// check de la commande 
+	var socket = io.connect('http://localhost', {port:24542});
+	socket.emit('requestData', {cmd_: cmd});
+	socket.on('requestDataDone', function(data){
+		$("#result").append(data.data_ + "<br />");
+	});
 }

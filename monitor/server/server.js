@@ -1,11 +1,7 @@
-//var express = require('express');
-//var io = require('socket.io');
+
 
 var ZappyConnection = require('./zappyConnection.js');
-//var app = express.createServer();
-
-//io = io.listen(app);
-//app.listen(4242);
+var ClientConnection = require('./clientConnection.js');
 
 if (process.argv.length >= 3)
 {
@@ -20,8 +16,12 @@ if (process.argv.length >= 3)
 	
 	zappy.on('cacheWhole', function(){
 		console.log("done !");
+		
 		zappy.getCache().dump();
 	    console.log("=================");
+	  
+		var client = new ClientConnection();
+
 		//update();
 	});
 }
