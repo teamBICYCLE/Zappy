@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Fri Jun  8 10:25:41 2012 lois burg
+** Last update Tue Jun 12 16:00:58 2012 lois burg
 */
 
 #include <string.h>
@@ -23,22 +23,26 @@ void	get_port(t_arg_infos *infos, char *argv[])
     invalid_param(infos, "-p: Invalid port. Must be a positive numeric value.");
 }
 
-void	get_world_x(t_arg_infos *infos, char *argv[])
+void		get_world_x(t_arg_infos *infos, char *argv[])
 {
+  long int	nb;
+
   (void)argv;
-  if (contains_only_digits(optarg))
-    infos->x = strtol(optarg, NULL, 10);
+  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) >= 4)
+    infos->x = nb;
   else
-    invalid_param(infos, "-x: Invalid size. Must be a positive numeric value.");
+    invalid_param(infos, "-x: Invalid width. Must be >= 4.");
 }
 
-void	get_world_y(t_arg_infos *infos, char *argv[])
+void		get_world_y(t_arg_infos *infos, char *argv[])
 {
+  long int	nb;
+
   (void)argv;
-  if (contains_only_digits(optarg))
-    infos->y = strtol(optarg, NULL, 10);
+  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) >= 4)
+    infos->y = nb;
   else
-    invalid_param(infos, "-y: Invalid size. Must be a positive numeric value.");
+    invalid_param(infos, "-y: Invalid height. Must be >= 4.");
 }
 
 void	get_teams_names(t_arg_infos *infos, char *argv[])
@@ -46,19 +50,27 @@ void	get_teams_names(t_arg_infos *infos, char *argv[])
   int	i;
 
   i = optind;
-  push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
-  while (argv[i] && argv[i][0] != '-')
+  if (!strcmp(optarg, "GRAPHIC"))
+    invalid_param(infos, "-n: Invalid team name.");
+  else
+    push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
+  while (!infos->error && argv[i] && argv[i][0] != '-')
     {
-      push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
+      if (!strcmp(argv[i], "GRAPHIC"))
+	invalid_param(infos, "-n: Invalid team name.");
+      else
+	push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
       ++i;
     }
 }
 
-void	get_clients_per_team(t_arg_infos *infos, char *argv[])
+void		get_clients_per_team(t_arg_infos *infos, char *argv[])
 {
+  long int	nb;
+
   (void)argv;
-  if (contains_only_digits(optarg))
-    infos->clients_per_team = strtol(optarg, NULL, 10);
+  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)))
+    infos->clients_per_team = nb;
   else
-    invalid_param(infos, "-c: Invalid number. Must be a positive numeric value.");
+    invalid_param(infos, "-c: Invalid number. Must be > 0.");
 }

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Thu Jun  7 17:39:12 2012 lois burg
+** Last update Tue Jun 12 17:22:10 2012 lois burg
 */
 
 #include <stdio.h>
@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include "server.h"
 #include "refstring.h"
+#include "protocol.h"
 
 extern t_infos	g_info;
 
@@ -32,8 +33,8 @@ static void	handle_cmd(t_users *u, char *str)
       printf("%s\n", cmd[i]);
       ++i;
     }
-  free(cmd);
-  free(str);
+  /* check cmd null */
+  add_task(u, cmd);
 }
 
 void		add_user(void)
@@ -44,9 +45,18 @@ void		add_user(void)
   if (new.socket != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
+      new.x = 0;
+      new.y = 0;
+      new.lvl = 1;
+      new.dir = NORTH;
+      memset(&new.inventory, 0, sizeof(new.inventory));
+      new.inventory[FOOD] = 10;
       new.idx = 0;
       new.messages = new_list();
+      new.first_message = true;
+      push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
       new.readring = new_ringbuffer(4096);
+      new.tasks = new_list();
       push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
     }
   else
