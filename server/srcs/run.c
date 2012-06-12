@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Mon Jun 11 11:08:40 2012 lois burg
+** Last update Tue Jun 12 16:47:44 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -34,12 +34,13 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
 {
   g_info.ss = -1;
   g_info.users = new_list();
-  g_info.tasks = new_list();
   signal(SIGINT, server_quit);
   signal(SIGQUIT, server_quit);
   signal(SIGTERM, server_quit);
   g_info.map = generate_map(x, y, seed);
+  //
   print_serv_conf(&g_info.world);
+  printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
 }
 
 static void		init_network(int const port)
@@ -80,7 +81,6 @@ void			run(void)
 
   memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
   init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
-  printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
   init_network(g_info.world.port);
   while (1)
     {
@@ -91,6 +91,7 @@ void			run(void)
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
+	  // calculer le temp
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
@@ -100,6 +101,7 @@ void			run(void)
 	      memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
 	    }
 	  iterate(g_info.users, &write_user);
+	  // soustraire a loop le temp mis
 	}
     }
 }
