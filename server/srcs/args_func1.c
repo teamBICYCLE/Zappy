@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Tue Jun 12 11:51:18 2012 lois burg
+** Last update Tue Jun 12 16:00:58 2012 lois burg
 */
 
 #include <string.h>
@@ -34,7 +34,7 @@ void		get_world_x(t_arg_infos *infos, char *argv[])
     invalid_param(infos, "-x: Invalid width. Must be >= 4.");
 }
 
-void	get_world_y(t_arg_infos *infos, char *argv[])
+void		get_world_y(t_arg_infos *infos, char *argv[])
 {
   long int	nb;
 
@@ -50,10 +50,16 @@ void	get_teams_names(t_arg_infos *infos, char *argv[])
   int	i;
 
   i = optind;
-  push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
-  while (argv[i] && argv[i][0] != '-')
+  if (!strcmp(optarg, "GRAPHIC"))
+    invalid_param(infos, "-n: Invalid team name.");
+  else
+    push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
+  while (!infos->error && argv[i] && argv[i][0] != '-')
     {
-      push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
+      if (!strcmp(argv[i], "GRAPHIC"))
+	invalid_param(infos, "-n: Invalid team name.");
+      else
+	push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
       ++i;
     }
 }

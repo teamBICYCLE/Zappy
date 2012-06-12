@@ -5,12 +5,13 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Fri Jun  8 10:17:36 2012 lois burg
+** Last update Tue Jun 12 16:58:20 2012 lois burg
 */
 
 #ifndef __SERVER_H__
 # define __SERVER_H__
 
+# include <stdbool.h>
 # include <sys/socket.h>
 # include <signal.h>
 # include <unistd.h>
@@ -25,12 +26,26 @@ typedef void (*sighandler_t)(int);
 typedef struct s_users          t_users;
 typedef struct s_infos          t_infos;
 
+typedef enum	e_direction
+  {
+    NORTH = 0,
+    EAST,
+    SOUTH,
+    WEST
+  }		t_direction;
+
 struct          s_users
 {
+  int		x;
+  int		y;
+  t_direction	dir;
+  int		lvl;
+  int		inventory[LAST];
   int           socket;
   t_list        *messages;
   t_ringbuffer  *readring;
   size_t        idx;
+  bool		first_message;
 };
 
 struct          s_infos
