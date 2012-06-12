@@ -9,7 +9,8 @@ var xsize_ = 0,
 	currentTimeUnit_ = 0,
 	teams_ = new Array(),
 	map_ = new (require("./objects/map.js")),
-	player_ = new Array();
+	players_ = new Array();
+	eggs = new Array();
 	
 /* SET */
 
@@ -33,7 +34,12 @@ exports.setCase = function(x, y, ressources) {
 
 exports.addPlayer = function(arg) {
     var Player = require("./objects/player.js");
-    player_.push(new Player(arg));
+    players_.push(new Player(arg));
+}
+
+exports.addEggs = function(arg) {
+	var Egg = require("./objects/egg.js");
+	eggs_.push(new Egg(arg));
 }
 
 /* GET */

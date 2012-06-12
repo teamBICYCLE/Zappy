@@ -7,24 +7,27 @@
 var id_, posx_, posy_, orientation_, level_, team_;
 
 var Player = function(arg) {
-    this.id_ = arg[1];
-    this.posx_ = arg[2];
-    this.posy_ = arg[3];
-    this.orientation_ = arg[4];
-    this.level_ = arg[5];
-    this.team_ = arg[6];
+	if (arg.length >= 7)
+	{
+		this.id_ = arg[1].replace("#", "");
+	    this.posx_ = arg[2];
+	    this.posy_ = arg[3];
+	    this.orientation_ = arg[4];
+	    this.level_ = arg[5];
+	    this.team_ = arg[6];
+	} 
 };
 
 /* METHODS */
 
-Player.prototype.dump = function(obj) {
+Player.prototype.dump = function() {
     console.log("====Player====");
-    console.log("id: " + obj.id_);
-    console.log("posx: " + obj.posx_);
-    console.log("posy: " + obj.posy_);
-    console.log("ori: " + obj.orientation_);
-    console.log("level: " + obj.level_);
-    console.log("team: " + obj.team_);
+    console.log("id: " + this.id_);
+    console.log("posx: " + this.posx_);
+    console.log("posy: " + this.posy_);
+    console.log("ori: " + this.orientation_);
+    console.log("level: " + this.level_);
+    console.log("team: " + this.team_);
 }
 
 Player.prototype.setId = function(v) {

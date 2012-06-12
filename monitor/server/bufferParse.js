@@ -51,10 +51,15 @@ var pnwFct = function(arg, cache){
     cache.addPlayer(arg);
 }
 
+var enwFct = function(arg, cache){
+	cache.addEgg(arg);
+}
+
 var ptr = {
   "msz": mszFct, 
   "sgt": sgtFct,
   "bct": bctFct,
   "tna": tnaFct,
-  "pnw": pnwFct
+  "pnw": pnwFct,
+  "enw": enwFct
 };

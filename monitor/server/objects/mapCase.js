@@ -30,7 +30,7 @@ MapCase.prototype.getSprite = function(night) {
 	
 	var plus = "_day.png";
 	if (night)
-		plus = "_night.png"
+		plus = "_night.png";
    	
    	// TODO
    	var sprite = "food";
@@ -41,18 +41,6 @@ MapCase.prototype.getRessources = function() {
 	var ret = [this.food_, this.linemate_, this.deraumere_, this.sibur_, this.mendiane_, this.phiras_, this.thystame_];
 	return ret;
 };
-
-
-// MapCase.prototype.dump = function() {
-	// console.log("============");
-	// console.log(this.food_);
-	// console.log(this.linemate_);
-	// console.log(this.deraumere_);
-	// console.log(this.sibur_);
-	// console.log(this.mendiane_);
-	// console.log(this.phiras_);
-	// console.log(this.thystame_);
-// }
 
 MapCase.prototype.dump = function(obj) {
 	console.log("============");

@@ -7,20 +7,23 @@
 var id_, fromplayer_, posx_, posy_;
 
 var Egg = function(arg) {
-    this.id_ = arg[1];
-    this.fromplayer_ = arg[2];
-    this.posx_ = arg[3];
-    this.posy_ = arg[4];
+	if (arg.length >= 5)
+	{
+		this.id_ = arg[1].replace("#", "");
+    	this.fromplayer_ = arg[2].replace("#", "");
+    	this.posx_ = arg[3];
+    	this.posy_ = arg[4];
+	}
 };
 
 /* METHODS */
 
-Egg.prototype.dump = function(obj) {
+Egg.prototype.dump = function() {
     console.log("=====Egg=====");
-    console.log("id: " + obj.id_);
-    console.log("fromplayer: " + obj.fromplayer_);
-    console.log("posx: " + posx_);
-    console.log("posy: " + posy_);
+    console.log("id: " + this.id_);
+    console.log("fromplayer: " + this.fromplayer_);
+    console.log("posx: " + this.posx_);
+    console.log("posy: " + this.posy_);
 }
 
 Egg.prototype.setId = function(v) {
