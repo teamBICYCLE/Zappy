@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jun 12 16:58:14 2012 lois burg
+** Last update Tue Jun 12 17:22:10 2012 lois burg
 */
 
 #include <stdio.h>
@@ -33,8 +33,8 @@ static void	handle_cmd(t_users *u, char *str)
       printf("%s\n", cmd[i]);
       ++i;
     }
-  free(cmd);
-  free(str);
+  /* check cmd null */
+  add_task(u, cmd);
 }
 
 void		add_user(void)
@@ -56,6 +56,7 @@ void		add_user(void)
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
       new.readring = new_ringbuffer(4096);
+      new.tasks = new_list();
       push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
     }
   else
