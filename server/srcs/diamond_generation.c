@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Wed Jun 13 13:30:03 2012 lois burg
+** Last update Wed Jun 13 18:33:36 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -90,19 +90,19 @@ t_dmap		*compute_dmap(const int x, const int y, const int seed)
   printf("Max value: %.1f\n", dmap->max_val);
 
   //TEMPORARY
-  int i = 0, j = 0;
-  while (j < size)
-    {
-      i = 0;
-      while (i < size)
-  	{
-  	  printf("[%.1f]", dmap->map[j][i]);
-  	  ++i;
-  	  if (i < size)
-  	    printf(" ");
-  	}
-      ++j;
-      printf("\n");
-    }
+  /* int i = 0, j = 0; */
+  /* while (j < size) */
+  /*   { */
+  /*     i = 0; */
+  /*     while (i < size) */
+  /* 	{ */
+  /* 	  printf("[%.1f]", dmap->map[j][i]); */
+  /* 	  ++i; */
+  /* 	  if (i < size) */
+  /* 	    printf(" "); */
+  /* 	} */
+  /*     ++j; */
+  /*     printf("\n"); */
+  /*   } */
   return (dmap);
 }

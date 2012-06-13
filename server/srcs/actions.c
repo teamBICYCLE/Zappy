@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jun 13 19:10:30 2012 lois burg
+** Last update Wed Jun 13 19:33:11 2012 lois burg
 */
 
 #include <time.h>
@@ -26,7 +26,7 @@ static t_see_func	g_see_tab[5] =
     &see_west
   };
 
-void		see_cmd(t_users *usr, char **args)
+bool		see_cmd(t_users *usr, char **args)
 {
   int		i;
   const t_map	*map = g_info.map;
@@ -38,9 +38,10 @@ void		see_cmd(t_users *usr, char **args)
       (g_see_tab[usr->dir])(usr->x, usr->y, i, map);
       ++i;
     }
+  return (true);
 }
 
-void	inventory_cmd(t_users *usr, char **args)
+bool	inventory_cmd(t_users *usr, char **args)
 {
   int	i;
   char	val[INVENTORY_VAL_SZ];
@@ -63,4 +64,5 @@ void	inventory_cmd(t_users *usr, char **args)
   strcat(msg, "}\n");
   log_msg(stdout, msg);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg)));
+  return (true);
 }

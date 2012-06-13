@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Wed Jun 13 19:10:17 2012 lois burg
+** Last update Wed Jun 13 19:33:02 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -17,8 +17,8 @@
 # define	INVENTORY_VAL_SZ	15
 
 /* CMDS */
-void		see_cmd(t_users *usr, char **args);
-void		inventory_cmd(t_users *usr, char **args);
+bool		see_cmd(t_users *usr, char **args);
+bool		inventory_cmd(t_users *usr, char **args);
 
 /* TOOLS */
 char		*case_content(const t_case *c, char *buf);

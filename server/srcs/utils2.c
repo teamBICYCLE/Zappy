@@ -5,14 +5,16 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Wed Jun 13 19:05:06 2012 lois burg
+** Last update Wed Jun 13 19:33:51 2012 lois burg
 */
 
 #include <stdlib.h>
 #include <string.h>
+#include "server.h"
 #include "cmds.h"
 
 extern char	*g_res_names[LAST];
+extern t_infos	g_info;
 
 static char	**pvt_parse(char *str, char *tok, size_t sz, const char *delim)
 {
@@ -29,6 +31,23 @@ static char	**pvt_parse(char *str, char *tok, size_t sz, const char *delim)
 char	**parse(char *str, const char *delim)
 {
   return (pvt_parse(str, strtok(str, delim), 0, delim));
+}
+
+static void	set_fd(void *ptr)
+{
+  t_users	*user;
+
+  user = ptr;
+  FD_SET(user->socket, &g_info.writefds);
+  FD_SET(user->socket, &g_info.readfds);
+}
+
+void	reset_fd(t_infos *info)
+{
+  FD_ZERO(&info->writefds);
+  FD_ZERO(&info->readfds);
+  FD_SET(info->ss, &info->readfds);
+  iterate(info->users, &set_fd);
 }
 
 char	*case_content(const t_case *c, char *buf)
