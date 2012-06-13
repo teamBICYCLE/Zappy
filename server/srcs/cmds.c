@@ -5,12 +5,13 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jun 12 17:22:32 2012 lois burg
+** Last update Wed Jun 13 18:44:47 2012 Jonathan Machado
 */
 
 #include <string.h>
 #include "protocol.h"
 #include "task.h"
+#include "cmds.h"
 
 static bool	unknown_cmd(t_users *user, char **args)
 {
@@ -22,11 +23,11 @@ static bool	unknown_cmd(t_users *user, char **args)
 static t_tasksmap	g_commands[] =
   {
     /* {0, , "connect_nbr"}, */
-    /* {1, , "inventaire"}, */
+    {1, &inventory_cmd, "inventaire"},
     /* {7, , "avance"}, */
     /* {7, , "droite"}, */
     /* {7, , "gauche"}, */
-    /* {7, , "voir"}, */
+    {7, &see_cmd, "voir"},
     /* {7, , "prend"}, */
     /* {7, , "pose"}, */
     /* {7, , "expulse"}, */

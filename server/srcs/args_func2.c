@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Tue Jun 12 11:53:20 2012 lois burg
+** Last update Wed Jun 13 12:24:50 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -23,8 +23,8 @@ void		get_action_delay(t_arg_infos *infos, char *argv[])
   if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) > 0)
     {
       infos->action_delay = nb;
-      integer = 7 / infos->action_delay;
-      decimal = (7.f / infos->action_delay) - integer;
+      integer = 1 / infos->action_delay;
+      decimal = (1.f / infos->action_delay) - integer;
       infos->smallest_t.tv_sec = integer;
       infos->smallest_t.tv_usec = decimal * 100000.f;
     }
