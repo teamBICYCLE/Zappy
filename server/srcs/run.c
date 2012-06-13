@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Tue Jun 12 16:47:44 2012 Jonathan Machado
+** Last update Wed Jun 13 18:04:40 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -66,28 +66,16 @@ static void		init_network(int const port)
   printf("Listening on port %d...\n", port);
 }
 
-static void	set_fd(void *ptr)
-{
-  t_users	*user;
-
-  user = ptr;
-  FD_SET(user->socket, &g_info.writefds);
-  FD_SET(user->socket, &g_info.readfds);
-}
-
 void			run(void)
 {
   struct timeval	loop;
 
-  memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
   init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
   init_network(g_info.world.port);
+  loop = g_info.world.smallest_t;
   while (1)
     {
-      FD_ZERO(&g_info.writefds);
-      FD_ZERO(&g_info.readfds);
-      FD_SET(g_info.ss, &g_info.readfds);
-      iterate(g_info.users, &set_fd);
+      reset_fd(&g_info);
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
@@ -95,10 +83,10 @@ void			run(void)
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
-	  if (loop.tv_sec == 0 && loop.tv_usec == 0)
+	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
 	    {
-	      // mise a jour map + parcour des client avec pop des task faite
-	      memcpy(&loop, &g_info.world.smallest_t, sizeof(loop));
+	      update_map(1); // passer le sync
+	      loop = g_info.world.smallest_t;
 	    }
 	  iterate(g_info.users, &write_user);
 	  // soustraire a loop le temp mis

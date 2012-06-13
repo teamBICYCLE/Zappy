@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon Jun 11 16:05:02 2012 Jonathan Machado
-** Last update Tue Jun 12 16:21:15 2012 Jonathan Machado
+** Last update Wed Jun 13 18:00:36 2012 Jonathan Machado
 */
 
 #ifndef __TASK_H__
@@ -18,18 +18,18 @@ typedef struct s_task		t_task;
 
 struct		s_tasksmap
 {
-  double	countdown;
+  unsigned int	countdown;
   t_taskf      	f;
   char	       	*key;
 };
 
 struct		s_task
 {
-  double	countdown;
+  unsigned int	countdown;
   t_taskf      	f;
   char	       	**args;
 };
 
-void	free_task(t_task *);
+void	free_tasks(void *);
 
 #endif /* __TASK_H__ */

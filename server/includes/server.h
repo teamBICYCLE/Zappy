@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Tue Jun 12 17:22:00 2012 lois burg
+** Last update Wed Jun 13 18:17:00 2012 Jonathan Machado
 */
 
 #ifndef __SERVER_H__
@@ -40,6 +40,7 @@ struct          s_users
   int		y;
   t_direction	dir;
   int		lvl;
+  unsigned int	life;
   int		inventory[LAST];
   int           socket;
   t_list        *messages;
@@ -65,8 +66,10 @@ void    run(void);
 void   	add_user(void);
 void   	write_user(void *ptr);
 void   	read_user(void *ptr);
+void	reset_fd(t_infos *info);
 
 void   	add_task(t_users *u, char ** args);
+void	update_map(int const loop);
 
 /* TOOLS */
 int    	cmp_socket(void *a, void *b);
