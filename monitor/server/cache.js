@@ -52,6 +52,10 @@ exports.getXSize = function() {
 	return xsize_;
 }
 
+exports.getMapSize = function() {
+	return "x : " + xsize_ + " | y : " + ysize_;
+}
+
 exports.getCurrentTimeUnit = function() {
 	return currentTimeUnit_;
 }
