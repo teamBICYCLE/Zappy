@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Mon Jun 11 11:10:09 2012 lois burg
+** Last update Wed Jun 13 13:30:03 2012 lois burg
 */
 
 #include <string.h>
@@ -31,7 +31,7 @@ static void	diamond_step(const int x, const int y, t_dmap *dmap)
 
   avg = map[y][x] + map[y + s][x] + map[y + s][x + s] + map[y][x + s];
   avg /= 4;
-  avg += (((double)rand() / (double)RAND_MAX) * RAND_RANGE);
+  avg += (((double)rand() / (double)RAND_MAX) * NOISE);
   map[y + (s / 2)][x + (s / 2)] = avg;
   if (avg > dmap->max_val)
     dmap->max_val = avg;
@@ -77,10 +77,10 @@ t_dmap		*compute_dmap(const int x, const int y, const int seed)
   dmap = new_dmap(size);
   nb_iter = 1;
   srand(seed);
-  dmap->map[0][0] = rand() % RAND_RANGE;
-  dmap->map[size - 1][0] = rand() % RAND_RANGE;
-  dmap->map[size - 1][size - 1] = rand() % RAND_RANGE;
-  dmap->map[0][size - 1] = rand() % RAND_RANGE;
+  dmap->map[0][0] = (rand() % RAND_RANGE);
+  dmap->map[size - 1][0] = (rand() % RAND_RANGE);
+  dmap->map[size - 1][size - 1] = (rand() % RAND_RANGE);
+  dmap->map[0][size - 1] = (rand() % RAND_RANGE);
   while (dmap->step > 1)
     {
       do_step(nb_iter, dmap, size);
@@ -89,20 +89,20 @@ t_dmap		*compute_dmap(const int x, const int y, const int seed)
     }
   printf("Max value: %.1f\n", dmap->max_val);
 
-  /* //TEMPORARY */
-  /* int i = 0, j = 0; */
-  /* while (j < size) */
-  /*   { */
-  /*     i = 0; */
-  /*     while (i < size) */
-  /* 	{ */
-  /* 	  printf("[%.1f]", dmap->map[j][i]); */
-  /* 	  ++i; */
-  /* 	  if (i < size) */
-  /* 	    printf(" "); */
-  /* 	} */
-  /*     ++j; */
-  /*     printf("\n"); */
-  /*   } */
+  //TEMPORARY
+  int i = 0, j = 0;
+  while (j < size)
+    {
+      i = 0;
+      while (i < size)
+  	{
+  	  printf("[%.1f]", dmap->map[j][i]);
+  	  ++i;
+  	  if (i < size)
+  	    printf(" ");
+  	}
+      ++j;
+      printf("\n");
+    }
   return (dmap);
 }

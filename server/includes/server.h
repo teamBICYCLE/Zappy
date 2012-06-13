@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Tue Jun 12 17:22:00 2012 lois burg
+** Last update Wed Jun 13 13:00:09 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -28,7 +28,8 @@ typedef struct s_infos          t_infos;
 
 typedef enum	e_direction
   {
-    NORTH = 0,
+    UNDEF = -1,
+    NORTH,
     EAST,
     SOUTH,
     WEST
@@ -39,6 +40,7 @@ struct          s_users
   int		x;
   int		y;
   t_direction	dir;
+  double	life;
   int		lvl;
   int		inventory[LAST];
   int           socket;

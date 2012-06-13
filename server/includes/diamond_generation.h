@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:39 2012 lois burg
-** Last update Mon Jun 11 11:13:01 2012 lois burg
+** Last update Wed Jun 13 13:35:40 2012 lois burg
 */
 
 #ifndef		__DIAMOND_GENERATION_H__
@@ -14,17 +14,18 @@
 # include	"map.h"
 
 # define	RAND_RANGE	30
+# define	NOISE		10
 # define	MAX(x, y)	((x > y) ? (x) : (y))
 # define	ODDIFY(x)	((x % 2) ? (x) : (x + 1))
 
 /* Percentage for each ressources */
-# define	FOOD_PCTG	50.f
-# define	LINEMATE_PCTG	40.f
-# define	DERAUMERE_PCTG	40.f
-# define	SIBUR_PCTG	40.f
-# define	MENDIANE_PCTG	40.f
-# define	PHIRAS_PCTG	40.f
-# define	THYSTAME_PCTG	40.f
+# define	FOOD_PCTG	40.f
+# define	LINEMATE_PCTG	30.f
+# define	DERAUMERE_PCTG	30.f
+# define	SIBUR_PCTG	30.f
+# define	MENDIANE_PCTG	30.f
+# define	PHIRAS_PCTG	30.f
+# define	THYSTAME_PCTG	30.f
 
 /* Useless structure to avoid more than 4 parameters */
 typedef	struct	s_dmap	t_dmap;

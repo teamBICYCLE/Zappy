@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jun 12 17:22:10 2012 lois burg
+** Last update Wed Jun 13 13:25:12 2012 lois burg
 */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@ static void	handle_cmd(t_users *u, char *str)
   /* check cmd null */
   add_task(u, cmd);
 }
-
+#include "cmds.h"
 void		add_user(void)
 {
   t_users	new;
@@ -51,6 +51,7 @@ void		add_user(void)
       new.dir = NORTH;
       memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
+      new.life = new.inventory[FOOD] * 126;
       new.idx = 0;
       new.messages = new_list();
       new.first_message = true;
@@ -58,6 +59,10 @@ void		add_user(void)
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
       push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
+      //TEMP
+      g_info.map->cases[0][0].elements[PLAYER] = 1;
+      inventory_cmd(&new, NULL);
+      see_cmd(&new, NULL);
     }
   else
     perror("socket :");

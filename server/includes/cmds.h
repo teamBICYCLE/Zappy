@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Tue Jun 12 17:19:50 2012 lois burg
+** Last update Wed Jun 13 13:12:15 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -29,5 +29,23 @@ struct	s_res_str
 };
 
 char		*map_ressource(int res);
+char		*case_content(const t_case *c, char *buf);
+
+/* SEE TOOLS */
+
+typedef	char	*(*t_see_func)(const int usr_x, const int usr_y,
+			       const int lvl, const t_map *map);
+typedef	struct	s_see_dir	t_see_dir;
+struct			s_see_dir
+{
+  const t_direction	dir;
+  t_see_func		f;
+};
+
+char	*see_lvl(const t_users *usr, const int lvl, const t_map *map);
+char	*see_north(const int usr_x, const int usr_y, const int lvl, const t_map *map);
+char	*see_east(const int usr_x, const int usr_y, const int lvl, const t_map *map);
+char	*see_south(const int usr_x, const int usr_y, const int lvl, const t_map *map);
+char	*see_west(const int usr_x, const int usr_y, const int lvl, const t_map *map);
 
 #endif /* !__CMDS_H__*/
