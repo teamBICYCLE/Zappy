@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Fri Jun  8 10:25:49 2012 lois burg
+** Last update Wed Jun 13 12:24:34 2012 lois burg
 */
 
 #include <time.h>
@@ -38,8 +38,8 @@ static void	init_args_infos(t_arg_infos *infos)
   infos->teams_names = new_list();
   infos->clients_per_team = 1;
   infos->action_delay = 100;
-  integer = 7 / infos->action_delay;
-  decimal = (7.f / infos->action_delay) - integer;
+  integer = 1 / infos->action_delay;
+  decimal = (1.f / infos->action_delay) - integer;
   infos->smallest_t.tv_sec = integer;
   infos->smallest_t.tv_usec = decimal * 100000.f;
   infos->help_showed = false;

@@ -5,12 +5,13 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Wed Jun 13 18:22:12 2012 Jonathan Machado
+** Last update Wed Jun 13 18:27:15 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "server.h"
+#include "cmds.h"
 
 extern t_infos		g_info;
 
@@ -46,4 +47,24 @@ void	reset_fd(t_infos *info)
   FD_ZERO(&info->readfds);
   FD_SET(info->ss, &info->readfds);
   iterate(info->users, &set_fd);
+}
+
+char	*case_content(const t_case *c, char *buf)
+{
+  int	i;
+  uint	j;
+
+  i = 0;
+  while (i < LAST)
+    {
+      j = 0;
+      while (j < c->elements[i])
+	{
+	  strcat(buf, " ");
+	  strcat(buf, map_ressource(i));
+	  ++j;
+	}
+      ++i;
+    }
+  return (buf);
 }

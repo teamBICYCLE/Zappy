@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jun 13 18:17:00 2012 Jonathan Machado
+** Last update Wed Jun 13 18:23:44 2012 Jonathan Machado
 */
 
 #ifndef __SERVER_H__
@@ -28,7 +28,8 @@ typedef struct s_infos          t_infos;
 
 typedef enum	e_direction
   {
-    NORTH = 0,
+    UNDEF = -1,
+    NORTH,
     EAST,
     SOUTH,
     WEST

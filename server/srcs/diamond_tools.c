@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 19:20:53 2012 lois burg
-** Last update Fri Jun  8 11:50:28 2012 lois burg
+** Last update Wed Jun 13 13:30:14 2012 lois burg
 */
 
 #include <string.h>
@@ -35,7 +35,7 @@ double		avg_diamond(const int x, const int y, t_dmap *dmap, const int size)
   if (y + half_step < size)
     add_avg(&avg, &sum, dmap->map[y + half_step][x]);
   avg /= sum;
-  avg += (((double)rand() / (double)RAND_MAX) * RAND_RANGE);
+  avg += (((double)rand() / (double)RAND_MAX) * NOISE);
   if (avg > dmap->max_val)
     dmap->max_val = avg;
   return (avg);

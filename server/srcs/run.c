@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Wed Jun 13 18:04:40 2012 Jonathan Machado
+** Last update Wed Jun 13 18:33:14 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -40,7 +40,8 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   g_info.map = generate_map(x, y, seed);
   //
   print_serv_conf(&g_info.world);
-  printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
+  /* printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f)); */
+  /* dump_map(map); */
 }
 
 static void		init_network(int const port)
