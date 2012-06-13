@@ -5,32 +5,21 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:55:25 2012 lois burg
-** Last update Wed Jun 13 13:20:03 2012 lois burg
+** Last update Wed Jun 13 19:01:37 2012 lois burg
 */
 
 #include "cmds.h"
 #include "server.h"
 
-static t_res_str	g_res_str[10] =
+char	*g_res_names[LAST] =
   {
-    {FOOD, "nourriture"},
-    {LINEMATE, "linemate"},
-    {DERAUMERE, "deraumere"},
-    {SIBUR, "sibur"},
-    {MENDIANE, "mendiane"},
-    {PHIRAS, "phiras"},
-    {THYSTAME, "thystame"},
-    {PLAYER, "joueur"},
-    {EGG, "oeuf"},
-    {-1, NULL}
+    "nourriture",
+    "linemate",
+    "deraumere",
+    "sibur",
+    "mendiane",
+    "phiras",
+    "thystame",
+    "joueur",
+    "oeuf"
   };
-
-char	*map_ressource(int res)
-{
-  int	i;
-
-  i = 0;
-  while (g_res_str[i].res != - 1 && g_res_str[i].res != res)
-    ++i;
-  return (g_res_str[i].res_str);
-}

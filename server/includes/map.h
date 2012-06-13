@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:13:05 2012 Jonathan Machado
-** Last update Wed Jun 13 13:14:55 2012 lois burg
+** Last update Wed Jun 13 19:00:02 2012 lois burg
 */
 
 #ifndef __MAP_H__
@@ -25,7 +25,7 @@ enum
     THYSTAME,
     PLAYER,
     EGG,
-    LAST = EGG + 2
+    LAST
   };
 
 # define	NB_RESSOURCES	7

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jun 13 13:16:15 2012 lois burg
+** Last update Wed Jun 13 19:10:30 2012 lois burg
 */
 
 #include <time.h>
@@ -16,6 +16,15 @@
 #include "log.h"
 
 extern t_infos	g_info;
+extern char	*g_res_names[LAST];
+
+static t_see_func	g_see_tab[5] =
+  {
+    &see_north,
+    &see_east,
+    &see_south,
+    &see_west
+  };
 
 void		see_cmd(t_users *usr, char **args)
 {
@@ -26,7 +35,7 @@ void		see_cmd(t_users *usr, char **args)
   i = 0;
   while (usr && i <= usr->lvl)
     {
-      see_lvl(usr, i, map);
+      (g_see_tab[usr->dir])(usr->x, usr->y, i, map);
       ++i;
     }
 }
@@ -34,7 +43,6 @@ void		see_cmd(t_users *usr, char **args)
 void	inventory_cmd(t_users *usr, char **args)
 {
   int	i;
-  char	*res_str;
   char	val[INVENTORY_VAL_SZ];
   char	msg[INVENTORY_MSG_SZ];
 
@@ -44,15 +52,12 @@ void	inventory_cmd(t_users *usr, char **args)
   strcat(msg, "{");
   while (i < NB_RESSOURCES)
     {
-      if ((res_str = map_ressource(i)))
-	{
-	  if (i)
-	    strcat(msg, ", ");
-	  strcat(msg, res_str);
-	  memset(val, 0, sizeof(val));
-	  sprintf(val, " %d", usr->inventory[i]);
-	  strcat(msg, val);
-	}
+      if (i)
+	strcat(msg, ", ");
+      strcat(msg, g_res_names[i]);
+      memset(val, 0, sizeof(val));
+      sprintf(val, " %d", usr->inventory[i]);
+      strcat(msg, val);
       ++i;
     }
   strcat(msg, "}\n");

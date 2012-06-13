@@ -5,12 +5,14 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Wed Jun 13 13:15:19 2012 lois burg
+** Last update Wed Jun 13 19:05:06 2012 lois burg
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "cmds.h"
+
+extern char	*g_res_names[LAST];
 
 static char	**pvt_parse(char *str, char *tok, size_t sz, const char *delim)
 {
@@ -41,7 +43,7 @@ char	*case_content(const t_case *c, char *buf)
       while (j < c->elements[i])
 	{
 	  strcat(buf, " ");
-	  strcat(buf, map_ressource(i));
+	  strcat(buf, g_res_names[i]);
 	  ++j;
 	}
       ++i;

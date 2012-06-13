@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jun 13 13:25:12 2012 lois burg
+** Last update Wed Jun 13 19:29:07 2012 lois burg
 */
 
 #include <stdio.h>
@@ -48,7 +48,7 @@ void		add_user(void)
       new.x = 0;
       new.y = 0;
       new.lvl = 1;
-      new.dir = NORTH;
+      new.dir = WEST;
       memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
       new.life = new.inventory[FOOD] * 126;
