@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Wed Jun 13 18:33:14 2012 Jonathan Machado
+** Last update Thu Jun 14 16:44:42 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -48,6 +48,7 @@ static void		init_network(int const port)
 {
   struct sockaddr_in    sin;
   struct protoent	*pe;
+  const int		opt = 1;
 
   memset(&sin, 0, sizeof(sin));
   pe = getprotobyname("TCP");
@@ -60,6 +61,7 @@ static void		init_network(int const port)
   sin.sin_family = AF_INET;
   sin.sin_port = htons(port);
   sin.sin_addr.s_addr = INADDR_ANY;
+  setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt));
   bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin));
   listen(g_info.ss, 5);
   g_info.smax = g_info.ss;

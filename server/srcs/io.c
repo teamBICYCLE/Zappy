@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jun 13 19:33:31 2012 lois burg
+** Last update Thu Jun 14 11:47:41 2012 lois burg
 */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@ static void	handle_cmd(t_users *u, char *str)
   /* check cmd null */
   add_task(u, cmd);
 }
-#include "cmds.h"
+
 void		add_user(void)
 {
   t_users	new;
@@ -48,7 +48,7 @@ void		add_user(void)
       new.x = 0;
       new.y = 0;
       new.lvl = 1;
-      new.life = 500;
+      new.life = 5000;
       new.dir = NORTH;
       memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
