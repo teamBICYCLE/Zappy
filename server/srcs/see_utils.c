@@ -5,89 +5,122 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 13 12:25:27 2012 lois burg
-** Last update Wed Jun 13 19:24:44 2012 lois burg
+** Last update Thu Jun 14 16:37:59 2012 lois burg
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "cmds.h"
 
-char		*see_north(const int usr_x, const int usr_y,
-			   const int lvl, const t_map *map)
+char		*see_north(const t_users *usr, char *content, const t_map *map)
 {
+  int		lvl;
   int		cases_left;
   int		x;
-  const int	y = ((usr_y - lvl) + map->y) % map->y;
-  char		content[4096];
-
-  cases_left = (lvl * 2) + 1;
-  x = ((usr_x - lvl) + map->x ) % map->x;
-  while (cases_left)
-    {
-      memset(content, 0, sizeof(content));
-      printf("Case %d %d: %s\n", x, y, case_content(&map->cases[y][x], content));
-      x = (x + 1) % map->x;
-      --cases_left;
-    }
-  return (NULL);
-}
-
-char	*see_east(const int usr_x, const int usr_y,
-		  const int lvl, const t_map *map)
-{
-  int		cases_left;
-  const int	x = ((usr_x + lvl) + map->x) % map->x;
   int		y;
-  char		content[4096];
 
-  cases_left = (lvl * 2) + 1;
-  y = ((usr_y - lvl) + map->y ) % map->y;
-  while (cases_left)
+  lvl = 0;
+  while (lvl <= usr->lvl)
     {
-      memset(content, 0, sizeof(content));
-      printf("Case %d %d: %s\n", x, y, case_content(&map->cases[y][x], content));
-      y = (y + 1) % map->y;
-      --cases_left;
+      cases_left = (lvl * 2) + 1;
+      x = ((usr->x - lvl) + map->x) % map->x;
+      y = ((usr->y - lvl) + map->y) % map->y;
+      while (cases_left && content)
+	{
+	  content = case_content(&map->cases[y][x], content);
+	  x = (x + 1) % map->x;
+	  --cases_left;
+	  if (cases_left)
+	    strcat(content, ",");
+	}
+      ++lvl;
+      if (lvl <= usr->lvl)
+	strcat(content, ",");
     }
-  return (NULL);
+  return (content);
 }
 
-char	*see_south(const int usr_x, const int usr_y,
-		   const int lvl, const t_map *map)
+char		*see_east(const t_users *usr, char *content, const t_map *map)
 {
+  int		lvl;
   int		cases_left;
   int		x;
-  const int	y = ((usr_y + lvl) + map->y) % map->y;
-  char		content[4096];
+  int		y;
 
-  cases_left = (lvl * 2) + 1;
-  x = ((usr_x - lvl) + map->x ) % map->x;
-  while (cases_left)
+  lvl = 0;
+  while (lvl <= usr->lvl)
     {
-      memset(content, 0, sizeof(content));
-      printf("Case %d %d: %s\n", x, y, case_content(&map->cases[y][x], content));
-      x = (x + 1) % map->x;
-      --cases_left;
+      cases_left = (lvl * 2) + 1;
+      x = ((usr->x + lvl) + map->x) % map->x;
+      y = ((usr->y - lvl) + map->y ) % map->y;
+      while (cases_left)
+	{
+	  content = case_content(&map->cases[y][x], content);
+	  y = (y + 1) % map->y;
+	  --cases_left;
+	  if (cases_left)
+	    strcat(content, ",");
+	}
+      ++lvl;
+      if (lvl <= usr->lvl)
+	strcat(content, ",");
     }
-  return (NULL);
+  return (content);
 }
 
-char	*see_west(const int usr_x, const int usr_y,
-		  const int lvl, const t_map *map)
+char		*see_south(const t_users *usr, char *content, const t_map *map)
 {
+  int		lvl;
   int		cases_left;
-  const int	x = ((usr_x - lvl) + map->x) % map->x;
+  int		x;
   int		y;
-  char		content[4096];
 
-  cases_left = (lvl * 2) + 1;
-  y = ((usr_y - lvl) + map->y ) % map->y;
-  while (cases_left)
+  lvl = 0;
+  while (lvl <= usr->lvl)
     {
-      memset(content, 0, sizeof(content));
-      printf("Case %d %d: %s\n", x, y, case_content(&map->cases[y][x], content));
-      y = (y + 1) % map->y;
-      --cases_left;
+      cases_left = (lvl * 2) + 1;
+      x = ((usr->x - lvl) + map->x ) % map->x;
+      y = ((usr->y + lvl) + map->y) % map->y;
+      while (cases_left)
+	{
+	  content = case_content(&map->cases[y][x], content);
+	  x = (x + 1) % map->x;
+	  --cases_left;
+	  if (cases_left)
+	    strcat(content, ",");
+	}
+      ++lvl;
+      if (lvl <= usr->lvl)
+	strcat(content, ",");
     }
-  return (NULL);
+  return (content);
+}
+
+char	*see_west(const t_users *usr, char *content, const t_map *map)
+{
+  int		lvl;
+  int		cases_left;
+  int		x;
+  int		y;
+
+  lvl = 0;
+  while (lvl <= usr->lvl)
+    {
+      cases_left = (lvl * 2) + 1;
+      x = ((usr->x - lvl) + map->x) % map->x;
+      y = ((usr->y - lvl) + map->y ) % map->y;
+      while (cases_left)
+	{
+	  content = case_content(&map->cases[y][x], content);
+	  y = (y + 1) % map->y;
+	  --cases_left;
+	  if (cases_left)
+	    strcat(content, ",");
+	}
+      ++lvl;
+      if (lvl <= usr->lvl)
+	strcat(content, ",");
+    }
+  return (content);
 }
