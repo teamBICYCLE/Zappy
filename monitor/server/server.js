@@ -20,13 +20,8 @@ if (process.argv.length >= 3)
 		var ref = {
 		  "tna": zappy.getCache().getTeams(), 
 		  "msz": zappy.getCache().getMapSize(),
-		  "bct": 3,
 		  "mct": zappy.getCache().getMap(),
-		  "ppo": 2,
-		  "plv": 2,
-		  "pin": 2,
-		  "sgt": zappy.getCache().getCurrentTimeUnit(),
-		  "sst": 2
+		  "sgt": zappy.getCache().getCurrentTimeUnit()
 		};
 		
 		zappy.getCache().dump();
@@ -54,12 +49,37 @@ function update() {
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
 
+function playerCmd(explode) {
+	
+	var player = zappy.getCache().getPlayer(explode[1].replace("#", ""));
+	
+	var playerPtr = {
+		"ppo": player.getPos(),
+		"plv": player.getLevel(),
+		"pin": player.getInventory()
+	};
+	
+	if (typeof(playerPtr[explode[0]]) != "undefined")
+		return playerPtr[explode[0]];
+}
+
 function getCmd(cmd, ref) {
 	
 	var explode = cmd.split(" ");
 		
+	console.log(cmd);
 	if (typeof(ref[explode[0]]) != "undefined")
 		return ref[explode[0]];
+	else if (cmd.search("#") != -1)
+		return playerCmd(explode);
+	else if (explode[0] == "bct")
+		return "Case content in (" + explode[1] + ", " + explode[2] + ") : " +
+		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).getRessources();
+	else if (explode[0] == "sst")
+	{
+		zappy.getSocket().write(explode[0] + " " + explode[1]);
+		return "Server current time unit is now set at " + explode[1];
+	}
 }
 
 
