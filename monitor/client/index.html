@@ -3,13 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
   		<title>Test</title>
-  		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  		<meta http-equiv="Cache-control" content="max-age=256665">
+  		<script src="js/jquery.min.js"></script>
   		<script src="http://localhost:24542/socket.io/socket.io.js"></script>
   		<script src="js/cmd.js"></script>
+  		<script src="js/map_generator.js"></script>
 	</head>
 	<body>
-		<input type="text" class="cmd" />
+		
+  		<canvas style="border: 1px solid black;" id="c"></canvas>
+  		
+  		
+  		<br />
+  		<input type="text" class="cmd" />
   		<input type="button" id="send" value="Send !"/>
+  		<input type="button" id="plus" value="Zoom +" />
+  		<input type="button" id="moins" value="Zoom -" />
   		<p id="result"></p>
   	</body>
 </html>
