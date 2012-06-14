@@ -28,7 +28,7 @@ function sendCmd(cmd){
 		$("#result").append("Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help<br />");
 	else if (checkCmd(cmd))
 	{
-		socket.emit('requestData', cmd);
+		socket.emit('requestData', {cmd : cmd});
 		socket.on('requestDataDone', function(data){
 			if (lastTimestamp != data.timestamp)
 			{
