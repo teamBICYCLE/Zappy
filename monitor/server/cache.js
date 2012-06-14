@@ -68,6 +68,14 @@ exports.getMap = function() {
 	return map_;
 }
 
+exports.getPlayer = function(id) {
+	for (var i = 0; i != players_.length; i++)
+		if (players_[i].getId() == id)
+			return players_[i];
+			
+	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
 /* OTHER */
 
 exports.isWhole = function() {

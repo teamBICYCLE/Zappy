@@ -4,8 +4,7 @@
 
 /* Najim Production Zappy Connection */
 
-var socket,
-	buffer = '',
+var buffer = '',
 	net = require('net'),
 	cache = require('./cache.js'),
 	parsing = require('./bufferParse.js'),
@@ -40,6 +39,10 @@ var ZappyConnection = function (ip, port) {
 	
 	ZappyConnection.prototype.getCache = function () {
 		return cache;
+	};
+	
+	ZappyConnection.prototype.getSocket = function () {
+		return socket;
 	};
 }
 
