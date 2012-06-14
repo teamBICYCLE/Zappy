@@ -4,14 +4,10 @@
 
 /* OBJECT */
 
-var id_, posx_, posy_, orientation_, level_, team_;
-var inventoryFood_ = 0,
-	inventoryLinemate_ = 0,
-	inventoryDeraumere_ = 0,
-	inventorySibur_ = 0,
-	inventoryMendiane_ = 0,
-	inventoryPhiras_ = 0,
-	inventoryThystame_ = 0;
+var id_, posx_, posy_, orientation_, level_, team_,
+	inventoryFood_, inventoryLinemate_, inventoryDeraumere_, 
+	inventorySibur_, inventoryMendiane_, inventoryPhiras_,
+	inventoryThystame_;
 
 var Player = function(arg) {
 	if (arg.length >= 7)
@@ -22,6 +18,13 @@ var Player = function(arg) {
 	    this.orientation_ = arg[4];
 	    this.level_ = arg[5];
 	    this.team_ = arg[6];
+	    this.inventoryFood_ = 0;
+	    this.inventoryLinemate_ = 0,
+		this.inventoryDeraumere_ = 0,
+		this.inventorySibur_ = 0,
+		this.inventoryMendiane_ = 0,
+		this.inventoryPhiras_ = 0,
+		this.inventoryThystame_ = 0;
 	} 
 };
 

@@ -33,9 +33,10 @@ if (process.argv.length >= 3)
 		});
 		
 		// client.on('requestDataBroadcast', function(obj){
-			// obj.socket.emit('requestDataBroadcast', {data_: zappy.getCache().getTeams(), times});
+			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
-		//update();
+		
+		update();
 	});
 }
 else
@@ -67,7 +68,6 @@ function getCmd(cmd, ref) {
 	
 	var explode = cmd.split(" ");
 		
-	console.log(cmd);
 	if (typeof(ref[explode[0]]) != "undefined")
 		return ref[explode[0]];
 	else if (cmd.search("#") != -1)
@@ -77,7 +77,7 @@ function getCmd(cmd, ref) {
 		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).getRessources();
 	else if (explode[0] == "sst")
 	{
-		zappy.getSocket().write(explode[0] + " " + explode[1]);
+		zappy.getSocket().write(explode[0] + " " + explode[1] + "\n");
 		return "Server current time unit is now set at " + explode[1];
 	}
 }
