@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 13 18:44:47 2012 Jonathan Machado
+** Last update Thu Jun 14 14:08:31 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -25,11 +25,11 @@ static t_tasksmap	g_commands[] =
     /* {0, , "connect_nbr"}, */
     {1, &inventory_cmd, "inventaire"},
     /* {7, , "avance"}, */
-    /* {7, , "droite"}, */
-    /* {7, , "gauche"}, */
+    {7, &right_cmd, "droite"},
+    {7, &left_cmd, "gauche"},
     {7, &see_cmd, "voir"},
     /* {7, , "prend"}, */
-    /* {7, , "pose"}, */
+    {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
     /* {7, , "broadcast"}, */
     /* {42, , "fork"}, */
@@ -43,11 +43,19 @@ void		add_task(t_users *u, char ** args)
   t_task	t;
 
   i = 0;
-  while (g_commands[i].key != NULL &&
-	 strcmp(g_commands[i].key, args[0]) != 0)
-    ++i;
-  t.countdown = g_commands[i].countdown;
-  t.f = g_commands[i].f;
-  t.args = args;
-  push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+  if (u->first_message == false)
+    {
+      while (g_commands[i].key != NULL &&
+	     strcmp(g_commands[i].key, args[0]) != 0)
+	++i;
+      t.countdown = g_commands[i].countdown;
+      t.f = g_commands[i].f;
+      t.args = args;
+      push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+    }
+  else
+    {
+      // l'ajoute a un oeuf avec ses positions et init sa vie puis suprimer l'oeuf
+      // passer u->first_message = false
+    }
 }
