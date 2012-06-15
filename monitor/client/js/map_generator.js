@@ -2,8 +2,8 @@
  *	@author lafont_g
  */
 
-var map_width = 10;
-var map_height = 10;
+var map_width = 20;
+var map_height = 20;
 
 $(function() {
 	
@@ -13,6 +13,7 @@ $(function() {
 	draw();
 	function draw() {
 
+		console.log("draw");
 		tile_width = 64, tile_height = 64,
     	img = new Image();
 
@@ -37,6 +38,7 @@ $(function() {
 	    	}
 	    };
 	    img.src = "img/0.gif";
+	   	//setTimeout(draw, 100);
 	}
 
 	$("#plus").on("click", function(){

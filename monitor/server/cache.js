@@ -10,7 +10,7 @@ var xsize_ = 0,
 	teams_ = new Array(),
 	map_ = new (require("./objects/map.js")),
 	players_ = new Array();
-	eggs = new Array();
+	eggs_ = new Array();
 	
 /* SET */
 
@@ -37,9 +37,9 @@ exports.addPlayer = function(arg) {
     players_.push(new Player(arg));
 }
 
-exports.addEggs = function(arg) {
+exports.addeggs_ = function(arg) {
 	var Egg = require("./objects/egg.js");
-	eggs_.push(new Egg(arg));
+	eggs__.push(new Egg(arg));
 }
 
 /* GET */
@@ -74,6 +74,14 @@ exports.getPlayer = function(id) {
 			return players_[i];
 			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+exports.getPlayers = function() {
+	return players_;
+}
+
+exports.getEggs = function() {
+	return eggs_;
 }
 
 /* OTHER */

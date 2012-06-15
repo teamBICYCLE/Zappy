@@ -14,9 +14,14 @@ $(function() {
 function checkCmd(cmd){
 	var explode = cmd.split(" ");
 	
+	if (explode[0] == "sst" && parseInt(explode[1]) < 1)
+	{
+		alert("Error : sst second argument must be at least 1");
+		return false;
+	}
 	if (typeof(ref[explode[0]]) != "undefined" && explode.length == ref[explode[0]])
 		return true;
-	alert("command not found");	
+	alert("Error : Command not found");
 	return false;
 }
 
