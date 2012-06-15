@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Fri Jun 15 16:11:16 2012 Jonathan Machado
+** Last update Fri Jun 15 17:01:14 2012 Jonathan Machado
 */
 
 #ifndef __SERVER_H__
@@ -37,21 +37,22 @@ typedef enum	e_direction
 
 struct          s_users
 {
+  bool		first_message;
+  bool		is_graphics;
   bool		is_dead;
+  // server
+  int           socket;
+  size_t        idx;
+  t_list        *messages;
+  t_ringbuffer  *readring;
   // player
   int		x;
   int		y;
-  t_direction	dir;
   int		lvl;
+  t_direction	dir;
   unsigned int	life;
   unsigned int 	inventory[LAST];
-  // server
-  int           socket;
-  t_list        *messages;
-  t_ringbuffer  *readring;
   t_list	*tasks;
-  size_t        idx;
-  bool		first_message;
 };
 
 struct          s_infos

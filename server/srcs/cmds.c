@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Fri Jun 15 14:47:44 2012 Jonathan Machado
+** Last update Fri Jun 15 16:59:56 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -43,7 +43,7 @@ void		add_task(t_users *u, char ** args)
   t_task	t;
 
   i = 0;
-  if (u->first_message == false)
+  if (u->first_message == false && u->is_graphics == false)
     {
       while (g_commands[i].key != NULL &&
 	     strcmp(g_commands[i].key, args[0]) != 0)
@@ -52,6 +52,10 @@ void		add_task(t_users *u, char ** args)
       t.f = g_commands[i].f;
       t.args = args;
       push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+    }
+  else if (u->first_message == false && u->is_graphics == true)
+    {
+
     }
   else
     {
