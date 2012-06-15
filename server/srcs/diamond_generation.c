@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Wed Jun 13 18:33:36 2012 Jonathan Machado
+** Last update Thu Jun 14 18:13:41 2012 lois burg
 */
 
 #include <string.h>
@@ -31,7 +31,7 @@ static void	diamond_step(const int x, const int y, t_dmap *dmap)
 
   avg = map[y][x] + map[y + s][x] + map[y + s][x + s] + map[y][x + s];
   avg /= 4;
-  avg += (((double)rand() / (double)RAND_MAX) * NOISE);
+  avg += (((double)rand() / (double)RAND_MAX) * 2 * NOISE) - NOISE;
   map[y + (s / 2)][x + (s / 2)] = avg;
   if (avg > dmap->max_val)
     dmap->max_val = avg;
@@ -90,19 +90,19 @@ t_dmap		*compute_dmap(const int x, const int y, const int seed)
   printf("Max value: %.1f\n", dmap->max_val);
 
   //TEMPORARY
-  /* int i = 0, j = 0; */
-  /* while (j < size) */
-  /*   { */
-  /*     i = 0; */
-  /*     while (i < size) */
-  /* 	{ */
-  /* 	  printf("[%.1f]", dmap->map[j][i]); */
-  /* 	  ++i; */
-  /* 	  if (i < size) */
-  /* 	    printf(" "); */
-  /* 	} */
-  /*     ++j; */
-  /*     printf("\n"); */
-  /*   } */
+  int i = 0, j = 0;
+  while (j < size)
+    {
+      i = 0;
+      while (i < size)
+  	{
+  	  printf("[%.1f]", dmap->map[j][i]);
+  	  ++i;
+  	  if (i < size)
+  	    printf(" ");
+  	}
+      ++j;
+      printf("\n");
+    }
   return (dmap);
 }

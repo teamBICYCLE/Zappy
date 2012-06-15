@@ -21,12 +21,16 @@ var ClientConnection = function() {
 	  .sockets
 	  .on('connection', function(socket) {
 	  	
-		socket.on('requestData', function(data) {
-			self.emit('requestData', {socket: socket, cmd: data});
+		socket.on('requestData', function(obj) {
+			self.emit('requestData', {socket: socket, cmd: obj.cmd});
 		});
 		
-		socket.on('requestDataBroadcast', function(data) {
-			self.emit('requestDataBroadcast', {socket: socket, cmd: data});
+		socket.on('requestDataBroadcast', function(obj) {
+			if (lastTimestamp != obj.timestamp)
+			{
+				self.emit('requestDataBroadcast', {socket: socket, cmd: obj.data});
+				lastTimestamp = obj.timestamp;
+			}
 		});
 	        
 	  });

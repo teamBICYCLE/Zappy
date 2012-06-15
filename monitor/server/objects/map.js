@@ -29,7 +29,7 @@ Map.prototype.make = function(x, y) {
 }
 
 Map.prototype.getCase = function(cache, x, y) {
-	var target = (y * cache.getYSize()) + x;
+	var target = parseInt(y * cache.getYSize()) + parseInt(x);
 
 	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
 		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)

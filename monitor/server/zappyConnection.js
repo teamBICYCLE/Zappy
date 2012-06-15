@@ -4,13 +4,13 @@
 
 /* Najim Production Zappy Connection */
 
-var socket,
-	buffer = '',
+var buffer = '',
 	net = require('net'),
 	cache = require('./cache.js'),
 	parsing = require('./bufferParse.js'),
 	util = require('util'),
 	ee = require('events').EventEmitter;
+	first = true;
 	
 var ZappyConnection = function (ip, port) {
 	
@@ -27,8 +27,13 @@ var ZappyConnection = function (ip, port) {
 		if (buffer.charCodeAt(buffer.length - 1) == 10)
 		{
 			parsing.feed(buffer, cache);
-			if (cache.isWhole())
+			if (cache.isWhole() && first)
+			{
 				self.emit('cacheWhole');
+				first = false;
+			}
+			else
+				self.emit('cacheUpdate');
 			buffer = '';
 		}
 	});
@@ -40,6 +45,10 @@ var ZappyConnection = function (ip, port) {
 	
 	ZappyConnection.prototype.getCache = function () {
 		return cache;
+	};
+	
+	ZappyConnection.prototype.getSocket = function () {
+		return socket;
 	};
 }
 
