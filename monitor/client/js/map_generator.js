@@ -17,14 +17,16 @@ $(function() {
 		tile_width = 64, tile_height = 64,
     	img = new Image();
 
-		canvas.width = 1300;
-		canvas.height = 690;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		$("#c").click(getMousePosition);
+		$("#c").mousemove(getMousePosition);
 		
 	    img.onload = function() {
 	    
 	    	for (var i = 0; i != map_height; i++)
 	    	{
-	    		for (var j = 0; j != map_width; j++)
+	    		for (var j = map_width - 1; j >= 0; j--)
 	    		{
 	    			leftH = ((j * tile_width / 2) + (i * tile_width / 2));
 					topH = ((i * tile_height / 4) - (j * tile_height / 4));
@@ -37,8 +39,17 @@ $(function() {
 	    			
 	    	}
 	    };
-	    img.src = "img/0.gif";
-	   	//setTimeout(draw, 100);
+	    img.src = "img/floor.png";
+	}
+	
+	function getMousePosition(e) {
+		//var x = event.x;
+		//var y = event.y;
+		
+		var rect = e.target.getBoundingClientRect();
+		var x = e.offsetX || e.pageX - rect.left - window.scrollX;
+		var y = e.offsetY || e.pageY - rect.top - window.scrollY;
+		
 	}
 
 	$("#plus").on("click", function(){
