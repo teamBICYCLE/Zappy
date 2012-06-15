@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Thu Jun 14 11:47:41 2012 lois burg
+** Last update Fri Jun 15 16:25:31 2012 Jonathan Machado
 */
 
 #include <stdio.h>
@@ -24,7 +24,6 @@ static void	handle_cmd(t_users *u, char *str)
   int		i;
 
   (void)u;
-  printf("%i -> %s\n", u->socket, str);
   cmd = parse(str, " \t\n");
   puts("Parsed command:");
   i = 0;
@@ -33,26 +32,23 @@ static void	handle_cmd(t_users *u, char *str)
       printf("%s\n", cmd[i]);
       ++i;
     }
-  /* check cmd null */
-  add_task(u, cmd);
+  if (cmd != NULL)
+    add_task(u, cmd);
 }
 
 void		add_user(void)
 {
   t_users	new;
 
+  memset(&new, 0, sizeof(new));
   new.socket = accept(g_info.ss, NULL, NULL);
   if (new.socket != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
-      new.x = 0;
-      new.y = 0;
       new.lvl = 1;
       new.life = 5000;
       new.dir = NORTH;
-      memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
-      new.idx = 0;
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
@@ -102,11 +98,7 @@ void		read_user(void *ptr)
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
 	  free_users(l->ptr);
 	}
-      else
-	{
-	  str = get_data(user->readring);
-	  if (str)
-	    handle_cmd(user, str);
-	}
+      else if ((str = get_data(user->readring)) != NULL)
+	handle_cmd(user, str);
     }
 }
