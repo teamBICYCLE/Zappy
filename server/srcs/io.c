@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Thu Jun 14 11:47:41 2012 lois burg
+** Last update Fri Jun 15 16:38:39 2012 lois burg
 */
 
 #include <stdio.h>
@@ -48,10 +48,10 @@ void		add_user(void)
       new.x = 0;
       new.y = 0;
       new.lvl = 1;
-      new.life = 5000;
       new.dir = NORTH;
       memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
+      new.life = (new.inventory[FOOD] * 126) * 500;//* 500 temporaire
       new.idx = 0;
       new.messages = new_list();
       new.first_message = true;
