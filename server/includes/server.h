@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Fri Jun 15 16:11:16 2012 Jonathan Machado
+** Last update Fri Jun 15 17:16:08 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -39,6 +39,7 @@ struct          s_users
 {
   bool		is_dead;
   // player
+  int		id;
   int		x;
   int		y;
   t_direction	dir;

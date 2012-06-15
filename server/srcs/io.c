@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 15 16:40:13 2012 lois burg
+** Last update Fri Jun 15 17:19:13 2012 lois burg
 */
 
 #include <stdio.h>
@@ -15,7 +15,9 @@
 #include "server.h"
 #include "refstring.h"
 #include "protocol.h"
+#include "log.h"
 
+static int	player_id = 1;
 extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
@@ -39,12 +41,14 @@ static void	handle_cmd(t_users *u, char *str)
 void		add_user(void)
 {
   t_users	new;
+  char		log[LOG_MSG_SZ];
 
   memset(&new, 0, sizeof(new));
   new.socket = accept(g_info.ss, NULL, NULL);
   if (new.socket != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
+      new.id = player_id++;
       new.lvl = 1;
       new.dir = NORTH;
       new.inventory[FOOD] = 10;
@@ -55,6 +59,9 @@ void		add_user(void)
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
       push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
+      memset(log, 0, sizeof(log));
+      snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
+      log_msg(stdout, log);
     }
   else
     perror("socket :");
