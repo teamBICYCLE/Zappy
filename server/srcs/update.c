@@ -5,14 +5,20 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jun 13 18:58:50 2012 Jonathan Machado
+** Last update Fri Jun 15 16:25:09 2012 Jonathan Machado
 */
 
 #include "server.h"
 #include "task.h"
 #include "protocol.h"
+#include <string.h>
 
 extern t_infos		g_info;
+
+static	int	cmp_ptr(void *a, void *b)
+{
+  return (a != b);
+}
 
 static	void	do_task(void *ptr)
 {
@@ -40,11 +46,19 @@ static	void	decr_life(void *ptr)
   u = ptr;
   if (u->life == 0)
     {
-      push_back(u->messages, new_link_by_param(DIE, sizeof(DIE)));
-      // suprimer le bonhome quand u->message->size == 0;
+      if (u->is_dead == false)
+	{
+	  push_back(u->messages, new_link_by_param(DIE, sizeof(DIE)));
+	  u->is_dead = true;
+	}
+      else if (u->messages->size == 0)
+	delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
     }
   else
-    --u->life;
+    {
+      --u->life;
+      u->inventory[FOOD] = u->life / 126;
+    }
 }
 
 void	update_map(int const loop)
