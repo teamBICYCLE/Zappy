@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Fri Jun 15 16:59:56 2012 Jonathan Machado
+** Last update Fri Jun 15 17:54:19 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -59,7 +59,7 @@ void		add_task(t_users *u, char ** args)
     }
   else
     {
-      // l'ajoute a un oeuf avec ses positions et init sa vie puis suprimer l'oeuf
-      // passer u->first_message = false
+      assign_client();
+      u->first_message = false;
     }
 }
