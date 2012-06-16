@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 12:36:22 2012 lois burg
-** Last update Sat Jun 16 12:55:43 2012 lois burg
+** Last update Sat Jun 16 19:27:49 2012 lois burg
 */
 
 #include <string.h>
@@ -27,7 +27,7 @@ char	*graphics_pfk(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pfk #%d\n", usr->id);
+  snprintf(msg, GRAPHICS_MSG_SZ, "pfk %d\n", usr->id);
   return (msg);
 }
 
@@ -36,7 +36,7 @@ char	*graphics_pdr(t_users *usr, const int res)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pdr #%d %d\n", usr->id, res);
+  snprintf(msg, GRAPHICS_MSG_SZ, "pdr %d %d\n", usr->id, res);
   return (msg);
 }
 
@@ -45,7 +45,7 @@ char	*graphics_pgt(t_users *usr, const int res)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pgt #%d %d\n", usr->id, res);
+  snprintf(msg, GRAPHICS_MSG_SZ, "pgt %d %d\n", usr->id, res);
   return (msg);
 }
 
@@ -54,6 +54,6 @@ char	*graphics_pdi(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pdi #%d\n", usr->id);
+  snprintf(msg, GRAPHICS_MSG_SZ, "pdi %d\n", usr->id);
   return (msg);
 }

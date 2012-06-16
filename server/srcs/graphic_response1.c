@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Sat Jun 16 12:49:19 2012 lois burg
+** Last update Sat Jun 16 19:26:55 2012 lois burg
 */
 
 #include <string.h>
@@ -68,7 +68,7 @@ char	*graphics_pnw(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pnw #%d %d %d %d %d [TEAM A AJOUTER]\n",
+  snprintf(msg, GRAPHICS_MSG_SZ, "pnw %d %d %d %d %d [TEAM A AJOUTER]\n",
 	   usr->id, usr->x, usr->y, usr->dir, usr->lvl/* , usr->team */);
   return (msg);
 }
@@ -78,7 +78,7 @@ char	*graphics_ppo(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "ppo #%d %d %d %d\n",
+  snprintf(msg, GRAPHICS_MSG_SZ, "ppo %d %d %d %d\n",
 	   usr->id, usr->x, usr->y, usr->dir);
   return (msg);
 }

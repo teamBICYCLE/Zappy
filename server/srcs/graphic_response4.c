@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 12:53:28 2012 lois burg
-** Last update Sat Jun 16 19:13:45 2012 lois burg
+** Last update Sat Jun 16 19:28:03 2012 lois burg
 */
 
 #include <string.h>
@@ -20,7 +20,7 @@ char	*graphics_enw(t_users *usr, const int egg_id)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "enw #%d #%d %d %d\n",
+  snprintf(msg, GRAPHICS_MSG_SZ, "enw %d %d %d %d\n",
 	   egg_id, usr->id, usr->x, usr->y);
   return (msg);
 }
@@ -30,7 +30,7 @@ char	*graphics_eht(const int egg_id)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "eht #%d\n", egg_id);
+  snprintf(msg, GRAPHICS_MSG_SZ, "eht %d\n", egg_id);
   return (msg);
 }
 
@@ -39,7 +39,7 @@ char	*graphics_ebo(const int egg_id)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "ebo #%d\n", egg_id);
+  snprintf(msg, GRAPHICS_MSG_SZ, "ebo %d\n", egg_id);
   return (msg);
 }
 
@@ -48,7 +48,7 @@ char	*graphics_edi(const int egg_id)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "edi #%d\n", egg_id);
+  snprintf(msg, GRAPHICS_MSG_SZ, "edi %d\n", egg_id);
   return (msg);
 }
 
