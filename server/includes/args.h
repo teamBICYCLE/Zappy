@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Fri Jun 15 12:23:47 2012 lois burg
+** Last update Sat Jun 16 17:58:10 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -51,7 +51,7 @@ void	print_help(t_arg_infos *infos, char *argv[]);
 void	set_seed(t_arg_infos *infos, char *argv[]);
 
 /* TOOLS */
-int	contains_only_digits(char *str);
+bool	contains_only_digits(char *str);
 void	invalid_param(t_arg_infos *infos, const char *msg);
 int	cmp_team(void *t1, void *t2);
 

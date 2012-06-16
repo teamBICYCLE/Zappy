@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 15 17:19:13 2012 lois burg
+** Last update Sat Jun 16 18:27:15 2012 lois burg
 */
 
 #include <stdio.h>
@@ -35,7 +35,7 @@ static void	handle_cmd(t_users *u, char *str)
       ++i;
     }
   if (cmd != NULL)
-    add_task(u, cmd);
+    exec_cmd(u, cmd);
 }
 
 void		add_user(void)

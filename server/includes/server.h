@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Sat Jun 16 12:10:59 2012 lois burg
+** Last update Sat Jun 16 17:08:46 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -74,7 +74,7 @@ void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 void	reset_fd(t_infos *info);
 
-void   	add_task(t_users *u, char ** args);
+void   	exec_cmd(t_users *u, char ** args);
 void	update_map(int const loop);
 
 /* TOOLS */

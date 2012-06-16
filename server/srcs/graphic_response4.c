@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 12:53:28 2012 lois burg
-** Last update Sat Jun 16 15:10:41 2012 lois burg
+** Last update Sat Jun 16 19:13:45 2012 lois burg
 */
 
 #include <string.h>
@@ -57,6 +57,6 @@ char	*graphics_sgt(void)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "sgt #%d\n", g_info.world.action_delay);
+  snprintf(msg, GRAPHICS_MSG_SZ, "sgt %d\n", g_info.world.action_delay);
   return (msg);
 }

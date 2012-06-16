@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Fri Jun  8 10:26:22 2012 lois burg
+** Last update Sat Jun 16 17:50:26 2012 lois burg
 */
 
 #include <ctype.h>
@@ -24,17 +24,17 @@ int		cmp_socket(void *a, void *b)
   return (!(u->socket == *s));
 }
 
-int	contains_only_digits(char *str)
+bool	contains_only_digits(char *str)
 {
   int	i;
-  int	good;
+  bool	good;
 
   i = 0;
-  good = 1;
+  good = true;
   while (good && str && str[i])
     {
       if (!isdigit(str[i]))
-	good = 0;
+	good = false;
       ++i;
     }
   return (good);
