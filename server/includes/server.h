@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Fri Jun 15 19:00:56 2012 lois burg
+** Last update Sat Jun 16 12:10:59 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -52,7 +52,7 @@ struct          s_users
   int		lvl;
   t_direction	dir;
   unsigned int	life;
-  unsigned int 	inventory[LAST];
+  unsigned int 	inventory[NB_RESSOURCES];
   t_list	*tasks;
 };
 

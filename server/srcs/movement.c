@@ -5,14 +5,14 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Thu Jun 14 14:05:44 2012 Jonathan Machado
+** Last update Sat Jun 16 12:51:02 2012 lois burg
 */
 
 #include <string.h>
 #include "server.h"
 
 extern char	*g_res_names[LAST];
-extern t_infos		g_info;
+extern t_infos	g_info;
 
 bool	left_cmd(t_users *u, char **args)
 {

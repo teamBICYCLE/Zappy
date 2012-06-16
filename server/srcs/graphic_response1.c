@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Fri Jun 15 19:02:38 2012 lois burg
+** Last update Sat Jun 16 12:49:19 2012 lois burg
 */
 
 #include <string.h>
@@ -15,31 +15,31 @@
 
 extern	t_infos	g_info;
 
-char		*graphics_msz(void)
+char	*graphics_msz(void)
 {
-  static char	msg[GRAPHICS_MSG_SZ];
+  char	*msg;
 
-  memset(msg, 0, sizeof(msg));
-  snprintf(msg, sizeof(msg), "msz %d %d\n", g_info.world.x, g_info.world.y);
+  msg = get_graphics_buf();
+  snprintf(msg, GRAPHICS_MSG_SZ, "msz %d %d\n", g_info.world.x, g_info.world.y);
   return (msg);
 }
 
-char		*graphics_bct(const int x, const int y)
+char	*graphics_bct(const int x, const int y)
 {
-  int		i;
-  int		idx;
-  static char	msg[GRAPHICS_MSG_SZ];
+  int	i;
+  int	idx;
+  char	*msg;
 
-  memset(msg, 0, sizeof(msg));
-  idx = snprintf(msg, sizeof(msg), "bct %d %d", x, y);
+  msg = get_graphics_buf();
+  idx = snprintf(msg, GRAPHICS_MSG_SZ, "bct %d %d", x, y);
   i = 0;
   while (i < NB_RESSOURCES)
     {
-      idx += snprintf(msg + idx, sizeof(msg + idx), " %d",
+      idx += snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, " %d",
 		      g_info.map->cases[y][x].elements[i]);
       ++i;
     }
-  snprintf(msg + idx, sizeof(msg + idx), "\n");
+  snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, "\n");
   return (msg);
 }
 
@@ -48,37 +48,37 @@ char		*graphics_tna(void)
   uint		i;
   int		idx;
   t_link	*team;
-  static char	msg[GRAPHICS_MSG_SZ];
+  char		*msg;
 
-  memset(msg, 0, sizeof(msg));
+  msg = get_graphics_buf();
   i = 0;
   idx = 0;
   while (i < g_info.world.teams_names->size)
     {
       if ((team = get_link(g_info.world.teams_names, i)))
-	idx += snprintf(msg + idx, sizeof(msg + idx), "tna %s\n",
+	idx += snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, "tna %s\n",
 			(char*)team->ptr);
       ++i;
     }
   return (msg);
 }
 
-char		*graphics_pnw(t_users *usr)
+char	*graphics_pnw(t_users *usr)
 {
-  static char	msg[GRAPHICS_MSG_SZ];
+  char	*msg;
 
-  memset(msg, 0, sizeof(msg));
-  snprintf(msg, sizeof(msg), "pnw #%d %d %d %d %d [TEAM A AJOUTER]\n",
+  msg = get_graphics_buf();
+  snprintf(msg, GRAPHICS_MSG_SZ, "pnw #%d %d %d %d %d [TEAM A AJOUTER]\n",
 	   usr->id, usr->x, usr->y, usr->dir, usr->lvl/* , usr->team */);
   return (msg);
 }
 
-char		*graphics_ppo(t_users *usr)
+char	*graphics_ppo(t_users *usr)
 {
-  static char	msg[GRAPHICS_MSG_SZ];
+  char	*msg;
 
-  memset(msg, 0, sizeof(msg));
-  snprintf(msg, sizeof(msg), "ppo #%d %d %d %d\n",
+  msg = get_graphics_buf();
+  snprintf(msg, GRAPHICS_MSG_SZ, "ppo #%d %d %d %d\n",
 	   usr->id, usr->x, usr->y, usr->dir);
   return (msg);
 }
