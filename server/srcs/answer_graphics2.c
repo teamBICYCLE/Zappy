@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 17:59:16 2012 lois burg
-** Last update Sat Jun 16 19:28:36 2012 lois burg
+** Last update Sun Jun 17 12:07:07 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -22,10 +22,11 @@ void	answer_plv(t_users *usr, char **args)
   t_link	*plyr;
 
   if (args && args[0] &&
-      contains_only_digits(args[0] + 1))
+      contains_only_digits(args[0]))
     {
-      id = strtol(args[0] + 1, NULL, 10);
-      if ((plyr = lookup(g_info.users, &id, &cmp_id)))
+      id = strtol(args[0], NULL, 10);
+      if ((plyr = lookup(g_info.users, &id, &cmp_id)) &&
+	  !((t_users*)plyr->ptr)->is_graphics)
 	msg = graphics_plv((t_users*)plyr->ptr);
       else
 	msg = graphics_sbp();
@@ -42,10 +43,11 @@ void	answer_pin(t_users *usr, char **args)
   t_link	*plyr;
 
   if (args && args[0] &&
-      contains_only_digits(args[0] + 1))
+      contains_only_digits(args[0]))
     {
-      id = strtol(args[0] + 1, NULL, 10);
-      if ((plyr = lookup(g_info.users, &id, &cmp_id)))
+      id = strtol(args[0], NULL, 10);
+      if ((plyr = lookup(g_info.users, &id, &cmp_id)) &&
+	  !((t_users*)plyr->ptr)->is_graphics)
 	msg = graphics_pin((t_users*)plyr->ptr);
       else
 	msg = graphics_sbp();
