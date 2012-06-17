@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:27:05 2012 lois burg
-** Last update Sat Jun 16 18:23:25 2012 lois burg
+** Last update Sun Jun 17 16:20:08 2012 lois burg
 */
 
 #ifndef		__GRAPHICS_H__
@@ -17,6 +17,7 @@
 
 int		notify_graphic(void *usr, void *msg);
 char		*get_graphics_buf(void);
+void		greet_graphics(t_users *usr);
 
 /* TOOLS */
 int	cmp_id(void *usr, void *id);

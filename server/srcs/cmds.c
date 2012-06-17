@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Sat Jun 16 19:12:32 2012 lois burg
+** Last update Sun Jun 17 16:11:31 2012 lois burg
 */
 
 #include <string.h>
@@ -87,7 +87,10 @@ void		exec_cmd(t_users *u, char **args)
   else
     {
       if (args && args[0] && !strcmp(args[0], GRAPHIC_USR))
-	u->is_graphics = true;
+	{
+	  u->is_graphics = true;
+	  greet_graphics(u);
+	}
       /* assign_client(); */
       u->first_message = false;
     }
