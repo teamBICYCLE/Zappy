@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon Jun 18 11:22:27 2012 lois burg
+** Last update Mon Jun 18 14:50:34 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -84,6 +84,7 @@ char	**parse(char *str, const char *delim);
 void	send_ok_ko(t_users *usr, bool s);
 
 void   	free_users(void *ptr);
+void   	free_teams(void *ptr);
 void	free_all(t_infos *info);
 
 #endif /* __SERVER_H__ */

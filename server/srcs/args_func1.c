@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Fri Jun 15 12:32:41 2012 lois burg
+** Last update Mon Jun 18 14:32:26 2012 lois burg
 */
 
 #include <string.h>
@@ -50,18 +50,13 @@ void	get_teams_names(t_arg_infos *infos, char *argv[])
   int	i;
 
   i = optind;
-  if (!strcmp(optarg, "GRAPHIC"))
-    invalid_param(infos, "-n: Invalid team name.");
-  else
-    push_back(infos->teams_names, new_link_by_param(optarg, strlen(optarg) + 1));
+  push_team(infos, optarg);
   while (!infos->error && argv[i] && argv[i][0] != '-')
     {
-      if (!strcmp(argv[i], "GRAPHIC"))
-	invalid_param(infos, "-n: Invalid team name.");
-      else if (is_in_list(infos->teams_names, argv[i], &cmp_team))
+      if (is_in_list(infos->teams_names, argv[i], &cmp_team))
 	invalid_param(infos, "-n: Team already added.");
       else
-	push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
+	push_team(infos, argv[i]);
       ++i;
     }
 }
@@ -72,7 +67,10 @@ void		get_clients_per_team(t_arg_infos *infos, char *argv[])
 
   (void)argv;
   if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)))
-    infos->clients_per_team = nb;
+    {
+      infos->clients_per_team = nb;
+      lookup(infos->teams_names, &infos->clients_per_team, &update_teams_slots);
+    }
   else
     invalid_param(infos, "-c: Invalid number. Must be > 0.");
 }

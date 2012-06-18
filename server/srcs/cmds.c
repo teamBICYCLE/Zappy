@@ -5,14 +5,17 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Mon Jun 18 11:59:05 2012 lois burg
+** Last update Mon Jun 18 18:04:01 2012 lois burg
 */
 
+#include <stdlib.h>
 #include <string.h>
 #include "protocol.h"
 #include "task.h"
 #include "cmds.h"
 #include "graphics.h"
+
+extern t_infos	g_info;
 
 static bool	unknown_cmd(t_users *user, char **args)
 {
@@ -52,7 +55,7 @@ static t_graphicsmap	g_graphics_cmd[10] =
     {NULL, &answer_suc}
   };
 
-static void	add_task(t_users *u, char ** args)
+static void	add_task(t_users *u, char **args)
 {
   t_task	t;
   int		i;
@@ -78,6 +81,23 @@ static void	answer_graphics(t_users *u, char **args)
   (g_graphics_cmd[i].f)(u, &args[1]);
 }
 
+static void	assign_client(t_users *u, char **args)
+{
+  t_link	*team;
+
+  if ((team = lookup(g_info.world.teams_names, args[0], &cmp_team)))
+    {
+    }
+  else
+    {
+      u->life = 0;
+      u->is_dead = true;
+      push_back(u->messages, new_link_by_param(KO, sizeof(KO) + 1));
+    }
+  free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car elle est invalide, du coup pas de free en sortant
+  free(args);
+}
+
 void		exec_cmd(t_users *u, char **args)
 {
   if (u->first_message == false && u->is_graphics == false)
@@ -86,12 +106,16 @@ void		exec_cmd(t_users *u, char **args)
     answer_graphics(u, args);
   else
     {
-      if (args && args[0] && !strcmp(args[0], GRAPHIC_USR))
+      if (args && args[0])
 	{
-	  u->is_graphics = true;
-	  greet_graphics(u);
+	  if (!strcmp(args[0], GRAPHIC_USR))
+	    {
+	      u->is_graphics = true;
+	      greet_graphics(u);
+	    }
+	  else
+	    assign_client(u, args);
 	}
-      /* assign_client(); */
       u->first_message = false;
     }
 }

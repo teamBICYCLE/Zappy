@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:51:15 2012 Jonathan Machado
-** Last update Tue Jun 12 16:48:16 2012 Jonathan Machado
+** Last update Mon Jun 18 17:35:13 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -34,9 +34,18 @@ void		free_users(void *ptr)
   free(ptr);
 }
 
+void		free_teams(void *ptr)
+{
+  t_team	*t;
+
+  t = (t_team*)ptr;
+  free(t->name);
+  free(t);
+}
+
 void	free_all(t_infos *info)
 {
   delete_list(info->users, &free_users);
-  delete_list(info->world.teams_names, &free);
+  delete_list(info->world.teams_names, &free_teams);
   free_map(info->map);
 }

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Sat Jun 16 18:27:15 2012 lois burg
+** Last update Mon Jun 18 17:24:28 2012 lois burg
 */
 
 #include <stdio.h>
@@ -58,7 +58,7 @@ void		add_user(void)
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
-      push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
+      push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
       memset(log, 0, sizeof(log));
       snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
       log_msg(stdout, log);
@@ -103,7 +103,7 @@ void		read_user(void *ptr)
       if (read_data(user->socket, user->readring) == 0)
 	{
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-	  free_users(l->ptr);
+	  delete_link(l, &free_users);
 	}
       else if ((str = get_data(user->readring)) != NULL)
 	handle_cmd(user, str);
