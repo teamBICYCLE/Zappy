@@ -5,13 +5,13 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Fri Jun 15 16:25:09 2012 Jonathan Machado
+** Last update Mon Jun 18 11:22:04 2012 lois burg
 */
 
+#include <string.h>
 #include "server.h"
 #include "task.h"
 #include "protocol.h"
-#include <string.h>
 
 extern t_infos		g_info;
 
@@ -24,6 +24,7 @@ static	void	do_task(void *ptr)
 {
   t_users	*u;
   t_task	*t;
+  bool		success;
 
   u = ptr;
   if (u->life != 0 && u->tasks->size > 0)
@@ -31,7 +32,8 @@ static	void	do_task(void *ptr)
       t = u->tasks->head->ptr;
       if (t->countdown == 0)
 	{
-	  t->f(u, t->args);
+	  success = (t->f)(u, t->args);
+	  send_ok_ko(u, success);
 	  delete_link(pop_front(u->tasks), &free_tasks);
 	}
       else

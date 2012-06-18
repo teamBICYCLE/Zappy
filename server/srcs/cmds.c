@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Sun Jun 17 16:11:31 2012 lois burg
+** Last update Mon Jun 18 11:59:05 2012 lois burg
 */
 
 #include <string.h>
@@ -16,9 +16,9 @@
 
 static bool	unknown_cmd(t_users *user, char **args)
 {
+  (void)user;
   (void)args;
-  push_back(user->messages, new_link_by_param(KO, sizeof(KO)));
-  return (true);
+  return (false);
 }
 
 static t_tasksmap	g_commands[] =
