@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Mon Jun 18 19:13:25 2012 lois burg
+** Last update Mon Jun 18 19:18:01 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -83,15 +83,17 @@ static void	answer_graphics(t_users *u, char **args)
 
 static void	assign_client(t_users *u, char **args)
 {
+  t_link	*team_lnk;
   t_team	*team;
   bool		rmv;
 
   rmv = false;
-  if ((team = (t_team*)lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
-      team->free_slots > 0)
+  if ((team_lnk = lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
+      ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
-      /* u->team = team->name; */
-      /* --team->free_slots; */
+      team = (t_team*)team_lnk->ptr;
+      u->team = team->name;
+      --team->free_slots;
       u->x = rand() % g_info.map->x;
       u->y = rand() % g_info.map->y;
       ++g_info.map->cases[u->y][u->x].elements[PLAYER];
