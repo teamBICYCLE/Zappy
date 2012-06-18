@@ -2,7 +2,6 @@
 
 var ZappyConnection = require('./zappyConnection.js');
 var ClientConnection = require('./clientConnection.js');
-var client = new ClientConnection();
 
 if (process.argv.length >= 3)
 {
@@ -16,6 +15,8 @@ if (process.argv.length >= 3)
 	var zappy = new ZappyConnection(ip, port);
 	
 	zappy.on('cacheWhole', function(){
+		
+		var client = new ClientConnection();
 		
 		var ref = {
 		  "tna": zappy.getCache().getTeams(), 
@@ -32,11 +33,27 @@ if (process.argv.length >= 3)
 			obj.socket.emit('requestDataDone', {data_: data, timestamp: new Date().getTime()});
 		});
 		
+		client.on('firstConnection', function(obj){
+			
+			console.log("send firstConnection !");
+			var cache = zappy.getCache();
+			
+			obj.socket.emit('firstConnection', {
+				xsize: cache.getXSize(),
+				ysize: cache.getYSize(),
+				teams: cache.getTeams(),
+				map: cache.getMap(),
+				players: cache.getPlayers(),
+				eggs: cache.getEggs(),
+				timestamp: new Date().getTime()
+			});
+		});
+		
 		// client.on('requestDataBroadcast', function(obj){
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		update();
+		//update();
 	});
 }
 else

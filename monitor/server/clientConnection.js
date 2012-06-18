@@ -21,6 +21,8 @@ var ClientConnection = function() {
 	  .sockets
 	  .on('connection', function(socket) {
 	  	
+	  	self.emit('firstConnection', {socket: socket});
+	  	
 		socket.on('requestData', function(obj) {
 			self.emit('requestData', {socket: socket, cmd: obj.cmd});
 		});
