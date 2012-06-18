@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Mon Jun 18 18:04:01 2012 lois burg
+** Last update Mon Jun 18 18:59:45 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -83,18 +83,29 @@ static void	answer_graphics(t_users *u, char **args)
 
 static void	assign_client(t_users *u, char **args)
 {
-  t_link	*team;
+  t_team	*team;
+  bool		rmv;
 
-  if ((team = lookup(g_info.world.teams_names, args[0], &cmp_team)))
+  rmv = false;
+  if ((team = (t_team*)lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
+      team->free_slots > 0)
     {
+      /* u->team = team->name; */
+      /* --team->free_slots; */
+      u->x = rand() % g_info.map->x;
+      u->y = rand() % g_info.map->y;
+      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
+      lookup(g_info.users, graphics_pnw(u), &notify_graphic);
     }
   else
+    rmv = true;
+  if (rmv)
     {
       u->life = 0;
       u->is_dead = true;
       push_back(u->messages, new_link_by_param(KO, sizeof(KO) + 1));
     }
-  free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car elle est invalide, du coup pas de free en sortant
+  free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant
   free(args);
 }
 

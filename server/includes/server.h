@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon Jun 18 14:50:34 2012 lois burg
+** Last update Mon Jun 18 18:51:54 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -28,7 +28,7 @@ typedef struct s_infos          t_infos;
 
 typedef enum	e_direction
   {
-    UNDEF = 0,
+    UNDEF = -1,
     NORTH,
     EAST,
     SOUTH,
@@ -54,6 +54,7 @@ struct          s_users
   unsigned int	life;
   unsigned int 	inventory[NB_RESSOURCES];
   t_list	*tasks;
+  char		*team;
 };
 
 struct          s_infos
