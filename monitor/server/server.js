@@ -35,6 +35,7 @@ if (process.argv.length >= 3)
 		
 		client.on('firstConnection', function(obj){
 			
+			console.log("send firstConnection !");
 			var cache = zappy.getCache();
 			
 			obj.socket.emit('firstConnection', {
@@ -43,7 +44,8 @@ if (process.argv.length >= 3)
 				teams: cache.getTeams(),
 				map: cache.getMap(),
 				players: cache.getPlayers(),
-				eggs: cache.getEggs()
+				eggs: cache.getEggs(),
+				timestamp: new Date().getTime()
 			});
 		});
 		
@@ -51,7 +53,7 @@ if (process.argv.length >= 3)
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		update();
+		//update();
 	});
 }
 else

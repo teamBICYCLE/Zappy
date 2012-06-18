@@ -2,26 +2,21 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-  		<title>Isometric Map Generation</title>
+  		<title>Zappy</title>
   		<meta http-equiv="Cache-control" content="max-age=256665">
 		<link rel="stylesheet" type="text/css" href="style.css" />
   		<script src="js/jquery.min.js"></script>
-  		<script src="http://localhost:24542/socket.io/socket.io.js"></script>
+  		<script src="http://localhost:24542/socket.io/socket.io.js"></script>	
+  		<script src="js/monitorUi.js"></script>
   		<script src="js/cmd.js"></script>
-  		<script src="js/map_generator.js"></script>
-  		<!-- <script src="js/nodeConnection.js"></script> -->
+  		<script src="js/monitorCache.js"></script>
 	</head>
 	<body>
   		<canvas id="c"></canvas>
 		<div id="header"></div>
-		<input type="text" id="inputbox" />
-		<!--
-  		<br />
-  		<input type="text" class="cmd" />
-  		<input type="button" id="send" value="Send !"/>
-  		<input type="button" id="plus" value="Zoom +" />
-  		<input type="button" id="moins" value="Zoom -" />
-  		<p id="result"></p>
-		-->
+		<div id="cmdResult"></div>
+		<input type="text" class="cmd" />
   	</body>
+	<script src="js/map_generator.js"></script>
+	<script src="js/nodeConnection.js"></script>
 </html>

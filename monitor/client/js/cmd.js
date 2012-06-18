@@ -1,16 +1,3 @@
-/* Jquery */
-
-$(function() {
-
-	$("#send").click(function() {
-		sendCmd($(".cmd").val());
-		$(".cmd").val("");
-	});
-
-});
-
-/* function */
-
 function checkCmd(cmd){
 	var explode = cmd.split(" ");
 	
@@ -25,9 +12,8 @@ function checkCmd(cmd){
 	return false;
 }
 
-var socket = io.connect('http://localhost', {port:24542});
 var lastTimestamp = 0;
-
+	
 function sendCmd(cmd){
 	if (cmd == "help")
 		$("#result").append("Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help<br />");
@@ -37,7 +23,9 @@ function sendCmd(cmd){
 		socket.on('requestDataDone', function(data){
 			if (lastTimestamp != data.timestamp)
 			{
-				$("#result").append(data.data_ + "<br />");
+				if ($("#cmdResult .entry").length >= 5)
+		 			$("#cmdResult span:first-child").remove();
+		 		$("#cmdResult").append("<span class='entry'>"+ data.data_ + "</span>");
 				lastTimestamp = data.timestamp;
 			}
 		});
