@@ -37,7 +37,7 @@ Map.prototype.getCase = function(cache, x, y) {
 		for (var i = 0; i != data_.length; i++)
 		{
 			if (i == target)
-				return data_[i];
+				return ({x: x, y: y, ressources: data_[i]});
 		}
 	}
 	console.log("Something wrong in Map.getCase()");

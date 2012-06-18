@@ -68,6 +68,20 @@ exports.getMap = function() {
 	return map_;
 }
 
+exports.getFormatedMap = function() {
+	var array = new Array();
+	
+	for (var j = 0; j != ysize_; j++)
+	{
+		for (var i = 0; i != xsize_; i++)
+		{
+			console.log(i);
+			array.push(map_.getCase(this, i, j));
+		}
+	}
+	return array;
+}
+
 exports.getPlayer = function(id) {
 	for (var i = 0; i != players_.length; i++)
 		if (players_[i].getId() == id)
