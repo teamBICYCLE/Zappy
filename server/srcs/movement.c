@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Sun Jun 17 16:36:39 2012 lois burg
+** Last update Mon Jun 18 18:51:15 2012 lois burg
 */
 
 #include <string.h>
@@ -39,9 +39,9 @@ bool	put_cmd(t_users *u, char **args)
   int	i;
 
   i = 0;
-  if (args[1] != NULL)
+  if (args != NULL && args[0] != NULL && args[1] != NULL)
     {
-      while (strcmp(args[1], g_res_names[i]) != 0 && i < LAST)
+      while (i < LAST && strcmp(args[1], g_res_names[i]) != 0)
 	++i;
       if (i < LAST && u->inventory[i] > 0)
 	{

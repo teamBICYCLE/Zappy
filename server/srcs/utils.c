@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Sat Jun 16 17:50:26 2012 lois burg
+** Last update Mon Jun 18 14:51:35 2012 lois burg
 */
 
 #include <ctype.h>
@@ -40,9 +40,9 @@ bool	contains_only_digits(char *str)
   return (good);
 }
 
-static	void	prt_team_name(void *name)
+static	void	prt_team_name(void *t)
 {
-  printf("\tName: %s\n", (char*)name);
+  printf("\tName: %s, slots: %d\n", ((t_team*)t)->name, ((t_team*)t)->free_slots);
 }
 
 void	print_serv_conf(t_arg_infos *world)

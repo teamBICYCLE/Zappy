@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Fri Apr 20 22:42:35 2012 Jonathan Machado
-** Last update Fri Apr 20 22:44:22 2012 Jonathan Machado
+** Last update Mon Jun 18 17:25:07 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -37,6 +37,7 @@ t_link		*lookup_and_pop(t_list *list, void *ptr,
 t_list		*iterate(t_list *list, void (*f)(void *))
 {
   t_link	*cur;
+  t_link	*next;
 
   cur = NULL;
   if (list != NULL)
@@ -44,8 +45,9 @@ t_list		*iterate(t_list *list, void (*f)(void *))
       cur = list->head;
       while (cur)
 	{
+	  next = cur->next;
 	  f(cur->ptr);
-	  cur = cur->next;
+	  cur = next;
 	}
     }
   return (list);

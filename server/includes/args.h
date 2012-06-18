@@ -5,17 +5,25 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Sat Jun 16 17:58:10 2012 lois burg
+** Last update Mon Jun 18 14:51:14 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
 # define	__ARGS_H__
 
+# include	<sys/time.h>
 # include	<stdbool.h>
 # include	"libdatac_list.h"
 
-typedef	struct s_arg_func	t_arg_func;
-typedef	struct s_arg_infos	t_arg_infos;
+typedef	struct	s_arg_func	t_arg_func;
+typedef	struct	s_arg_infos	t_arg_infos;
+typedef	struct	s_team		t_team;
+
+struct	s_team
+{
+  char	*name;
+  int	free_slots;
+};
 
 struct	s_arg_func
 {
@@ -54,5 +62,7 @@ void	set_seed(t_arg_infos *infos, char *argv[]);
 bool	contains_only_digits(char *str);
 void	invalid_param(t_arg_infos *infos, const char *msg);
 int	cmp_team(void *t1, void *t2);
+void	push_team(t_arg_infos *infos, const char *name);
+int	update_teams_slots(void *t, void *val);
 
 #endif /* !__ARGS_H__*/

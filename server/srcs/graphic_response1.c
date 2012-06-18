@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Sat Jun 16 19:26:55 2012 lois burg
+** Last update Mon Jun 18 19:16:19 2012 lois burg
 */
 
 #include <string.h>
@@ -57,7 +57,7 @@ char		*graphics_tna(void)
     {
       if ((team = get_link(g_info.world.teams_names, i)))
 	idx += snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, "tna %s\n",
-			(char*)team->ptr);
+			((t_team*)team->ptr)->name);
       ++i;
     }
   return (msg);
@@ -68,8 +68,8 @@ char	*graphics_pnw(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "pnw %d %d %d %d %d [TEAM A AJOUTER]\n",
-	   usr->id, usr->x, usr->y, usr->dir, usr->lvl/* , usr->team */);
+  snprintf(msg, GRAPHICS_MSG_SZ, "pnw %d %d %d %d %d %s\n",
+	   usr->id, usr->x, usr->y, usr->dir, usr->lvl, usr->team);
   return (msg);
 }
 

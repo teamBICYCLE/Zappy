@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Sat Jun 16 17:08:46 2012 lois burg
+** Last update Mon Jun 18 18:51:54 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -28,7 +28,7 @@ typedef struct s_infos          t_infos;
 
 typedef enum	e_direction
   {
-    UNDEF = 0,
+    UNDEF = -1,
     NORTH,
     EAST,
     SOUTH,
@@ -54,6 +54,7 @@ struct          s_users
   unsigned int	life;
   unsigned int 	inventory[NB_RESSOURCES];
   t_list	*tasks;
+  char		*team;
 };
 
 struct          s_infos
@@ -81,8 +82,10 @@ void	update_map(int const loop);
 int    	cmp_socket(void *a, void *b);
 void	print_serv_conf(t_arg_infos *world_info);
 char	**parse(char *str, const char *delim);
+void	send_ok_ko(t_users *usr, bool s);
 
 void   	free_users(void *ptr);
+void   	free_teams(void *ptr);
 void	free_all(t_infos *info);
 
 #endif /* __SERVER_H__ */
