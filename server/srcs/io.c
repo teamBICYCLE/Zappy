@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Thu Jun 14 11:47:41 2012 lois burg
+** Last update Sat Jun 16 18:27:15 2012 lois burg
 */
 
 #include <stdio.h>
@@ -15,7 +15,9 @@
 #include "server.h"
 #include "refstring.h"
 #include "protocol.h"
+#include "log.h"
 
+static int	player_id = 1;
 extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
@@ -24,7 +26,6 @@ static void	handle_cmd(t_users *u, char *str)
   int		i;
 
   (void)u;
-  printf("%i -> %s\n", u->socket, str);
   cmd = parse(str, " \t\n");
   puts("Parsed command:");
   i = 0;
@@ -33,32 +34,34 @@ static void	handle_cmd(t_users *u, char *str)
       printf("%s\n", cmd[i]);
       ++i;
     }
-  /* check cmd null */
-  add_task(u, cmd);
+  if (cmd != NULL)
+    exec_cmd(u, cmd);
 }
 
 void		add_user(void)
 {
   t_users	new;
+  char		log[LOG_MSG_SZ];
 
+  memset(&new, 0, sizeof(new));
   new.socket = accept(g_info.ss, NULL, NULL);
   if (new.socket != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
-      new.x = 0;
-      new.y = 0;
+      new.id = player_id++;
       new.lvl = 1;
-      new.life = 5000;
       new.dir = NORTH;
-      memset(&new.inventory, 0, sizeof(new.inventory));
       new.inventory[FOOD] = 10;
-      new.idx = 0;
+      new.life = (new.inventory[FOOD] * 126) * 500;//* 500 temporaire
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
       push_front(g_info.users, new_link_by_param(&new, sizeof(new)));
+      memset(log, 0, sizeof(log));
+      snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
+      log_msg(stdout, log);
     }
   else
     perror("socket :");
@@ -102,11 +105,7 @@ void		read_user(void *ptr)
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
 	  free_users(l->ptr);
 	}
-      else
-	{
-	  str = get_data(user->readring);
-	  if (str)
-	    handle_cmd(user, str);
-	}
+      else if ((str = get_data(user->readring)) != NULL)
+	handle_cmd(user, str);
     }
 }

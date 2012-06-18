@@ -5,13 +5,14 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Fri Jun 15 14:47:44 2012 Jonathan Machado
+** Last update Sun Jun 17 16:11:31 2012 lois burg
 */
 
 #include <string.h>
 #include "protocol.h"
 #include "task.h"
 #include "cmds.h"
+#include "graphics.h"
 
 static bool	unknown_cmd(t_users *user, char **args)
 {
@@ -37,25 +38,60 @@ static t_tasksmap	g_commands[] =
     {0, &unknown_cmd, NULL}
   };
 
-void		add_task(t_users *u, char ** args)
+static t_graphicsmap	g_graphics_cmd[10] =
+  {
+    {"msz", &answer_msz},
+    {"bct", &answer_bct},
+    {"mct", &answer_mct},
+    {"tna", &answer_tna},
+    {"ppo", &answer_ppo},
+    {"plv", &answer_plv},
+    {"pin", &answer_pin},
+    {"sgt", &answer_sgt},
+    {"sst", &answer_sst},
+    {NULL, &answer_suc}
+  };
+
+static void	add_task(t_users *u, char ** args)
 {
-  int		i;
   t_task	t;
+  int		i;
 
   i = 0;
-  if (u->first_message == false)
-    {
-      while (g_commands[i].key != NULL &&
-	     strcmp(g_commands[i].key, args[0]) != 0)
-	++i;
-      t.countdown = g_commands[i].countdown;
-      t.f = g_commands[i].f;
-      t.args = args;
-      push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
-    }
+  while (g_commands[i].key != NULL &&
+	 strcmp(g_commands[i].key, args[0]) != 0)
+    ++i;
+  t.countdown = g_commands[i].countdown;
+  t.f = g_commands[i].f;
+  t.args = args;
+  push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+}
+
+static void	answer_graphics(t_users *u, char **args)
+{
+  int		i;
+
+  i = 0;
+  while (g_graphics_cmd[i].key != NULL &&
+	 strcmp(g_graphics_cmd[i].key, args[0]))
+    ++i;
+  (g_graphics_cmd[i].f)(u, &args[1]);
+}
+
+void		exec_cmd(t_users *u, char **args)
+{
+  if (u->first_message == false && u->is_graphics == false)
+    add_task(u, args);
+  else if (u->first_message == false && u->is_graphics == true)
+    answer_graphics(u, args);
   else
     {
-      // l'ajoute a un oeuf avec ses positions et init sa vie puis suprimer l'oeuf
-      // passer u->first_message = false
+      if (args && args[0] && !strcmp(args[0], GRAPHIC_USR))
+	{
+	  u->is_graphics = true;
+	  greet_graphics(u);
+	}
+      /* assign_client(); */
+      u->first_message = false;
     }
 }

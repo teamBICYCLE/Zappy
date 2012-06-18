@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 15:43:49 2012 lois burg
-** Last update Wed Jun 13 18:18:33 2012 Jonathan Machado
+** Last update Sat Jun 16 19:12:21 2012 lois burg
 */
 
 #ifndef		__PROTOCOL_H__
@@ -14,5 +14,6 @@
 # define	GREETINGS	"BIENVENUE\n"
 # define	KO		"ko\n"
 # define	DIE		"mort\n"
+# define	GRAPHIC_USR	"GRAPHIC"
 
 #endif /* !__PROTOCOL_H__*/

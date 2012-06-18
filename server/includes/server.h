@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jun 13 18:23:44 2012 Jonathan Machado
+** Last update Sat Jun 16 17:08:46 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -28,7 +28,7 @@ typedef struct s_infos          t_infos;
 
 typedef enum	e_direction
   {
-    UNDEF = -1,
+    UNDEF = 0,
     NORTH,
     EAST,
     SOUTH,
@@ -37,18 +37,23 @@ typedef enum	e_direction
 
 struct          s_users
 {
-  int		x;
-  int		y;
-  t_direction	dir;
-  int		lvl;
-  unsigned int	life;
-  int		inventory[LAST];
+  bool		first_message;
+  bool		is_graphics;
+  bool		is_dead;
+  // server
   int           socket;
+  size_t        idx;
   t_list        *messages;
   t_ringbuffer  *readring;
+  // player
+  int		id;
+  int		x;
+  int		y;
+  int		lvl;
+  t_direction	dir;
+  unsigned int	life;
+  unsigned int 	inventory[NB_RESSOURCES];
   t_list	*tasks;
-  size_t        idx;
-  bool		first_message;
 };
 
 struct          s_infos
@@ -69,7 +74,7 @@ void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 void	reset_fd(t_infos *info);
 
-void   	add_task(t_users *u, char ** args);
+void   	exec_cmd(t_users *u, char ** args);
 void	update_map(int const loop);
 
 /* TOOLS */

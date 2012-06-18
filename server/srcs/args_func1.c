@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Tue Jun 12 16:00:58 2012 lois burg
+** Last update Fri Jun 15 12:32:41 2012 lois burg
 */
 
 #include <string.h>
@@ -58,6 +58,8 @@ void	get_teams_names(t_arg_infos *infos, char *argv[])
     {
       if (!strcmp(argv[i], "GRAPHIC"))
 	invalid_param(infos, "-n: Invalid team name.");
+      else if (is_in_list(infos->teams_names, argv[i], &cmp_team))
+	invalid_param(infos, "-n: Team already added.");
       else
 	push_back(infos->teams_names, new_link_by_param(argv[i], strlen(argv[i]) + 1));
       ++i;

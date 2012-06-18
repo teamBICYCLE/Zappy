@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 15 14:47:32 2012 Jonathan Machado
+** Last update Sun Jun 17 14:31:50 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -30,13 +30,23 @@ static	void		server_quit(int i)
   exit(EXIT_SUCCESS);
 }
 
+static void		leave(const char *msg)
+{
+  perror(msg);
+  free_all(&g_info);
+  if (g_info.ss != -1)
+    close(g_info.ss);
+  exit(EXIT_FAILURE);
+}
+
 static void		init_world(unsigned int const x, unsigned int const  y, int const seed)
 {
   g_info.ss = -1;
   g_info.users = new_list();
-  signal(SIGINT, server_quit);
-  signal(SIGQUIT, server_quit);
-  signal(SIGTERM, server_quit);
+  if (signal(SIGINT, server_quit) == SIG_ERR ||
+      signal(SIGQUIT, server_quit) == SIG_ERR ||
+      signal(SIGTERM, server_quit) == SIG_ERR)
+    perror("signal failed: ");
   g_info.map = generate_map(x, y, seed);
   //
   print_serv_conf(&g_info.world);
@@ -51,19 +61,17 @@ static void		init_network(int const port)
   const int		opt = 1;
 
   memset(&sin, 0, sizeof(sin));
-  pe = getprotobyname("TCP");
-  if (pe == NULL)
-    {
-      perror("protocol error: ");
-      exit(EXIT_FAILURE);
-    }
+  if ((pe = getprotobyname("TCP")) == NULL)
+    leave("protocol error: ");
   g_info.ss = socket(AF_INET, SOCK_STREAM, pe->p_proto);
   sin.sin_family = AF_INET;
   sin.sin_port = htons(port);
   sin.sin_addr.s_addr = INADDR_ANY;
   setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt));
-  bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin));
-  listen(g_info.ss, 5);
+  if (bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
+    leave("bind failed: ");
+  if (listen(g_info.ss, 5) == -1)
+    leave("listen failed: ");
   g_info.smax = g_info.ss;
   endprotoent();
   printf("Listening on port %d...\n", port);
