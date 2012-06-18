@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:02:40 2012 lois burg
-** Last update Sun Jun 17 16:29:58 2012 lois burg
+** Last update Mon Jun 18 19:10:37 2012 lois burg
 */
 
 #include <string.h>
@@ -62,7 +62,7 @@ static void	send_players(t_users *usr)
       if ((plyr = get_link(g_info.users, i)) &&
 	  !((t_users*)plyr->ptr)->is_graphics)
 	{
-	  msg = graphics_pnw((t_users*)plyr);
+	  msg = graphics_pnw((t_users*)plyr->ptr);
 	  push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
 	}
       ++i;

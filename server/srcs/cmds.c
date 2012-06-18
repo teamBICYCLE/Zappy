@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Mon Jun 18 18:59:45 2012 lois burg
+** Last update Mon Jun 18 19:13:25 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -105,8 +105,6 @@ static void	assign_client(t_users *u, char **args)
       u->is_dead = true;
       push_back(u->messages, new_link_by_param(KO, sizeof(KO) + 1));
     }
-  free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant
-  free(args);
 }
 
 void		exec_cmd(t_users *u, char **args)
@@ -128,5 +126,7 @@ void		exec_cmd(t_users *u, char **args)
 	    assign_client(u, args);
 	}
       u->first_message = false;
+      free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant
+      free(args);
     }
 }
