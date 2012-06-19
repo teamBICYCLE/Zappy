@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Tue Jun 19 11:44:31 2012 lois burg
+** Last update Tue Jun 19 17:42:53 2012 lois burg
 */
 
 #include <string.h>
@@ -33,7 +33,7 @@ static	void	do_task(void *ptr)
       t = u->tasks->head->ptr;
       if (t->countdown == 0)
 	{
-	  success = (t->f)(u, t->args);
+	  success = (t->f)(u, t->args, t->orig_cmd);
 	  send_ok_ko(u, success);
 	  delete_link(pop_front(u->tasks), &free_tasks);
 	}
@@ -55,7 +55,11 @@ static	void	decr_life(void *ptr)
 	  u->is_dead = true;
 	}
       else if (u->messages->size == 0)
-	delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
+	{
+	  if (u->team)
+	    ++u->team->free_slots;
+	  delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
+	}
     }
   else
     {

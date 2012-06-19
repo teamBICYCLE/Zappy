@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jun 19 15:22:02 2012 lois burg
+** Last update Tue Jun 19 17:45:49 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -17,10 +17,11 @@
 
 extern t_infos	g_info;
 
-static t_cmd_ret	unknown_cmd(t_users *user, char **args)
+static t_cmd_ret	unknown_cmd(t_users *user, char **args, char *orig_cmd)
 {
   (void)user;
   (void)args;
+  (void)orig_cmd;
   return (FAILURE);
 }
 
@@ -35,7 +36,7 @@ static t_tasksmap	g_commands[] =
     {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
-    /* {7, , "broadcast"}, */
+    {7, &broadcast_cmd, "broadcast"},
     /* {42, , "fork"}, */
     /* {300, , "incantation"}, */
     {0, &unknown_cmd, NULL}
@@ -55,7 +56,7 @@ static t_graphicsmap	g_graphics_cmd[10] =
     {NULL, &answer_suc}
   };
 
-static void	add_task(t_users *u, char **args)
+static void	add_task(t_users *u, char **args, char *orig_cmd)
 {
   t_task	t;
   int		i;
@@ -66,11 +67,12 @@ static void	add_task(t_users *u, char **args)
     ++i;
   t.countdown = g_commands[i].countdown;
   t.f = g_commands[i].f;
+  t.orig_cmd = orig_cmd;
   t.args = args;
   push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
 }
 
-static void	answer_graphics(t_users *u, char **args)
+static void	answer_graphics(t_users *u, char **args, char *orig_cmd)
 {
   int		i;
 
@@ -79,6 +81,9 @@ static void	answer_graphics(t_users *u, char **args)
 	 strcmp(g_graphics_cmd[i].key, args[0]))
     ++i;
   (g_graphics_cmd[i].f)(u, &args[1]);
+  free(orig_cmd);
+  free(args[0]);
+  free(args);
 }
 
 static void	assign_client(t_users *u, char **args)
@@ -97,6 +102,7 @@ static void	assign_client(t_users *u, char **args)
       u->x = rand() % g_info.map->x;
       u->y = rand() % g_info.map->y;
       ++g_info.map->cases[u->y][u->x].elements[PLAYER];
+      send_id_pos(u);
       lookup(g_info.users, graphics_pnw(u), &notify_graphic);
     }
   else
@@ -109,12 +115,12 @@ static void	assign_client(t_users *u, char **args)
     }
 }
 
-void		exec_cmd(t_users *u, char **args)
+void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 {
   if (u->first_message == false && u->is_graphics == false)
-    add_task(u, args);
+    add_task(u, args, orig_cmd);
   else if (u->first_message == false && u->is_graphics == true)
-    answer_graphics(u, args);
+    answer_graphics(u, args, orig_cmd);
   else
     {
       if (args && args[0])
@@ -128,6 +134,7 @@ void		exec_cmd(t_users *u, char **args)
 	    assign_client(u, args);
 	}
       u->first_message = false;
+      free(orig_cmd);
       free(args[0]);/*j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant*/
       free(args);
     }

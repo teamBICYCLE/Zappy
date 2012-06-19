@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jun 19 11:38:36 2012 lois burg
+** Last update Tue Jun 19 17:40:34 2012 lois burg
 */
 
 #include <stdio.h>
@@ -22,10 +22,12 @@ extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
 {
+  char		*orig_cmd;
   char		**cmd;
   int		i;
 
   (void)u;
+  orig_cmd = strdup(str);
   cmd = parse(str, " \t\n");
   puts("Parsed command:");
   i = 0;
@@ -35,7 +37,7 @@ static void	handle_cmd(t_users *u, char *str)
       ++i;
     }
   if (cmd != NULL)
-    exec_cmd(u, cmd);
+    exec_cmd(u, cmd, orig_cmd);
 }
 
 void		add_user(void)
@@ -102,6 +104,8 @@ void		read_user(void *ptr)
     {
       if (read_data(user->socket, user->readring) == 0)
 	{
+	  if (user->team)
+	    ++user->team->free_slots;
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
 	  delete_link(l, &free_users);
 	}

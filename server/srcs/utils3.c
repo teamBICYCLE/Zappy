@@ -5,9 +5,10 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 12:22:39 2012 lois burg
-** Last update Tue Jun 19 11:44:49 2012 lois burg
+** Last update Tue Jun 19 16:31:38 2012 lois burg
 */
 
+#include <stdio.h>
 #include <string.h>
 #include "server.h"
 #include "protocol.h"
@@ -34,4 +35,15 @@ void	send_ok_ko(t_users *usr, t_cmd_ret s)
       else
 	push_back(usr->messages, new_link_by_param(KO, sizeof(KO) + 1));
     }
+}
+
+void	send_id_pos(t_users *usr)
+{
+  char	msg[GREETINGS_CLIENT_SZ];
+
+  memset(msg, 0, sizeof(msg));
+  snprintf(msg, sizeof(msg), "%d\n", usr->team->free_slots);
+  push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+  snprintf(msg, sizeof(msg), "%d %d\n", usr->x, usr->y);
+  push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
 }

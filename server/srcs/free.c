@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:51:15 2012 Jonathan Machado
-** Last update Mon Jun 18 17:35:13 2012 lois burg
+** Last update Tue Jun 19 17:40:49 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -17,6 +17,7 @@ void		free_tasks(void *ptr)
   t_task	*t;
 
   t = ptr;
+  free(t->orig_cmd);
   free(t->args[0]);
   free(t->args);
   free(ptr);

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Tue Jun 19 15:30:21 2012 lois burg
+** Last update Tue Jun 19 17:45:16 2012 lois burg
 */
 
 #include <string.h>
@@ -16,9 +16,10 @@
 extern char	*g_res_names[LAST];
 extern t_infos	g_info;
 
-t_cmd_ret	left_cmd(t_users *u, char **args)
+t_cmd_ret	left_cmd(t_users *u, char **args, char *orig_cmd)
 {
   (void)args;
+  (void)orig_cmd;
   --u->dir;
   if (u->dir == UNDEF)
     u->dir = WEST;
@@ -26,21 +27,23 @@ t_cmd_ret	left_cmd(t_users *u, char **args)
   return (SUCCESS);
 }
 
-t_cmd_ret	right_cmd(t_users *u, char **args)
+t_cmd_ret	right_cmd(t_users *u, char **args, char *orig_cmd)
 {
   (void)args;
+  (void)orig_cmd;
   ++u->dir;
   u->dir %= WEST + 1;
   lookup(g_info.users, graphics_ppo(u), &notify_graphic);
   return (SUCCESS);
 }
 
-t_cmd_ret	forward_cmd(t_users *u, char **args)
+t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd)
 {
   int		dx;
   int		dy;
 
   (void)args;
+  (void)orig_cmd;
   dx = 0;
   dy = 0;
   if (u->dir == NORTH || u->dir == SOUTH)
@@ -62,10 +65,11 @@ t_cmd_ret	forward_cmd(t_users *u, char **args)
   return (SUCCESS);
 }
 
-t_cmd_ret	put_cmd(t_users *u, char **args)
+t_cmd_ret	put_cmd(t_users *u, char **args, char *orig_cmd)
 {
   int		i;
 
+  (void)orig_cmd;
   i = 0;
   if (args != NULL && args[0] != NULL && args[1] != NULL)
     {
@@ -84,10 +88,11 @@ t_cmd_ret	put_cmd(t_users *u, char **args)
   return (FAILURE);
 }
 
-t_cmd_ret	take_cmd(t_users *u, char **args)
+t_cmd_ret	take_cmd(t_users *u, char **args, char *orig_cmd)
 {
   int		i;
 
+  (void)orig_cmd;
   i = 0;
   if (args != NULL && args[0] != NULL && args[1] != NULL)
     {
