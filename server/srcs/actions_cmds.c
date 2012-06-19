@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Thu Jun 14 15:46:02 2012 lois burg
+** Last update Tue Jun 19 11:32:46 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -27,14 +27,14 @@ static t_see_pair	g_see_tab[5] =
     {&see_count_west, &see_west}
   };
 
-bool		see_cmd(t_users *usr, char **args)
+t_cmd_ret	see_cmd(t_users *usr, char **args)
 {
-  bool		success;
+  t_cmd_ret	success;
   const t_map	*map = g_info.map;
   char		*content;
 
   (void)args;
-  success = true;
+  success = IGNORE;
   if ((content = calloc((g_see_tab[usr->dir].cf)(usr->x, usr->y, usr->lvl, map),
 			sizeof(*content))))
     {
@@ -44,17 +44,17 @@ bool		see_cmd(t_users *usr, char **args)
       push_back(usr->messages, new_link_by_param(content, strlen(content) + 1));
     }
   else
-    success = false;
+    success = FAILURE;
   free(content);
   return (success);
 }
 
-bool	inventory_cmd(t_users *usr, char **args)
+t_cmd_ret	inventory_cmd(t_users *usr, char **args)
 {
-  int	i;
-  char	val[INVENTORY_VAL_SZ];
-  char	msg[INVENTORY_MSG_SZ];
-  char	log[LOG_MSG_SZ];
+  int		i;
+  char		val[INVENTORY_VAL_SZ];
+  char		msg[INVENTORY_MSG_SZ];
+  char		log[LOG_MSG_SZ];
 
   (void)args;
   i = 0;
@@ -75,5 +75,5 @@ bool	inventory_cmd(t_users *usr, char **args)
   snprintf(log, sizeof(log), "Inventory of user #%lu: %s", usr->idx, msg);
   log_msg(stdout, log);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
-  return (true);
+  return (IGNORE);
 }

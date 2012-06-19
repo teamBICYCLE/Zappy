@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon Jun 18 18:51:54 2012 lois burg
+** Last update Tue Jun 19 11:47:01 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -40,12 +40,12 @@ struct          s_users
   bool		first_message;
   bool		is_graphics;
   bool		is_dead;
-  // server
+  /* server */
   int           socket;
   size_t        idx;
   t_list        *messages;
   t_ringbuffer  *readring;
-  // player
+  /* player */
   int		id;
   int		x;
   int		y;
@@ -54,7 +54,7 @@ struct          s_users
   unsigned int	life;
   unsigned int 	inventory[NB_RESSOURCES];
   t_list	*tasks;
-  char		*team;
+  t_team	*team;
 };
 
 struct          s_infos
@@ -82,7 +82,6 @@ void	update_map(int const loop);
 int    	cmp_socket(void *a, void *b);
 void	print_serv_conf(t_arg_infos *world_info);
 char	**parse(char *str, const char *delim);
-void	send_ok_ko(t_users *usr, bool s);
 
 void   	free_users(void *ptr);
 void   	free_teams(void *ptr);

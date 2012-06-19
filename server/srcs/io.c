@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Mon Jun 18 17:24:28 2012 lois burg
+** Last update Tue Jun 19 11:38:36 2012 lois burg
 */
 
 #include <stdio.h>
@@ -52,7 +52,7 @@ void		add_user(void)
       new.lvl = 1;
       new.dir = NORTH;
       new.inventory[FOOD] = 10;
-      new.life = (new.inventory[FOOD] * 126) * 500;//* 500 temporaire
+      new.life = (new.inventory[FOOD] * 126) * 500;/* * 500 temporaire */
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));

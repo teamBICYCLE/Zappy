@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Mon Jun 18 19:18:01 2012 lois burg
+** Last update Tue Jun 19 11:39:56 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -17,16 +17,16 @@
 
 extern t_infos	g_info;
 
-static bool	unknown_cmd(t_users *user, char **args)
+static t_cmd_ret	unknown_cmd(t_users *user, char **args)
 {
   (void)user;
   (void)args;
-  return (false);
+  return (FAILURE);
 }
 
 static t_tasksmap	g_commands[] =
   {
-    /* {0, , "connect_nbr"}, */
+    {0, &connect_nbr_cmd, "connect_nbr"},
     {1, &inventory_cmd, "inventaire"},
     /* {7, , "avance"}, */
     {7, &right_cmd, "droite"},
@@ -92,7 +92,7 @@ static void	assign_client(t_users *u, char **args)
       ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
       team = (t_team*)team_lnk->ptr;
-      u->team = team->name;
+      u->team = team;
       --team->free_slots;
       u->x = rand() % g_info.map->x;
       u->y = rand() % g_info.map->y;
@@ -128,7 +128,7 @@ void		exec_cmd(t_users *u, char **args)
 	    assign_client(u, args);
 	}
       u->first_message = false;
-      free(args[0]);//j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant
+      free(args[0]);/*j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant*/
       free(args);
     }
 }

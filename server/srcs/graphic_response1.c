@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Mon Jun 18 19:16:19 2012 lois burg
+** Last update Tue Jun 19 11:28:00 2012 lois burg
 */
 
 #include <string.h>
@@ -69,7 +69,7 @@ char	*graphics_pnw(t_users *usr)
 
   msg = get_graphics_buf();
   snprintf(msg, GRAPHICS_MSG_SZ, "pnw %d %d %d %d %d %s\n",
-	   usr->id, usr->x, usr->y, usr->dir, usr->lvl, usr->team);
+	   usr->id, usr->x, usr->y, usr->dir, usr->lvl, usr->team->name);
   return (msg);
 }
 

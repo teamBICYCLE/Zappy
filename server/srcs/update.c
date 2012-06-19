@@ -5,13 +5,14 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Mon Jun 18 16:39:05 2012 lois burg
+** Last update Tue Jun 19 11:44:31 2012 lois burg
 */
 
 #include <string.h>
 #include "server.h"
 #include "task.h"
 #include "protocol.h"
+#include "cmds.h"
 
 extern t_infos		g_info;
 
@@ -24,7 +25,7 @@ static	void	do_task(void *ptr)
 {
   t_users	*u;
   t_task	*t;
-  bool		success;
+  t_cmd_ret	success;
 
   u = ptr;
   if (u->life != 0 && u->tasks->size > 0)
@@ -72,7 +73,7 @@ void	update_map(int const loop)
     {
       iterate(g_info.users, &do_task);
       iterate(g_info.users, &decr_life);
-      // regen map
+      /* regen map*/
       ++i;
     }
 }
