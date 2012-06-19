@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jun 19 11:39:56 2012 lois burg
+** Last update Tue Jun 19 15:22:02 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -28,11 +28,11 @@ static t_tasksmap	g_commands[] =
   {
     {0, &connect_nbr_cmd, "connect_nbr"},
     {1, &inventory_cmd, "inventaire"},
-    /* {7, , "avance"}, */
+    {7, &forward_cmd, "avance"},
     {7, &right_cmd, "droite"},
     {7, &left_cmd, "gauche"},
     {7, &see_cmd, "voir"},
-    /* {7, , "prend"}, */
+    {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
     /* {7, , "broadcast"}, */

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Tue Jun 19 11:55:58 2012 lois burg
+** Last update Tue Jun 19 15:22:09 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -30,7 +30,9 @@ t_cmd_ret   	inventory_cmd(t_users *usr, char **args);
 t_cmd_ret	right_cmd(t_users *u, char **args);
 t_cmd_ret	left_cmd(t_users *u, char **args);
 t_cmd_ret	put_cmd(t_users *u, char **args);
+t_cmd_ret	take_cmd(t_users *u, char **args);
 t_cmd_ret	connect_nbr_cmd(t_users *u, char **args);
+t_cmd_ret	forward_cmd(t_users *u, char **args);
 
 /* TOOLS */
 char		*case_content(const t_case *c, char *buf);
