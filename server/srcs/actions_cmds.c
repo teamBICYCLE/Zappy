@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Tue Jun 19 17:45:03 2012 lois burg
+** Last update Wed Jun 20 13:50:20 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -15,7 +15,10 @@
 #include "cmds.h"
 #include "server.h"
 #include "log.h"
+#include "graphics.h"
+#include "task.h"
 
+extern int	g_player_id;
 extern t_infos	g_info;
 extern char	*g_res_names[LAST];
 
@@ -77,4 +80,43 @@ t_cmd_ret	inventory_cmd(t_users *usr, char **args, char *orig_cmd)
   log_msg(stdout, log);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   return (IGNORE);
+}
+
+static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
+{
+  (void)args;
+  (void)orig_cmd;
+  usr->is_egg = false;
+  usr->is_ghost = true;
+  usr->dir = rand() % (WEST + 1);
+  if (usr->team)
+    ++usr->team->free_slots;
+  lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
+  return (IGNORE);
+}
+
+t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)
+{
+  t_users	new;
+  t_task	t;
+
+  (void)args;
+  (void)orig_cmd;
+  memset(&t, 0, sizeof(t));
+  memset(&new, 0, sizeof(new));
+  new.is_egg = true;
+  new.id = g_player_id++;
+  new.lvl = 1;
+  new.messages = new_list();
+  new.tasks = new_list();
+  new.readring = new_ringbuffer(4096);
+  new.team = usr->team;
+  new.inventory[FOOD] = 10;
+  new.life = new.inventory[FOOD] * 126 * 500;/* temporaire */
+  t.countdown = 600;
+  t.f = &hatch_egg;
+  push_back(new.tasks, new_link_by_param(&t, sizeof(t)));
+  push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
+  lookup(g_info.users, graphics_enw(usr, new.id), &notify_graphic);
+  return (SUCCESS);
 }
