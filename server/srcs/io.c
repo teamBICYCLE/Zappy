@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jun 20 12:39:23 2012 lois burg
+** Last update Wed Jun 20 14:16:36 2012 lois burg
 */
 
 #include <stdio.h>
@@ -33,7 +33,7 @@ static void	handle_cmd(t_users *u, char *str)
   i = 0;
   while (cmd && cmd[i])
     {
-      printf("%s\n", cmd[i]);
+      printf("[%s]\n", cmd[i]);
       ++i;
     }
   if (cmd != NULL && cmd[0] == NULL)
