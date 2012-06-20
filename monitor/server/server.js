@@ -89,14 +89,16 @@ function getCmd(cmd, ref) {
 		return ref[explode[0]];
 	else if (cmd.search("#") != -1)
 		return playerCmd(explode);
-	else if (explode[0] == "bct")
+	else if (explode[0] == "bct" && explode[1] >= 0 && explode[2] >=0 &&
+			explode[1] < zappy.getCache().getXSize() && explode[2] < zappy.getCache().getYSize())
 		return "Case content in (" + explode[1] + ", " + explode[2] + ") : " +
-		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).getRessources();
+		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).ressources;
 	else if (explode[0] == "sst")
 	{
 		zappy.getSocket().write(explode[0] + " " + explode[1] + "\n");
 		return "Server current time unit is now set at " + explode[1];
 	}
+	return explode[0] + " : Command Error";
 }
 
 
