@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jun 20 14:16:36 2012 lois burg
+** Last update Wed Jun 20 18:16:44 2012 lois burg
 */
 
 #include <stdio.h>
@@ -16,6 +16,7 @@
 #include "refstring.h"
 #include "protocol.h"
 #include "log.h"
+#include "graphics.h"
 
 int		g_player_id = 1;
 extern t_infos	g_info;
@@ -24,18 +25,10 @@ static void	handle_cmd(t_users *u, char *str)
 {
   char		*orig_cmd;
   char		**cmd;
-  int		i;
 
   (void)u;
   orig_cmd = strdup(str);
   cmd = parse(str, " \t\n");
-  puts("Parsed command:");
-  i = 0;
-  while (cmd && cmd[i])
-    {
-      printf("[%s]\n", cmd[i]);
-      ++i;
-    }
   if (cmd != NULL && cmd[0] == NULL)
     free(str);
   if (cmd != NULL)
@@ -63,7 +56,6 @@ void		add_user(void)
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
       push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
-      memset(log, 0, sizeof(log));
       snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
       log_msg(stdout, log);
     }
@@ -100,6 +92,7 @@ void		read_user(void *ptr)
   char		*str;
   t_users      	*user;
   t_link	*l;
+  char		msg[LOG_MSG_SZ];
 
   user = ptr;
   if (FD_ISSET(user->socket, &g_info.readfds))
@@ -109,6 +102,9 @@ void		read_user(void *ptr)
 	  if (user->team)
 	    ++user->team->free_slots;
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
+	  lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
+	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
+	  log_msg(stdout, msg);
 	  delete_link(l, &free_users);
 	}
       else if ((str = get_data(user->readring)) != NULL)
