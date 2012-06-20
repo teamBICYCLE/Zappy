@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Wed Jun 20 11:31:12 2012 lois burg
+** Last update Wed Jun 20 16:02:42 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -43,6 +43,7 @@ char		*case_content(const t_case *c, char *buf);
 size_t		case_content_sz(const t_case *c);
 void		send_ok_ko(t_users *usr, t_cmd_ret s);
 void		send_id_pos(t_users *usr);
+void		assign_pos(t_users *u, t_team *team);
 
 /* SEE TOOLS */
 

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jun 20 13:49:29 2012 lois burg
+** Last update Wed Jun 20 15:48:49 2012 lois burg
 */
 
 #include <string.h>
@@ -13,6 +13,7 @@
 #include "task.h"
 #include "protocol.h"
 #include "cmds.h"
+#include "graphics.h"
 
 extern t_infos		g_info;
 
@@ -60,6 +61,7 @@ static	void	decr_life(void *ptr)
 	    {
 	      if (u->team)
 		++u->team->free_slots;
+	      lookup(g_info.users, graphics_pdi(u), &notify_graphic);
 	      delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
 	    }
 	}

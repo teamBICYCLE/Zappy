@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 20 12:38:50 2012 lois burg
+** Last update Wed Jun 20 16:02:05 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -102,13 +102,7 @@ static void	assign_client(t_users *u, char **args)
       ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
       team = (t_team*)team_lnk->ptr;
-      u->team = team;
-      --team->free_slots;
-      u->x = rand() % g_info.map->x;
-      u->y = rand() % g_info.map->y;
-      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
-      send_id_pos(u);
-      lookup(g_info.users, graphics_pnw(u), &notify_graphic);
+      assign_pos(u, team);
     }
   else
     rmv = true;
