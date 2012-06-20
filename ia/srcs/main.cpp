@@ -10,25 +10,34 @@
 
 
 #include <stdlib.h>
+#include <iostream>
+#include <boost/asio.hpp>
+#include  "Network.hh"
+#include "Inventory.hh"
 #include "Example.hh"
+#include "Trantorien.hh"
+
+#include <cstdlib>
 
 using namespace LuaVirtualMachine;
 
-
-int main(int ac, char *av[])
+int main(int argc, char *argv[])
 {
-  (void)ac;
-  (void)av;
-  Example toto;
+  Trantorien  joe("localhost", "4242");
 
-  toto.compileFile(FILE);
+  sleep(2);
+  joe.run();
 
-  toto.selectFct("oneRet");
-  toto.callFct(1);
+//  Example toto;
 
-  toto.selectFct("multRet");
-  toto.addParam(12);
-  toto.addParam("totopar");
-  toto.callFct(5);
-  return (EXIT_SUCCESS);
+//  toto.compileFile(FILE);
+
+//  toto.selectFct("oneRet");
+//  toto.callFct(1);
+
+//  toto.selectFct("multRet");
+//  toto.addParam(12);
+//  toto.addParam("totopar");
+//  toto.callFct(5);
+//  return (EXIT_SUCCESS);
 }
