@@ -8,7 +8,7 @@ function checkCmd(cmd){
 	}
 	if (typeof(ref[explode[0]]) != "undefined" && explode.length == ref[explode[0]])
 		return true;
-	alert("Error : Command not found");
+	displayError("Command not found");
 	return false;
 }
 
@@ -16,7 +16,10 @@ var lastTimestamp = 0;
 	
 function sendCmd(cmd){
 	if (cmd == "help")
-		$("#result").append("Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help<br />");
+	{
+		$("#cmdResult").append("<span class='entry'>" + "Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help" + "</span>");
+		$('#cmdResult span:last-child').fadeOut(7000);
+	}
 	else if (checkCmd(cmd))
 	{
 		socket.emit('requestData', {cmd : cmd});
@@ -26,6 +29,7 @@ function sendCmd(cmd){
 				if ($("#cmdResult .entry").length >= 5)
 		 			$("#cmdResult span:first-child").remove();
 		 		$("#cmdResult").append("<span class='entry'>"+ data.data_ + "</span>");
+		 		$('#cmdResult span:last-child').fadeOut(7000);
 				lastTimestamp = data.timestamp;
 			}
 		});

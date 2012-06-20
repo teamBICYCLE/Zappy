@@ -14,6 +14,10 @@ $(function() {
 		}
 	});
 	
+	$("#errorBox").click(function(e){
+		$("#errorBox").hide();
+	});
+	
 	// http://www.developpez.net/forums/d788377/applications/developpement-2d-3d-jeux/cherche-formules-2d-isometriques/
 	
 	$("#cHighLight").mousemove(getMousePosition);
@@ -61,3 +65,8 @@ $(function() {
 	    return ({x: x, y: y});
 	}
 });
+
+function displayError(msg) {
+	$("#errorBox .errorText").text("Error : " + msg);
+	$("#errorBox").fadeIn(1500).delay(1000).fadeOut(3000);
+}

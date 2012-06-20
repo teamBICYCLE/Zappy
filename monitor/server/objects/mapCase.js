@@ -14,15 +14,15 @@ function MapCase() {
 	// this.thystame_ = 0;
 	this.ressources_ = [0, 0, 0, 0, 0, 0, 0];
 	
-	var ref = {
-		0: "food",
-		1: "linemate",
-		2: "deraumere",
-		3: "sibur",
-		4: "mendiane",
-		5: "phiras",
-		6: "thystame"
-	};
+	// var ref = {
+		// 0: "food",
+		// 1: "linemate",
+		// 2: "deraumere",
+		// 3: "sibur",
+		// 4: "mendiane",
+		// 5: "phiras",
+		// 6: "thystame"
+	// };
 }
 
 function MapCase(f, l, d, s, m, p, t) {
@@ -35,32 +35,32 @@ function MapCase(f, l, d, s, m, p, t) {
 	// this.thystame_ = t;
 	this.ressources_ = [f, l, d, s, m, p, t];
 	
-	var ref = {
-		0: "food",
-		1: "linemate",
-		2: "deraumere",
-		3: "sibur",
-		4: "mendiane",
-		5: "phiras",
-		6: "thystame"
-	};
+	// var ref = {
+		// 0: "food",
+		// 1: "linemate",
+		// 2: "deraumere",
+		// 3: "sibur",
+		// 4: "mendiane",
+		// 5: "phiras",
+		// 6: "thystame"
+	// };
 }
 
 /* METHODS */
 
-MapCase.prototype.getSprite = function(night) {
-	
-   	var sprite = 0,
-   		value = ressources_[0];
-   		
-   	for (var i = 0; i != ressources_.length; i++)
-   		if (ressources_[i] > value)
-   		{
-   			sprite = i;
-   			value = ressources_[i];
-   		}
-   	return ref[sprite];
-};
+// MapCase.prototype.getSprite = function(night) {
+// 	
+   	// var sprite = 0,
+   		// value = ressources_[0];
+//    		
+   	// for (var i = 0; i != ressources_.length; i++)
+   		// if (ressources_[i] > value)
+   		// {
+   			// sprite = i;
+   			// value = ressources_[i];
+   		// }
+   	// return ref[sprite];
+// };
 
 MapCase.prototype.getRessources = function() {
 	return this.ressources_;
