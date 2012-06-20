@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jun 20 15:48:49 2012 lois burg
+** Last update Wed Jun 20 17:18:01 2012 lois burg
 */
 
 #include <string.h>
@@ -29,7 +29,7 @@ static	void	do_task(void *ptr)
   t_cmd_ret	success;
 
   u = ptr;
-  if (!u->is_graphics && u->life != 0 && u->tasks->size > 0)
+  if (u->type != TGRAPHICS && u->life != 0 && u->tasks->size > 0)
     {
       t = u->tasks->head->ptr;
       if (t->countdown == 0)
@@ -48,7 +48,7 @@ static	void	decr_life(void *ptr)
   t_users	*u;
 
   u = ptr;
-  if (!u->is_graphics && !u->is_egg && !u->is_ghost)
+  if (u->type == TPLAYER || u->type == TFORMER_GHOST)
     {
       if (u->life == 0)
 	{
@@ -59,7 +59,7 @@ static	void	decr_life(void *ptr)
 	    }
 	  else if (u->messages->size == 0)
 	    {
-	      if (u->team)
+	      if (u->team && u->type == TPLAYER)
 		++u->team->free_slots;
 	      lookup(g_info.users, graphics_pdi(u), &notify_graphic);
 	      delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);

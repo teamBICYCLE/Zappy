@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Wed Jun 20 16:57:40 2012 lois burg
+** Last update Wed Jun 20 17:13:03 2012 lois burg
 */
 
 #include <string.h>
@@ -21,7 +21,7 @@ static int	find_team_egg(void *u, void *t)
   const t_users	*user = (t_users*)u;
   const t_team	*team = (t_team*)t;
 
-  return (!(user && team && user->is_ghost &&
+  return (!(user && team && user->type == TGHOST &&
 	    !strcmp(user->team->name, team->name)));
 }
 
@@ -37,6 +37,7 @@ void		assign_pos(t_users *u, t_team *team)
       u->lvl = ghost->lvl;
       u->x = ghost->x;
       u->y = ghost->y;
+      u->type = TFORMER_GHOST;
       delete_link(ghost_lnk, &free_users);
       lookup(g_info.users, graphics_ebo(u->id), &notify_graphic);
     }
@@ -48,6 +49,6 @@ void		assign_pos(t_users *u, t_team *team)
     }
   u->team = team;
   --team->free_slots;
-  send_id_pos(u);
+  greet_clnt(u, g_info.map->x, g_info.map->y);
   lookup(g_info.users, graphics_pnw(u), &notify_graphic);
 }

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 12:53:28 2012 lois burg
-** Last update Sat Jun 16 19:28:03 2012 lois burg
+** Last update Wed Jun 20 17:34:52 2012 lois burg
 */
 
 #include <string.h>
@@ -15,13 +15,13 @@
 
 extern	t_infos	g_info;
 
-char	*graphics_enw(t_users *usr, const int egg_id)
+char	*graphics_enw(t_users *egg)
 {
   char	*msg;
 
   msg = get_graphics_buf();
   snprintf(msg, GRAPHICS_MSG_SZ, "enw %d %d %d %d\n",
-	   egg_id, usr->id, usr->x, usr->y);
+	   egg->id, egg->father_id, egg->x, egg->y);
   return (msg);
 }
 

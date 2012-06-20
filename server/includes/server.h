@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jun 20 11:26:39 2012 lois burg
+** Last update Wed Jun 20 17:26:07 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -35,12 +35,22 @@ typedef enum	e_direction
     WEST
   }		t_direction;
 
+typedef	enum	e_type
+  {
+    TPLAYER = 0,
+    TEGG,
+    TGHOST,
+    TGRAPHICS,
+    TFORMER_GHOST
+  }		t_type;
+
 struct          s_users
 {
   bool		first_message;
-  bool		is_egg;
-  bool		is_ghost;
-  bool		is_graphics;
+  /* bool		is_egg; */
+  /* bool		is_ghost; */
+  /* bool		is_graphics; */
+  t_type	type;
   bool		is_dead;
   /* server */
   int           socket;
@@ -49,6 +59,7 @@ struct          s_users
   t_ringbuffer  *readring;
   /* player */
   int		id;
+  int		father_id;
   int		x;
   int		y;
   int		lvl;

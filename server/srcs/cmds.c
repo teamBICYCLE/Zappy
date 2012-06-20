@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 20 16:02:05 2012 lois burg
+** Last update Wed Jun 20 17:16:22 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -116,9 +116,10 @@ static void	assign_client(t_users *u, char **args)
 
 void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 {
-  if (u->first_message == false && u->is_graphics == false)
+  if (u->first_message == false && u->type != TGRAPHICS &&
+      u->tasks->size < 10)
     add_task(u, args, orig_cmd);
-  else if (u->first_message == false && u->is_graphics == true)
+  else if (u->first_message == false && u->type == TGRAPHICS)
     answer_graphics(u, args, orig_cmd);
   else
     {
@@ -126,7 +127,7 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	{
 	  if (!strcmp(args[0], GRAPHIC_USR))
 	    {
-	      u->is_graphics = true;
+	      u->type = TGRAPHICS;
 	      greet_graphics(u);
 	    }
 	  else

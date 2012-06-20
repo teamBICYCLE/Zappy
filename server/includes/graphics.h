@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:27:05 2012 lois burg
-** Last update Sun Jun 17 16:20:08 2012 lois burg
+** Last update Wed Jun 20 17:34:42 2012 lois burg
 */
 
 #ifndef		__GRAPHICS_H__
@@ -50,7 +50,7 @@ char	*graphics_pfk(t_users *usr);
 char	*graphics_pdr(t_users *usr, const int res);
 char	*graphics_pgt(t_users *usr, const int res);
 char	*graphics_pdi(t_users *usr);
-char	*graphics_enw(t_users *usr, const int egg_id);
+char	*graphics_enw(t_users *egg);
 char	*graphics_eht(const int egg_id);
 char	*graphics_ebo(const int egg_id);
 char	*graphics_edi(const int egg_id);
