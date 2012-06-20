@@ -37,9 +37,9 @@ exports.addPlayer = function(arg) {
     players_.push(new Player(arg));
 }
 
-exports.addeggs_ = function(arg) {
+exports.addEggs = function(arg) {
 	var Egg = require("./objects/egg.js");
-	eggs__.push(new Egg(arg));
+	eggs_.push(new Egg(arg));
 }
 
 /* GET */
@@ -108,10 +108,4 @@ exports.dump = function() {
     console.log("currentTimeUnit : " + currentTimeUnit_);
     console.log("teams : " + teams_);
     console.log("player : " + players_);
-    // var Case = new (require("./objects/mapCase.js"));
-    // if (xsize_ != 0 && ysize_ != 0)
-    // {
-    	// //console.log("Dump case !" + xsize_ + ysize_);
-    	// Case.dump(map_.getCase(this, 2, 2));
-    // }
 };

@@ -10,6 +10,7 @@ function Layers(xsize, ysize){
 		0 : {name: "food", img: new Image()},
 		1 : {name: "linemate", img: new Image()},
 		2 : {name: "floor", img: new Image()},
+		3 : {name: "highlight", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
