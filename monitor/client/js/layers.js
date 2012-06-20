@@ -29,6 +29,18 @@ function Layers(xsize, ysize){
 	this.imgs[999].img.src = "img/" + this.imgs[999].name + ".png";
 }
 
+/* GET */
+
+Layers.prototype.getMapSize = function() {
+	
+	return ({width: this.mapWidth, height: this.mapHeight});	
+}
+
+Layers.prototype.getTileSize = function() {
+	
+	return ({width: this.tileWidth, height: this.tileHeight});	
+}
+
 Layers.prototype.getImg = function(name) {
 	
 	for (var i = 0; typeof(this.imgs[i]) != "undefined"; i++)
@@ -39,6 +51,8 @@ Layers.prototype.getImg = function(name) {
 	displayError("Undefined reference to " + name + ".png.");
 	return this.imgs[999].img;
 }
+
+/* DRAWING */
 
 Layers.prototype.draw = function(canvas, img, x, y) {
 	
@@ -54,4 +68,11 @@ Layers.prototype.draw = function(canvas, img, x, y) {
 	topD += (c.height / 2);
 
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
+}
+
+Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
+	
+	var c = this.canvasHandler.get(canvas);
+	
+	c.ctx.drawImage(this.getImg(img), x, y);
 }
