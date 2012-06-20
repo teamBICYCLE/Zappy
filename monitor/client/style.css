@@ -1,0 +1,92 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	background: #eee url('img/background.png') repeat-x top center;
+	font-family:"Times New Roman", Georgia, sans-serif;
+}
+
+div, input {
+	position: absolute;
+}
+
+canvas {
+	position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#header {
+	width: 100%;
+	height:	50px;
+	top: 0px;
+	background: #000;
+	z-index: 5;
+}
+
+#cmdResult {
+	width: 600px;
+	left: 0px;
+	bottom: 40px;
+	margin: 0 0 10px 10px;
+}
+
+#cmdResult .entry {
+	display: block;
+	margin-top: 10px;
+}
+
+#cmdResult {
+	z-index: 5;
+}
+
+.cmd {
+	width: 600px;
+	height: 30px;
+	margin: 0 0 10px 10px;
+	padding: 0 0 0 5px;
+	background: rgba(0,0,0,0.15);
+	color: #545454;
+	font-size: 14px;
+	bottom:	0px;
+	left: 0px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	border: 1px solid #545454;
+	z-index: 5;
+}
+
+#c {
+	z-index: 1;
+}
+
+#cHighLight {
+	z-index: 2;	
+}
+
+#cRessources {
+	z-index: 3;
+}
+
+#errorBox {
+	height: 20px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	border: 1px solid #545454;
+	background-color: rgba(226, 0, 0, 0.9);
+	z-index: 6;
+	top: 50px;
+	position: relative;
+	float: right;
+	margin: 7px;
+	padding: 15px;
+	display: none;
+}
+
+#errorBox .errorText {
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 18px;
+}

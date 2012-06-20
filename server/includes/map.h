@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:13:05 2012 Jonathan Machado
-** Last update Sat Jun  9 10:25:22 2012 lois burg
+** Last update Wed Jun 13 19:00:02 2012 lois burg
 */
 
 #ifndef __MAP_H__
@@ -17,16 +17,18 @@ typedef struct s_case  	t_case;
 enum
   {
     FOOD = 0,
-    PLAYER,
-    EGG,
     LINEMATE,
     DERAUMERE,
     SIBUR,
     MENDIANE,
     PHIRAS,
     THYSTAME,
-    LAST = THYSTAME + 2
+    PLAYER,
+    EGG,
+    LAST
   };
+
+# define	NB_RESSOURCES	7
 
 struct 		s_case
 {

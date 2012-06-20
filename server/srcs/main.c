@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:33:47 2012 Jonathan Machado
-** Last update Fri Jun  8 10:17:47 2012 lois burg
+** Last update Mon Jun 18 14:49:16 2012 lois burg
 */
 
 #include <stdio.h>
@@ -31,6 +31,6 @@ int	main(int argc, char *argv[])
 	fprintf(stderr, "Usage : %s [-p port] [-x world_x] [-y world_y] "\
 		"[-c max_clients] [-t speed] -n team1 team2...\n", argv[0]);
     }
-  free(g_info.world.teams_names);
+  delete_list(g_info.world.teams_names, &free_teams);
   return (0);
 }

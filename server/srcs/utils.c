@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Fri Jun  8 10:26:22 2012 lois burg
+** Last update Mon Jun 18 14:51:35 2012 lois burg
 */
 
 #include <ctype.h>
@@ -24,25 +24,25 @@ int		cmp_socket(void *a, void *b)
   return (!(u->socket == *s));
 }
 
-int	contains_only_digits(char *str)
+bool	contains_only_digits(char *str)
 {
   int	i;
-  int	good;
+  bool	good;
 
   i = 0;
-  good = 1;
+  good = true;
   while (good && str && str[i])
     {
       if (!isdigit(str[i]))
-	good = 0;
+	good = false;
       ++i;
     }
   return (good);
 }
 
-static	void	prt_team_name(void *name)
+static	void	prt_team_name(void *t)
 {
-  printf("\tName: %s\n", (char*)name);
+  printf("\tName: %s, slots: %d\n", ((t_team*)t)->name, ((t_team*)t)->free_slots);
 }
 
 void	print_serv_conf(t_arg_infos *world)
