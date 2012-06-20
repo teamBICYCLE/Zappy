@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jun 19 17:40:34 2012 lois burg
+** Last update Wed Jun 20 12:39:23 2012 lois burg
 */
 
 #include <stdio.h>
@@ -17,7 +17,7 @@
 #include "protocol.h"
 #include "log.h"
 
-static int	player_id = 1;
+int		g_player_id = 1;
 extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
@@ -36,6 +36,8 @@ static void	handle_cmd(t_users *u, char *str)
       printf("%s\n", cmd[i]);
       ++i;
     }
+  if (cmd != NULL && cmd[0] == NULL)
+    free(str);
   if (cmd != NULL)
     exec_cmd(u, cmd, orig_cmd);
 }
@@ -50,7 +52,7 @@ void		add_user(void)
   if (new.socket != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
-      new.id = player_id++;
+      new.id = g_player_id++;
       new.lvl = 1;
       new.dir = NORTH;
       new.inventory[FOOD] = 10;

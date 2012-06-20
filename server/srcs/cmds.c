@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jun 19 17:45:49 2012 lois burg
+** Last update Wed Jun 20 12:38:50 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -36,8 +36,8 @@ static t_tasksmap	g_commands[] =
     {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
-    {7, &broadcast_cmd, "broadcast"},
-    /* {42, , "fork"}, */
+    /* {7, &broadcast_cmd, "broadcast"}, */
+    {42, &fork_cmd, "fork"},
     /* {300, , "incantation"}, */
     {0, &unknown_cmd, NULL}
   };
@@ -63,12 +63,14 @@ static void	add_task(t_users *u, char **args, char *orig_cmd)
 
   i = 0;
   while (g_commands[i].key != NULL &&
-	 strcmp(g_commands[i].key, args[0]) != 0)
+	 (!args[0] || strcmp(g_commands[i].key, args[0]) != 0))
     ++i;
   t.countdown = g_commands[i].countdown;
   t.f = g_commands[i].f;
   t.orig_cmd = orig_cmd;
   t.args = args;
+  if (g_commands[i].key != NULL && !strcmp(g_commands[i].key, "fork"))
+    lookup(g_info.users, graphics_pfk(u), &notify_graphic);
   push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
 }
 
@@ -78,9 +80,12 @@ static void	answer_graphics(t_users *u, char **args, char *orig_cmd)
 
   i = 0;
   while (g_graphics_cmd[i].key != NULL &&
-	 strcmp(g_graphics_cmd[i].key, args[0]))
+	 (!args[0] || strcmp(g_graphics_cmd[i].key, args[0])))
     ++i;
-  (g_graphics_cmd[i].f)(u, &args[1]);
+  if (args[0])
+    (g_graphics_cmd[i].f)(u, &args[1]);
+  else
+    (g_graphics_cmd[i].f)(u, &args[0]);
   free(orig_cmd);
   free(args[0]);
   free(args);
@@ -135,7 +140,7 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	}
       u->first_message = false;
       free(orig_cmd);
-      free(args[0]);/*j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant*/
+      free(args[0]);
       free(args);
     }
 }

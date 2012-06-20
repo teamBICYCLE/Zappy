@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Tue Jun 19 18:19:19 2012 lois burg
+** Last update Wed Jun 20 11:31:12 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -36,6 +36,7 @@ t_cmd_ret	take_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	connect_nbr_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	broadcast_cmd(t_users *u, char **args, char *orig_cmd);
+t_cmd_ret	fork_cmd(t_users *u, char **args, char *orig_cmd);
 
 /* TOOLS */
 char		*case_content(const t_case *c, char *buf);
