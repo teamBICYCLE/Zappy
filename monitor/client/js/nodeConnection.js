@@ -17,6 +17,7 @@ socket.on('firstConnection', function(data){
 		//console.log(data.map);
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(cache, layers);
+		highlight_draw(layers);
 	}
 });
 

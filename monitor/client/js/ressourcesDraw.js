@@ -2,7 +2,6 @@
  *	@author sylvia_r
  */
 
-
 function ressources_draw(cache, layers) {
     
 	for (var i = 0; i != cache.getMap().length; i++)

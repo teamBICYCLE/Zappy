@@ -57,17 +57,18 @@ canvas {
 	z-index: 5;
 }
 
-#c {
+#cMap {
 	z-index: 1;
 }
 
-#cHighLight {
-	z-index: 2;	
+#cRessources {
+	z-index: 2;
 }
 
-#cRessources {
-	z-index: 3;
+#cHighLight {
+	z-index: 3;	
 }
+
 
 #errorBox {
 	height: 20px;
