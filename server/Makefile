@@ -5,7 +5,7 @@
 ## Login   <jonathan.machado@epitech.net>
 ##
 ## Started on  Sat May 12 14:30:37 2012 Jonathan Machado
-## Last update Sat Jun  9 10:37:10 2012 lois burg
+## Last update Tue Jun 19 11:40:49 2012 lois burg
 ##
 
 CC		= gcc
@@ -19,6 +19,7 @@ OBJS_DIR	= objs/
 CFLAGS		+= -W -Wall -Werror -g3 #-O3
 IFLAGS		+= -I $(INC_DIR) -I lib
 LFLAGS		+= -Llib -ldata
+DFLAGS		+= -D_BSD_SOURCE -D_XOPEN_SOURCE
 
 SRCS		+= $(wildcard $(SRCS_DIR)*.c)
 
@@ -32,7 +33,7 @@ $(NAME)		: $(OBJS)
 		  $(CC) -o $(NAME) $(OBJS) $(LFLAGS)
 
 $(OBJS_DIR)%.o	: $(SRCS_DIR)%.c $(INCLUDES)
-		  $(CC) -c $(CFLAGS) $(IFLAGS) $< -o $@
+		  $(CC) -c $(CFLAGS) $(DFLAGS) $(IFLAGS) $< -o $@
 
 all		: $(NAME)
 

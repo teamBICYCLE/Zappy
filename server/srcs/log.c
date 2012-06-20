@@ -5,14 +5,14 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 13 11:46:06 2012 lois burg
-** Last update Thu Jun 14 11:49:06 2012 lois burg
+** Last update Tue Jun 19 11:38:58 2012 lois burg
 */
 
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
 
-void		log_msg(FILE *stream, const char const *msg)
+void		log_msg(FILE *stream, const char *msg)
 {
   time_t	now;
   char		*date;

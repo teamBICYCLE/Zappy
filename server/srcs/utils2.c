@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Thu Jun 14 16:20:56 2012 lois burg
+** Last update Tue Jun 19 16:53:59 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -16,21 +16,21 @@
 extern char	*g_res_names[LAST];
 extern t_infos	g_info;
 
-static char	**pvt_parse(char *str, char *tok, size_t sz, const char *delim)
+static char	**pvt_parse(char *tok, size_t sz, const char *delim)
 {
   char	**cmd;
 
   if (!tok)
     cmd = malloc((sz + 1) * sizeof(*cmd));
   else
-    cmd = pvt_parse(str, strtok(NULL, delim), sz + 1, delim);
+    cmd = pvt_parse(strtok(NULL, delim), sz + 1, delim);
   cmd[sz] = tok;
   return (cmd);
 }
 
 char	**parse(char *str, const char *delim)
 {
-  return (pvt_parse(str, strtok(str, delim), 0, delim));
+  return (pvt_parse(strtok(str, delim), 0, delim));
 }
 
 static void	set_fd(void *ptr)

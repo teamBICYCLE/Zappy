@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Sun Jun 17 14:31:50 2012 lois burg
+** Last update Tue Jun 19 11:40:38 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -48,7 +48,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
       signal(SIGTERM, server_quit) == SIG_ERR)
     perror("signal failed: ");
   g_info.map = generate_map(x, y, seed);
-  //
+  /**/
   print_serv_conf(&g_info.world);
   /* printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f)); */
   /* dump_map(map); */
@@ -90,17 +90,17 @@ void			run(void)
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  // calculer le temp
+	  /* calculer le temp */
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
 	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
 	    {
-	      update_map(1); // passer le sync
+	      update_map(1); /* passer le sync */
 	      loop = g_info.world.smallest_t;
 	    }
 	  iterate(g_info.users, &write_user);
-	  // soustraire a loop le temp mis
+	  /* soustraire a loop le temp mis */
 	}
     }
 }
