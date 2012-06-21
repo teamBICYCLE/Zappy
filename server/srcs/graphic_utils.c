@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:02:40 2012 lois burg
-** Last update Mon Jun 18 19:19:15 2012 lois burg
+** Last update Wed Jun 20 17:35:54 2012 lois burg
 */
 
 #include <string.h>
@@ -16,7 +16,7 @@ extern t_infos	g_info;
 
 int	notify_graphic(void *usr, void *msg)
 {
-  if (((t_users*)usr)->is_graphics)
+  if (((t_users*)usr)->type == TGRAPHICS)
     push_back(((t_users*)usr)->messages,
 	      new_link_by_param(msg, strlen((const char *)msg) + 1));
   return (1);
@@ -54,16 +54,23 @@ static void	send_players(t_users *usr)
 {
   uint		i;
   char		*msg;
-  t_link	*plyr;
+  t_link	*plyr_lnk;
+  t_users	*plyr;
 
   i = 0;
   while (i < g_info.users->size)
     {
-      if ((plyr = get_link(g_info.users, i)) &&
-	  !((t_users*)plyr->ptr)->is_graphics && ((t_users*)plyr->ptr)->team)
+      if ((plyr_lnk = get_link(g_info.users, i)))
 	{
-	  msg = graphics_pnw((t_users*)plyr->ptr);
-	  push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+	  plyr = (t_users*)plyr_lnk->ptr;
+	  if (plyr->team)
+	    {
+	      if (plyr->type == TEGG)
+		msg = graphics_enw(plyr);
+	      else if (plyr->type != TGRAPHICS)
+		msg = graphics_pnw(plyr);
+	      push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+	    }
 	}
       ++i;
     }
@@ -81,5 +88,4 @@ void	greet_graphics(t_users *usr)
   msg = graphics_tna();
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   send_players(usr);
-  /* send_eggs(); */
 }

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 20 12:38:50 2012 lois burg
+** Last update Thu Jun 21 14:03:53 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ static t_tasksmap	g_commands[] =
     {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
-    /* {7, &broadcast_cmd, "broadcast"}, */
+    {7, &broadcast_cmd, "broadcast"},
     {42, &fork_cmd, "fork"},
     /* {300, , "incantation"}, */
     {0, &unknown_cmd, NULL}
@@ -102,13 +102,7 @@ static void	assign_client(t_users *u, char **args)
       ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
       team = (t_team*)team_lnk->ptr;
-      u->team = team;
-      --team->free_slots;
-      u->x = rand() % g_info.map->x;
-      u->y = rand() % g_info.map->y;
-      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
-      send_id_pos(u);
-      lookup(g_info.users, graphics_pnw(u), &notify_graphic);
+      assign_pos(u, team);
     }
   else
     rmv = true;
@@ -122,9 +116,10 @@ static void	assign_client(t_users *u, char **args)
 
 void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 {
-  if (u->first_message == false && u->is_graphics == false)
+  if (u->first_message == false && u->type != TGRAPHICS &&
+      u->tasks->size < 10)
     add_task(u, args, orig_cmd);
-  else if (u->first_message == false && u->is_graphics == true)
+  else if (u->first_message == false && u->type == TGRAPHICS)
     answer_graphics(u, args, orig_cmd);
   else
     {
@@ -132,7 +127,7 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	{
 	  if (!strcmp(args[0], GRAPHIC_USR))
 	    {
-	      u->is_graphics = true;
+	      u->type = TGRAPHICS;
 	      greet_graphics(u);
 	    }
 	  else
