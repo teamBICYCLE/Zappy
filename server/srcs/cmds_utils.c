@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Wed Jun 20 17:13:03 2012 lois burg
+** Last update Thu Jun 21 18:35:55 2012 lois burg
 */
 
 #include <string.h>
@@ -13,6 +13,7 @@
 #include "server.h"
 #include "graphics.h"
 #include "cmds.h"
+#include "protocol.h"
 
 extern t_infos	g_info;
 
@@ -51,4 +52,24 @@ void		assign_pos(t_users *u, t_team *team)
   --team->free_slots;
   greet_clnt(u, g_info.map->x, g_info.map->y);
   lookup(g_info.users, graphics_pnw(u), &notify_graphic);
+}
+
+bool	pretask_check(const char *cmd, t_users *u)
+{
+  bool	valid;
+
+  valid = true;
+  if (cmd && !strcmp(cmd, "fork"))
+    lookup(g_info.users, graphics_pfk(u), &notify_graphic);
+  else if (cmd && !strcmp(cmd, "incantation"))
+    {
+      if (check_levelup(u))
+	lookup(g_info.users, graphics_pic(u), &notify_graphic);
+      else
+	{
+	  valid = false;
+	  push_back(u->messages, new_link_by_param(KO, sizeof(KO) + 1));
+	}
+    }
+  return (valid);
 }

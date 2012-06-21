@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 11:43:52 2012 lois burg
-** Last update Sat Jun 16 19:27:25 2012 lois burg
+** Last update Thu Jun 21 18:09:15 2012 lois burg
 */
 
 #include <string.h>
@@ -68,7 +68,7 @@ char		*graphics_pic(t_users *usr)
   char		*msg;
 
   msg = get_graphics_buf();
-  idx = snprintf(msg, GRAPHICS_MSG_SZ, "pic %d %d %d %d\n",
+  idx = snprintf(msg, GRAPHICS_MSG_SZ, "pic %d %d %d %d",
 		 usr->x, usr->y, usr->lvl, usr->id);
   i = 0;
   while (i < g_info.users->size)

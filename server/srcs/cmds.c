@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Thu Jun 21 15:32:08 2012 lois burg
+** Last update Thu Jun 21 18:38:17 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -70,9 +70,14 @@ static void	add_task(t_users *u, char **args, char *orig_cmd)
   t.f = g_commands[i].f;
   t.orig_cmd = orig_cmd;
   t.args = args;
-  if (g_commands[i].key != NULL && !strcmp(g_commands[i].key, "fork"))
-    lookup(g_info.users, graphics_pfk(u), &notify_graphic);
-  push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+  if (pretask_check(g_commands[i].key, u))
+    push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+  else
+    {
+      free(orig_cmd);
+      free(args[0]);
+      free(args);
+    }
 }
 
 static void	answer_graphics(t_users *u, char **args, char *orig_cmd)

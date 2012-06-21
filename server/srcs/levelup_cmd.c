@@ -5,11 +5,12 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Thu Jun 21 15:26:18 2012 lois burg
+** Last update Thu Jun 21 18:21:55 2012 lois burg
 */
 
 #include "log.h"
 #include "cmds.h"
+#include "graphics.h"
 
 extern t_infos	g_info;
 
@@ -109,7 +110,10 @@ t_cmd_ret	levelup_cmd(t_users *usr, char **args, char *orig_cmd)
     {
       decr_res(usr->x, usr->y, usr->lvl);
       lvlup_plyr(usr->x, usr->y, usr->lvl);
+      send_graphic_result(usr, 1);
       return (SUCCESS);
     }
+  else
+    send_graphic_result(usr, 0);
   return (FAILURE);
 }
