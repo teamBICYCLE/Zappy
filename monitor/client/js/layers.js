@@ -33,12 +33,12 @@ function Layers(xsize, ysize){
 
 Layers.prototype.getMapSize = function() {
 	
-	return ({width: this.mapWidth, height: this.mapHeight});	
+    return ({width: parseInt(this.mapWidth), height: parseInt(this.mapHeight)});	
 }
 
 Layers.prototype.getTileSize = function() {
 	
-	return ({width: this.tileWidth, height: this.tileHeight});	
+    return ({width: parseInt(this.tileWidth), height: parseInt(this.tileHeight)});	
 }
 
 Layers.prototype.getImg = function(name) {
@@ -59,14 +59,13 @@ Layers.prototype.draw = function(canvas, img, x, y) {
 	//console.log("Drawing on canvas : " + canvas);
 	//console.log(this.getImg(img));
 	var c = this.canvasHandler.get(canvas),
-		leftD = ((x * this.tileWidth / 2) + (y * this.tileWidth / 2)),
-		topD = ((y * this.tileHeight / 4) - (x * this.tileHeight / 4));
+		leftD = 500 + ((x - y) * this.tileWidth / 2),
+		topD = 500 + ((x + y) * this.tileHeight / 4);
 		
 	/* pour center */
 	
-	leftD += (c.width / 2) - ((this.mapWidth / 2) * this.tileWidth);
-	topD += (c.height / 2);
-
+	//leftD += (c.width / 2) - ((this.mapWidth / 2) * this.tileWidth);
+	//topD += (c.height / 2);
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
 }
 
