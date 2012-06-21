@@ -91,3 +91,11 @@ canvas {
 	color: #FFFFFF;
 	font-size: 18px;
 }
+
+.latency {
+	z-index: 5;
+	bottom: 0px;
+	right: 0px;
+	height: 25px;
+	margin-right: 15px;
+}

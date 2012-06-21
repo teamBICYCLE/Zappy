@@ -8,7 +8,7 @@ exports.feed = function(buffer, cache) {
 	var arrayBuffer = buffer.split("\n"),
 		current;
 		
-	console.log(buffer);
+	//console.log(buffer);
 	for (var i = 0; i != arrayBuffer.length; i++)
 	{
 		if (arrayBuffer[i] != "")
