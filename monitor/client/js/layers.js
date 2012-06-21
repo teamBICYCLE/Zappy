@@ -75,3 +75,11 @@ Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
 	
 	c.ctx.drawImage(this.getImg(img), x, y);
 }
+
+Layers.prototype.clear = function(canvas) {
+	
+	var c = this.canvasHandler.get(canvas);
+	
+	console.log("clear");
+	c.ctx.clearRect(0, 0, c.width, c.height);
+}

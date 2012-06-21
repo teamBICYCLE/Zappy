@@ -4,6 +4,8 @@
 
 function ressources_draw(cache, layers) {
     
+    layers.clear("cRessources");
+    
 	for (var i = 0; i != cache.getMap().length; i++)
 	{
 		var aCase = cache.getCase(i);
