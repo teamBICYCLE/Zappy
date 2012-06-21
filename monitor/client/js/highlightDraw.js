@@ -8,16 +8,22 @@ function highlight_draw(layers) {
 	var pos = getMousePosition(e),
 	mapPos = realToMap(pos, layers);
     	if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
-	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))		
+	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
+	{
+	    layers.clear("cHighLight");
 	    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
+	}
 	});
 
     $("#cHighLight").mousemove(function(e){
     	var pos = getMousePosition(e),
     	mapPos = realToMap(pos, layers);
     	if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
-	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))		
+	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
+	{		
+	    layers.clear("cHighLight");
     	    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
+	}
     	});
 }
 
