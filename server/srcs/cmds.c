@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 20 12:38:50 2012 lois burg
+** Last update Wed Jun 20 15:47:10 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ static t_tasksmap	g_commands[] =
     {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
-    /* {7, &broadcast_cmd, "broadcast"}, */
+    {7, &broadcast_cmd, "broadcast"},
     {42, &fork_cmd, "fork"},
     /* {300, , "incantation"}, */
     {0, &unknown_cmd, NULL}
