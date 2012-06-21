@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jun 20 17:35:43 2012 lois burg
+** Last update Thu Jun 21 15:54:55 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -22,7 +22,7 @@ extern int	g_player_id;
 extern t_infos	g_info;
 extern char	*g_res_names[LAST];
 
-static t_see_pair	g_see_tab[5] =
+static t_see_pair	g_see_tab[4] =
   {
     {&see_count_north, &see_north},
     {&see_count_east, &see_east},

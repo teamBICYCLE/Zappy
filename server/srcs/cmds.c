@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 20 17:16:22 2012 lois burg
+** Last update Thu Jun 21 15:32:08 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -14,6 +14,7 @@
 #include "task.h"
 #include "cmds.h"
 #include "graphics.h"
+#include "log.h"
 
 extern t_infos	g_info;
 
@@ -38,7 +39,7 @@ static t_tasksmap	g_commands[] =
     /* {7, , "expulse"}, */
     /* {7, &broadcast_cmd, "broadcast"}, */
     {42, &fork_cmd, "fork"},
-    /* {300, , "incantation"}, */
+    {300, &levelup_cmd, "incantation"},
     {0, &unknown_cmd, NULL}
   };
 
@@ -96,6 +97,7 @@ static void	assign_client(t_users *u, char **args)
   t_link	*team_lnk;
   t_team	*team;
   bool		rmv;
+  char		msg[LOG_MSG_SZ];
 
   rmv = false;
   if ((team_lnk = lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
@@ -103,6 +105,10 @@ static void	assign_client(t_users *u, char **args)
     {
       team = (t_team*)team_lnk->ptr;
       assign_pos(u, team);
+      snprintf(msg, sizeof(msg),
+	       "Player #%d joined game! Team: %s. Coordinates: %d-%d\n",
+	       u->id, u->team->name, u->x, u->y);
+      log_msg(stdout, msg);
     }
   else
     rmv = true;
