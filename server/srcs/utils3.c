@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 12:22:39 2012 lois burg
-** Last update Tue Jun 19 16:31:38 2012 lois burg
+** Last update Wed Jun 20 17:04:16 2012 lois burg
 */
 
 #include <stdio.h>
@@ -37,13 +37,13 @@ void	send_ok_ko(t_users *usr, t_cmd_ret s)
     }
 }
 
-void	send_id_pos(t_users *usr)
+void	greet_clnt(const t_users *usr, const int wx, const int wy)
 {
   char	msg[GREETINGS_CLIENT_SZ];
 
   memset(msg, 0, sizeof(msg));
   snprintf(msg, sizeof(msg), "%d\n", usr->team->free_slots);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
-  snprintf(msg, sizeof(msg), "%d %d\n", usr->x, usr->y);
+  snprintf(msg, sizeof(msg), "%d %d\n", wx, wy);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
 }

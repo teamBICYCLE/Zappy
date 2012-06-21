@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Tue Jun 19 17:45:16 2012 lois burg
+** Last update Wed Jun 20 15:44:44 2012 lois burg
 */
 
 #include <string.h>
@@ -60,8 +60,11 @@ t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd)
       else
 	dx = 1;
     }
+  --g_info.map->cases[u->y][u->x].elements[PLAYER];
   u->x = ((u->x + dx) + g_info.map->x) % g_info.map->x;
   u->y = ((u->y + dy) + g_info.map->y) % g_info.map->y;
+  ++g_info.map->cases[u->y][u->x].elements[PLAYER];
+  lookup(g_info.users, graphics_ppo(u), &notify_graphic);
   return (SUCCESS);
 }
 

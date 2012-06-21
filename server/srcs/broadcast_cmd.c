@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 19 16:39:50 2012 lois burg
-** Last update Wed Jun 20 17:33:35 2012 Jonathan Machado
+** Last update Thu Jun 21 14:04:38 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -42,7 +42,7 @@ static int	get_angle(int xs, int ys, int xr, int yr)
 	shorter = i;
       ++i;
     }
-  return ((xs - x[shorter]) *  + (ys - y[shorter]) * );
+  return ((xs - x[shorter]) * 0  + (ys - y[shorter]) * 1);
 }
 
 static void	send_msg(const t_users *sender, t_users *recvr, const char *broadcast)

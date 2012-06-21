@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jun 20 13:50:20 2012 lois burg
+** Last update Wed Jun 20 17:35:43 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -86,13 +86,31 @@ static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
 {
   (void)args;
   (void)orig_cmd;
-  usr->is_egg = false;
-  usr->is_ghost = true;
+  usr->type = TGHOST;
+  usr->readring = new_ringbuffer(4096);
   usr->dir = rand() % (WEST + 1);
   if (usr->team)
     ++usr->team->free_slots;
+  --g_info.map->cases[usr->y][usr->x].elements[EGG];
+  ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
   lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
   return (IGNORE);
+}
+
+static void	init_egg(t_users *egg, t_users *father)
+{
+  egg->socket = -1;
+  egg->type = TEGG;
+  egg->id = g_player_id++;
+  egg->father_id = father->id;
+  egg->lvl = 1;
+  egg->x = father->x;
+  egg->y = father->y;
+  egg->tasks = new_list();
+  egg->messages = new_list();
+  egg->team = father->team;
+  egg->inventory[FOOD] = 10;
+  egg->life = egg->inventory[FOOD] * 126 * 500;/* temporaire */
 }
 
 t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)
@@ -104,19 +122,12 @@ t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)
   (void)orig_cmd;
   memset(&t, 0, sizeof(t));
   memset(&new, 0, sizeof(new));
-  new.is_egg = true;
-  new.id = g_player_id++;
-  new.lvl = 1;
-  new.messages = new_list();
-  new.tasks = new_list();
-  new.readring = new_ringbuffer(4096);
-  new.team = usr->team;
-  new.inventory[FOOD] = 10;
-  new.life = new.inventory[FOOD] * 126 * 500;/* temporaire */
+  init_egg(&new, usr);
   t.countdown = 600;
   t.f = &hatch_egg;
+  ++g_info.map->cases[new.y][new.x].elements[EGG];
   push_back(new.tasks, new_link_by_param(&t, sizeof(t)));
   push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
-  lookup(g_info.users, graphics_enw(usr, new.id), &notify_graphic);
+  lookup(g_info.users, graphics_enw(&new), &notify_graphic);
   return (SUCCESS);
 }

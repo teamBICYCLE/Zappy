@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 17:22:31 2012 lois burg
-** Last update Sun Jun 17 12:06:59 2012 lois burg
+** Last update Wed Jun 20 17:12:18 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -86,7 +86,7 @@ void		answer_ppo(t_users *usr, char **args)
     {
       id = strtol(args[0], NULL, 10);
       if ((plyr = lookup(g_info.users, &id, &cmp_id)) &&
-	  !((t_users*)plyr->ptr)->is_graphics)
+	  ((t_users*)plyr->ptr)->type != TGRAPHICS)
 	msg = graphics_ppo((t_users*)plyr->ptr);
       else
 	msg = graphics_sbp();
