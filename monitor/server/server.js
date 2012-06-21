@@ -9,14 +9,20 @@ if (process.argv.length >= 3)
 		port = "4242",
 		buffer = '';
 		
+	if (process.argv[3] == "24542")
+	{
+		console.log("This port is reserved for browser <-> node server connection.");
+		process.exit(0);
+	}
 	if (process.argv.length >= 4)
 		port = process.argv[3];
 
-	var zappy = new ZappyConnection(ip, port);
+	var zappy = new ZappyConnection(ip, port),
+		client;
 	
 	zappy.on('cacheWhole', function(){
 		
-		var client = new ClientConnection();
+		client = new ClientConnection();
 		
 		var ref = {
 		  "tna": zappy.getCache().getTeams(), 
@@ -53,7 +59,7 @@ if (process.argv.length >= 3)
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		//update();
+		update();
 	});
 }
 else
@@ -63,6 +69,18 @@ else
 }
 
 function update() {
+	/* reset */
+	//cache.getPlayers() = [];
+	zappy.getSocket().write("mct\n");
+	zappy.getSocket().write("sgt\n");
+	
+	client.getClientSocket().emit('cacheUpdate', {
+		map: zappy.getCache().getFormatedMap(),
+		players: zappy.getCache().getPlayers(),
+		eggs: zappy.getCache().getEggs(),
+		timestamp: new Date().getTime()
+	});
+	
 	console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
