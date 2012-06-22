@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
 {
   Trantorien  joe("localhost", "4242");
 
-  sleep(2);
   joe.run();
 
 //  Example toto;
