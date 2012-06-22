@@ -52,7 +52,7 @@ if (process.argv.length >= 3)
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		//update();
+		update();
 	});
 }
 else
@@ -74,7 +74,7 @@ function update() {
 		timestamp: new Date().getTime()
 	});
 	
-	console.log("update at " + zappy.getCache().getCurrentTimeUnit());
+	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
 
