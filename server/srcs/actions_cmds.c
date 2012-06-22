@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Tue Jun 19 17:45:03 2012 lois burg
+** Last update Thu Jun 21 15:54:55 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -15,11 +15,14 @@
 #include "cmds.h"
 #include "server.h"
 #include "log.h"
+#include "graphics.h"
+#include "task.h"
 
+extern int	g_player_id;
 extern t_infos	g_info;
 extern char	*g_res_names[LAST];
 
-static t_see_pair	g_see_tab[5] =
+static t_see_pair	g_see_tab[4] =
   {
     {&see_count_north, &see_north},
     {&see_count_east, &see_east},
@@ -77,4 +80,54 @@ t_cmd_ret	inventory_cmd(t_users *usr, char **args, char *orig_cmd)
   log_msg(stdout, log);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   return (IGNORE);
+}
+
+static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
+{
+  (void)args;
+  (void)orig_cmd;
+  usr->type = TGHOST;
+  usr->readring = new_ringbuffer(4096);
+  usr->dir = rand() % (WEST + 1);
+  if (usr->team)
+    ++usr->team->free_slots;
+  --g_info.map->cases[usr->y][usr->x].elements[EGG];
+  ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
+  lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
+  return (IGNORE);
+}
+
+static void	init_egg(t_users *egg, t_users *father)
+{
+  egg->socket = -1;
+  egg->type = TEGG;
+  egg->id = g_player_id++;
+  egg->father_id = father->id;
+  egg->lvl = 1;
+  egg->x = father->x;
+  egg->y = father->y;
+  egg->tasks = new_list();
+  egg->messages = new_list();
+  egg->team = father->team;
+  egg->inventory[FOOD] = 10;
+  egg->life = egg->inventory[FOOD] * 126 * 500;/* temporaire */
+}
+
+t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)
+{
+  t_users	new;
+  t_task	t;
+
+  (void)args;
+  (void)orig_cmd;
+  memset(&t, 0, sizeof(t));
+  memset(&new, 0, sizeof(new));
+  init_egg(&new, usr);
+  t.countdown = 600;
+  t.f = &hatch_egg;
+  ++g_info.map->cases[new.y][new.x].elements[EGG];
+  push_back(new.tasks, new_link_by_param(&t, sizeof(t)));
+  push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
+  lookup(g_info.users, graphics_enw(&new), &notify_graphic);
+  return (SUCCESS);
 }

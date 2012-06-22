@@ -9,14 +9,20 @@ if (process.argv.length >= 3)
 		port = "4242",
 		buffer = '';
 		
+	if (process.argv[3] == "24542")
+	{
+		console.log("This port is reserved for browser <-> node server connection.");
+		process.exit(0);
+	}
 	if (process.argv.length >= 4)
 		port = process.argv[3];
 
-	var zappy = new ZappyConnection(ip, port);
+	var zappy = new ZappyConnection(ip, port),
+		client;
 	
 	zappy.on('cacheWhole', function(){
 		
-		var client = new ClientConnection();
+		client = new ClientConnection();
 		
 		var ref = {
 		  "tna": zappy.getCache().getTeams(), 
@@ -53,7 +59,7 @@ if (process.argv.length >= 3)
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		//update();
+		update();
 	});
 }
 else
@@ -63,6 +69,18 @@ else
 }
 
 function update() {
+	/* reset */
+	//cache.getPlayers() = [];
+	zappy.getSocket().write("mct\n");
+	zappy.getSocket().write("sgt\n");
+	
+	client.getClientSocket().emit('cacheUpdate', {
+		map: zappy.getCache().getFormatedMap(),
+		players: zappy.getCache().getPlayers(),
+		eggs: zappy.getCache().getEggs(),
+		timestamp: new Date().getTime()
+	});
+	
 	console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
@@ -89,14 +107,16 @@ function getCmd(cmd, ref) {
 		return ref[explode[0]];
 	else if (cmd.search("#") != -1)
 		return playerCmd(explode);
-	else if (explode[0] == "bct")
+	else if (explode[0] == "bct" && explode[1] >= 0 && explode[2] >=0 &&
+			explode[1] < zappy.getCache().getXSize() && explode[2] < zappy.getCache().getYSize())
 		return "Case content in (" + explode[1] + ", " + explode[2] + ") : " +
-		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).getRessources();
+		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).ressources;
 	else if (explode[0] == "sst")
 	{
 		zappy.getSocket().write(explode[0] + " " + explode[1] + "\n");
 		return "Server current time unit is now set at " + explode[1];
 	}
+	return explode[0] + " : Command Error";
 }
 
 

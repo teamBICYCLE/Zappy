@@ -10,6 +10,7 @@ function Layers(xsize, ysize){
 		0 : {name: "food", img: new Image()},
 		1 : {name: "linemate", img: new Image()},
 		2 : {name: "floor", img: new Image()},
+		3 : {name: "highlight", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -28,6 +29,18 @@ function Layers(xsize, ysize){
 	this.imgs[999].img.src = "img/" + this.imgs[999].name + ".png";
 }
 
+/* GET */
+
+Layers.prototype.getMapSize = function() {
+	
+    return ({width: parseInt(this.mapWidth), height: parseInt(this.mapHeight)});	
+}
+
+Layers.prototype.getTileSize = function() {
+	
+    return ({width: parseInt(this.tileWidth), height: parseInt(this.tileHeight)});	
+}
+
 Layers.prototype.getImg = function(name) {
 	
 	for (var i = 0; typeof(this.imgs[i]) != "undefined"; i++)
@@ -39,18 +52,34 @@ Layers.prototype.getImg = function(name) {
 	return this.imgs[999].img;
 }
 
+/* DRAWING */
+
 Layers.prototype.draw = function(canvas, img, x, y) {
 	
 	//console.log("Drawing on canvas : " + canvas);
 	//console.log(this.getImg(img));
 	var c = this.canvasHandler.get(canvas),
-		leftD = ((x * this.tileWidth / 2) + (y * this.tileWidth / 2)),
-		topD = ((y * this.tileHeight / 4) - (x * this.tileHeight / 4));
+		leftD = 500 + ((x - y) * this.tileWidth / 2),
+		topD = 500 + ((x + y) * this.tileHeight / 4);
 		
 	/* pour center */
 	
-	leftD += (c.width / 2) - ((this.mapWidth / 2) * this.tileWidth);
-	topD += (c.height / 2);
-
+	//leftD += (c.width / 2) - ((this.mapWidth / 2) * this.tileWidth);
+	//topD += (c.height / 2);
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
+}
+
+Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
+	
+	var c = this.canvasHandler.get(canvas);
+	
+	c.ctx.drawImage(this.getImg(img), x, y);
+}
+
+Layers.prototype.clear = function(canvas) {
+	
+	var c = this.canvasHandler.get(canvas);
+	
+	console.log("clear");
+	c.ctx.clearRect(0, 0, c.width, c.height);
 }

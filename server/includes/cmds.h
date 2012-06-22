@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Tue Jun 19 18:19:19 2012 lois burg
+** Last update Thu Jun 21 18:31:21 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -36,12 +36,17 @@ t_cmd_ret	take_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	connect_nbr_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	broadcast_cmd(t_users *u, char **args, char *orig_cmd);
+t_cmd_ret	fork_cmd(t_users *u, char **args, char *orig_cmd);
+t_cmd_ret	levelup_cmd(t_users *usr, char **args, char *orig_cmd);
 
 /* TOOLS */
 char		*case_content(const t_case *c, char *buf);
 size_t		case_content_sz(const t_case *c);
 void		send_ok_ko(t_users *usr, t_cmd_ret s);
-void		send_id_pos(t_users *usr);
+void		greet_clnt(const t_users *usr, const int wx, const int wy);
+void		assign_pos(t_users *u, t_team *team);
+bool		check_levelup(t_users *summoner);
+bool		pretask_check(const char *cmd, t_users *u);
 
 /* SEE TOOLS */
 

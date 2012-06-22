@@ -17,9 +17,10 @@ var ClientConnection = function() {
 	
 	var self = this;
 	
-	var client = io
-	  .sockets
-	  .on('connection', function(socket) {
+	var client = io.sockets;
+	
+	//console.log(client);
+	  client.on('connection', function(socket) {
 	  	
 	  	self.emit('firstConnection', {socket: socket});
 	  	
@@ -36,6 +37,10 @@ var ClientConnection = function() {
 		});
 	        
 	  });
+	  
+	  ClientConnection.prototype.getClientSocket = function() {
+		return client;
+	}
 }
 
 module.exports = ClientConnection;

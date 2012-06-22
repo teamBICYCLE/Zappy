@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:51:15 2012 Jonathan Machado
-** Last update Tue Jun 19 17:40:49 2012 lois burg
+** Last update Wed Jun 20 16:35:30 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -18,7 +18,8 @@ void		free_tasks(void *ptr)
 
   t = ptr;
   free(t->orig_cmd);
-  free(t->args[0]);
+  if (t->args)
+    free(t->args[0]);
   free(t->args);
   free(ptr);
 }
@@ -28,7 +29,8 @@ void		free_users(void *ptr)
   t_users	*u;
 
   u = ptr;
-  close(u->socket);
+  if (u->socket != -1)
+    close(u->socket);
   delete_list(u->messages, &free);
   delete_ringbuffer(u->readring);
   delete_list(u->tasks, &free_tasks);

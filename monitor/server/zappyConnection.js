@@ -32,8 +32,11 @@ var ZappyConnection = function (ip, port) {
 				self.emit('cacheWhole');
 				first = false;
 			}
-			else
-				self.emit('cacheUpdate');
+			// else
+			// {
+				// //self.emit('cacheUpdate');
+				// console.log("event cache Update");
+			// }
 			buffer = '';
 		}
 	});

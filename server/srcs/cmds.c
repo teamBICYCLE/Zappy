@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jun 19 17:45:49 2012 lois burg
+** Last update Thu Jun 21 18:39:46 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -14,6 +14,7 @@
 #include "task.h"
 #include "cmds.h"
 #include "graphics.h"
+#include "log.h"
 
 extern t_infos	g_info;
 
@@ -37,8 +38,8 @@ static t_tasksmap	g_commands[] =
     {7, &put_cmd, "pose"},
     /* {7, , "expulse"}, */
     {7, &broadcast_cmd, "broadcast"},
-    /* {42, , "fork"}, */
-    /* {300, , "incantation"}, */
+    {42, &fork_cmd, "fork"},
+    {300, &levelup_cmd, "incantation"},
     {0, &unknown_cmd, NULL}
   };
 
@@ -63,13 +64,20 @@ static void	add_task(t_users *u, char **args, char *orig_cmd)
 
   i = 0;
   while (g_commands[i].key != NULL &&
-	 strcmp(g_commands[i].key, args[0]) != 0)
+	 (!args[0] || strcmp(g_commands[i].key, args[0]) != 0))
     ++i;
   t.countdown = g_commands[i].countdown;
   t.f = g_commands[i].f;
   t.orig_cmd = orig_cmd;
   t.args = args;
-  push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+  if (pretask_check(g_commands[i].key, u))
+    push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
+  else
+    {
+      free(orig_cmd);
+      free(args[0]);
+      free(args);
+    }
 }
 
 static void	answer_graphics(t_users *u, char **args, char *orig_cmd)
@@ -78,9 +86,12 @@ static void	answer_graphics(t_users *u, char **args, char *orig_cmd)
 
   i = 0;
   while (g_graphics_cmd[i].key != NULL &&
-	 strcmp(g_graphics_cmd[i].key, args[0]))
+	 (!args[0] || strcmp(g_graphics_cmd[i].key, args[0])))
     ++i;
-  (g_graphics_cmd[i].f)(u, &args[1]);
+  if (args[0])
+    (g_graphics_cmd[i].f)(u, &args[1]);
+  else
+    (g_graphics_cmd[i].f)(u, &args[0]);
   free(orig_cmd);
   free(args[0]);
   free(args);
@@ -91,19 +102,18 @@ static void	assign_client(t_users *u, char **args)
   t_link	*team_lnk;
   t_team	*team;
   bool		rmv;
+  char		msg[LOG_MSG_SZ];
 
   rmv = false;
   if ((team_lnk = lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
       ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
       team = (t_team*)team_lnk->ptr;
-      u->team = team;
-      --team->free_slots;
-      u->x = rand() % g_info.map->x;
-      u->y = rand() % g_info.map->y;
-      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
-      send_id_pos(u);
-      lookup(g_info.users, graphics_pnw(u), &notify_graphic);
+      assign_pos(u, team);
+      snprintf(msg, sizeof(msg),
+	       "Player #%d joined game! Team: %s. Coordinates: %d-%d\n",
+	       u->id, u->team->name, u->x, u->y);
+      log_msg(stdout, msg);
     }
   else
     rmv = true;
@@ -117,9 +127,10 @@ static void	assign_client(t_users *u, char **args)
 
 void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 {
-  if (u->first_message == false && u->is_graphics == false)
+  if (u->first_message == false && u->type != TGRAPHICS &&
+      u->tasks->size < 10)
     add_task(u, args, orig_cmd);
-  else if (u->first_message == false && u->is_graphics == true)
+  else if (u->first_message == false && u->type == TGRAPHICS)
     answer_graphics(u, args, orig_cmd);
   else
     {
@@ -127,7 +138,7 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	{
 	  if (!strcmp(args[0], GRAPHIC_USR))
 	    {
-	      u->is_graphics = true;
+	      u->type = TGRAPHICS;
 	      greet_graphics(u);
 	    }
 	  else
@@ -135,7 +146,7 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	}
       u->first_message = false;
       free(orig_cmd);
-      free(args[0]);/*j'aime pas trop devoir free comme ca... C'est parce que la tache est pas ajoutee car c'est le premier message, du coup pas de free en sortant*/
+      free(args[0]);
       free(args);
     }
 }

@@ -57,17 +57,18 @@ canvas {
 	z-index: 5;
 }
 
-#c {
+#cMap {
 	z-index: 1;
 }
 
-#cHighLight {
-	z-index: 2;	
+#cRessources {
+	z-index: 2;
 }
 
-#cRessources {
-	z-index: 3;
+#cHighLight {
+	z-index: 3;	
 }
+
 
 #errorBox {
 	height: 20px;
@@ -89,4 +90,12 @@ canvas {
 	text-align: center;
 	color: #FFFFFF;
 	font-size: 18px;
+}
+
+.latency {
+	z-index: 5;
+	bottom: 0px;
+	right: 0px;
+	height: 25px;
+	margin-right: 15px;
 }

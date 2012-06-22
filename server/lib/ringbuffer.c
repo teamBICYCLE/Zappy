@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Fri Apr 20 18:09:47 2012 Jonathan Machado
+** Last update Wed Jun 20 14:31:27 2012 lois burg
 */
 
 #include <string.h>
@@ -21,7 +21,7 @@ t_ringbuffer	*new_ringbuffer(size_t size)
   if (ret)
     {
       memset(ret, 0, sizeof(*ret));
-      ret->data = malloc((size) * sizeof(ret->data));
+      ret->data = malloc((size) * sizeof(*ret->data));
       if (ret->data == NULL)
 	return NULL;
       memset(ret->data, 0, size);
@@ -56,9 +56,14 @@ char		*get_data(t_ringbuffer *ring)
   if ((s = strchr(ring->data, '\n')) != NULL)
     {
       ret = malloc(strlen(ring->data) * sizeof(*ret));
-      memcpy(ret, ring->data, strlen(ring->data));
-      ret[strlen(ring->data) - 2] = 0;
-      memmove(ring->data, s + 1, ring->size - strlen(ring->data));
+      if (ret)
+	{
+	  memcpy(ret, ring->data, strlen(ring->data) - 1);
+	  ret[strlen(ring->data) - 1] = 0;
+	  if (strlen(ret) && ret[strlen(ret) - 1] == '\r')
+	    ret[strlen(ret) - 1] = 0;
+	  memmove(ring->data, s + 1, ring->size - strlen(ring->data));
+	}
       return (ret);
     }
   return (NULL);
