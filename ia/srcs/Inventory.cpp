@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:29 2012 thibault carpentier
-// Last update Fri Jun 22 13:57:33 2012 thibault carpentier
+// Last update Fri Jun 22 18:42:34 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -13,8 +13,8 @@
 #include "Inventory.hh"
 
 
-std::string const           Inventory::REGEX_VALUE = " *\\{( *[A-Za-z]+ *[0-9]+ *,)* *[A-Za-z]+ *[0-9]+ *\\}";
-//" *\\{[A-Za-z]+ *[0-9]+ *,";
+std::string const           Inventory::REGEX_VALUE = " *\\{( *[A-Za-z]+ +[0-9]+ *,)* *[A-Za-z]+ +[0-9]+ *\\}";
+
 Inventory::Inventory()
 {
   this->inventory_.resize(END);
@@ -54,6 +54,13 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
   std::vector<unsigned int> ret;
 
   if (boost::regex_match(values, regex))
-    std::cout << values << std::endl;
+    {
+      boost::regex EXPR(" *nourriture +([0-9]+)");
+      boost::match_results<std::string::const_iterator> what;
+      regex_search(values.begin(), values.end(), what, EXPR, boost::match_default);
+      if (what.size() >= 1)
+	std::cout  <<  what[1] << std::endl;
+    }
+  std::cout << values << std::endl;
   return ret;
 }

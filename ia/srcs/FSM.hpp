@@ -3,6 +3,7 @@
 #ifndef _FSM_HH_
 #define _FSM_HH_
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <utility>

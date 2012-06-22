@@ -6,6 +6,8 @@
 
 #define DEBUG
 
+#include <iostream>
+
 Network::Network(const std::string &ip, const std::string &port)
   : boost::asio::ip::tcp::iostream(ip, port)
 {
