@@ -51,8 +51,6 @@ socket.on('cacheUpdate', function(data){
 	
 	
 	if (lastTimestamp != data.timestamp) {
-		cache.setMapSize(data.xsize, data.ysize);
-		cache.setTeams(data.teams);
 		cache.setMap(data.map);
 		//console.log(cache.getSprite(cache.getCase(1, 1)));
 		//console.log(data.map);
