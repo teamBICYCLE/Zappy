@@ -2,9 +2,33 @@
  * @author sylvia_r
  */
 
-var socket = io.connect('http://localhost', {port:24542}),
+var socket = io.connect('http://localhost', {
+		port:24542,
+		'reconnect': true,
+  		'reconnection delay': 1000,
+  		'max reconnection attempts': 10
+	}),
 	lastTimestamp = 0,
 	layers;
+	
+console.log(socket);
+
+socket.on("disconnect", function(){
+	
+	$('#overlay').fadeIn('fast', function(){
+		$('#connectionError').animate({'top':'160px'}, 500);
+	});
+});
+
+socket.on("reconnect", function(){
+	$('#connectionError').animate({'top':'-200px'}, 500, function(){
+        $('#overlay').fadeOut('fast');
+    });
+});
+
+socket.on("reconnect_failed", function(){
+	console.log("GROS FAIL DE RECONNECTION !!!");
+});
 
 socket.on('firstConnection', function(data){
 	if (lastTimestamp != data.timestamp) {

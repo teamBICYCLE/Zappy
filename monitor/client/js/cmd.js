@@ -20,7 +20,7 @@ function sendCmd(cmd){
 		$("#cmdResult").append("<span class='entry'>" + "Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help" + "</span>");
 		$('#cmdResult span:last-child').fadeOut(7000);
 	}
-	else if (checkCmd(cmd))
+	else if (cmd != "" && checkCmd(cmd))
 	{
 		socket.emit('requestData', {cmd : cmd});
 		socket.on('requestDataDone', function(data){

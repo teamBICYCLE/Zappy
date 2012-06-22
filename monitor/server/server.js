@@ -24,18 +24,11 @@ if (process.argv.length >= 3)
 		
 		client = new ClientConnection();
 		
-		var ref = {
-		  "tna": zappy.getCache().getTeams(), 
-		  "msz": zappy.getCache().getMapSize(),
-		  "mct": zappy.getCache().getMap(),
-		  "sgt": zappy.getCache().getCurrentTimeUnit()
-		};
-		
 		zappy.getCache().dump();
 	    console.log("=================");
 	  
 	  	client.on('requestData', function(obj){
-	  		var data = getCmd(obj.cmd, ref);
+	  		var data = getCmd(obj.cmd);
 			obj.socket.emit('requestDataDone', {data_: data, timestamp: new Date().getTime()});
 		});
 		
@@ -59,7 +52,7 @@ if (process.argv.length >= 3)
 			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
 		// });
 		
-		update();
+		//update();
 	});
 }
 else
@@ -87,7 +80,7 @@ function update() {
 
 function playerCmd(explode) {
 	
-	var player = zappy.getCache().getPlayer(explode[1].replace("#", ""));
+	var player = zappy.getCache().getPlayer(parseInt(explode[1].replace("#", "")));
 	
 	var playerPtr = {
 		"ppo": player.getPos(),
@@ -99,21 +92,29 @@ function playerCmd(explode) {
 		return playerPtr[explode[0]];
 }
 
-function getCmd(cmd, ref) {
+function getCmd(cmd) {
 	
 	var explode = cmd.split(" ");
+		ref = {
+		  "tna": zappy.getCache().getTeams(), 
+		  "msz": zappy.getCache().getMapSize(),
+		  "mct": zappy.getCache().getMap(),
+		  "sgt": zappy.getCache().getCurrentTimeUnit()
+		};
 		
 	if (typeof(ref[explode[0]]) != "undefined")
 		return ref[explode[0]];
 	else if (cmd.search("#") != -1)
 		return playerCmd(explode);
-	else if (explode[0] == "bct" && explode[1] >= 0 && explode[2] >=0 &&
-			explode[1] < zappy.getCache().getXSize() && explode[2] < zappy.getCache().getYSize())
+	else if (explode[0] == "bct" && parseInt(explode[1]) >= 0 &&
+			parseInt(explode[2]) >= 0 && parseInt(explode[1]) < zappy.getCache().getXSize() &&
+			parseInt(explode[2]) < zappy.getCache().getYSize())
 		return "Case content in (" + explode[1] + ", " + explode[2] + ") : " +
-		zappy.getCache().getMap().getCase(zappy.getCache(), explode[1], explode[2]).ressources;
+		zappy.getCache().getMap().getCase(zappy.getCache(), parseInt(explode[1]), parseInt(explode[2])).ressources;
 	else if (explode[0] == "sst")
 	{
 		zappy.getSocket().write(explode[0] + " " + explode[1] + "\n");
+		zappy.getCache().setCurrentTimeUnit(explode[1]);
 		return "Server current time unit is now set at " + explode[1];
 	}
 	return explode[0] + " : Command Error";

@@ -17,6 +17,15 @@ $(function() {
 	$("#errorBox").click(function(e){
 		$("#errorBox").hide();
 	});
+	
+	// $('#connectionError').click(function(){
+		// if (!$("#connectionError").is(":hidden"))
+		// {
+			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
+	            // $('#overlay').fadeOut('fast');
+	        // });
+		// }
+	// });
 
 });
 
