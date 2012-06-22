@@ -5,7 +5,7 @@
 #include <iostream>
 
 Trantorien::Trantorien(const std::string ip, const std::string port)
-  : FSM(), network_(ip, port)
+  : FSM(*this, &Trantorien::isValid), network_(ip, port)
 {
   std::string tmp;
 
@@ -16,19 +16,14 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
       // std::cout << network_.error().message() << std::endl;
       abort();
     }
-  states_.push_back(&Trantorien::avance);
-  states_.push_back(&Trantorien::voir);
+  init("conf.cfg", "script.lua");
+  addInteraction("avance", &Trantorien::avance);
+  addInteraction("voir", &Trantorien::voir);
   setValidityTest(&Trantorien::isValid);
 
-  // implementer dans la classe reseau
-  std::getline(network_, tmp);
-  std::cout << "1: " << tmp << std::endl;
-  network_ << "toto" << std::endl;
-  std::getline(network_, tmp);
-  std::cout << "2: " << tmp << std::endl;
-  std::getline(network_, tmp);
-  std::cout << "3: " << tmp << std::endl;
-  std::cout << "Coucou Abort();" << std::endl;
+  joinTeam("toto");
+  network_.getline();
+  network_.getline();
 }
 
 Trantorien::~Trantorien()
@@ -37,7 +32,12 @@ Trantorien::~Trantorien()
 
 void Trantorien::run()
 {
-  FSM::run(*this);
+  FSM::run();
+}
+
+void Trantorien::joinTeam(const std::string &teamName)
+{
+  network_.cmd(teamName);
 }
 
 bool Trantorien::isValid() const
@@ -45,23 +45,21 @@ bool Trantorien::isValid() const
   return network_;
 }
 
-FSMRetValue Trantorien::avance()
+int Trantorien::avance()
 {
   std::string ret;
 
-  network_ << "avance" << std::endl;
-  std::getline(network_, ret);
-  std::cout << "result avance: " << ret << std::endl;
-  return OK;
+  network_.cmd("avance");
+  ret = network_.getline();
+  return 0;
 }
 
 
-FSMRetValue Trantorien::voir()
+int Trantorien::voir()
 {
   std::string ret;
 
-  network_ << "voir" << std::endl;
-  std::getline(network_, ret);
-  std::cout << "result voir: " << ret << std::endl;
-  return OK;
+  network_.cmd("voir");
+  ret = network_.getline();
+  return 0;
 }

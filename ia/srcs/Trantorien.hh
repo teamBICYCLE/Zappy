@@ -5,8 +5,8 @@
 
 #include "Inventory.hh"
 #include "Network.hh"
-
 #include "FSM.hpp"
+#include "Script.hh"
 
 class Trantorien : public FSM<Trantorien> {
 public:
@@ -15,11 +15,18 @@ public:
 
 
   void                  run();
+
+private: // print infos
+  void                  dump() const;
+
+private: // server interactions
+  void                  joinTeam(const std::string & teamName);
+
 private:
   bool                  isValid() const;
 
-  FSMRetValue          avance();
-  FSMRetValue          voir();
+  int          avance();
+  int          voir();
 
 private:
   Inventory     inventory_;
