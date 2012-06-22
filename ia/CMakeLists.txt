@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 project(iazappy)
 
-ADD_DEFINITIONS(-Wall -std=c++11)
+ADD_DEFINITIONS(-Wall -std=c++0x)
 
 
 include_directories(
@@ -24,5 +24,6 @@ target_link_libraries(
     ${PROJECT_NAME}
     lua
     boost_system
+    boost_regex
 pthread
 )

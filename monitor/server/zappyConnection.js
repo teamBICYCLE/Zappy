@@ -22,6 +22,11 @@ var ZappyConnection = function (ip, port) {
 		socket.write("GRAPHIC\n");
 	});
 	
+	socket.on('close', function () {
+	    console.log("Zappy server is unreachable ! Be sure the zappy server is running.");
+	    process.exit(0);
+	  });
+	
 	socket.on('data', function(data){
 		buffer += data;
 		if (buffer.charCodeAt(buffer.length - 1) == 10)

@@ -6,18 +6,19 @@ function highlight_draw(layers) {
     
     $("#cHighLight").click(function(e){
 	var pos = getMousePosition(e),
-	mapPos = realToMap(pos, layers);
+	mapPos = realToMap(pos, layers, "cHighLight");
     	if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 	{
 	    layers.clear("cHighLight");
 	    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
+	    displayCaseContent(pos, mapPos, layers, "cHighLight");
 	}
 	});
 
     $("#cHighLight").mousemove(function(e){
     	var pos = getMousePosition(e),
-    	mapPos = realToMap(pos, layers);
+    	mapPos = realToMap(pos, layers, "cHighLight");
     	if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 	{		
@@ -29,15 +30,13 @@ function highlight_draw(layers) {
 
 /* renverra les positions converties pixel -> map */
 // http://www.developpez.net/forums/d788377/applications/developpement-2d-3d-jeux/cherche-formules-2d-isometriques/
-function realToMap(pos, layers) {
+function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
-    //pos.x += (1600 / 2) - ((5 / 2) * 64);
-    //pos.y += (760 / 2);
-    pos.x -= 500;
-    pos.y -= 500;
-    x = pos.y / (layers.getTileSize().height / 2) + pos.x / layers.getTileSize().width;
-    y = pos.y / (layers.getTileSize().height / 2) - pos.x / layers.getTileSize().width;
+    pos.x -= layers.padding(canvas).left;
+    pos.y -= layers.padding(canvas).top;
+    x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);
+    y = (pos.y / (layers.getTileSize().height / 2)) - (pos.x / layers.getTileSize().width);
     return ({x: parseInt(x - 1), y: parseInt(y)});
 };
 	

@@ -11,6 +11,7 @@ function Layers(xsize, ysize){
 		1 : {name: "linemate", img: new Image()},
 		2 : {name: "floor", img: new Image()},
 		3 : {name: "highlight", img: new Image()},
+		4 : {name: "empty", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -54,18 +55,21 @@ Layers.prototype.getImg = function(name) {
 
 /* DRAWING */
 
+Layers.prototype.padding = function(canvas) {
+	var c = this.canvasHandler.get(canvas),
+	topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2));
+	leftOffset = (c.width / 2);
+
+	return ({left: leftOffset, top: topOffset});
+}
+
 Layers.prototype.draw = function(canvas, img, x, y) {
 	
-	//console.log("Drawing on canvas : " + canvas);
-	//console.log(this.getImg(img));
 	var c = this.canvasHandler.get(canvas),
-		leftD = 500 + ((x - y) * this.tileWidth / 2),
-		topD = 500 + ((x + y) * this.tileHeight / 4);
-		
-	/* pour center */
+		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
+		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 	
-	//leftD += (c.width / 2) - ((this.mapWidth / 2) * this.tileWidth);
-	//topD += (c.height / 2);
+	console.log(this.getImg(img));	
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
 }
 
@@ -80,6 +84,5 @@ Layers.prototype.clear = function(canvas) {
 	
 	var c = this.canvasHandler.get(canvas);
 	
-	console.log("clear");
 	c.ctx.clearRect(0, 0, c.width, c.height);
 }

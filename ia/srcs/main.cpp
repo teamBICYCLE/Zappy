@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Tue Jun  5 18:57:27 2012 thibault carpentier
+// Last update Fri Jun 22 13:57:55 2012 thibault carpentier
 //
 
 
@@ -23,9 +23,17 @@ using namespace LuaVirtualMachine;
 
 int main(int argc, char *argv[])
 {
-  Trantorien  joe("localhost", "4242");
+  Inventory eude;
 
-  joe.run();
+  (void)argc;
+  (void)argv;
+
+  eude.update("{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}");
+
+  // Trantorien  joe("localhost", "4242");
+
+  // sleep(2);
+  // joe.run();
 
 //  Example toto;
 

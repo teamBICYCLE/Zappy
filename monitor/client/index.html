@@ -12,12 +12,19 @@
   		<script src="js/monitorCache.js"></script>
 	</head>
 	<body>
+		<div id="overlay" style="display:none;"></div>
+		<div id="connectionError">
+			<h1>Connection error <img src="img/ajax-loader.gif" /></h1>
+			<p>Your connection to the node server has been lost.</p>
+			<p>Don't panic, I try a reconnection :)</p>
+		</div>
 		<canvas id="cHighLight"></canvas>
 		<canvas id="cRessources"></canvas>
   		<canvas id="cMap"></canvas>
 		<div id="header"></div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><span class="errorText"></span></div>
+		<div id="caseContent"><span class="contentText"></span></div>
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
   	</body>

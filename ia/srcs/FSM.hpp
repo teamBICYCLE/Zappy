@@ -21,6 +21,7 @@ class FSM : public LuaVirtualMachine::Script {
 
   // constructor / destructor
   FSM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
+
   virtual ~FSM() {}
 
   // initializers
