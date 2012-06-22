@@ -13,7 +13,7 @@ class FSM {
   typedef FSMRetValue  (X::* FSMState)(void);
   typedef bool         (X::* ValidityTest)(void) const;
 
-  FSM(): currentState_(0), keepRunning_(nullptr) {}
+  FSM(): currentState_(0), keepRunning_(NULL) {}
   virtual ~FSM() {}
 
   void    addState(FSMState state);
