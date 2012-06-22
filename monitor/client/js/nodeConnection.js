@@ -4,9 +4,9 @@
 
 var socket = io.connect('http://localhost', {
 		port:24542,
-		'reconnect': true,
-  		'reconnection delay': 1000,
-  		'max reconnection attempts': 10
+		reconnect: true,
+  		'reconnection delay': 500,
+  		'max reconnection attempts': 1
 	}),
 	lastTimestamp = 0,
 	layers;
@@ -45,14 +45,12 @@ socket.on('firstConnection', function(data){
 
 socket.on('cacheUpdate', function(data){
 	//console.log("receive firstConnection");
-	console.log("cacheUpdate");
+	//console.log("cacheUpdatee");
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
 	$(".latency .lValue").text(latency);
 	
-	
+	/* faudra seter eggs map players */
 	if (lastTimestamp != data.timestamp) {
-		cache.setMapSize(data.xsize, data.ysize);
-		cache.setTeams(data.teams);
 		cache.setMap(data.map);
 		//console.log(cache.getSprite(cache.getCase(1, 1)));
 		//console.log(data.map);

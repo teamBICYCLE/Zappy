@@ -16,7 +16,8 @@ function MonitorCache () {
 		3: "sibur",
 		4: "mendiane",
 		5: "phiras",
-		6: "thystame"
+		6: "thystame",
+		7: "empty"
 	};
 }
 
@@ -85,7 +86,9 @@ MonitorCache.prototype.getSprite = function(aCase) {
    			sprite = i;
    			value = aCase.ressources[i];
    		}
-   	return (this.ref[sprite]);
+   	if (value != 0)
+   		return (this.ref[sprite]);
+   	return (this.ref[7]);
 }
 
 MonitorCache.prototype.getMap = function() {

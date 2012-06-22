@@ -11,6 +11,7 @@ function Layers(xsize, ysize){
 		1 : {name: "linemate", img: new Image()},
 		2 : {name: "floor", img: new Image()},
 		3 : {name: "highlight", img: new Image()},
+		4 : {name: "empty", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -67,7 +68,8 @@ Layers.prototype.draw = function(canvas, img, x, y) {
 	var c = this.canvasHandler.get(canvas),
 		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
 		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
-		
+	
+	console.log(this.getImg(img));	
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
 }
 

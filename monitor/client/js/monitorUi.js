@@ -26,6 +26,14 @@ $(function() {
 	        // });
 		// }
 	// });
+	// $('#connectionError').click(function(){
+		// if (!$("#connectionError").is(":hidden"))
+		// {
+			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
+	            // $('#overlay').fadeOut('fast');
+	        // });
+		// }
+	// });
 
 });
 
