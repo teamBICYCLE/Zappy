@@ -10,8 +10,6 @@ function ressources_draw(cache, layers) {
 	{
 		var aCase = cache.getCase(i);
 			
-		// le if est temporaire
-		if (cache.getSprite(aCase) == "linemate" || cache.getSprite(aCase) == "food" || cache.getSprite(aCase) == "empty")
-			layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y);
+		layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y);
 	}
 }

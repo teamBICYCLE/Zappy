@@ -49,8 +49,13 @@ function displayError(msg) {
 function displayCaseContent(pos, mapPos, layer, canvas) {
     var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
     
-    $("#caseContent .contentText").text("Food: " + ressources[0] + "\n");
-    $("#caseContent .contentText").append("Linemate: " + ressources[1] + "\n");
+    $("#caseContent .contentText").text("Food: " + ressources[0] + " ");
+    $("#caseContent .contentText").append("Linemate: " + ressources[1] + " ");
+    $("#caseContent .contentText").append("Deraumere: " + ressources[2] + " ");
+    $("#caseContent .contentText").append("Sibur: " + ressources[3] + " ");
+    $("#caseContent .contentText").append("Mendiane: " + ressources[4] + " ");
+    $("#caseContent .contentText").append("Phiras: " + ressources[5] + " ");
+    $("#caseContent .contentText").append("Thystame: " + ressources[6]);
     $("#caseContent").css("left", pos.x + layer.padding(canvas).left);
     $("#caseContent").css("top", pos.y + layer.padding(canvas).top);
     $("#caseContent").fadeIn(800);
