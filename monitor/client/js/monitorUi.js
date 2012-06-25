@@ -5,6 +5,8 @@
 $(function() {
 
 	/* events */
+
+    
 	
 	$(".cmd").keypress(function(e) {
 		if (e.keyCode == 13)
@@ -48,7 +50,8 @@ function displayError(msg) {
 
 function displayCaseContent(pos, mapPos, layer, canvas) {
     var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
-    
+
+    $("#caseContent").hide();
     $("#caseContent .contentText").text("Food: " + ressources[0] + " ");
     $("#caseContent .contentText").append("Linemate: " + ressources[1] + " ");
     $("#caseContent .contentText").append("Deraumere: " + ressources[2] + " ");
