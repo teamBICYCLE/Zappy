@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:34 2012 thibault carpentier
-// Last update Fri Jun 22 12:34:02 2012 thibault carpentier
+// Last update Mon Jun 25 10:39:15 2012 thibault carpentier
 //
 
 //{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}
@@ -20,13 +20,13 @@
 class Inventory {
 
   enum itemType {NOURRITURE = 0,
-                 LINEMATE,
-                 DERAUMERE,
-                 SIBUR,
-                 MENDIANE,
-                 PHIRAS,
-                 THYSTAME,
-                 END};
+		 LINEMATE,
+		 DERAUMERE,
+		 SIBUR,
+		 MENDIANE,
+		 PHIRAS,
+		 THYSTAME,
+		 END};
 
 public:
   Inventory();
@@ -36,8 +36,11 @@ public:
   ~Inventory();
 
   void      update(const std::string & values);
+  void	    prendre(const std::string &value);
+  void	    poser(const std::string &value);
 
 private:
+  static const std::string values_[];
   static std::string const REGEX_VALUE;
   std::vector<unsigned int>  parse(const std::string & values);
 

@@ -18,7 +18,7 @@ class FSM : public LuaVirtualMachine::Script {
 
   // Types
   typedef bool          (X::* ValidityTest)(void) const;
-  typedef int           (X::* ContextInteraction)(void);
+  typedef int           (X::* ContextInteraction)(LuaVirtualMachine::VirtualMachine &);
 
   // constructor / destructor
   FSM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
@@ -91,7 +91,7 @@ template <typename X>
 int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 {
   if (contextFunctions_.size() < static_cast<unsigned int>(methIdx))
-    return (context_.*contextFunctions_[methIdx])();
+    return (context_.*contextFunctions_[methIdx])(vm);
   return 0;
 }
 
