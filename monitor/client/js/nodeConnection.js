@@ -4,9 +4,9 @@
 
 var socket = io.connect('http://localhost', {
 		port:24542,
-		reconnect: true,
+		'reconnect': true,
   		'reconnection delay': 500,
-  		'max reconnection attempts': 1
+  		'max reconnection attempts': 10
 	}),
 	lastTimestamp = 0,
 	layers;

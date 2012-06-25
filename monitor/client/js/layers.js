@@ -12,6 +12,11 @@ function Layers(xsize, ysize){
 		2 : {name: "floor", img: new Image()},
 		3 : {name: "highlight", img: new Image()},
 		4 : {name: "empty", img: new Image()},
+		5 : {name: "deraumere", img: new Image()},
+		6 : {name: "sibur", img: new Image()},
+		7 : {name: "mendiane", img: new Image()},
+		8 : {name: "phiras", img: new Image()},
+		9 : {name: "thystame", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -69,7 +74,6 @@ Layers.prototype.draw = function(canvas, img, x, y) {
 		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
 		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 	
-	console.log(this.getImg(img));	
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
 }
 

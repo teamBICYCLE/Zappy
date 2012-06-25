@@ -3,6 +3,7 @@
 #ifndef _FSM_HH_
 #define _FSM_HH_
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <utility>
@@ -17,7 +18,7 @@ class FSM : public LuaVirtualMachine::Script {
 
   // Types
   typedef bool          (X::* ValidityTest)(void) const;
-  typedef int           (X::* ContextInteraction)(void);
+  typedef int           (X::* ContextInteraction)(LuaVirtualMachine::VirtualMachine &);
 
   // constructor / destructor
   FSM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
@@ -55,15 +56,18 @@ template <typename X>
 void FSM<X>::init(const std::string &conf, const std::string &luaFile)
 {
   int     transitions[] = {1, 0, 0};
-  int     transitions2[] = {0, 1, 1};
+  int     transitions2[] = {2, 1, 1};
+  int     transitions3[] = {0, 2, 2};
   std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
   std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
+  std::vector<int>  tete(transitions3, transitions3 + sizeof(transitions3) / sizeof(int));
 
-  std::cout << "init done" << std::endl;
-  states_.resize(2);
+  states_.resize(3);
   states_[0] = std::make_pair("avance", toto );
   states_[1] = std::make_pair("voir", tata );
+  states_[2] = std::make_pair("prendre", tete );
   compileFile(luaFile);
+  std::cout << "init done" << std::endl;
 }
 
 template <typename X>
@@ -89,11 +93,10 @@ void FSM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
 template <typename X>
 int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 {
-  if (contextFunctions_.size() > static_cast<unsigned int>(methIdx))
-    return (context_.*contextFunctions_[methIdx])();
-  else
-    throw LuaVirtualMachine::Failure("lol", "mdr");
-
+//  if (contextFunctions_.size() > static_cast<unsigned int>(methIdx))
+    return (context_.*contextFunctions_[methIdx])(vm);
+//  else
+//    throw LuaVirtualMachine::Failure("API Function", "Script tried to call an unknown function");
 }
 
 template <typename X>

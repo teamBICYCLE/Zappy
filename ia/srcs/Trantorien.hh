@@ -3,6 +3,7 @@
 #ifndef _TRANTORIEN_HH_
 #define _TRANTORIEN_HH_
 
+#include "VirtualMachine.hh"
 #include "Inventory.hh"
 #include "Network.hh"
 #include "FSM.hpp"
@@ -25,9 +26,11 @@ private: // server interactions
 private:
   bool                  isValid() const;
 
-  int          avance();
-  int          voir();
-
+  int          avance(LuaVirtualMachine::VirtualMachine &);
+  int          voir(LuaVirtualMachine::VirtualMachine &);
+  int	       inventaire(LuaVirtualMachine::VirtualMachine&);
+  int	       prendre(LuaVirtualMachine::VirtualMachine &);
+  int	       poser(LuaVirtualMachine::VirtualMachine &);
 private:
   Inventory     inventory_;
   Network       network_;
