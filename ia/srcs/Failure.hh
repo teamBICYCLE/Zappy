@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat May 12 09:41:03 2012 thibault carpentier
-// Last update Mon Jun  4 15:44:55 2012 thibault carpentier
+// Last update Sat Jun 23 14:32:42 2012 thibault carpentier
 //
 
 #ifndef _FAILLURE_H_
@@ -15,26 +15,26 @@
 # include       <stdexcept>
 
 namespace LuaVirtualMachine
+{
+  class       Failure : public std::runtime_error
   {
-    class       Failure : public std::runtime_error
-    {
-    public:
-      Failure(const std::string& func, const std::string& msg) throw();
-      Failure(const Failure&) throw();
-      Failure& operator=(const Failure&) throw();
-      virtual ~Failure() throw();
+  public:
+    Failure(const std::string& func, const std::string& msg) throw();
+    Failure(const Failure&) throw();
+    Failure& operator=(const Failure&) throw();
+    virtual ~Failure() throw();
 
-    public:
-      std::string               getFunc(void) const throw();
-      std::string               getMsg(void) const throw();
+  public:
+    std::string               getFunc(void) const throw();
+    std::string               getMsg(void) const throw();
 
-    public:
-      virtual const char*       what() const throw();
+  public:
+    virtual const char*       what() const throw();
 
-    private:
-      std::string               mFunc;
-      std::string               mMsg;
-    };
+  private:
+    std::string               mFunc;
+    std::string               mMsg;
+  };
 }
 
 #endif /*!_FAILLURE_H_*/

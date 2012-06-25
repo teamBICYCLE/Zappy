@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Fri Jun 22 13:57:55 2012 thibault carpentier
+// Last update Sat Jun 23 14:27:11 2012 thibault carpentier
 //
 
 
@@ -25,15 +25,14 @@ int main(int argc, char *argv[])
 {
   Inventory eude;
 
-  (void)argc;
-  (void)argv;
+//  (void)argc;
+//  (void)argv;
 
-  eude.update("{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}");
+  eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
 
-  // Trantorien  joe("localhost", "4242");
+   Trantorien  joe("localhost", "4242");
 
-  // sleep(2);
-  // joe.run();
+   joe.run();
 
 //  Example toto;
 
