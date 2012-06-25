@@ -89,15 +89,16 @@ void FSM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
 template <typename X>
 int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 {
-  if (contextFunctions_.size() < static_cast<unsigned int>(methIdx))
+  if (contextFunctions_.size() > static_cast<unsigned int>(methIdx))
     return (context_.*contextFunctions_[methIdx])();
-  return 0;
+  else
+    throw LuaVirtualMachine::Failure("lol", "mdr");
+
 }
 
 template <typename X>
 void FSM<X>::getReturn(LuaVirtualMachine::VirtualMachine &vm, const std::string &fctName)
 {
-  std::cout << "get return is called" << std::endl;
   if (vm.isFonctionnal())
     {
       lua_State *state = vm.getLua();
@@ -121,12 +122,8 @@ void FSM<X>::run()
 {
   while ((context_.*keepRunning_)())
     {
-      if (!fctExist(states_[currentState_].first))
-        throw LuaVirtualMachine::Failure(states_[currentState_].first, "ca existe pas bikou !");
-      std::cout << "lol: " << states_[currentState_].first << std::endl;
-      std::cout << "ret select bla: " << selectFct(states_[currentState_].first) << std::endl;
-      std::cout << "zizi de poule !" << std::endl;
-      std::cout << "ret call fct: " << callFct(1) << std::endl;
+      selectFct(states_[currentState_].first);
+      callFct(1);
     }
 }
 

@@ -13,12 +13,12 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
     std::cout << "successfully connected" << std::endl;
   else
     {
-      // std::cout << network_.error().message() << std::endl;
+      std::cout << network_.error().message() << std::endl;
       abort();
     }
   init("conf.cfg", "script.lua");
-  addInteraction("avance", &Trantorien::avance);
-  addInteraction("voir", &Trantorien::voir);
+  addInteraction("IAAvance", &Trantorien::avance);
+  addInteraction("IAVoir", &Trantorien::voir);
   setValidityTest(&Trantorien::isValid);
 
   joinTeam("toto");

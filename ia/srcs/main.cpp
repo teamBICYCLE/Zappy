@@ -23,17 +23,17 @@ using namespace LuaVirtualMachine;
 
 int main(int argc, char *argv[])
 {
-  Inventory eude;
+//  Inventory eude;
 
-  (void)argc;
-  (void)argv;
+//  (void)argc;
+//  (void)argv;
 
-  eude.update("{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}");
+//  eude.update("{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}");
 
-  // Trantorien  joe("localhost", "4242");
+   Trantorien  joe("localhost", "4242");
 
-  // sleep(2);
-  // joe.run();
+   sleep(2);
+   joe.run();
 
 //  Example toto;
 

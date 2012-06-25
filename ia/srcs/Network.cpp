@@ -3,7 +3,6 @@
 #include "Network.hh"
 
 #define WELCOME_MSG "BIENVENUE"
-
 #define DEBUG
 
 Network::Network(const std::string &ip, const std::string &port)
