@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 15:43:49 2012 lois burg
-** Last update Mon Jun 18 11:23:04 2012 lois burg
+** Last update Mon Jun 25 18:09:06 2012 lois burg
 */
 
 #ifndef		__PROTOCOL_H__
@@ -16,5 +16,6 @@
 # define	KO		"ko\n"
 # define	DIE		"mort\n"
 # define	GRAPHIC_USR	"GRAPHIC"
+# define	LEVELUP_ENGAGED	"elevation en cours\n"
 
 #endif /* !__PROTOCOL_H__*/

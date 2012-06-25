@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Thu Jun 21 18:21:55 2012 lois burg
+** Last update Mon Jun 25 18:15:08 2012 lois burg
 */
 
 #include "log.h"
@@ -111,7 +111,7 @@ t_cmd_ret	levelup_cmd(t_users *usr, char **args, char *orig_cmd)
       decr_res(usr->x, usr->y, usr->lvl);
       lvlup_plyr(usr->x, usr->y, usr->lvl);
       send_graphic_result(usr, 1);
-      return (SUCCESS);
+      return (IGNORE);
     }
   else
     send_graphic_result(usr, 0);
