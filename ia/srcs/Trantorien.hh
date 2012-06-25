@@ -8,6 +8,7 @@
 #include "Network.hh"
 #include "FSM.hpp"
 #include "Script.hh"
+#include "Map.hh"
 
 class Trantorien : public FSM<Trantorien> {
 public:
@@ -34,6 +35,7 @@ private:
 private:
   Inventory     inventory_;
   Network       network_;
+  Map		map_;
 };
 
 #endif // _TRANDORIEN_HH_

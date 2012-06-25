@@ -60,7 +60,6 @@ void FSM<X>::init(const std::string &conf, const std::string &luaFile)
   std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
   std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
 
-  std::cout << "init done" << std::endl;
   states_.resize(2);
   states_[0] = std::make_pair("avance", toto );
   states_[1] = std::make_pair("voir", tata );
