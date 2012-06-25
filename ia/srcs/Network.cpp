@@ -3,7 +3,6 @@
 #include "Network.hh"
 
 #define WELCOME_MSG "BIENVENUE"
-
 #define DEBUG
 
 #include <iostream>

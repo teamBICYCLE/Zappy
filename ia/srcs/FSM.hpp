@@ -56,14 +56,18 @@ template <typename X>
 void FSM<X>::init(const std::string &conf, const std::string &luaFile)
 {
   int     transitions[] = {1, 0, 0};
-  int     transitions2[] = {0, 1, 1};
+  int     transitions2[] = {2, 1, 1};
+  int     transitions3[] = {0, 2, 2};
   std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
   std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
+  std::vector<int>  tete(transitions3, transitions3 + sizeof(transitions3) / sizeof(int));
 
-  states_.resize(2);
+  states_.resize(3);
   states_[0] = std::make_pair("avance", toto );
   states_[1] = std::make_pair("voir", tata );
+  states_[2] = std::make_pair("prendre", tete );
   compileFile(luaFile);
+  std::cout << "init done" << std::endl;
 }
 
 template <typename X>
@@ -89,15 +93,15 @@ void FSM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
 template <typename X>
 int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 {
-  if (contextFunctions_.size() < static_cast<unsigned int>(methIdx))
+//  if (contextFunctions_.size() > static_cast<unsigned int>(methIdx))
     return (context_.*contextFunctions_[methIdx])(vm);
-  return 0;
+//  else
+//    throw LuaVirtualMachine::Failure("API Function", "Script tried to call an unknown function");
 }
 
 template <typename X>
 void FSM<X>::getReturn(LuaVirtualMachine::VirtualMachine &vm, const std::string &fctName)
 {
-  std::cout << "get return is called" << std::endl;
   if (vm.isFonctionnal())
     {
       lua_State *state = vm.getLua();
@@ -121,12 +125,8 @@ void FSM<X>::run()
 {
   while ((context_.*keepRunning_)())
     {
-      if (!fctExist(states_[currentState_].first))
-        throw LuaVirtualMachine::Failure(states_[currentState_].first, "ca existe pas bikou !");
-      std::cout << "lol: " << states_[currentState_].first << std::endl;
-      std::cout << "ret select bla: " << selectFct(states_[currentState_].first) << std::endl;
-      std::cout << "zizi de poule !" << std::endl;
-      std::cout << "ret call fct: " << callFct(1) << std::endl;
+      selectFct(states_[currentState_].first);
+      callFct(1);
     }
 }
 

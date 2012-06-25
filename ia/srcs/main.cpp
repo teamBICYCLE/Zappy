@@ -25,15 +25,14 @@ int main(int argc, char *argv[])
 {
   Inventory eude;
 
-  (void)argc;
-  (void)argv;
+//  (void)argc;
+//  (void)argv;
 
   eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
 
-  // Trantorien  joe("localhost", "4242");
+   Trantorien  joe("localhost", "4242");
 
-  // // sleep(2);
-  // joe.run();
+   joe.run();
 
 //  Example toto;
 

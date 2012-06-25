@@ -3,6 +3,7 @@
 #include "Trantorien.hh"
 
 #include <iostream>
+#include <string>
 
 Trantorien::Trantorien(const std::string ip, const std::string port)
   : FSM(*this, &Trantorien::isValid), network_(ip, port)
@@ -13,13 +14,16 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
     std::cout << "successfully connected" << std::endl;
   else
     {
-      // std::cout << network_.error().message() << std::endl;
+      std::cout << network_.error().message() << std::endl;
       abort();
     }
   init("conf.cfg", "script.lua");
-  addInteraction("avance", &Trantorien::avance);
-  addInteraction("voir", &Trantorien::voir);
-  addInteraction("inventaire", &Trantorien::inventaire);
+
+  addInteraction("IAAvance", &Trantorien::avance);
+  addInteraction("IAVoir", &Trantorien::voir);
+  addInteraction("IAInventaire", &Trantorien::inventaire);
+  addInteraction("IAPrendre", &Trantorien::prendre);
+
   setValidityTest(&Trantorien::isValid);
 
   joinTeam("toto");
@@ -85,7 +89,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
   lua_State *state = vm.getLua();
   int i;
 
-  for (i = 0; i < lua_gettop(state); ++i)
+  for (i = 1; i <= lua_gettop(state); ++i)
     {
       if (lua_isstring(state, i))
 	{
@@ -97,7 +101,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 	  lua_pushstring(state, result.c_str());
 	}
     }
-  return (i);
+  return (0);
 }
 
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
@@ -105,17 +109,17 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
   lua_State *state = vm.getLua();
   int i;
 
-  for (i = 0; i < lua_gettop(state); ++i)
-    {
-      if (lua_isstring(state, i))
-	{
-	  std::string object(lua_tostring(state, i));
-	  network_.cmd("prend " + object);
-	  std::string result = network_.getline();
-	  if (result == "ok")
-	    inventory_.poser(object);
-	  lua_pushstring(state, result.c_str());
-	}
+  for (i = 1; i <= lua_gettop(state); ++i)
+    {if (lua_isstring(state, i))
+        {
+          std::string object(lua_tostring(state, i));
+
+          network_.cmd("pose " + object);
+          std::string result = network_.getline();
+          if (result == "OK")
+            inventory_.poser(object);
+          //lua_pushstring(state, result.c_str());
+        }
     }
-  return (i);
+  return (0);
 }
