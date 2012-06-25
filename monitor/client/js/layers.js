@@ -22,8 +22,8 @@ function Layers(xsize, ysize){
 	
 	this.canvasHandler = new CanvasHandler();
 	
-	this.tileWidth = 64;
-	this.tileHeight = 64;
+	this.tileWidth = 128;
+	this.tileHeight = 128;
 	this.mapWidth = xsize;
 	this.mapHeight = ysize;
 	
@@ -63,7 +63,7 @@ Layers.prototype.getImg = function(name) {
 Layers.prototype.padding = function(canvas) {
 	var c = this.canvasHandler.get(canvas),
 	topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2));
-	leftOffset = (c.width / 2);
+	leftOffset = (c.width / 2) - (this.tileWidth / 2);
 
 	return ({left: leftOffset, top: topOffset});
 }
