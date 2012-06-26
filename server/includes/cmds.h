@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Mon Jun 25 18:11:54 2012 lois burg
+** Last update Tue Jun 26 11:31:28 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -26,6 +26,13 @@ typedef	enum e_cmd_ret
   SUCCESS,
   FAILURE
 }	t_cmd_ret;
+
+typedef	struct	s_dir_mov	t_dir_mov;
+struct	s_dir_mov
+{
+  int	dx;
+  int	dy;
+};
 
 /* CMDS */
 t_cmd_ret   	see_cmd(t_users *usr, char **args, char *orig_cmd);
