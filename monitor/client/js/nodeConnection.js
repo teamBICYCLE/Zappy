@@ -35,6 +35,12 @@ socket.on('firstConnection', function(data){
 		cache.setMapSize(data.xsize, data.ysize);
 		cache.setTeams(data.teams);
 		cache.setMap(data.map);
+		cache.setPlayers(data.players);
+		
+		for (var i = 0; i != data.messages.length; i++)
+			addMessage(data.messages[i]);
+		
+		// init draw
 		layers = new Layers(data.xsize, data.ysize);
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(cache, layers);
@@ -49,14 +55,21 @@ socket.on('cacheUpdate', function(data){
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
 	$(".latency .lValue").text(latency);
 	
-	/* faudra seter eggs map players */
+	/* faudra seter eggs players */
 	if (lastTimestamp != data.timestamp) {
 		cache.setMap(data.map);
+		cache.setPlayers(data.players);
+		
+		for (var i = 0; i != data.messages.length; i++)
+			addMessage(data.messages[i]);
+
 		//console.log(cache.getSprite(cache.getCase(1, 1)));
 		//console.log(data.map);
 		//map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(cache, layers);
+		players_draw(cache, layers);
 		//highlight_draw(layers);
+		//cache.emptyPlayers();
 		lastTimestamp = data.timestamp;
 	}
 });

@@ -7,7 +7,7 @@ $(function() {
 	/* events */
 	
 	$(".cmd").keypress(function(e) {
-		if (e.keyCode == 13)
+		if (e.keyCode == 13) 
 		{
 			sendCmd($(".cmd").val());
 			$(".cmd").val("");
@@ -18,10 +18,10 @@ $(function() {
 		$("#errorBox").hide();
 	});
 	
-
     $("#caseContent").click(function(e){
-	$("#caseContent").hide();
+		$("#caseContent").hide();
     });
+	
 	// $('#connectionError').click(function(){
 		// if (!$("#connectionError").is(":hidden"))
 		// {
@@ -30,6 +30,7 @@ $(function() {
 	        // });
 		// }
 	// });
+	
 	// $('#connectionError').click(function(){
 		// if (!$("#connectionError").is(":hidden"))
 		// {
@@ -59,4 +60,11 @@ function displayCaseContent(pos, mapPos, layer, canvas) {
     $("#caseContent").css("left", pos.x + layer.padding(canvas).left);
     $("#caseContent").css("top", pos.y + layer.padding(canvas).top);
     $("#caseContent").fadeIn(800);
+}
+
+function addMessage(msg) {
+	if ($("#cmdResult .entry").length >= 5)
+		$("#cmdResult span:first-child").remove();
+	$("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
+	$('#cmdResult span:last-child').fadeOut(7000);
 }

@@ -28,8 +28,6 @@ function highlight_draw(layers) {
     	});
 }
 
-/* renverra les positions converties pixel -> map */
-// http://www.developpez.net/forums/d788377/applications/developpement-2d-3d-jeux/cherche-formules-2d-isometriques/
 function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
