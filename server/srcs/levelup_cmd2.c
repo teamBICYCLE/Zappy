@@ -5,13 +5,36 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Thu Jun 21 18:24:27 2012 lois burg
+** Last update Mon Jun 25 18:13:12 2012 lois burg
 */
 
+#include <string.h>
+#include <stdio.h>
 #include "server.h"
 #include "graphics.h"
+#include "cmds.h"
+#include "protocol.h"
 
 extern t_infos	g_info;
+
+void		levelup_engaged(const int x, const int y, const int lvl)
+{
+  uint		i;
+  t_users	*plyr;
+  t_link	*plyr_lnk;
+
+  i = 0;
+  while (i < g_info.users->size)
+    {
+      if ((plyr_lnk = get_link(g_info.users, i)))
+	{
+	  plyr = (t_users*)plyr_lnk->ptr;
+	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
+	    push_back(plyr->messages, new_link_by_param(LEVELUP_ENGAGED, sizeof(LEVELUP_ENGAGED) + 1));
+	}
+      ++i;
+    }
+}
 
 static void	send_world(void)
 {
@@ -36,15 +59,20 @@ static void	send_plyr_lvl(const int x, const int y, const int lvl)
   uint		i;
   t_users	*plyr;
   t_link	*plyr_lnk;
+  char		lvlup_msg[END_LEVELUP_MSG_SZ];
 
   i = 0;
+  snprintf(lvlup_msg, sizeof(lvlup_msg), "niveau actuel : %d\n", lvl);
   while (i < g_info.users->size)
     {
       if ((plyr_lnk = get_link(g_info.users, i)))
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
 	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
-	    lookup(g_info.users, graphics_plv(plyr), &notify_graphic);
+	    {
+	      push_back(plyr->messages, new_link_by_param(lvlup_msg, strlen(lvlup_msg) + 1));
+	      lookup(g_info.users, graphics_plv(plyr), &notify_graphic);
+	    }
 	}
       ++i;
     }

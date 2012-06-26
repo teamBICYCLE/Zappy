@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Thu Jun 21 18:35:55 2012 lois burg
+** Last update Mon Jun 25 18:08:46 2012 lois burg
 */
 
 #include <string.h>
@@ -64,7 +64,10 @@ bool	pretask_check(const char *cmd, t_users *u)
   else if (cmd && !strcmp(cmd, "incantation"))
     {
       if (check_levelup(u))
-	lookup(g_info.users, graphics_pic(u), &notify_graphic);
+	{
+	  levelup_engaged(u->x, u->y, u->lvl);
+	  lookup(g_info.users, graphics_pic(u), &notify_graphic);
+	}
       else
 	{
 	  valid = false;
