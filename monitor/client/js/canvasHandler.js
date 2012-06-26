@@ -23,7 +23,6 @@ function CanvasHandler() {
 		node.width = this.list_[i].width;
 		node.height = this.list_[i].height;
 	}
-		
 }
 
 CanvasHandler.prototype.get = function(name) {

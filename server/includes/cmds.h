@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Thu Jun 21 18:31:21 2012 lois burg
+** Last update Tue Jun 26 11:31:28 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -18,6 +18,7 @@
 # define	CONNECT_MSG_SZ		15
 # define	GREETINGS_CLIENT_SZ	15
 # define	BASE_BROADCAST_SZ	15
+# define	END_LEVELUP_MSG_SZ	25
 
 typedef	enum e_cmd_ret
 {
@@ -25,6 +26,13 @@ typedef	enum e_cmd_ret
   SUCCESS,
   FAILURE
 }	t_cmd_ret;
+
+typedef	struct	s_dir_mov	t_dir_mov;
+struct	s_dir_mov
+{
+  int	dx;
+  int	dy;
+};
 
 /* CMDS */
 t_cmd_ret   	see_cmd(t_users *usr, char **args, char *orig_cmd);
@@ -47,6 +55,7 @@ void		greet_clnt(const t_users *usr, const int wx, const int wy);
 void		assign_pos(t_users *u, t_team *team);
 bool		check_levelup(t_users *summoner);
 bool		pretask_check(const char *cmd, t_users *u);
+void		levelup_engaged(const int x, const int y, const int lvl);
 
 /* SEE TOOLS */
 
