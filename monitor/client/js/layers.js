@@ -17,7 +17,10 @@ function Layers(xsize, ysize){
 		7 : {name: "mendiane", img: new Image()},
 		8 : {name: "phiras", img: new Image()},
 		9 : {name: "thystame", img: new Image()},
-		10 : {name: "player", img: new Image()},
+		10 : {name: "player-north", img: new Image()},
+		11 : {name: "player-south", img: new Image()},
+		12 : {name: "player-west", img: new Image()},
+		13 : {name: "player-east", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -57,6 +60,14 @@ Layers.prototype.getImg = function(name) {
 	// undefined
 	displayError("Undefined reference to " + name + ".png.");
 	return this.imgs[999].img;
+}
+
+/* SET */
+
+Layers.prototype.setMapSize = function(x, y) {
+	
+    this.mapWidth = parseInt(x);
+    this.mapHeight = parseInt(y);	
 }
 
 /* DRAWING */

@@ -58,6 +58,7 @@ var enwFct = function(arg, cache){
 var ppoFct = function(arg, cache){
 	cache.getPlayer(arg[1]).setPosX(arg[2]);
 	cache.getPlayer(arg[1]).setPosY(arg[3]);
+	cache.getPlayer(arg[1]).setOrientation(arg[4]);
 }
 
 var plvFct = function(arg, cache){
@@ -111,6 +112,42 @@ var pdiFct = function(arg, cache) {
 	cache.removePlayer(arg[1]);
 }
 
+var enwFct = function(arg, cache) {
+	cache.addEgg(arg[1], arg[3], arg[4]);
+}
+
+var ehtFct = function(arg, cache) {
+	cache.getEgg(arg[1]).setHatches(true);
+	cache.addMessage("An Egg has hatched");
+}
+
+var ediFct = function(arg, cache) {
+	cache.getEgg(arg[1]).setDead(true);
+	cache.removeEgg(arg[1]);
+	cache.addMessage("An Egg is died");
+}
+
+var smgFct = function(arg, cache) {
+	
+	arg = arg.reverse();
+	arg.pop();
+	arg = arg.reverse();
+	var msg = arg.join(" ");
+	cache.addMessage("Server : " + msg);
+}
+
+var pieFct = function(arg, cache) {
+	
+	var msg = "A spell has ";
+	cache.getMap().getCase(cache, arg[1], arg[2]).setSpell(arg[3]);
+	if (arg[3] == "1")
+		msg += " succeeded";
+	else
+		msg += " failed";
+		
+	cache.addMessage(msg);
+}
+
 var ptr = {
   "msz": {nb: 3, ptr: mszFct}, 
   "sgt": {nb: 2, ptr: sgtFct},
@@ -124,10 +161,13 @@ var ptr = {
   "pex": {nb: 2, ptr: pexFct},
   "pbc": {nb: 3, ptr: pbcFct},
   "pic": {nb: 5, ptr: picFct},
-  // faire pie
+  "pie": {nb: 4, ptr: pieFct},
   "pfk": {nb: 2, ptr: pfkFct},
   "pdr": {nb: 2, ptr: pdrFct},
   "pgt": {nb: 2, ptr: pgtFct},
   "pdi": {nb: 2, ptr: pdiFct},
-  // faire pdi
+  "enw": {nb: 5, ptr: enwFct},
+  "eht": {nb: 2, ptr: ehtFct},
+  "edi": {nb: 2, ptr: ediFct},
+  "smg": {nb: 2, ptr: smgFct}
 };

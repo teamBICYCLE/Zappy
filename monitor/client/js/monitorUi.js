@@ -6,8 +6,6 @@ $(function() {
 
 	/* events */
 
-    
-	
 	$(".cmd").keypress(function(e) {
 		if (e.keyCode == 13) 
 		{
@@ -24,24 +22,6 @@ $(function() {
 		$("#caseContent").hide();
     });
 	
-	// $('#connectionError').click(function(){
-		// if (!$("#connectionError").is(":hidden"))
-		// {
-			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
-	            // $('#overlay').fadeOut('fast');
-	        // });
-		// }
-	// });
-	
-	// $('#connectionError').click(function(){
-		// if (!$("#connectionError").is(":hidden"))
-		// {
-			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
-	            // $('#overlay').fadeOut('fast');
-	        // });
-		// }
-	// });
-
 });
 
 function displayError(msg) {
@@ -65,9 +45,26 @@ function displayCaseContent(pos, mapPos, layer, canvas) {
     $("#caseContent").fadeIn(800);
 }
 
-function addMessage(msg) {
-	if ($("#cmdResult .entry").length >= 5)
+function fadeAndRemove() {
+	
+	$("#cmdResult span:first-child").fadeOut(2000, function(){
 		$("#cmdResult span:first-child").remove();
+		if ($("#cmdResult .entry").length > 5)
+			fadeAndRemove();
+	})
+}
+
+// function addMessage(msg) {
+	// if ($("#cmdResult .entry").length >= 5)
+		// $("#cmdResult span:first-child").remove();
+	// $("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
+	// $('#cmdResult span:last-child').fadeOut(7000);
+// }
+
+function addMessage(msg) {
+	
+	if ($("#cmdResult .entry").length >= 5)
+		fadeAndRemove();
+		
 	$("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
-	$('#cmdResult span:last-child').fadeOut(7000);
 }

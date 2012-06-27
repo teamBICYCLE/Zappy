@@ -3,7 +3,7 @@
  */
 
 var socket = io.connect('http://localhost', {
-		port:24542,
+		port: $(".port").text(),
 		'reconnect': true,
   		'reconnection delay': 500,
   		'max reconnection attempts': 10
@@ -11,8 +11,6 @@ var socket = io.connect('http://localhost', {
 	lastTimestamp = 0,
 	layers;
 	
-console.log(socket);
-
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
@@ -45,6 +43,7 @@ socket.on('firstConnection', function(data){
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(cache, layers);
 		highlight_draw(layers);
+		events_handler(layers);
 		lastTimestamp = data.timestamp;
 	}
 });
@@ -57,18 +56,16 @@ socket.on('cacheUpdate', function(data){
 	
 	/* faudra seter eggs players */
 	if (lastTimestamp != data.timestamp) {
+		cache.setMapSize(data.xsize, data.ysize);
+		
 		cache.setMap(data.map);
 		cache.setPlayers(data.players);
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
 
-		//console.log(cache.getSprite(cache.getCase(1, 1)));
-		//console.log(data.map);
-		//map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(cache, layers);
 		players_draw(cache, layers);
-		//highlight_draw(layers);
 		//cache.emptyPlayers();
 		lastTimestamp = data.timestamp;
 	}

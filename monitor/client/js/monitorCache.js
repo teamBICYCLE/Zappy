@@ -57,10 +57,7 @@ MonitorCache.prototype.getTeams = function() {
 
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
     var target = (parseInt(y) * this.ysize_) + parseInt(x);
-    console.log(x + " " + y);
-    console.log(this.xsize_);
-    console.log(this.ysize_);
-    console.log(target);
+    
 	if (this.ysize_ != 0 && this.xsize_ != 0 &&
 		x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
 	{

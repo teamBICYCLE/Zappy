@@ -7,9 +7,13 @@ if (process.argv.length >= 3)
 {
 	var ip = process.argv[2],
 		port = "4242",
-		buffer = '';
-		
-	if (process.argv[3] == "24542")
+		buffer = '',
+		portClient = "24542";
+	
+	if (typeof(process.argv[4]) != "undefined")
+		portClient = process.argv[4];
+	
+	if (process.argv[3] == portClient)
 	{
 		console.log("This port is reserved for browser <-> node server connection.");
 		process.exit(0);
@@ -22,7 +26,7 @@ if (process.argv.length >= 3)
 	
 	zappy.on('cacheWhole', function(){
 		
-		client = new ClientConnection();
+		client = new ClientConnection(portClient);
 		
 		zappy.getCache().dump();
 	    console.log("=================");
@@ -64,13 +68,14 @@ else
 
 function update() {
 	/* reset */
-	//cache.getPlayers() = [];
 	zappy.getSocket().write("mct\n");
 	zappy.getSocket().write("sgt\n");
 	
 	var cache = zappy.getCache();
 	
 	client.getClientSocket().emit('cacheUpdate', {
+		xsize: cache.getXSize(),
+		ysize: cache.getYSize(),
 		map: cache.getFormatedMap(),
 		players: cache.getPlayers(),
 		eggs: cache.getEggs(),

@@ -3,10 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
   		<title>Zappy</title>
-  		<meta http-equiv="Cache-control" content="max-age=256665">
 		<link rel="stylesheet" type="text/css" href="style.css" />
   		<script src="js/jquery.min.js"></script>
-  		<script src="http://localhost:24542/socket.io/socket.io.js"></script>
+  		<?php
+  			$port = "24542";
+  			if (isset($_GET['port']) && is_numeric($_GET['port']))
+  				$port = $_GET['port'];
+  			echo "<script src='http://localhost:".$port."/socket.io/socket.io.js'></script>";
+  		?>
   		<script src="js/monitorUi.js"></script>	
   		<script src="js/cmd.js"></script>
   		<script src="js/monitorCache.js"></script>
@@ -18,9 +22,10 @@
 			<p>Your connection to the node server has been lost.</p>
 			<p>Don't panic, I try a reconnection :)</p>
 		</div>
-		<canvas id="cHighLight"></canvas>
+		<canvas id="cEvents"></canvas>
 		<canvas id="cPlayers"></canvas>
 		<canvas id="cRessources"></canvas>
+		<canvas id="cHighLight"></canvas>
   		<canvas id="cMap"></canvas>
 		<div id="header"></div>
 		<div id="cmdResult"></div>
@@ -28,6 +33,7 @@
 		<div id="caseContent"><span class="contentText"></span></div>
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
+		<span class="port" style="display:none;"><? echo $port; ?></span>
   	</body>
   	<script src="js/canvasHandler.js"></script>
   	<script src="js/layers.js"></script>
@@ -35,5 +41,6 @@
 	<script src="js/ressourcesDraw.js"></script>
 	<script src="js/playersDraw.js"></script>
 	<script src="js/highlightDraw.js"></script>
+	<script src="js/eventsHandler.js"></script>
 	<script src="js/nodeConnection.js"></script>
 </html>

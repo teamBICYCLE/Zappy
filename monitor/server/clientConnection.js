@@ -11,10 +11,10 @@ var express = require('express'),
 	ee = require('events').EventEmitter;
 
 	io = io.listen(app).set('log level', 1);
-	app.listen(24542);
 	
-var ClientConnection = function() {
+var ClientConnection = function(port) {
 	
+	app.listen(port);
 	var self = this;
 	
 	var client = io.sockets;

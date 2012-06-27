@@ -3,7 +3,7 @@ function checkCmd(cmd){
 	
 	if (explode[0] == "sst" && parseInt(explode[1]) < 1)
 	{
-		alert("Error : sst second argument must be at least 1");
+		displayError("Error : sst second argument must be at least 1");
 		return false;
 	}
 	if (typeof(ref[explode[0]]) != "undefined" && explode.length == ref[explode[0]])
@@ -14,12 +14,24 @@ function checkCmd(cmd){
 
 var lastTimestamp = 0;
 	
-function sendCmd(cmd){
+function cleanCmd(cmd) {
+	
+	var clean = cmd.split(" "),
+		ret = "";
+		
+	for (var i = 0; i != clean.length; i++)
+		if (clean[i] != "")
+			ret += clean[i] + " ";
+	
+	return ret.substring(0, ret.length - 1);
+}
+
+function sendCmd(cmd) {
+	
+	cmd = cleanCmd(cmd);
+	
 	if (cmd == "help")
-	{
-		$("#cmdResult").append("<span class='entry'>" + "Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help" + "</span>");
-		$('#cmdResult span:last-child').fadeOut(7000);
-	}
+		addMessage("Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help");
 	else if (cmd != "" && checkCmd(cmd))
 	{
 		socket.emit('requestData', {cmd : cmd});

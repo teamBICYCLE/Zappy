@@ -4,6 +4,7 @@ html, body {
 	margin: 0px;
 	background: #eee url('img/background.png') repeat-x top center;
 	font-family:"Times New Roman", Georgia, sans-serif;
+	overflow: hidden;
 }
 
 div, input {
@@ -67,16 +68,20 @@ canvas {
 	z-index: 1;
 }
 
-#cRessources {
+#cHighLight {
 	z-index: 2;
 }
 
-#cPlayers {
-	z-index: 3;	
+#cRessources {
+	z-index: 3;
 }
 
-#cHighLight {
+#cPlayers {
 	z-index: 4;	
+}
+
+#cEvents {
+	z-index: 5;	
 }
 
 #caseContent {

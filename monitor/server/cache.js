@@ -43,16 +43,23 @@ exports.removePlayer = function(argId) {
 	
 	var id = argId.replace("#", "")
 	for (var i = 0; i < players_.length; i++)
-	{
 		if (id == players_[i].getId())
 			players_.splice(i, 1);
-	}
+			
 	this.addMessage("Player " + id + " died (not enough food)");
 }
 
-exports.addEggs = function(arg) {
+exports.addEggs = function(id, x, y) {
 	var Egg = require("./objects/egg.js");
-	eggs_.push(new Egg(arg));
+	eggs_.push(new Egg(id, x, y));
+}
+
+exports.removeEgg = function(argId) {
+	
+	var id = argId.replace("#", "")
+	for (var i = 0; i < eggs_.length; i++)
+		if (id == eggs_[i].getId())
+			eggs_.splice(i, 1);
 }
 
 exports.addMessage = function(msg) {
@@ -99,12 +106,21 @@ exports.getPlayer = function(id) {
 	id = parseInt(id.replace("#", ""));
 	
 	for (var i = 0; i != players_.length; i++)
-	{
 		if (players_[i].getId() == id)
 			return players_[i];
-	}
 			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+exports.getEgg = function(id) {
+	
+	id = parseInt(id.replace("#", ""));
+	
+	for (var i = 0; i != eggs_.length; i++)
+		if (eggs_[i].getId() == id)
+			return eggs_[i];
+			
+	console.log("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
 }
 
 exports.getPlayers = function() {
