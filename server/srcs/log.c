@@ -18,8 +18,12 @@ void		log_msg(FILE *stream, const char *msg)
   char		*date;
 
   now = time(NULL);
-  date = ctime(&now);
-  date[strlen(date) - 1] = 0;
-  fprintf(stream, "[\033[1;32m%s\033[0m] - ", date);
+  if ((date = ctime(&now)) != NULL)
+  {
+    date[strlen(date) - 1] = 0;
+    fprintf(stream, "[\033[1;32m%s\033[0m] - ", date);
+  }
+  else
+    fprintf(stream, "[ERROR] - ");
   fprintf(stream, msg);
 }
