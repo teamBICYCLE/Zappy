@@ -9,8 +9,9 @@ var xsize_ = 0,
 	currentTimeUnit_ = 0,
 	teams_ = new Array(),
 	map_ = new (require("./objects/map.js")),
-	players_ = new Array();
-	eggs_ = new Array();
+	players_ = new Array(),
+	eggs_ = new Array(),
+	cmdMessages_ = new Array();
 	
 /* SET */
 
@@ -35,11 +36,27 @@ exports.setCase = function(x, y, ressources) {
 exports.addPlayer = function(arg) {
     var Player = require("./objects/player.js");
     players_.push(new Player(arg));
+    this.addMessage("Team " + arg[6] + " welcomes a new player.");
+}
+
+exports.removePlayer = function(argId) {
+	
+	var id = argId.replace("#", "")
+	for (var i = 0; i < players_.length; i++)
+	{
+		if (id == players_[i].getId())
+			players_.splice(i, 1);
+	}
+	this.addMessage("Player " + id + " died (not enough food)");
 }
 
 exports.addEggs = function(arg) {
 	var Egg = require("./objects/egg.js");
 	eggs_.push(new Egg(arg));
+}
+
+exports.addMessage = function(msg) {
+	cmdMessages_.push(msg);
 }
 
 /* GET */
@@ -78,9 +95,14 @@ exports.getFormatedMap = function() {
 }
 
 exports.getPlayer = function(id) {
+	
+	id = parseInt(id.replace("#", ""));
+	
 	for (var i = 0; i != players_.length; i++)
+	{
 		if (players_[i].getId() == id)
 			return players_[i];
+	}
 			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 }
@@ -91,6 +113,10 @@ exports.getPlayers = function() {
 
 exports.getEggs = function() {
 	return eggs_;
+}
+
+exports.getCmdMessages = function() {
+	return cmdMessages_;
 }
 
 /* OTHER */
@@ -109,3 +135,7 @@ exports.dump = function() {
     console.log("teams : " + teams_);
     console.log("player : " + players_);
 };
+
+exports.cmdMessagesEmpty = function() {
+	cmdMessages_ = [];
+}

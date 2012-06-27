@@ -44,6 +44,7 @@ if (process.argv.length >= 3)
 				map: cache.getFormatedMap(),
 				players: cache.getPlayers(),
 				eggs: cache.getEggs(),
+				messages: cache.getCmdMessages(),
 				timestamp: new Date().getTime()
 			});
 		});
@@ -67,20 +68,24 @@ function update() {
 	zappy.getSocket().write("mct\n");
 	zappy.getSocket().write("sgt\n");
 	
+	var cache = zappy.getCache();
+	
 	client.getClientSocket().emit('cacheUpdate', {
-		map: zappy.getCache().getFormatedMap(),
-		players: zappy.getCache().getPlayers(),
-		eggs: zappy.getCache().getEggs(),
+		map: cache.getFormatedMap(),
+		players: cache.getPlayers(),
+		eggs: cache.getEggs(),
+		messages: cache.getCmdMessages(),
 		timestamp: new Date().getTime()
 	});
 	
 	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
+	cache.cmdMessagesEmpty();
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
 
 function playerCmd(explode) {
 	
-	var player = zappy.getCache().getPlayer(parseInt(explode[1].replace("#", "")));
+	var player = zappy.getCache().getPlayer(explode[1]);
 	
 	var playerPtr = {
 		"ppo": player.getPos(),

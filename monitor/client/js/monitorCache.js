@@ -6,7 +6,7 @@ function MonitorCache () {
 	this.ysize_ = 0,
 	this.teams_ = new Array();
 	this.map_ = new Array();
-	//this.players_ = new Array();
+	this.players_ = new Array();
 	//this.eggs_ = new Array();
 	
 	this.ref = {
@@ -35,6 +35,10 @@ MonitorCache.prototype.setTeams = function(teams) {
 
 MonitorCache.prototype.setMap = function(map) {
 	this.map_ = map;
+}
+
+MonitorCache.prototype.setPlayers = function(players) {
+	this.players_ = players;
 }
 
 /* GET */
@@ -95,4 +99,8 @@ MonitorCache.prototype.getSprite = function(aCase) {
 
 MonitorCache.prototype.getMap = function() {
 	return this.map_;
+}
+
+MonitorCache.prototype.getPlayers = function() {
+	return this.players_;
 }

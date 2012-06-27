@@ -26,10 +26,7 @@ function sendCmd(cmd){
 		socket.on('requestDataDone', function(data){
 			if (lastTimestamp != data.timestamp)
 			{
-				if ($("#cmdResult .entry").length >= 5)
-		 			$("#cmdResult span:first-child").remove();
-		 		$("#cmdResult").append("<span class='entry'>"+ data.data_ + "</span>");
-		 		$('#cmdResult span:last-child').fadeOut(7000);
+				addMessage(data.data_);
 				lastTimestamp = data.timestamp;
 			}
 		});

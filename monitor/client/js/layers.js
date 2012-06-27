@@ -17,6 +17,7 @@ function Layers(xsize, ysize){
 		7 : {name: "mendiane", img: new Image()},
 		8 : {name: "phiras", img: new Image()},
 		9 : {name: "thystame", img: new Image()},
+		10 : {name: "player", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -70,15 +71,24 @@ Layers.prototype.padding = function(canvas) {
 
 Layers.prototype.draw = function(canvas, img, x, y) {
 	
+	x = parseInt(x);
+	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas),
 		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
 		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
-	
+
+	if (img == "player")
+	{
+		console.log("padding top " + this.padding(canvas).top);
+		console.log(leftD + " " + topD + " x : " + x + "y :" + y);
+	}
 	c.ctx.drawImage(this.getImg(img), leftD, topD);
 }
 
 Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
 	
+	x = parseInt(x);
+	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas);
 	
 	c.ctx.drawImage(this.getImg(img), x, y);
