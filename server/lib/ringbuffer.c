@@ -5,12 +5,13 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Wed Jun 20 14:31:27 2012 lois burg
+** Last update Tue Jun 26 17:21:15 2012 Jonathan Machado
 */
 
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "ringbuffer.h"
 
 t_ringbuffer	*new_ringbuffer(size_t size)
@@ -42,7 +43,7 @@ int		read_data(int fd, t_ringbuffer *ring)
   int		l;
 
   if ((l = read(fd, ring->data, ring->size - ring->end - 1)) <= 0)
-    return ((ring->size - ring->end == 0 ? 1 : 0));
+    return ((ring->size - ring->end - 1 == 0 ? 1 : 0));
   ring->end += l;
   ring->data[ring->end] = 0;
   return (1);

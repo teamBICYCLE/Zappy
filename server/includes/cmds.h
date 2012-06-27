@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Tue Jun 26 11:31:28 2012 lois burg
+** Last update Wed Jun 27 17:29:55 2012 Jonathan Machado
 */
 
 #ifndef		__CMDS_H__
@@ -19,6 +19,7 @@
 # define	GREETINGS_CLIENT_SZ	15
 # define	BASE_BROADCAST_SZ	15
 # define	END_LEVELUP_MSG_SZ	25
+# define	EXPULSE_MSG_SZ		20
 
 typedef	enum e_cmd_ret
 {
@@ -46,6 +47,7 @@ t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	broadcast_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	fork_cmd(t_users *u, char **args, char *orig_cmd);
 t_cmd_ret	levelup_cmd(t_users *usr, char **args, char *orig_cmd);
+t_cmd_ret	expulse_cmd(t_users *usr, char **args, char *orig_cmd);
 
 /* TOOLS */
 char		*case_content(const t_case *c, char *buf);
