@@ -18,9 +18,9 @@ $(function() {
 		$("#errorBox").hide();
 	});
 	
-    $("#caseContent").click(function(e){
+	$("#caseContent").click(function(e){
 		$("#caseContent").hide();
-    });
+	});
 	
 });
 
