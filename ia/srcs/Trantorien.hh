@@ -32,6 +32,8 @@ private:
   int	       inventaire(LuaVirtualMachine::VirtualMachine&);
   int	       prendre(LuaVirtualMachine::VirtualMachine &);
   int	       poser(LuaVirtualMachine::VirtualMachine &);
+  int	       tourner(LuaVirtualMachine::VirtualMachine &);
+
 private:
   Inventory     inventory_;
   Network       network_;
