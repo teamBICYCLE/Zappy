@@ -20,9 +20,9 @@ $(function() {
 		$("#errorBox").hide();
 	});
 	
-    $("#caseContent").click(function(e){
+	$("#caseContent").click(function(e){
 		$("#caseContent").hide();
-    });
+	});
 	
 	// $('#connectionError').click(function(){
 		// if (!$("#connectionError").is(":hidden"))
