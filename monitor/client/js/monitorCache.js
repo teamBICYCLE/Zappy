@@ -101,3 +101,27 @@ MonitorCache.prototype.getMap = function() {
 MonitorCache.prototype.getPlayers = function() {
 	return this.players_;
 }
+
+MonitorCache.prototype.getTeamInfo = function(teamId) {
+	
+	var ret = {name: "", maxLevel: 1, number: 0, stats: [0, 0, 0, 0, 0, 0, 0, 0], color: "#FF0000"};
+	
+	if (teamId <= this.teams_.length)
+	{
+		ret.name = this.teams_[teamId - 1];
+		console.log(this.players_.length);
+		console.log(this.players_[0].team_);
+		for (var i = 0;  i != this.players_.length; i++)
+			if (this.players_[i].team_ == ret.name)
+			{
+				if (this.players_[i].level_ > ret.maxLevel)
+					ret.maxLevel = this.players_[i].level_;
+				
+				ret.stats[this.players_[i].level_ - 1] += 1;
+				ret.number += 1;
+			}
+	}
+	else
+		displayError("Something wrong in Cache.getTeamInfo() : undefined reference to team id " + teamId);
+	return ret;
+}

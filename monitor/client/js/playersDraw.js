@@ -17,7 +17,6 @@ function players_draw(cache, layers) {
 	{
 		var player = cache.getPlayers()[i];
 
-		console.log(player.orientation_ + " " + orientation[player.orientation_]);
 		layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_);
 	}
 }

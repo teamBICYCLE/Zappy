@@ -11,11 +11,11 @@
 var Player = function(arg) {
 	if (arg.length >= 7)
 	{
-		this.id_ = arg[1].replace("#", "");
-	    this.posx_ = arg[2];
-	    this.posy_ = arg[3];
-	    this.orientation_ = arg[4];
-	    this.level_ = arg[5];
+		this.id_ = parseInt(arg[1].replace("#", ""));
+	    this.posx_ = parseInt(arg[2]);
+	    this.posy_ = parseInt(arg[3]);
+	    this.orientation_ = parseInt(arg[4]);
+	    this.level_ = parseInt(arg[5]);
 	    this.team_ = arg[6];
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
 	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];

@@ -54,7 +54,7 @@ socket.on('cacheUpdate', function(data){
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
 	$(".latency .lValue").text(latency);
 	
-	/* faudra seter eggs players */
+	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
 		cache.setMapSize(data.xsize, data.ysize);
 		

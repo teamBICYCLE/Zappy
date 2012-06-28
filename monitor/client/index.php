@@ -36,6 +36,7 @@
 		<span class="port" style="display:none;"><? echo $port; ?></span>
   	</body>
   	<script src="js/canvasHandler.js"></script>
+  	<script src="js/imgLoader.js"></script>
   	<script src="js/layers.js"></script>
 	<script src="js/mapDraw.js"></script>
 	<script src="js/ressourcesDraw.js"></script>
