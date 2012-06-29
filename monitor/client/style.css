@@ -333,7 +333,8 @@ canvas {
 .team-picture {
 	width: 120px;
 	height: 80px;
-	float:left;;
+	float:left;
+	background: url("img/avatar.png") no-repeat top left;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	border-top-left-radius: 10px;
