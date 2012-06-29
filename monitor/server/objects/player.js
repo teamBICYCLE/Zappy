@@ -20,7 +20,7 @@ var Player = function(arg) {
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
 	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
 		this.message_ = "";
-		
+		this.inventoryOpen = false;
 		//piex pbc pic pfk pdr pgt
 	} 
 };

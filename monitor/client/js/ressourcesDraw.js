@@ -2,7 +2,7 @@
  *	@author sylvia_r
  */
 
-function ressources_draw(cache, layers) {
+function ressources_draw(layers) {
     
     layers.clear("cRessources");
     

@@ -9,7 +9,8 @@ var socket = io.connect('http://localhost', {
   		'max reconnection attempts': 10
 	}),
 	lastTimestamp = 0,
-	layers;
+	layers,
+	inventoryOpenId = -1;
 	
 socket.on("disconnect", function(){
 	
@@ -32,6 +33,7 @@ socket.on('firstConnection', function(data){
 	if (lastTimestamp != data.timestamp) {
 		cache.setMapSize(data.xsize, data.ysize);
 		cache.setTeams(data.teams);
+		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
 		cache.setPlayers(data.players);
 		
@@ -40,17 +42,24 @@ socket.on('firstConnection', function(data){
 		
 		// init draw
 		layers = new Layers(data.xsize, data.ysize);
+		
 		map_draw(data.xsize, data.ysize, layers);
-		ressources_draw(cache, layers);
+		ressources_draw(layers);
+		players_draw(layers);
+		
+		// event & draw
 		highlight_draw(layers);
 		events_handler(layers);
+		
+		// init UI
+		initInventory();
+		
 		lastTimestamp = data.timestamp;
 	}
 });
 
 socket.on('cacheUpdate', function(data){
-	//console.log("receive firstConnection");
-	//console.log("cacheUpdatee");
+
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
 	$(".latency .lValue").text(latency);
 	
@@ -64,9 +73,10 @@ socket.on('cacheUpdate', function(data){
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
 
-		ressources_draw(cache, layers);
-		players_draw(cache, layers);
-		//cache.emptyPlayers();
+		update_inventory();
+		ressources_draw(layers);
+		players_draw(layers);
+		
 		lastTimestamp = data.timestamp;
 	}
 });

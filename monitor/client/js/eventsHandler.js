@@ -7,8 +7,17 @@ function events_handler(layers) {
 	$("#cEvents").click(function(e) {
 		
 		var pos = getMousePosition(e),
-    		mapPos = realToMap(pos, layers, "cHighLight");
+    		mapPos = realToMap(pos, layers, "cHighLight"),
+    		players = cache.getPlayers();
     	$("#cHighLight").trigger('click', [pos, mapPos]);
+    	
+    	for (var i = 0; i != players.length; i++)
+    		if (players[i].posx_ == mapPos.x && players[i].posy_ == mapPos.y)
+    			showInventory(players[i].id_);
+    		// {
+    			// inventoryOpenId = players[i].id_;
+    			// $("#inventory").show();
+    		// }	
 	});
 
     $("#cEvents").mousemove(function(e) {

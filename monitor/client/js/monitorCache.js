@@ -5,6 +5,7 @@ function MonitorCache () {
 	this.xsize_ = 0,
 	this.ysize_ = 0,
 	this.teams_ = new Array();
+	this.teamsColor_ = new Array();
 	this.map_ = new Array();
 	this.players_ = new Array();
 	//this.eggs_ = new Array();
@@ -33,6 +34,10 @@ MonitorCache.prototype.setTeams = function(teams) {
 	this.teams_ = teams;
 }
 
+MonitorCache.prototype.setTeamsColor = function(color) {
+	this.teamsColor_ = color;
+}
+
 MonitorCache.prototype.setMap = function(map) {
 	this.map_ = map;
 }
@@ -53,6 +58,10 @@ MonitorCache.prototype.getHeight = function() {
 
 MonitorCache.prototype.getTeams = function() {
 	return this.teams_;
+}
+
+MonitorCache.prototype.getTeamsColor = function() {
+	return this.teamsColor_;
 }
 
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
@@ -109,8 +118,7 @@ MonitorCache.prototype.getTeamInfo = function(teamId) {
 	if (teamId <= this.teams_.length)
 	{
 		ret.name = this.teams_[teamId - 1];
-		console.log(this.players_.length);
-		console.log(this.players_[0].team_);
+		ret.color = this.teamsColor_[teamId - 1];
 		for (var i = 0;  i != this.players_.length; i++)
 			if (this.players_[i].team_ == ret.name)
 			{
@@ -124,4 +132,12 @@ MonitorCache.prototype.getTeamInfo = function(teamId) {
 	else
 		displayError("Something wrong in Cache.getTeamInfo() : undefined reference to team id " + teamId);
 	return ret;
+}
+
+MonitorCache.prototype.playerExist = function(id) {
+	
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].id_ == id)
+			return true;
+	return false;
 }

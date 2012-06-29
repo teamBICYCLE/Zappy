@@ -2,7 +2,7 @@
  *	@author sylvia_r
  */
 
-function players_draw(cache, layers) {
+function players_draw(layers) {
     
 
     var orientation = {

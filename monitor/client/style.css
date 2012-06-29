@@ -7,9 +7,9 @@ html, body {
 	overflow: hidden;
 }
 
-div, input {
+/*div, input {
 	position: absolute;
-}
+}*/
 
 canvas {
 	position: absolute;
@@ -36,6 +36,7 @@ canvas {
 	left: 0px;
 	bottom: 40px;
 	margin: 0 0 10px 10px;
+	position: absolute;
 }
 
 #cmdResult .entry {
@@ -61,6 +62,7 @@ canvas {
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 	border: 1px solid #545454;
+	position: absolute;
 	z-index: 5;
 }
 
@@ -128,6 +130,7 @@ canvas {
 }
 
 .latency {
+	position: absolute;
 	z-index: 5;
 	bottom: 0px;
 	right: 0px;
@@ -182,4 +185,88 @@ canvas {
     -webkit-border-top-right-radius: 20px;
     -khtml-border-top-left-radius: 20px;
     -khtml-border-top-right-radius: 20px;
+}
+
+/* INVENTORY */
+
+#inventory {
+	margin: 0;
+	width: 288px;
+	height: 320px;
+	display: none;
+	position: relative !important;
+	z-index: 5;
+}
+
+#inventory-containers {
+	height: 290px;
+	background: rgba(0,0,0,0.7);
+}
+
+#inventory-header {
+	margin: 0;
+	clear: both;
+	width: 288px;
+	height: 29px;
+	background:transparent url("img/inventory-topbar.png") no-repeat top left;
+}
+
+.inventory-close {
+	float: right;
+	width: 28px;
+	height: 28px;
+	background:transparent url("img/inventory-close.png") no-repeat top left;
+}
+
+.container {
+	width: 60px;
+	height: 60px;
+	float:left;
+	margin: 10px 0 0 10px;
+	background:transparent url("img/inventory-container.png") no-repeat top left;
+}
+
+.item {
+	width: 60px;
+	height: 60px;
+}
+
+.item-count {
+	position: absolute;
+	color: #eee;
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	font-weight: bold;
+	font-size: 16px;
+	text-shadow: #000 1px 1px 1px;
+	display: inline-block;
+	bottom:0;
+	right:5px;
+}
+
+#food-item {
+	background: transparent url("img/item-food.png") no-repeat top left;	
+}
+
+#linemate-item {
+	background: transparent url("img/item-linemate.png") no-repeat top left;	
+}
+
+#deraumere-item {
+	background: transparent url("img/item-deraumere.png") no-repeat top left;	
+}
+
+#sibur-item {
+	background: transparent url("img/item-sibur.png") no-repeat top left;	
+}
+
+#mendiane-item {
+	background: transparent url("img/item-mendiane.png") no-repeat top left;	
+}
+
+#phiras-item {
+	background: transparent url("img/item-phiras.png") no-repeat top left;	
+}
+
+#thystame-item {
+	background: transparent url("img/item-thystame.png") no-repeat top left;	
 }

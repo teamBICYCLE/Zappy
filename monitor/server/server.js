@@ -45,6 +45,7 @@ if (process.argv.length >= 3)
 				xsize: cache.getXSize(),
 				ysize: cache.getYSize(),
 				teams: cache.getTeams(),
+				teamsColor: cache.getTeamsColor(),
 				map: cache.getFormatedMap(),
 				players: cache.getPlayers(),
 				eggs: cache.getEggs(),

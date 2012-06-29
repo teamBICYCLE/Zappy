@@ -68,3 +68,51 @@ function addMessage(msg) {
 		
 	$("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
 }
+
+/* INVENTORY */
+
+function initInventory() {
+	src = null;
+	
+	options = {
+		revert:true,
+		opacity: 0.8,
+		zIndex: 100,
+		start: function() {
+			src = $(this).parent();
+		}
+	};
+		
+	$("#inventory").draggable();
+	$(".item").draggable(options);
+	
+	$(".container").droppable({
+		drop: function(event, ui) {
+			src.append($('.item', this).remove()
+							.removeClass().addClass("item")
+							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
+							.draggable(options)
+			);
+		/* if drop != case de depart */
+			$(this).append(ui.draggable.remove().clone()
+							.removeClass().addClass("item")
+							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
+							.draggable(options)
+			);
+		}
+	});
+	
+	$(".inventory-close").click(function() {
+		closeInventory();
+	});
+}
+
+function closeInventory() {
+	$("#inventory").hide();
+	inventoryOpenId = -1;
+}
+
+function showInventory(id) {
+	$("#inventory").show();
+	inventoryOpenId = id;
+}

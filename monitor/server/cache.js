@@ -8,6 +8,7 @@ var xsize_ = 0,
 	ysize_ = 0,
 	currentTimeUnit_ = 0,
 	teams_ = new Array(),
+	teamsColor_ = new Array(),
 	map_ = new (require("./objects/map.js")),
 	players_ = new Array(),
 	eggs_ = new Array(),
@@ -25,8 +26,18 @@ exports.setCurrentTimeUnit = function(t) {
 	currentTimeUnit_ = t;
 }
 
+function random_color() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
 exports.addTeam = function(name) {
 	teams_.push(name);
+	teamsColor_.push(random_color());
 }
 
 exports.setCase = function(x, y, ressources) {
@@ -86,6 +97,10 @@ exports.getCurrentTimeUnit = function() {
 
 exports.getTeams = function() {
 	return teams_;
+}
+
+exports.getTeamsColor = function() {
+	return teamsColor_;
 }
 
 exports.getMap = function() {
