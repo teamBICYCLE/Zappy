@@ -1,19 +1,20 @@
-// FSM.hh
+// VM.hpp
 
-#ifndef _FSM_HH_
-#define _FSM_HH_
+#ifndef _VM_HH_
+#define _VM_HH_
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
 #include <utility>
-#include "Script.hh"
-#include "Failure.hh"
 
-enum FSMRetValue {OK = 0, KO, ERR};
+#include "lua/Script.hh"
+#include "lua/Failure.hh"
 
+namespace FSM {
 template <typename X>
-class FSM : public LuaVirtualMachine::Script {
+class VM : public LuaVirtualMachine::Script {
   public:
 
   // Types
@@ -21,12 +22,14 @@ class FSM : public LuaVirtualMachine::Script {
   typedef int           (X::* ContextInteraction)(LuaVirtualMachine::VirtualMachine &);
 
   // constructor / destructor
-  FSM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
+  VM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
 
-  virtual ~FSM() {}
+  virtual ~VM() {}
 
   // initializers
   void    init(const std::string & conf, const std::string & luaFile);
+  void    init2(const std::string & conf, const std::string & luaFile);
+
 
   void    addState(const std::string & stateName);
   void    addInteraction(const std::string & fctName, ContextInteraction fct);
@@ -49,12 +52,15 @@ protected:
   unsigned int              currentState_;
   ValidityTest              keepRunning_;
 };
+}
 
 // ========================================== //
 
 template <typename X>
-void FSM<X>::init(const std::string &conf, const std::string &luaFile)
+void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
+  init2(conf, luaFile);
+
   int     transitions[] = {1, 0, 0};
   int     transitions2[] = {2, 1, 1};
   int     transitions3[] = {0, 2, 2};
@@ -71,7 +77,25 @@ void FSM<X>::init(const std::string &conf, const std::string &luaFile)
 }
 
 template <typename X>
-void FSM<X>::addState(const std::string &stateName)
+void FSM::VM<X>::init2(const std::string &confPath, const std::string &luaFilePath)
+{
+  std::ifstream       confStream(confPath);
+  std::string         line;
+ //std::list<Lexemes>  lexemes;
+
+  if (!confStream.good())
+    throw LuaVirtualMachine::Failure("Open configuration file", "could not be open");
+  try {
+   // lexemes = lex(confStream);
+//    parse(lexemes);
+  }
+  catch (LuaVirtualMachine::Failure & e) {
+    std::cout << e.what() << std::endl;
+  }
+}
+
+template <typename X>
+void FSM::VM<X>::addState(const std::string &stateName)
 {
   std::vector<int>  toto;
 
@@ -79,7 +103,7 @@ void FSM<X>::addState(const std::string &stateName)
 }
 
 template <typename X>
-void FSM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
+void FSM::VM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
 {
   int   fctId = registerFct(fctName);
 
@@ -91,7 +115,7 @@ void FSM<X>::addInteraction(const std::string &fctName, ContextInteraction fct)
 }
 
 template <typename X>
-int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
+int FSM::VM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 {
 //  if (contextFunctions_.size() > static_cast<unsigned int>(methIdx))
     return (context_.*contextFunctions_[methIdx])(vm);
@@ -100,7 +124,7 @@ int FSM<X>::scriptCalling(LuaVirtualMachine::VirtualMachine &vm, int methIdx)
 }
 
 template <typename X>
-void FSM<X>::getReturn(LuaVirtualMachine::VirtualMachine &vm, const std::string &fctName)
+void FSM::VM<X>::getReturn(LuaVirtualMachine::VirtualMachine &vm, const std::string &fctName)
 {
   if (vm.isFonctionnal())
     {
@@ -115,13 +139,13 @@ void FSM<X>::getReturn(LuaVirtualMachine::VirtualMachine &vm, const std::string 
 }
 
 template <typename X>
-void FSM<X>::setValidityTest(FSM::ValidityTest test)
+void FSM::VM<X>::setValidityTest(VM::ValidityTest test)
 {
   keepRunning_ = test;
 }
 
 template <typename X>
-void FSM<X>::run()
+void FSM::VM<X>::run()
 {
   while ((context_.*keepRunning_)())
     {
@@ -130,4 +154,4 @@ void FSM<X>::run()
     }
 }
 
-#endif // _FSM_HH_
+#endif // _VM_HH_

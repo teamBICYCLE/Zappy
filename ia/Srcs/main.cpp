@@ -5,23 +5,12 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Wed Jun 27 15:04:10 2012 thibault carpentier
+// Last update Fri Jun 29 11:40:30 2012 Thomas Duplomb
 //
 
-
-#include <stdlib.h>
-#include <iostream>
-#include <boost/asio.hpp>
-#include  "Network.hh"
-#include "Inventory.hh"
-#include "Example.hh"
-#include "Trantorien.hh"
-#include <string>
-#include "Map.hh"
-
 #include <cstdlib>
-
-using namespace LuaVirtualMachine;
+#include <iostream>
+#include "Trantorien/Map.hh"
 
 int main(int argc, char *argv[])
 {

@@ -35,6 +35,13 @@
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
+		<div id="panel">
+			<div id="panel-container">
+				<div id="panel-topbar"></div>
+				<div id="panel-stats"></div>
+			</div>
+			<div class="btn-slide"></div>
+		</div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>

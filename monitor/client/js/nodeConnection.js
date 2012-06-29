@@ -58,6 +58,9 @@ socket.on('firstConnection', function(data){
 		events_handler(layers);
 		update_inventory();
 		
+		// init teamPanel
+		initTeamPanel();		
+		
 		lastTimestamp = data.timestamp;
 	}
 });

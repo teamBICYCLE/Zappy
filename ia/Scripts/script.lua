@@ -11,7 +11,6 @@ function this.voir(this)
 end
 
 function this.prendre(this)
-	 print("prendre food nigga")
 	 this:IAPrendre("nourriture")
 	 return (0)
 end

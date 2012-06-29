@@ -270,3 +270,113 @@ canvas {
 #thystame-item {
 	background: transparent url("img/item-thystame.png") no-repeat top left;	
 }
+
+/* TEAM PANEL */
+
+#panel {
+	width: 520px;
+	margin-right:-500px;
+	float:right;
+	z-index: 400;
+}
+
+#panel-container {
+	float:right;
+}
+
+#panel-stats {
+	width: 485px;
+	height: 700px;
+	background: rgba(26,26,26,0.9);
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+	overflow: auto;
+	padding: 0 15px 0 0;
+	z-index: 412;
+	position: relative;
+}
+
+#panel-topbar {
+	width: 500px;
+	height: 29px;
+	background: transparent url("img/panel-topbar.png") no-repeat top left;
+	z-index: 411;
+	position: relative;
+}
+
+.btn-slide {
+	width: 20px;
+	height: 80px;
+	background: transparent url("img/panel-arrow.png") no-repeat top left;
+	margin-top: 320px;
+	float:left;
+	z-index: 410;
+	position: relative;
+}
+
+.active {
+	background: transparent url("img/panel-arrow.png") no-repeat -20px 0px;
+}
+
+.teambox {
+	padding: 10px 10px 0 10px;
+}
+
+.teamstats {
+	position: relative;
+	width: 465px;
+	height: 80px;
+	z-index: 430;
+	background: transparent url("img/teamstats-bg.png") no-repeat top left;
+}
+
+.team-picture {
+	width: 120px;
+	height: 80px;
+	float:left;;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.teamstats span {
+	position: absolute;
+	color: #262626;
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #ddd;	
+}
+
+.team-name {
+	top: 15px;
+	left: 130px;
+}
+
+.team-effective {
+	top: 45px;
+	left: 130px;
+}
+
+.team-maxlvl {
+	top: 45px;
+	left: 310px;
+}
+
+.team-maxlvl-number {
+	font-size: 4em;
+	left: 90px;
+	top: -42px;
+}
+
+.chart {
+	position: relative;
+	width: 465px;
+	height: 250px;
+	z-index: 42;
+	margin-top: -10px;
+	display: none;
+	background: transparent url("img/piechart-bg.png") no-repeat top left;
+}
+
+/* END TEAM PANEL */

@@ -6,7 +6,7 @@
 #include <string>
 
 Trantorien::Trantorien(const std::string ip, const std::string port)
-  : FSM(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(10, 10))
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(10, 10))
 {
   std::string tmp;
 
@@ -37,7 +37,7 @@ Trantorien::~Trantorien()
 
 void Trantorien::run()
 {
-  FSM::run();
+  FSM::VM<Trantorien>::run();
 }
 
 void Trantorien::joinTeam(const std::string &teamName)

@@ -161,3 +161,39 @@ function updateInventoryContent(inventory) {
 				//console.log($("#inventory-containers .container"));
 			}
 }
+
+/* TEAMSTATS PANEL*/
+
+function addTeamsToPanel() {
+	var nbTeams = cache.getTeams().length;
+
+	for (var i = 1; i <= nbTeams; i++) {
+		var infos = cache.getTeamInfo(i);
+
+		$("#panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+										+ "<span class='team-name'>Name: "
+										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
+										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
+										+ "<div class='chart'></div></div>");
+	}
+}
+
+function initTeamPanel() {	
+	
+	addTeamsToPanel();	
+	
+   $(".btn-slide").toggle(function() {
+		$("#panel").animate({marginRight: "0px"}, 200);
+		$(this).toggleClass("active");
+   }, function() {
+		$("#panel").animate({marginRight: "-500px"}, 200);
+		$(this).toggleClass("active");
+   });
+    
+   $(".teambox").click(function() {
+		if ($(".chart", this).is(':hidden')) {
+	   	$(".chart").slideUp("slow");
+		}
+		$(".chart", this).slideToggle("slow");
+   });
+}

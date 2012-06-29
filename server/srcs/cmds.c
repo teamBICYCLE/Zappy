@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Wed Jun 27 17:30:14 2012 Jonathan Machado
+** Last update Fri Jun 29 15:28:37 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -139,8 +139,8 @@ void		exec_cmd(t_users *u, char **args, char *orig_cmd)
 	    }
 	  else
 	    assign_client(u, args);
+	  u->first_message = false;
 	}
-      u->first_message = false;
       free(orig_cmd);
       free(args[0]);
       free(args);

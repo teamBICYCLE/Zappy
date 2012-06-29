@@ -1,18 +1,20 @@
 cmake_minimum_required(VERSION 2.6)
 
 project(iazappy)
+set(iazappy_VERSION_MAJOR 0)
+set(iazappy_VERSION_MINOR 3)
 
 ADD_DEFINITIONS(-Wall -std=c++0x)
 
 
 include_directories(
-	./srcs/
+	./Srcs/
 )
 
 file(
 	GLOB_RECURSE
 	source_files
-	srcs/*
+	Srcs/*
 )
 
 add_executable(

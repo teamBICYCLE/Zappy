@@ -3,14 +3,12 @@
 #ifndef _TRANTORIEN_HH_
 #define _TRANTORIEN_HH_
 
-#include "VirtualMachine.hh"
+#include "FSM/VM.hpp"
 #include "Inventory.hh"
 #include "Network.hh"
-#include "FSM.hpp"
-#include "Script.hh"
 #include "Map.hh"
 
-class Trantorien : public FSM<Trantorien> {
+class Trantorien : public FSM::VM<Trantorien> {
 public:
   Trantorien(const std::string ip, const std::string port);
   virtual ~Trantorien();
