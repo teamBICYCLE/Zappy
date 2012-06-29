@@ -6,7 +6,6 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
   		<script src="js/libs/jquery.min.js"></script>
   		<script src="js/libs/jquery-ui.min.js"></script>
-  		<script src="js/inventory.js"></script>
   		<?php
   			$port = "24542";
   			if (isset($_GET['port']) && is_numeric($_GET['port']))
@@ -36,6 +35,13 @@
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
+		<div id="panel">
+			<div id="panel-container">
+				<div id="panel-topbar"></div>
+				<div id="panel-stats"></div>
+			</div>
+			<div class="btn-slide"></div>
+		</div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>

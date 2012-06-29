@@ -54,6 +54,9 @@ socket.on('firstConnection', function(data){
 		// init UI
 		initInventory();
 		
+		// init teamPanel
+		initTeamPanel();		
+		
 		lastTimestamp = data.timestamp;
 	}
 });
