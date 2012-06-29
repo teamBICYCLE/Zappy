@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jun 29 10:59:38 2012 thibault carpentier
+// Last update Fri Jun 29 16:21:37 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -73,13 +73,33 @@ void Map::avancer(void)
 #include <iostream>
 void Map::analyse(const std::string &values)
 {
-  size_t beginCase = 0, tmp;
+  size_t beginCaseParse = 0, endCaseParse = 0;
 
-  while ((tmp = values.find(",", beginCase)) != std::string::npos)
+  unsigned int nbCaseStair = 1, savNbCaseStair = 0;
+  int distance;		// call a fct to cal dist
+  int incrStart, incrEnd;
+
+  while (endCaseParse < std::string::npos)
     {
-      std::string caseSee(values, beginCase, tmp);
-      std::cout <<"tmp = " << tmp <<"result : "<< caseSee << std::endl;
-      beginCase = tmp + 1;
+      if (nbCaseStair != savNbCaseStair)
+	{
+	  incrStart = ((nbCaseStair -1) / 2); // fct en foction de l'orientation
+	  incrEnd = -incrStart;
+	  savNbCaseStair = nbCaseStair;
+	  distance = incrStart > 0 ? incrStart : -incrStart;
+	}
+      endCaseParse = values.find(",", beginCaseParse);
+      std::string caseSee(values, beginCaseParse, endCaseParse - beginCaseParse);
+      std::cout <<"result : "<< caseSee << std::endl;
+      std::cout << "Je me situe a l'etage : " << distance
+		<< " comportant " << nbCaseStair << " cases."
+		<< "Je vais avoir un offset (non signe pour le moment ni ordonne de : " << incrStart
+		<< std::endl;
+      // call fct to parse
+      beginCaseParse =  endCaseParse + 1;
+      if (incrStart == incrEnd)
+	nbCaseStair += 2;
+      --incrStart;
     }
 }
 
@@ -109,7 +129,7 @@ void Map::voir(const std::string &values)
 //              |-1 -1|-0 -1|+1 -1|
 //              |_____|_____|_____|
 //                    |     |
-//                    |+0 +0|
+//                    |+0 -0|
 //                    |_____|
 //  _____                                _____
 // |     |                              |     |
