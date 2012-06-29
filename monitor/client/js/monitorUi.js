@@ -180,19 +180,21 @@ function addTeamsToPanel() {
 
 function initTeamPanel() {	
 	
+	$("#panel-stats").children().remove();
+	
 	addTeamsToPanel();	
 	
-   $(".btn-slide").toggle(function() {
-		$("#panel").animate({marginRight: "0px"}, 200);
-		$(this).toggleClass("active");
-   }, function() {
-		$("#panel").animate({marginRight: "-500px"}, 200);
-		$(this).toggleClass("active");
+	$(".btn-slide").toggle(function() {
+			$("#panel").animate({marginRight: "0px"}, 200);
+			$(this).toggleClass("active");
+		}, function() {
+			$("#panel").animate({marginRight: "-500px"}, 200);
+			$(this).toggleClass("active");
    });
     
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {
-	   	$(".chart").slideUp("slow");
+			$(".chart").slideUp("slow");
 		}
 		$(".chart", this).slideToggle("slow");
    });

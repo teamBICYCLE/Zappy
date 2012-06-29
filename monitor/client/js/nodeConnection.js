@@ -9,9 +9,7 @@ var socket = io.connect('http://localhost', {
   		'max reconnection attempts': 10
 	}),
 	lastTimestamp = 0,
-	layers,
-	inventoryOpenId = -1;
-	lastInventoryOpenId = -1;
+	layers;
 
 socket.on("disconnect", function(){
 	
@@ -47,6 +45,7 @@ socket.on('firstConnection', function(data){
 		
 		// init UI
 		initInventory();
+		initTeamPanel();
 		
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(layers);
@@ -57,9 +56,6 @@ socket.on('firstConnection', function(data){
 		highlight_draw(layers);
 		events_handler(layers);
 		update_inventory();
-		
-		// init teamPanel
-		initTeamPanel();		
 		
 		lastTimestamp = data.timestamp;
 	}

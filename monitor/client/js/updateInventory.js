@@ -5,23 +5,6 @@
 
 function update_inventory() {
 	
-	if (cache.getPlayers().length > 0)
-	{
-		console.log(inventoryOpenId);
-		if (inventoryOpenId != -1 && !cache.playerExist(inventoryOpenId))
-			closeInventory();
-		else if (inventoryOpenId != -1 && cache.getPlayer(inventoryOpenId).inventoryChange_ ||
-				inventoryOpenId != lastInventoryOpenId)
-		{
-			console.log(cache.getPlayer(inventoryOpenId).inventoryChange_);
-			cache.getPlayer(inventoryOpenId).inventoryChange_ = false;
-			//console.log(cache.getPlayer(inventoryOpenId));
-			console.log("Update inventory player #" + inventoryOpenId);
-			//updateInventoryContent([5, 2, 0, 0, 0, 0, 0]);
-		}
-		// else
-			// console.log("no update inventory");
-	}
 }
 
 function setInventoryChange(players, v) {
