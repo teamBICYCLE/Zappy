@@ -125,7 +125,7 @@ function addTeamsToPanel() {
 	for (var i = 1; i <= nbTeams; i++) {
 		var infos = cache.getTeamInfo(i);
 
-		$("#panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+		$(".panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
 										+ "<span class='team-name'>Name: "
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
@@ -138,10 +138,10 @@ function initTeamPanel() {
 	addTeamsToPanel();	
 	
    $(".btn-slide").toggle(function() {
-		$("#panel").animate({marginRight: "0px"}, 200);
+		$(".panel").animate({marginRight: "0px"}, 200);
 		$(this).toggleClass("active");
    }, function() {
-		$("#panel").animate({marginRight: "-500px"}, 200);
+		$(".panel").animate({marginRight: "-500px"}, 200);
 		$(this).toggleClass("active");
    });
     
