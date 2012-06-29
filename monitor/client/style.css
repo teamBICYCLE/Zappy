@@ -4,7 +4,6 @@ html, body {
 	margin: 0px;
 	background: #464646 url('img/grid.png') repeat top left;
 	font-family: Helvetica, Helv, swiss, sans-serif;
-	font-weight: bold;
 	color: #eee;
 	text-shadow: #222 1px 1px 1px;
 	overflow: hidden;
@@ -139,6 +138,8 @@ canvas {
 	right: 0px;
 	height: 25px;
 	margin-right: 15px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 #overlay{
@@ -148,7 +149,7 @@ canvas {
     bottom:0px;
     left:0px;
     right:0px;
-    z-index:100;
+    z-index:800;
 }
 
 #connectionError {
@@ -276,7 +277,7 @@ canvas {
 
 /* TEAM PANEL */
 
-#panel {
+.panel {
 	width: 520px;
 	margin-top: 20px;
 	margin-right:-500px;
@@ -284,11 +285,11 @@ canvas {
 	z-index: 400;
 }
 
-#panel-container {
+.panel-container {
 	float:right;
 }
 
-#panel-stats {
+.panel-stats {
 	width: 485px;
 	height: 600px;
 	background: rgba(26,26,26,0.9);
@@ -300,7 +301,7 @@ canvas {
 	position: relative;
 }
 
-#panel-topbar {
+.panel-topbar {
 	width: 500px;
 	height: 29px;
 	background: transparent url("img/panel-topbar.png") no-repeat top left;
