@@ -107,12 +107,57 @@ function initInventory() {
 	});
 }
 
+// function initItem(item) {
+	// src = null;
+// 	
+	// options = {
+		// revert:true,
+		// opacity: 0.8,
+		// zIndex: 100,
+		// start: function() {
+			// src = $(this).parent();
+		// }
+	// };
+// 	
+	// $(".item").draggable(options);
+// }
+
 function closeInventory() {
 	$("#inventory").hide();
+	lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = -1;
 }
 
 function showInventory(id) {
 	$("#inventory").show();
+	lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = id;
+}
+
+function emptyInventoryContent() {
+	var container = $("#inventory-containers .container");
+	
+	for (var i = 0; i != container.length; i++)
+		$(container[i]).children().remove();
+}
+
+function updateInventoryContent(inventory) {
+	
+	var ref = ["food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"];
+	
+	emptyInventoryContent();
+	for (var i = 0; i != inventory.length; i++)
+		if (inventory[i] > 0)
+			{
+				var container = $("#inventory-containers .container");
+				
+				for (var j = 0; j != container.length; j++)
+					if ($(container[j]).children().length == 0)
+					{
+						$(container[j]).append("<div id='"+ref[i]+"-item' class='item'><span class='"+ref[i]+"-count item-count'></span></div>");
+						
+						break;
+					}
+				//console.log($("#inventory-containers .container"));
+			}
 }

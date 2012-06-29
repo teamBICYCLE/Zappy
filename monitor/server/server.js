@@ -86,7 +86,7 @@ function update() {
 	
 	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	cache.cmdMessagesEmpty();
-	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
+	setTimeout(update, cache.getCurrentTimeUnit());
 }
 
 function playerCmd(explode) {

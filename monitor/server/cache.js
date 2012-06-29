@@ -124,7 +124,7 @@ exports.getPlayer = function(id) {
 		if (players_[i].getId() == id)
 			return players_[i];
 			
-	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 }
 
 exports.getEgg = function(id) {
@@ -135,10 +135,11 @@ exports.getEgg = function(id) {
 		if (eggs_[i].getId() == id)
 			return eggs_[i];
 			
-	displayError("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
+	console.log("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
 }
 
 exports.getPlayers = function() {
+	
 	return players_;
 }
 

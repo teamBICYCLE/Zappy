@@ -141,3 +141,17 @@ MonitorCache.prototype.playerExist = function(id) {
 			return true;
 	return false;
 }
+
+MonitorCache.prototype.getPlayer = function(id) {
+		
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].id_ == id)
+			return this.players_[i];
+			
+	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+MonitorCache.prototype.setInventoryChange = function(id, v) {
+		
+	this.getPlayer(id).inventoryChange_ = v;
+}
