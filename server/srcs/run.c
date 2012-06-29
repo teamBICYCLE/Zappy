@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 29 15:50:46 2012 Jonathan Machado
+** Last update Fri Jun 29 16:07:22 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -92,11 +92,11 @@ void			run(void)
   while (1)
     {
       reset_fd(&g_info);
-      printf("delay: %fs\n", loop.tv_sec + (loop.tv_usec / 100000.f)); //debug
+      printf("delay: %fs\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); //debug
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 100000.f)); // debug
+	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
 	  gettimeofday(&start, NULL); // start
 
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
@@ -112,13 +112,13 @@ void			run(void)
 
 	  // a metre dans fonction ?
 	  gettimeofday(&end, NULL);
-	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
-	  	   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
-		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	  diff = (loop.tv_usec + loop.tv_sec * 100000) - diff;
-	  loop.tv_usec = diff % 100000;
-	  loop.tv_sec = diff / 100000;
+	  sync += (((end.tv_sec * 10000000 + end.tv_usec) - (start.tv_sec * 10000000 + start.tv_usec)) /
+	  	   (g_info.world.smallest_t.tv_sec * 10000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (((end.tv_sec * 10000000 + end.tv_usec) - (start.tv_sec * 10000000 + start.tv_usec)) %
+		  (g_info.world.smallest_t.tv_sec * 10000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
+	  loop.tv_usec = diff % 1000000;
+	  loop.tv_sec = diff / 1000000;
 	  if (loop.tv_sec <= 0 && loop.tv_usec < 0)
 	    {
 	      ++sync;
