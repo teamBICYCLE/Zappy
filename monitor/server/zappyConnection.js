@@ -23,7 +23,7 @@ var ZappyConnection = function (ip, port) {
 	});
 	
 	socket.on('close', function () {
-	    console.log("Zappy server is unreachable ! Be sure the zappy server is running.");
+	    console.log("Error : Zappy server is unreachable !");
 	    process.exit(0);
 	  });
 	

@@ -5,8 +5,9 @@ function MonitorCache () {
 	this.xsize_ = 0,
 	this.ysize_ = 0,
 	this.teams_ = new Array();
+	this.teamsColor_ = new Array();
 	this.map_ = new Array();
-	//this.players_ = new Array();
+	this.players_ = new Array();
 	//this.eggs_ = new Array();
 	
 	this.ref = {
@@ -33,8 +34,16 @@ MonitorCache.prototype.setTeams = function(teams) {
 	this.teams_ = teams;
 }
 
+MonitorCache.prototype.setTeamsColor = function(color) {
+	this.teamsColor_ = color;
+}
+
 MonitorCache.prototype.setMap = function(map) {
 	this.map_ = map;
+}
+
+MonitorCache.prototype.setPlayers = function(players) {
+	this.players_ = players;
 }
 
 /* GET */
@@ -51,12 +60,13 @@ MonitorCache.prototype.getTeams = function() {
 	return this.teams_;
 }
 
+MonitorCache.prototype.getTeamsColor = function() {
+	return this.teamsColor_;
+}
+
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
     var target = (parseInt(y) * this.ysize_) + parseInt(x);
-    console.log(x + " " + y);
-    console.log(this.xsize_);
-    console.log(this.ysize_);
-    console.log(target);
+    
 	if (this.ysize_ != 0 && this.xsize_ != 0 &&
 		x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
 	{
@@ -95,4 +105,39 @@ MonitorCache.prototype.getSprite = function(aCase) {
 
 MonitorCache.prototype.getMap = function() {
 	return this.map_;
+}
+
+MonitorCache.prototype.getPlayers = function() {
+	return this.players_;
+}
+
+MonitorCache.prototype.getTeamInfo = function(teamId) {
+	
+	var ret = {name: "", maxLevel: 1, number: 0, stats: [0, 0, 0, 0, 0, 0, 0, 0], color: "#FF0000"};
+	
+	if (teamId <= this.teams_.length)
+	{
+		ret.name = this.teams_[teamId - 1];
+		ret.color = this.teamsColor_[teamId - 1];
+		for (var i = 0;  i != this.players_.length; i++)
+			if (this.players_[i].team_ == ret.name)
+			{
+				if (this.players_[i].level_ > ret.maxLevel)
+					ret.maxLevel = this.players_[i].level_;
+				
+				ret.stats[this.players_[i].level_ - 1] += 1;
+				ret.number += 1;
+			}
+	}
+	else
+		displayError("Something wrong in Cache.getTeamInfo() : undefined reference to team id " + teamId);
+	return ret;
+}
+
+MonitorCache.prototype.playerExist = function(id) {
+	
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].id_ == id)
+			return true;
+	return false;
 }

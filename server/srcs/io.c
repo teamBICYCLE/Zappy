@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jun 20 18:16:44 2012 lois burg
+** Last update Wed Jun 27 18:09:31 2012 Jonathan Machado
 */
 
 #include <stdio.h>
@@ -99,10 +99,11 @@ void		read_user(void *ptr)
     {
       if (read_data(user->socket, user->readring) == 0)
 	{
-	  if (user->team)
+	  if (user->team && user->type != TFORMER_GHOST)
 	    ++user->team->free_slots;
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-	  lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
+	  if (user->type != TGRAPHICS)
+	    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
 	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
 	  log_msg(stdout, msg);
 	  delete_link(l, &free_users);

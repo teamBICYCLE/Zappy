@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Thu Jun 21 18:39:46 2012 lois burg
+** Last update Wed Jun 27 17:30:14 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ static t_tasksmap	g_commands[] =
     {7, &see_cmd, "voir"},
     {7, &take_cmd, "prend"},
     {7, &put_cmd, "pose"},
-    /* {7, , "expulse"}, */
+    {7, &expulse_cmd, "expulse"},
     {7, &broadcast_cmd, "broadcast"},
     {42, &fork_cmd, "fork"},
     {300, &levelup_cmd, "incantation"},
@@ -101,10 +101,8 @@ static void	assign_client(t_users *u, char **args)
 {
   t_link	*team_lnk;
   t_team	*team;
-  bool		rmv;
   char		msg[LOG_MSG_SZ];
 
-  rmv = false;
   if ((team_lnk = lookup(g_info.world.teams_names, args[0], &cmp_team)) &&
       ((t_team*)team_lnk->ptr)->free_slots > 0)
     {
@@ -116,8 +114,6 @@ static void	assign_client(t_users *u, char **args)
       log_msg(stdout, msg);
     }
   else
-    rmv = true;
-  if (rmv)
     {
       u->life = 0;
       u->is_dead = true;

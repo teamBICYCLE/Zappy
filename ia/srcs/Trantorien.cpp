@@ -6,7 +6,7 @@
 #include <string>
 
 Trantorien::Trantorien(const std::string ip, const std::string port)
-  : FSM(*this, &Trantorien::isValid), network_(ip, port)
+  : FSM(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(10, 10))
 {
   std::string tmp;
 
@@ -14,7 +14,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
     std::cout << "successfully connected" << std::endl;
   else
     {
-      std::cout << network_.error().message() << std::endl;
+      //      std::cout << network_.error().message() << std::endl;
       abort();
     }
   init("conf.cfg", "script.lua");
@@ -23,6 +23,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IAVoir", &Trantorien::voir);
   addInteraction("IAInventaire", &Trantorien::inventaire);
   addInteraction("IAPrendre", &Trantorien::prendre);
+  addInteraction("IATourner", &Trantorien::tourner);
 
   setValidityTest(&Trantorien::isValid);
 
@@ -32,8 +33,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
 }
 
 Trantorien::~Trantorien()
-{
-}
+{}
 
 void Trantorien::run()
 {
@@ -57,7 +57,9 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 
   network_.cmd("avance");
   ret = network_.getline();
-  return 0;
+  if (ret == "ok")
+    map_.avancer();
+ return 0;
 }
 
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
@@ -67,18 +69,21 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 
   network_.cmd("voir");
   ret = network_.getline();
+  if (ret != "ko")
+    map_.voir(ret);
   return 0;
 }
 
 int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 {
-  (void)vm;
   std::string ret;
 
   network_.cmd("inventaire");
   ret = network_.getline();
-  inventory_.update(ret);
-  return (0);
+  if (ret != "ko")
+    inventory_.update(ret);
+  lua_pushstring(vm.getLua(), ret.c_str());
+  return (1);
 }
 
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
@@ -89,17 +94,34 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
   for (i = 1; i <= lua_gettop(state); ++i)
     {
       if (lua_isstring(state, i))
-        {
-          std::string object(lua_tostring(state, i));
-
-          network_.cmd("prend " + object);
-          std::string result = network_.getline();
-          if (result == "OK")
-            inventory_.prendre(object);
-          //lua_pushstring(state, result.c_str());
-        }
+	{
+	  std::string object(lua_tostring(state, i));
+	  network_.cmd("prend " + object);
+	  std::string result = network_.getline();
+	  if (result == "ok")
+	    inventory_.prendre(object);
+	  //	  lua_pushstring(state, result.c_str());
+	}
     }
-  std::cout << "out of for" << std::endl;
+  return (0);
+}
+
+int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  int i;
+
+  for (i = 1; i <= lua_gettop(state); ++i)
+    {
+      if (lua_isstring(state, i))
+        {
+          std::string direction(lua_tostring(state, i));
+          network_.cmd(direction);
+          std::string result = network_.getline();
+	  if (result == "ok")
+	    map_.changeDirection(direction);
+	}
+    }
   return (0);
 }
 
@@ -109,13 +131,14 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
   int i;
 
   for (i = 1; i <= lua_gettop(state); ++i)
-    {if (lua_isstring(state, i))
+    {
+      if (lua_isstring(state, i))
         {
           std::string object(lua_tostring(state, i));
 
           network_.cmd("pose " + object);
           std::string result = network_.getline();
-          if (result == "OK")
+          if (result == "ok")
             inventory_.poser(object);
           //lua_pushstring(state, result.c_str());
         }

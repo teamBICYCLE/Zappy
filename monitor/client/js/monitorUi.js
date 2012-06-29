@@ -6,10 +6,8 @@ $(function() {
 
 	/* events */
 
-    
-	
 	$(".cmd").keypress(function(e) {
-		if (e.keyCode == 13)
+		if (e.keyCode == 13) 
 		{
 			sendCmd($(".cmd").val());
 			$(".cmd").val("");
@@ -20,27 +18,10 @@ $(function() {
 		$("#errorBox").hide();
 	});
 	
-
-    $("#caseContent").click(function(e){
-	$("#caseContent").hide();
-    });
-	// $('#connectionError').click(function(){
-		// if (!$("#connectionError").is(":hidden"))
-		// {
-			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
-	            // $('#overlay').fadeOut('fast');
-	        // });
-		// }
-	// });
-	// $('#connectionError').click(function(){
-		// if (!$("#connectionError").is(":hidden"))
-		// {
-			// $('#connectionError').animate({'top':'-210px'}, 500, function(){
-	            // $('#overlay').fadeOut('fast');
-	        // });
-		// }
-	// });
-
+	$("#caseContent").click(function(e){
+		$("#caseContent").hide();
+	});
+	
 });
 
 function displayError(msg) {
@@ -62,4 +43,76 @@ function displayCaseContent(pos, mapPos, layer, canvas) {
     $("#caseContent").css("left", pos.x + layer.padding(canvas).left);
     $("#caseContent").css("top", pos.y + layer.padding(canvas).top);
     $("#caseContent").fadeIn(800);
+}
+
+function fadeAndRemove() {
+	
+	$("#cmdResult span:first-child").fadeOut(2000, function(){
+		$("#cmdResult span:first-child").remove();
+		if ($("#cmdResult .entry").length > 5)
+			fadeAndRemove();
+	})
+}
+
+// function addMessage(msg) {
+	// if ($("#cmdResult .entry").length >= 5)
+		// $("#cmdResult span:first-child").remove();
+	// $("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
+	// $('#cmdResult span:last-child').fadeOut(7000);
+// }
+
+function addMessage(msg) {
+	
+	if ($("#cmdResult .entry").length >= 5)
+		fadeAndRemove();
+		
+	$("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
+}
+
+/* INVENTORY */
+
+function initInventory() {
+	src = null;
+	
+	options = {
+		revert:true,
+		opacity: 0.8,
+		zIndex: 100,
+		start: function() {
+			src = $(this).parent();
+		}
+	};
+		
+	$("#inventory").draggable();
+	$(".item").draggable(options);
+	
+	$(".container").droppable({
+		drop: function(event, ui) {
+			src.append($('.item', this).remove()
+							.removeClass().addClass("item")
+							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
+							.draggable(options)
+			);
+		/* if drop != case de depart */
+			$(this).append(ui.draggable.remove().clone()
+							.removeClass().addClass("item")
+							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
+							.draggable(options)
+			);
+		}
+	});
+	
+	$(".inventory-close").click(function() {
+		closeInventory();
+	});
+}
+
+function closeInventory() {
+	$("#inventory").hide();
+	inventoryOpenId = -1;
+}
+
+function showInventory(id) {
+	$("#inventory").show();
+	inventoryOpenId = id;
 }

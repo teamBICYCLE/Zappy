@@ -7,9 +7,13 @@ if (process.argv.length >= 3)
 {
 	var ip = process.argv[2],
 		port = "4242",
-		buffer = '';
-		
-	if (process.argv[3] == "24542")
+		buffer = '',
+		portClient = "24542";
+	
+	if (typeof(process.argv[4]) != "undefined")
+		portClient = process.argv[4];
+	
+	if (process.argv[3] == portClient)
 	{
 		console.log("This port is reserved for browser <-> node server connection.");
 		process.exit(0);
@@ -22,7 +26,7 @@ if (process.argv.length >= 3)
 	
 	zappy.on('cacheWhole', function(){
 		
-		client = new ClientConnection();
+		client = new ClientConnection(portClient);
 		
 		zappy.getCache().dump();
 	    console.log("=================");
@@ -41,9 +45,11 @@ if (process.argv.length >= 3)
 				xsize: cache.getXSize(),
 				ysize: cache.getYSize(),
 				teams: cache.getTeams(),
+				teamsColor: cache.getTeamsColor(),
 				map: cache.getFormatedMap(),
 				players: cache.getPlayers(),
 				eggs: cache.getEggs(),
+				messages: cache.getCmdMessages(),
 				timestamp: new Date().getTime()
 			});
 		});
@@ -63,24 +69,29 @@ else
 
 function update() {
 	/* reset */
-	//cache.getPlayers() = [];
 	zappy.getSocket().write("mct\n");
 	zappy.getSocket().write("sgt\n");
 	
+	var cache = zappy.getCache();
+	
 	client.getClientSocket().emit('cacheUpdate', {
-		map: zappy.getCache().getFormatedMap(),
-		players: zappy.getCache().getPlayers(),
-		eggs: zappy.getCache().getEggs(),
+		xsize: cache.getXSize(),
+		ysize: cache.getYSize(),
+		map: cache.getFormatedMap(),
+		players: cache.getPlayers(),
+		eggs: cache.getEggs(),
+		messages: cache.getCmdMessages(),
 		timestamp: new Date().getTime()
 	});
 	
 	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
+	cache.cmdMessagesEmpty();
 	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
 }
 
 function playerCmd(explode) {
 	
-	var player = zappy.getCache().getPlayer(parseInt(explode[1].replace("#", "")));
+	var player = zappy.getCache().getPlayer(explode[1]);
 	
 	var playerPtr = {
 		"ppo": player.getPos(),

@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Sat Jun 23 14:27:11 2012 thibault carpentier
+// Last update Wed Jun 27 15:04:10 2012 thibault carpentier
 //
 
 
@@ -16,6 +16,8 @@
 #include "Inventory.hh"
 #include "Example.hh"
 #include "Trantorien.hh"
+#include <string>
+#include "Map.hh"
 
 #include <cstdlib>
 
@@ -23,16 +25,23 @@ using namespace LuaVirtualMachine;
 
 int main(int argc, char *argv[])
 {
-  Inventory eude;
+
+
+  Map jaques(std::pair<int, int>(10, 5));
+
+  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
+  // jaques.avancer();
+  // jaques.avancer();
+  // Inventory eude;
 
 //  (void)argc;
 //  (void)argv;
 
-  eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
+  // eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
 
-   Trantorien  joe("localhost", "4242");
+   // Trantorien  joe("localhost", "4242");
 
-   joe.run();
+   // joe.run();
 
 //  Example toto;
 

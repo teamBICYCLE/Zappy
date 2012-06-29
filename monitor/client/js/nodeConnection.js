@@ -3,16 +3,15 @@
  */
 
 var socket = io.connect('http://localhost', {
-		port:24542,
+		port: $(".port").text(),
 		'reconnect': true,
   		'reconnection delay': 500,
   		'max reconnection attempts': 10
 	}),
 	lastTimestamp = 0,
-	layers;
+	layers,
+	inventoryOpenId = -1;
 	
-console.log(socket);
-
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
@@ -34,29 +33,50 @@ socket.on('firstConnection', function(data){
 	if (lastTimestamp != data.timestamp) {
 		cache.setMapSize(data.xsize, data.ysize);
 		cache.setTeams(data.teams);
+		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
+		cache.setPlayers(data.players);
+		
+		for (var i = 0; i != data.messages.length; i++)
+			addMessage(data.messages[i]);
+		
+		// init draw
 		layers = new Layers(data.xsize, data.ysize);
+		
 		map_draw(data.xsize, data.ysize, layers);
-		ressources_draw(cache, layers);
+		ressources_draw(layers);
+		players_draw(layers);
+		
+		// event & draw
 		highlight_draw(layers);
+		events_handler(layers);
+		
+		// init UI
+		initInventory();
+		
 		lastTimestamp = data.timestamp;
 	}
 });
 
 socket.on('cacheUpdate', function(data){
-	//console.log("receive firstConnection");
-	//console.log("cacheUpdatee");
+
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
 	$(".latency .lValue").text(latency);
 	
-	/* faudra seter eggs map players */
+	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
+		cache.setMapSize(data.xsize, data.ysize);
+		
 		cache.setMap(data.map);
-		//console.log(cache.getSprite(cache.getCase(1, 1)));
-		//console.log(data.map);
-		//map_draw(data.xsize, data.ysize, layers);
-		ressources_draw(cache, layers);
-		//highlight_draw(layers);
+		cache.setPlayers(data.players);
+		
+		for (var i = 0; i != data.messages.length; i++)
+			addMessage(data.messages[i]);
+
+		update_inventory();
+		ressources_draw(layers);
+		players_draw(layers);
+		
 		lastTimestamp = data.timestamp;
 	}
 });

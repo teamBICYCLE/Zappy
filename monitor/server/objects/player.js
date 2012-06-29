@@ -4,27 +4,24 @@
 
 /* OBJECT */
 
-var id_, posx_, posy_, orientation_, level_, team_,
-	inventoryFood_, inventoryLinemate_, inventoryDeraumere_, 
-	inventorySibur_, inventoryMendiane_, inventoryPhiras_,
-	inventoryThystame_;
+// var id_, posx_, posy_, orientation_,
+	// level_, team_, inventory_, animationLoop_,
+	// message_;
 
 var Player = function(arg) {
 	if (arg.length >= 7)
 	{
-		this.id_ = arg[1].replace("#", "");
-	    this.posx_ = arg[2];
-	    this.posy_ = arg[3];
-	    this.orientation_ = arg[4];
-	    this.level_ = arg[5];
+		this.id_ = parseInt(arg[1].replace("#", ""));
+	    this.posx_ = parseInt(arg[2]);
+	    this.posy_ = parseInt(arg[3]);
+	    this.orientation_ = parseInt(arg[4]);
+	    this.level_ = parseInt(arg[5]);
 	    this.team_ = arg[6];
-	    this.inventoryFood_ = 0;
-	    this.inventoryLinemate_ = 0,
-		this.inventoryDeraumere_ = 0,
-		this.inventorySibur_ = 0,
-		this.inventoryMendiane_ = 0,
-		this.inventoryPhiras_ = 0,
-		this.inventoryThystame_ = 0;
+	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
+	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
+		this.message_ = "";
+		this.inventoryOpen = false;
+		//piex pbc pic pfk pdr pgt
 	} 
 };
 
@@ -38,13 +35,13 @@ Player.prototype.dump = function() {
     console.log("ori: " + this.orientation_);
     console.log("level: " + this.level_);
     console.log("team: " + this.team_);
-    console.log("Food: " + this.inventoryFood_);
-    console.log("Linemate: " + this.inventoryLinemate_);
-    console.log("Deraumere: " + this.inventoryDeraumere_);
-    console.log("Sibur: " + this.inventorySibur_);
-    console.log("Mendiane: " + this.inventoryMendiane_);
-    console.log("Phiras: " + this.inventoryPhiras_);
-    console.log("Thystame: " + this.inventoryThystame_);
+    console.log("Food: " + this.inventory_[0]);
+    console.log("Linemate: " + this.inventory_[1]);
+    console.log("Deraumere: " + this.inventory_[2]);
+    console.log("Sibur: " + this.inventory_[3]);
+    console.log("Mendiane: " + this.inventory_[4]);
+    console.log("Phiras: " + this.inventory_[5]);
+    console.log("Thystame: " + this.inventory_[6]);
 }
 
 /* SET */
@@ -73,48 +70,102 @@ Player.prototype.setTeam = function(v) {
     this.team_ = v;
 }
 
+Player.prototype.setInventory = function(elems) {
+	
+	for (var i = 0; i != elems.length; i++)
+		this.inventory_[i] = parseInt(elems[i]);
+}
+
 /* GET */
 
 Player.prototype.getId = function() {
-    return id_;
+    return this.id_;
 }
 
 Player.prototype.getPos = function() {
-	return "x : " + posx_ + " | y : " + posy_;
+	return "x : " + this.posx_ + " | y : " + this.posy_;
 }
 
 Player.prototype.getPosX = function() {
-    return posx_;
+    return this.posx_;
 }
 
 Player.prototype.getPosY = function() {
-    return posy_;
+    return this.posy_;
 }
 
 Player.prototype.getOrientation = function() {
-    return orientation_;
+    return this.orientation_;
 }
 
 Player.prototype.getLevel = function() {
-    return level_;
+    return this.level_;
 }
 
 Player.prototype.getTeam = function() {
-    return team_;
+    return this.team_;
 }
 
 Player.prototype.getInventory = function() {
 	var inventory = {
-		food: this.inventoryFood_,
-		linemate: this.inventoryLinemate_,
-		deraumere: this.inventoryDeraumere_,
-		sibur: this.inventorySibur_,
-		mendiane: this.inventoryMendiane_,
-		mendiane: this.inventoryPhiras_,
-		thystame: this.inventoryThystame_
+		food: this.inventory_[0],
+		linemate: this.inventory_[1],
+		deraumere: this.inventory_[2],
+		sibur: this.inventory_[3],
+		mendiane: this.inventory_[4],
+		mendiane: this.inventory_[5],
+		thystame: this.inventory_[6]
 	};
 	
 	return inventory;
+}
+
+Player.prototype.getBubbleAnimation = function() {
+		
+	var ret = {
+		pex: this.animationLoop_[0],
+		pbc: this.animationLoop_[1],
+		pic: this.animationLoop_[2],
+		pfk: this.animationLoop_[3],
+		pdr: this.animationLoop_[4],
+		pgt: this.animationLoop_[5]
+	}
+	return ret;
+}
+
+/* animation set */
+
+Player.prototype.setPex = function() {
+	this.animationLoop_[0] = 10;
+}
+
+Player.prototype.setPbc = function(msg) {
+	this.animationLoop_[1] = 20;
+	this.message_ = msg;
+}
+
+Player.prototype.setPic = function() {
+	this.animationLoop_[2] = 20;
+}
+
+Player.prototype.setPfk = function() {
+	this.animationLoop_[3] = 10;
+}
+
+Player.prototype.setPdr = function() {
+	this.animationLoop_[4] = 5;
+}
+
+Player.prototype.setPgt = function() {
+	this.animationLoop_[5] = 5;
+}
+
+/* other */
+
+Player.prototype.bubbleAnimation = function() {
+	for (var i = 0; i != this.animationLoop_.length; i++)
+		if (this.animationLoop_[i] != -1)
+			this.animationLoop_[i] -= 1;
 }
 
 module.exports = Player;
