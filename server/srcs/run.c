@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Tue Jun 19 11:40:38 2012 lois burg
+** Last update Fri Jun 29 15:50:46 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -50,7 +50,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   g_info.map = generate_map(x, y, seed);
   /**/
   print_serv_conf(&g_info.world);
-  /* printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f)); */
+  // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
   /* dump_map(map); */
 }
 
@@ -79,28 +79,52 @@ static void		init_network(int const port)
 
 void			run(void)
 {
+  int			sync;
+  int			diff;
   struct timeval	loop;
+  struct timeval	start;
+  struct timeval	end;
 
   init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
   init_network(g_info.world.port);
   loop = g_info.world.smallest_t;
+  sync = 0;
   while (1)
     {
       reset_fd(&g_info);
+      printf("delay: %fs\n", loop.tv_sec + (loop.tv_usec / 100000.f)); //debug
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  /* calculer le temp */
+	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 100000.f)); // debug
+	  gettimeofday(&start, NULL); // start
+
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
 	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
 	    {
-	      update_map(1); /* passer le sync */
+	      update_map(sync + 1);
 	      loop = g_info.world.smallest_t;
+	      sync = 0;
 	    }
 	  iterate(g_info.users, &write_user);
-	  /* soustraire a loop le temp mis */
+
+	  // a metre dans fonction ?
+	  gettimeofday(&end, NULL);
+	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
+	  	   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
+		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (loop.tv_usec + loop.tv_sec * 100000) - diff;
+	  loop.tv_usec = diff % 100000;
+	  loop.tv_sec = diff / 100000;
+	  if (loop.tv_sec <= 0 && loop.tv_usec < 0)
+	    {
+	      ++sync;
+	      loop.tv_usec += g_info.world.smallest_t.tv_usec;
+	      loop.tv_sec += g_info.world.smallest_t.tv_sec;
+	    }
 	}
     }
 }
