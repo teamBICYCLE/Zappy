@@ -11,13 +11,13 @@ function events_handler(layers) {
     		players = cache.getPlayers();
     	$("#cHighLight").trigger('click', [pos, mapPos]);
     	
-    	// for (var i = 0; i != players.length; i++)
-    		// if (players[i].posx_ == mapPos.x && players[i].posy_ == mapPos.y)
-    			// showInventory(players[i].id_);
-    		// {
-    			// inventoryOpenId = players[i].id_;
-    			// $("#inventory").show();
-    		// }	
+    	for (var i = 0; i != players.length; i++)
+    		if (players[i].posx_ == mapPos.x && players[i].posy_ == mapPos.y)
+    		{
+    			showInventory(players[i].id_);
+    			inventoryOpenId = players[i].id_;
+    			updateInventoryContent(players[i].inventory_);
+    		}	
 	});
 
     $("#cEvents").mousemove(function(e) {

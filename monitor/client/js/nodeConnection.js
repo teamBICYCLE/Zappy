@@ -9,7 +9,8 @@ var socket = io.connect('http://localhost', {
   		'max reconnection attempts': 10
 	}),
 	lastTimestamp = 0,
-	layers;
+	layers,
+	inventoryOpenId = -1;
 
 socket.on("disconnect", function(){
 	
@@ -74,10 +75,10 @@ socket.on('cacheUpdate', function(data){
 		prevPlayers = cache.getPlayers();
 		
 		cache.setMap(data.map);
-		cache.setPlayers(setInventoryChange(data.players, true));
-		//cache.setPlayers(data.players);
+		//cache.setPlayers(setInventoryChange(data.players, true));
+		cache.setPlayers(data.players);
 
-		console.log((cache.getPlayers()[0]).inventoryChange_);
+		//console.log((cache.getPlayers()[0]).inventoryChange_);
 		detectInventoryChange(prevPlayers);		
 		
 		for (var i = 0; i != data.messages.length; i++)

@@ -68,11 +68,15 @@ else
 }
 
 function update() {
-	/* reset */
+	
+	var cache = zappy.getCache(),
+		players = cache.getPlayers();
+	
 	zappy.getSocket().write("mct\n");
 	zappy.getSocket().write("sgt\n");
 	
-	var cache = zappy.getCache();
+	for (var i = 0; i != players.length; i++)
+		zappy.getSocket().write("pin " + players[i].getId() + "\n");
 	
 	client.getClientSocket().emit('cacheUpdate', {
 		xsize: cache.getXSize(),

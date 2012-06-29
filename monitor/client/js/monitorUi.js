@@ -107,30 +107,30 @@ function initInventory() {
 	});
 }
 
-// function initItem(item) {
-	// src = null;
-// 	
-	// options = {
-		// revert:true,
-		// opacity: 0.8,
-		// zIndex: 100,
-		// start: function() {
-			// src = $(this).parent();
-		// }
-	// };
-// 	
-	// $(".item").draggable(options);
-// }
+function initItem(item) {
+	src = null;
+	
+	options = {
+		revert:true,
+		opacity: 0.8,
+		zIndex: 100,
+		start: function() {
+			src = $(this).parent();
+		}
+	};
+	
+	$(".item").draggable(options);
+}
 
 function closeInventory() {
 	$("#inventory").hide();
-	lastInventoryOpenId = inventoryOpenId;
+	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = -1;
 }
 
 function showInventory(id) {
 	$("#inventory").show();
-	lastInventoryOpenId = inventoryOpenId;
+	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = id;
 }
 
@@ -154,12 +154,14 @@ function updateInventoryContent(inventory) {
 				for (var j = 0; j != container.length; j++)
 					if ($(container[j]).children().length == 0)
 					{
-						$(container[j]).append("<div id='"+ref[i]+"-item' class='item'><span class='"+ref[i]+"-count item-count'></span></div>");
+						$(container[j]).append("<div id='"+ref[i]+"-item' class='item'><span class='"+ref[i]+"-count item-count'>"+inventory[i]+"</span></div>");
 						
 						break;
 					}
 				//console.log($("#inventory-containers .container"));
 			}
+			
+	initItem();
 }
 
 /* TEAMSTATS PANEL*/
@@ -170,7 +172,7 @@ function addTeamsToPanel() {
 	for (var i = 1; i <= nbTeams; i++) {
 		var infos = cache.getTeamInfo(i);
 
-		$("#panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+		$(".panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
 										+ "<span class='team-name'>Name: "
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
@@ -180,17 +182,17 @@ function addTeamsToPanel() {
 
 function initTeamPanel() {	
 	
-	$("#panel-stats").children().remove();
+	$(".panel-stats").children().remove();
 	
-	addTeamsToPanel();	
+	addTeamsToPanel();
 	
 	$(".btn-slide").toggle(function() {
-			$("#panel").animate({marginRight: "0px"}, 200);
+			$(".panel").animate({marginRight: "0px"}, 200);
 			$(this).toggleClass("active");
 		}, function() {
-			$("#panel").animate({marginRight: "-500px"}, 200);
+			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(this).toggleClass("active");
-   });
+	});
     
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {
