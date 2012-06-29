@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Wed Jun 27 13:55:31 2012 thibault carpentier
+// Last update Fri Jun 29 10:27:50 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -45,9 +45,12 @@ private:
   std::vector<position> items[THYSTAME];
 
 private:
+  void analyse(const std::string &);
   int updatePosition(int, int);
+
   Map(Map const &);
   Map& operator=(Map const &);
+  static const std::string REGEX_VALUE;
 public:
   Map(position);
   ~Map(void);

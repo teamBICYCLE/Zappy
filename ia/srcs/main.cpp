@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Wed Jun 27 14:18:54 2012 thibault carpentier
+// Last update Wed Jun 27 15:04:10 2012 thibault carpentier
 //
 
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
   Map jaques(std::pair<int, int>(10, 5));
 
-  jaques.voir("{ joueur sibur phiras,, sibur, linemate}");
+  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
   // jaques.avancer();
   // jaques.avancer();
   // Inventory eude;
