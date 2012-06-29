@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Wed Jun 13 12:24:50 2012 lois burg
+** Last update Fri Jun 29 16:27:44 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -20,17 +20,18 @@ void		get_action_delay(t_arg_infos *infos, char *argv[])
   long int	nb;
 
   (void)argv;
-  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) > 0)
+  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) > 0 &&
+      nb <= MAX_FREQUENCY)
     {
       infos->action_delay = nb;
       integer = 1 / infos->action_delay;
       decimal = (1.f / infos->action_delay) - integer;
       infos->smallest_t.tv_sec = integer;
-      infos->smallest_t.tv_usec = decimal * 100000.f;
+      infos->smallest_t.tv_usec = (decimal + 0.0000001) * 1000000.f;
     }
   else
     invalid_param(infos, "-t: Invalid time. "
-		  "Must be a positive, non-null integer.");
+		  "Must be a positive, non-null integer <= 1,000,000.");
 }
 
 void	unknown_options(t_arg_infos *infos, char *argv[])

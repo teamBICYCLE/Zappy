@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 29 16:07:22 2012 lois burg
+** Last update Fri Jun 29 16:14:27 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -50,7 +50,7 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
   g_info.map = generate_map(x, y, seed);
   /**/
   print_serv_conf(&g_info.world);
-  // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 100000.f));
+  // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 1000000.f));
   /* dump_map(map); */
 }
 
@@ -92,7 +92,7 @@ void			run(void)
   while (1)
     {
       reset_fd(&g_info);
-      printf("delay: %fs\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); //debug
+      printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
@@ -104,6 +104,7 @@ void			run(void)
 	  iterate(g_info.users, &read_user);
 	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
 	    {
+	      printf("Sync: %d\n", sync);
 	      update_map(sync + 1);
 	      loop = g_info.world.smallest_t;
 	      sync = 0;
