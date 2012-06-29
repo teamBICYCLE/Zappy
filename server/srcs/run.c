@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 29 16:14:27 2012 lois burg
+** Last update Fri Jun 29 17:01:04 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -113,10 +113,10 @@ void			run(void)
 
 	  // a metre dans fonction ?
 	  gettimeofday(&end, NULL);
-	  sync += (((end.tv_sec * 10000000 + end.tv_usec) - (start.tv_sec * 10000000 + start.tv_usec)) /
-	  	   (g_info.world.smallest_t.tv_sec * 10000000 + g_info.world.smallest_t.tv_usec));
-	  diff = (((end.tv_sec * 10000000 + end.tv_usec) - (start.tv_sec * 10000000 + start.tv_usec)) %
-		  (g_info.world.smallest_t.tv_sec * 10000000 + g_info.world.smallest_t.tv_usec));
+	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
+	  	   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
+		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
 	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
 	  loop.tv_usec = diff % 1000000;
 	  loop.tv_sec = diff / 1000000;
