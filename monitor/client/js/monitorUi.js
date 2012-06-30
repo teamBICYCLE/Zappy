@@ -18,8 +18,15 @@ $(function() {
 		$("#errorBox").hide();
 	});
 	
-	$("#caseContent").click(function(e){
-		$("#caseContent").hide();
+	
+	$(".case-content").click(function() {
+		$(this).fadeOut(300);
+		$("#overlay").fadeOut(300);
+	});
+	
+	$("#overlay").click(function() {
+		$(this).fadeOut(300);
+		$(".case-content").fadeOut(300);
 	});
 	
 });
@@ -31,18 +38,16 @@ function displayError(msg) {
 
 function displayCaseContent(pos, mapPos, layer, canvas) {
     var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
-
-    $("#caseContent").hide();
-    $("#caseContent .contentText").text("Food: " + ressources[0] + " ");
-    $("#caseContent .contentText").append("Linemate: " + ressources[1] + " ");
-    $("#caseContent .contentText").append("Deraumere: " + ressources[2] + " ");
-    $("#caseContent .contentText").append("Sibur: " + ressources[3] + " ");
-    $("#caseContent .contentText").append("Mendiane: " + ressources[4] + " ");
-    $("#caseContent .contentText").append("Phiras: " + ressources[5] + " ");
-    $("#caseContent .contentText").append("Thystame: " + ressources[6]);
-    $("#caseContent").css("left", pos.x + layer.padding(canvas).left);
-    $("#caseContent").css("top", pos.y + layer.padding(canvas).top);
-    $("#caseContent").fadeIn(800);
+    
+		$(".tiny-food .count").text(ressources[0]);
+		$(".tiny-linemate .count").text(ressources[1]);
+		$(".tiny-deraumere .count").text(ressources[2]);
+		$(".tiny-sibur .count").text(ressources[3]);
+		$(".tiny-mendiane .count").text(ressources[4]);
+		$(".tiny-phiras .count").text(ressources[5]);
+		$(".tiny-thystame .count").text(ressources[6]);
+		$("#overlay").fadeIn(300);
+		$(".case-content").fadeIn(300);    
 }
 
 function fadeAndRemove() {

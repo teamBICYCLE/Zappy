@@ -144,7 +144,7 @@ canvas {
 }
 
 #overlay{
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     position:fixed;
     top:0px;
     bottom:0px;
@@ -390,3 +390,124 @@ canvas {
 }
 
 /* END TEAM PANEL */
+
+/* CASE CONTENT */
+
+.case-content {
+	position: relative;
+	display: none;
+	z-index: 801;
+	width: 305px;
+	height: 309px;
+	background: rgba(0,0,0,0.4);
+	margin: 0 auto;
+	margin-top: 200px;
+	color: #eee;
+	font-family: Helvetica, sans-serif;
+	font-size: 14px;
+	text-shadow: #222 1px 1px 1px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.case-content-topbar {
+	width: 305px;
+	height: 29px;
+	background: transparent url("img/case-content-topbar.png") no-repeat top left;
+	color: #262626;
+	text-shadow: 1px 1px 1px #DDD;
+	line-height: 29px;
+	font-size: 12px;
+	text-indent: 75px;
+	font-weight: bold;
+}
+
+.case-content-title {
+	display: inline-block;
+	width: 295px;
+	height: 20px;
+	margin-top: 5px;
+	text-indent: 10px;
+	font-size: 12px;
+	font-weight: bold;
+	clear: both;
+}
+
+.case-content-itemlist{
+	display: block;
+	width: 295px;
+	height: 240px;
+	margin: 5px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	margin-left: 5px;
+}
+
+.case-content-item {
+	line-height: 30px;
+	width: 260px;
+	height: 30px;
+	text-align: left;
+	padding: 0 0 0 35px;
+	margin-bottom: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #111;
+}
+
+.tiny-food {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -180px;
+}
+
+.tiny-linemate {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.tiny-deraumere {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -30px;
+}
+
+.tiny-sibur {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -60px;
+}
+
+.tiny-mendiane {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -90px;
+}
+
+.tiny-phiras{
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -120px;
+}
+
+.tiny-thystame {
+	background-image: url("img/tiny-ressources.png");
+	background-repeat: no-repeat;
+	background-position: 0px -150px;
+}
+
+.case-content-item:hover {
+	background-color: #222;
+	font-size: 16px;
+}
+
+.count {
+	float: right;
+	margin-right: 10px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+/* END CASE CONTENT */
