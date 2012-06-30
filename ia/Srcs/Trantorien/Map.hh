@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Fri Jun 29 10:27:50 2012 thibault carpentier
+// Last update Sat Jun 30 15:50:04 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -43,9 +43,13 @@ private:
   Direction currentOrientation_;
   position  currentPos_;
   std::vector<position> items[THYSTAME];
+  static const std::string values_[];
 
 private:
+  int offset(int nbCaseStair);
+  void formatValues(int &distance, int &incrStart);
   void analyse(const std::string &);
+  void remember(const std::string &caseContent, int distance, int incrStart);
   int updatePosition(int, int);
 
   Map(Map const &);
