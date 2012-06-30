@@ -197,7 +197,7 @@ canvas {
 	width: 288px;
 	height: 320px;
 	display: none;
-	position: relative !important;
+	position: absolute !important;
 	z-index: 5;
 }
 
