@@ -22,6 +22,21 @@ function ImgLoader() {
 		14 : {name: "linemate_small", img: new Image()},
 		15 : {name: "linemate_medium", img: new Image()},
 		16 : {name: "linemate_large", img: new Image()},
+		17 : {name: "deraumere_small", img: new Image()},
+		18 : {name: "deraumere_medium", img: new Image()},
+		19 : {name: "deraumere_large", img: new Image()},
+		20 : {name: "sibur_small", img: new Image()},
+		21 : {name: "sibur_medium", img: new Image()},
+		22 : {name: "sibur_large", img: new Image()},
+		23 : {name: "mendiane_small", img: new Image()},
+		24 : {name: "mendiane_medium", img: new Image()},
+		25 : {name: "mendiane_large", img: new Image()},
+		26 : {name: "phiras_small", img: new Image()},
+		27 : {name: "phiras_medium", img: new Image()},
+		28 : {name: "phiras_large", img: new Image()},
+		29 : {name: "thystame_small", img: new Image()},
+		30 : {name: "thystame_medium", img: new Image()},
+		31 : {name: "thystame_large", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
