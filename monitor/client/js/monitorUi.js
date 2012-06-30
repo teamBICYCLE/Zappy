@@ -14,6 +14,14 @@ $(function() {
 		}
 	});
 	
+	$(".cmd").focusin(function() {
+		$("#cmdResult").fadeIn(200);
+	});
+	
+	$(".cmd").focusout(function() {
+		$("#cmdResult").fadeOut(1000);
+	})
+	
 	$("#errorBox").click(function(e){
 		$("#errorBox").hide();
 	});
@@ -53,7 +61,7 @@ function displayCaseContent(pos, mapPos, layer, canvas) {
 
 function fadeAndRemove() {
 	
-	$("#cmdResult span:first-child").fadeOut(2000, function(){
+	$("#cmdResult span:first-child").fadeOut(1000, function(){
 		$("#cmdResult span:first-child").remove();
 		if ($("#cmdResult .entry").length > 5)
 			fadeAndRemove();
