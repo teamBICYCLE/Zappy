@@ -202,10 +202,10 @@ function initTeamPanel() {
 	
 	$(".btn-slide").toggle(function() {
 			$(".panel").animate({marginRight: "0px"}, 200);
-			$(this).toggleClass("active");
+			$(".btn-slide").toggleClass("active");
 		}, function() {
 			$(".panel").animate({marginRight: "-500px"}, 200);
-			$(this).toggleClass("active");
+			$(".btn-slide").toggleClass("active");
 	});
     
    $(".teambox").click(function() {
