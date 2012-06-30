@@ -69,12 +69,12 @@
 			</div>
 		</div>
 		<div class="case-content">
-			<div class="case-content-topbar">Position.x = 5, Position.y = 8</div>
+			<div class="case-content-topbar"><span class="case-content-position"></span></div>
 			<span class="case-content-title">Ressources:</span>
 			<ul class="case-content-itemlist">
 				<li class="case-content-item tiny-food">Food: <span class="count">15</span></li>
 				<li class="case-content-item tiny-linemate">Linemate: <span class="count">21</span></li>
-				<li class="case-content-item tiny-deraumere">Deraumère: <span class="count">5</span></li>
+				<li class="case-content-item tiny-deraumere">Deraumere: <span class="count">5</span></li>
 				<li class="case-content-item tiny-sibur">Sibur: <span class="count">7</span></li>
 				<li class="case-content-item tiny-mendiane">Mendiane: <span class="count">19</span></li>
 				<li class="case-content-item tiny-phiras">Phiras: <span class="count">12</span></li>
