@@ -37,6 +37,9 @@ function ImgLoader() {
 		29 : {name: "thystame_small", img: new Image()},
 		30 : {name: "thystame_medium", img: new Image()},
 		31 : {name: "thystame_large", img: new Image()},
+		32 : {name: "food_small", img: new Image()},
+		33 : {name: "food_medium", img: new Image()},
+		34 : {name: "food_large", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
