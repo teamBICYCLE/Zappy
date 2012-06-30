@@ -77,6 +77,7 @@ function fadeAndRemove() {
 
 function addMessage(msg) {
 	
+	$("#cmdResult").fadeIn(200);
 	if ($("#cmdResult .entry").length >= 5)
 		fadeAndRemove();
 		
