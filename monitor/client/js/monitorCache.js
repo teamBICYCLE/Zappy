@@ -17,8 +17,7 @@ function MonitorCache () {
 		3: "sibur",
 		4: "mendiane",
 		5: "phiras",
-		6: "thystame",
-		7: "empty"
+		6: "thystame"
 	};
 }
 
@@ -100,14 +99,16 @@ MonitorCache.prototype.getSpriteBase = function(aCase) {
    		}
    	if (value != 0)
    		return ({name: this.ref[sprite], nb: value});
-   	return ({name: this.ref[7], nb: 0}); // empty !
+   	return ({name: null, nb: 0}); // empty !
 }
 
 MonitorCache.prototype.getSprite = function(aCase) {
 	
 	var sprite = this.getSpriteBase(aCase);
 	
-	if (sprite.nb <= 2)
+	if (sprite.name == null)
+		return sprite.name;
+	else if (sprite.nb <= 2)
 		sprite.name += "_small";
 	else if (sprite.nb > 2 && sprite.nb <= 4)
 		sprite.name += "_medium";
