@@ -21,16 +21,57 @@ canvas {
 
 #header {
 	width: 100%;
-	height:	50px;
+	height:	56px;
 	top: 0px;
-	border-bottom: 2px solid #b1b1b1;
-	background-image: -webkit-linear-gradient(top, #B9B9B9 0%, #909090 100%);
-	background-image: -moz-linear-gradient(top, #B9B9B9 0%, #909090 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B9B9B9), color-stop(1, #909090));
-	-webkit-box-shadow: 0px 0px 10px rgba(50, 50, 50, 1);
-	-moz-box-shadow:    0px 0px 10px rgba(50, 50, 50, 1);
-	box-shadow:         0px 0px 10px rgba(50, 50, 50, 1);
+	background: transparent url("img/topbar_background.png") repeat-x top left;
+	position: absolute;
 	z-index: 5;
+}
+
+.topbar-menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;	
+}
+
+.topbar-menu li {
+	width: 58px;
+	height: 45px;
+	float: right;
+	margin: 2px 5px 0 0;
+}
+
+.topbar-menu-search {
+	background: transparent url("img/search_button.png") no-repeat top left;
+}
+
+.topbar-menu-settings {
+	background: transparent url("img/settings_button.png") no-repeat top left;
+}
+
+.topbar-menu-disconnect {
+	background: transparent url("img/shutdown_button.png") no-repeat top left;
+}
+
+i.zappy-logo {
+	display: block;
+	width: 242px;
+	height: 103px;
+	position: absolute;
+	top: 0;
+	left: 5%;
+	background: transparent url("img/zappy_logo.png") no-repeat top left;
+}
+
+i.leaf-icon {
+	display: block;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -25px;
+	background: transparent url("img/leaf_icon.png") no-repeat top left;
 }
 
 #cmdResult {
@@ -279,7 +320,7 @@ canvas {
 
 .panel {
 	width: 520px;
-	margin-top: 20px;
+	margin-top: 80px;
 	margin-right:-500px;
 	/*float:right;*/
 	position: absolute;

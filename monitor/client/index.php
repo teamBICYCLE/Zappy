@@ -30,7 +30,15 @@
 		<canvas id="cRessources"></canvas>
 		<canvas id="cHighLight"></canvas>
   		<canvas id="cMap"></canvas>
-		<div id="header"></div>
+		<div id="header">
+			<i class="zappy-logo"></i>
+			<i class="leaf-icon"></i>
+			<ul class="topbar-menu">
+				<li class="topbar-menu-disconnect"></li>
+				<li class="topbar-menu-settings"></li>
+				<li class="topbar-menu-search"></li>	
+			</ul>
+		</div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><span class="errorText"></span></div>
 		<div id="caseContent"><span class="contentText"></span></div>
