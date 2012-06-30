@@ -387,6 +387,12 @@ canvas {
 	margin-top: -10px;
 	display: none;
 	background: transparent url("img/piechart-bg.png") no-repeat top left;
+	padding-top: 15px;
+}
+
+.chart-content {
+	width: 465px;
+	height: 230px;	
 }
 
 /* END TEAM PANEL */

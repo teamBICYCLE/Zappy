@@ -176,8 +176,28 @@ function addTeamsToPanel() {
 										+ "<span class='team-name'>Name: "
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
-										+ "<div class='chart'></div></div>");
+										+ "<div class='chart'><div class='chart-content'></div></div></div>");
+										
 	}
+	
+	$.plot($(".chart-content"), [{label: "Level 1", data: 1}, {label: "Level 2", data: 1}],
+	{
+	        series: {
+	            pie: { 
+	                show: true,
+	                radius: 3/4,
+	                label : {
+	                	radius: 3/4
+	                }
+	            }
+	        },
+	        grid: {
+	            hoverable: true,
+	            clickable: true
+	        }
+	});
+	// $("#interactive").bind("plothover", pieHover);
+	// $("#interactive").bind("plotclick", pieClick);
 }
 
 function initTeamPanel() {	
