@@ -196,19 +196,15 @@ function addTeamsToPanel() {
 		if (infos.number > 0)
 			$.plot($(".chart-content:last"), infos.stats,
 			{
-			        series: {
-			            pie: { 
-			                show: true,
-			                radius: 3/4,
-			                label : {
-			                	radius: 3/4
-			                }
-			            }
-			        },
-			        grid: {
-			            hoverable: true,
-			            clickable: true
-			        }
+		        series: {
+		            pie: { 
+		                show: true,
+		                radius: 3/4,
+		                label : {
+		                	radius: 3/4,
+		                }
+		            }
+		        },
 			});
 		else
 			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									

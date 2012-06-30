@@ -66,6 +66,24 @@ Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
 	c.ctx.drawImage(this.imgs.get(img), x, y);
 }
 
+Layers.prototype.drawSocle = function(canvas, color, x, y) {
+	
+	x = parseInt(x);
+	y = parseInt(y);
+	var c = this.canvasHandler.get(canvas),
+		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2) + this.tileWidth / 2,
+		topD = this.padding(canvas).top + this.tileHeight + (32 * 3) + 24;
+		
+	c.ctx.save();
+	c.ctx.scale(1, 0.58);
+	c.ctx.beginPath();
+	c.ctx.fillStyle = color;
+	c.ctx.arc(leftD, topD, 32, 0, Math.PI * 2, true);
+	c.ctx.fill();
+	c.ctx.closePath();
+	c.ctx.restore();
+}
+
 Layers.prototype.clear = function(canvas) {
 	
 	var c = this.canvasHandler.get(canvas);

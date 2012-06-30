@@ -130,14 +130,14 @@ MonitorCache.prototype.getTeamInfo = function(teamId) {
 			name: "", 
 			maxLevel: 1, 
 			number: 0, 
-			stats: [{label: "Level 1", data: 0},
-					{label: "Level 2", data: 0},
-					{label: "Level 3", data: 0},
-					{label: "Level 4", data: 0},
-					{label: "Level 5", data: 0},
-					{label: "Level 6", data: 0},
-					{label: "Level 7", data: 0},
-					{label: "Level 8", data: 0}], 
+			stats: [{label: "Level 1", data: 0, color: "#3266cc"},
+					{label: "Level 2", data: 0, color: "#db3711"},
+					{label: "Level 3", data: 0, color: "#ff9900"},
+					{label: "Level 4", data: 0, color: "#990099"},
+					{label: "Level 5", data: 0, color: "#0098c4"},
+					{label: "Level 6", data: 0, color: "#dd4578"},
+					{label: "Level 7", data: 0, color: "#65a900"},
+					{label: "Level 8", data: 0, color: "#958453"}], 
 			color: "#FF0000"
 		};
 	

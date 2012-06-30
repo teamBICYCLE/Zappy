@@ -516,3 +516,9 @@ canvas {
 }
 
 /* END CASE CONTENT */
+
+.legendLabel {
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	color: #eee;
+	text-shadow: #222 1px 1px 1px;
+}

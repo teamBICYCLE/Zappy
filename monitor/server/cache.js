@@ -46,7 +46,7 @@ exports.setCase = function(x, y, ressources) {
 
 exports.addPlayer = function(arg) {
     var Player = require("./objects/player.js");
-    players_.push(new Player(arg));
+    players_.push(new Player(arg, this.getTeamColor(arg[6])));
     this.addMessage("Team " + arg[6] + " welcomes a new player.");
 }
 
@@ -101,6 +101,15 @@ exports.getTeams = function() {
 
 exports.getTeamsColor = function() {
 	return teamsColor_;
+}
+
+exports.getTeamColor = function(team) {
+	
+	for (var i = 0; i != teams_.length; i++)
+		if (team == teams_[i])
+			return teamsColor_[i];
+			
+	console.log("Something wrong in Cache.getTeamColor() : undefined reference to team " + team);
 }
 
 exports.getMap = function() {
