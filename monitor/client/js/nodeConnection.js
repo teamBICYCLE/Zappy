@@ -87,6 +87,7 @@ socket.on('cacheUpdate', function(data){
 		ressources_draw(layers);
 		players_draw(layers);
 		update_inventory();
+		layers.zoom("cMap");
 		
 		lastTimestamp = data.timestamp;
 	}
