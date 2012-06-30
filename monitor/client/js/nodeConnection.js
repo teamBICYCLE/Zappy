@@ -73,21 +73,23 @@ socket.on('cacheUpdate', function(data){
 		cache.setMapSize(data.xsize, data.ysize);
 		
 		prevPlayers = cache.getPlayers();
+		prevInfo = cache.getAllTeamInfo();
 		
 		cache.setMap(data.map);
-		//cache.setPlayers(setInventoryChange(data.players, true));
 		cache.setPlayers(data.players);
 
-		//console.log((cache.getPlayers()[0]).inventoryChange_);
 		detectInventoryChange(prevPlayers);		
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
 
+		nowInfo = cache.getAllTeamInfo();
+		
 		ressources_draw(layers);
 		players_draw(layers);
 		update_inventory();
-		layers.zoom("cMap");
+		updateTeamPanel(prevInfo, nowInfo);
+		//layers.zoom("cMap");
 		
 		lastTimestamp = data.timestamp;
 	}

@@ -191,25 +191,27 @@ function addTeamsToPanel() {
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
 										+ "<div class='chart'><div class='chart-content'></div></div></div>");
-										
-	}
 	
-	$.plot($(".chart-content"), [{label: "Level 1", data: 1}, {label: "Level 2", data: 1}],
-	{
-	        series: {
-	            pie: { 
-	                show: true,
-	                radius: 3/4,
-	                label : {
-	                	radius: 3/4
-	                }
-	            }
-	        },
-	        grid: {
-	            hoverable: true,
-	            clickable: true
-	        }
-	});
+		if (infos.number > 0)
+			$.plot($(".chart-content:last"), infos.stats,
+			{
+			        series: {
+			            pie: { 
+			                show: true,
+			                radius: 3/4,
+			                label : {
+			                	radius: 3/4
+			                }
+			            }
+			        },
+			        grid: {
+			            hoverable: true,
+			            clickable: true
+			        }
+			});
+		else
+			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									
+	}
 	// $("#interactive").bind("plothover", pieHover);
 	// $("#interactive").bind("plotclick", pieClick);
 }
@@ -234,4 +236,26 @@ function initTeamPanel() {
 		}
 		$(".chart", this).slideToggle("slow");
    });
+}
+
+function detectTeamPanelChange(prev, now) {
+	
+	for (var i = 0; i != prev.length; i++)
+	{
+		if (prev[i].number != now[i].number || prev[i].maxLevel != now[i].maxLevel)
+			return true;
+		for (var j = 0; j != prev[i].stats.length; j++)
+			if (prev[i].stats[j].data != now[i].stats[j].data)
+				return true;
+	}
+	return false;
+}
+
+function updateTeamPanel(prev, now) {
+	
+	if (detectTeamPanelChange(prev, now))
+		{
+			$(".panel-stats").children().remove();
+			initTeamPanel();
+		}	
 }

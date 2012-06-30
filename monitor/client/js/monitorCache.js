@@ -126,7 +126,20 @@ MonitorCache.prototype.getPlayers = function() {
 
 MonitorCache.prototype.getTeamInfo = function(teamId) {
 	
-	var ret = {name: "", maxLevel: 1, number: 0, stats: [0, 0, 0, 0, 0, 0, 0, 0], color: "#FF0000"};
+	var ret = {
+			name: "", 
+			maxLevel: 1, 
+			number: 0, 
+			stats: [{label: "Level 1", data: 0},
+					{label: "Level 2", data: 0},
+					{label: "Level 3", data: 0},
+					{label: "Level 4", data: 0},
+					{label: "Level 5", data: 0},
+					{label: "Level 6", data: 0},
+					{label: "Level 7", data: 0},
+					{label: "Level 8", data: 0}], 
+			color: "#FF0000"
+		};
 	
 	if (teamId <= this.teams_.length)
 	{
@@ -138,12 +151,22 @@ MonitorCache.prototype.getTeamInfo = function(teamId) {
 				if (this.players_[i].level_ > ret.maxLevel)
 					ret.maxLevel = this.players_[i].level_;
 				
-				ret.stats[this.players_[i].level_ - 1] += 1;
+				ret.stats[this.players_[i].level_ - 1].data += 1;
 				ret.number += 1;
 			}
 	}
 	else
 		displayError("Something wrong in Cache.getTeamInfo() : undefined reference to team id " + teamId);
+	return ret;
+}
+
+MonitorCache.prototype.getAllTeamInfo = function() {
+	
+	var ret = new Array();
+	
+	for (var i = 0; i != this.teams_.length; i++)
+		ret[i] = this.getTeamInfo(i + 1);
+		
 	return ret;
 }
 
