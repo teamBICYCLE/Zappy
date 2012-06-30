@@ -5,13 +5,15 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jun 29 16:21:37 2012 thibault carpentier
+// Last update Sat Jun 30 16:08:58 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
 
+std::string const Map::values_[] =
+  {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"};
 std::string const Map::REGEX_VALUE = " *\\{( *(joueur|linemate|deraumere|sibur|mendiane|phiras|thystame|nourriture) *([ ,]*|\\} *$){1} *)+ *\\} *";
 
 Map::Map(position mapsize)
@@ -71,19 +73,82 @@ void Map::avancer(void)
 
 // temporary
 #include <iostream>
+
+int Map::offset(int nbCaseStair)
+{
+
+  int res = ((nbCaseStair -1) / 2);
+
+  switch (currentOrientation_)
+    {
+    case NORD :
+      res = -res;
+      break;
+    case EST :
+      res = -res;
+      break;
+    default:
+      break;
+    }
+  return (res);
+}
+
+void Map::formatValues(int &distance, int &incrStart)
+{
+  int savDistance = distance, savIncrStart = incrStart;
+
+  switch (currentOrientation_)
+    {
+    case NORD :
+      distance = savIncrStart;
+      incrStart = -savDistance;
+      break;
+    case EST :
+      distance = savDistance;
+      incrStart = savIncrStart;
+      break;
+    case SUD :
+      distance = savIncrStart;
+      incrStart = savDistance;
+      break;
+    case OUEST :
+      distance = -savDistance;
+      incrStart = savIncrStart;
+      break;
+    }
+}
+
+void Map::remember(const std::string &caseContent, int distance, int incrStart)
+{
+  formatValues(distance, incrStart);
+  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+    {
+      std::cout << "testing " << values_[i] << std::endl;
+      boost::regex extract("(" + values_[i] + ")");
+      boost::match_results<std::string::const_iterator> what;
+      regex_search(caseContent.begin(), caseContent.end(), what, extract, boost::match_default);
+      if (what[1] != "")
+	;//	addPosition(i, distance, incrStart);
+    }
+  std::cout << " X : " << distance
+	    << " Y : " << incrStart
+	    << std::endl;
+}
+
 void Map::analyse(const std::string &values)
 {
-  size_t beginCaseParse = 0, endCaseParse = 0;
+  // TEST
+  currentOrientation_ = EST;
 
+  size_t beginCaseParse = 0, endCaseParse = 0;
   unsigned int nbCaseStair = 1, savNbCaseStair = 0;
-  int distance;		// call a fct to cal dist
-  int incrStart, incrEnd;
+  int distance, incrStart, incrEnd;
 
   while (endCaseParse < std::string::npos)
     {
       if (nbCaseStair != savNbCaseStair)
 	{
-	  incrStart = ((nbCaseStair -1) / 2); // fct en foction de l'orientation
+	  incrStart = offset(nbCaseStair);
 	  incrEnd = -incrStart;
 	  savNbCaseStair = nbCaseStair;
 	  distance = incrStart > 0 ? incrStart : -incrStart;
@@ -91,21 +156,26 @@ void Map::analyse(const std::string &values)
       endCaseParse = values.find(",", beginCaseParse);
       std::string caseSee(values, beginCaseParse, endCaseParse - beginCaseParse);
       std::cout <<"result : "<< caseSee << std::endl;
-      std::cout << "Je me situe a l'etage : " << distance
-		<< " comportant " << nbCaseStair << " cases."
-		<< "Je vais avoir un offset (non signe pour le moment ni ordonne de : " << incrStart
-		<< std::endl;
-      // call fct to parse
+      // std::cout << "Je me situe a l'etage : " << distance
+      // 		<< " comportant " << nbCaseStair << " cases."
+      // 		<< "Je vais avoir un offset de  : " << incrStart
+      // 		<< std::endl;
+      remember(caseSee, distance, incrStart);
       beginCaseParse =  endCaseParse + 1;
       if (incrStart == incrEnd)
 	nbCaseStair += 2;
-      --incrStart;
+      else
+	{
+	  if (currentOrientation_ == EST || currentOrientation_ == NORD)
+	    ++incrStart;
+	  else
+	    --incrStart;
+	}
     }
 }
 
 void Map::voir(const std::string &values)
 {
-  // temporary
   boost::regex regex(REGEX_VALUE);
 
   if (boost::regex_match(values, regex))
@@ -133,26 +203,26 @@ void Map::voir(const std::string &values)
 //                    |_____|
 //  _____                                _____
 // |     |                              |     |
-// |-2 +2|                              |+2 +2|
+// |-2 -2|                              |+2 -2|
 // |_____|_____                    _____|_____|
 // |     |     |                  |     |     |
-// |-2 +1|-1 +1|                  |+1 +1|+2 +1|
+// |-2 -1|-1 -1|                  |+1 -1|+2 -1|
 // |_____|_____|_____        _____| ____|_____|
 // |     |     |     |      |     |     |     |
-// |-2 -0|-1 -0|+0 +0|      |+0 +0|+1 +0|+2 +0|
+// |-2 -0|-1 -0|+0 +0|      |+0 +0|+1 -0|+2 +0|
 // |_____|_____|_____|      |_____|_____|_____|
 // |     |     |                  |     |     |
-// |-2 -1|-1 -1|                  |+1 -1|+2 -1|
+// |-2 +1|-1 +1|                  |+1 +1|+2 +1|
 // |_____|_____|                  |_____|_____|
 // |     |                              |     |
-// |-2 -2|                              |+2 -2|
+// |-2 +2|                              |+2 +2|
 // |_____|                              |_____|
 //                     _____
 //                    |     |
 //                    |+0 +0|
 //               _____|_____|_____
 //              |     |     |     |
-//              |-1 +1|+0 +1|-1 +1|
+//              |-1 +1|+0 +1|+1 +1|
 //         _____|_____|_____|_____|_____
 //        |     |     |     |     |     |
 //        |-2 +2|-1 +2|-0 +2|+1 +2|+2 +2|
