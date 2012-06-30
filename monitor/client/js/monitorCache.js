@@ -87,7 +87,7 @@ MonitorCache.prototype.getCase = function(target) {
 	displayError("Something wrong in MonitorCache.getCase()");
 }
 
-MonitorCache.prototype.getSprite = function(aCase) {
+MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
 	var sprite = 0,
    		value = aCase.ressources[0];
@@ -99,8 +99,21 @@ MonitorCache.prototype.getSprite = function(aCase) {
    			value = aCase.ressources[i];
    		}
    	if (value != 0)
-   		return (this.ref[sprite]);
-   	return (this.ref[7]);
+   		return ({name: this.ref[sprite], nb: value});
+   	return ({name: this.ref[7], nb: 0}); // empty !
+}
+
+MonitorCache.prototype.getSprite = function(aCase) {
+	
+	var sprite = this.getSpriteBase(aCase);
+	
+	if (sprite.nb <= 2)
+		sprite.name += "_small";
+	else if (sprite.nb > 2 && sprite.nb <= 4)
+		sprite.name += "_medium";
+	else
+		sprite.name += "_large";
+	return sprite.name;
 }
 
 MonitorCache.prototype.getMap = function() {
@@ -140,4 +153,18 @@ MonitorCache.prototype.playerExist = function(id) {
 		if (this.players_[i].id_ == id)
 			return true;
 	return false;
+}
+
+MonitorCache.prototype.getPlayer = function(id) {
+		
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].id_ == id)
+			return this.players_[i];
+			
+	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+MonitorCache.prototype.setInventoryChange = function(id, v) {
+		
+	this.getPlayer(id).inventoryChange_ = v;
 }

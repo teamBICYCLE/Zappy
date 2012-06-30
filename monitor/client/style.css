@@ -2,8 +2,10 @@ html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0px;
-	background: #eee url('img/background.png') repeat-x top center;
-	font-family:"Times New Roman", Georgia, sans-serif;
+	background: #464646 url('img/grid.png') repeat top left;
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	color: #eee;
+	text-shadow: #222 1px 1px 1px;
 	overflow: hidden;
 }
 
@@ -54,7 +56,7 @@ canvas {
 	margin: 0 0 10px 10px;
 	padding: 0 0 0 5px;
 	background: rgba(0,0,0,0.15);
-	color: #545454;
+	color: #FFFFFF;
 	font-size: 14px;
 	bottom:	0px;
 	left: 0px;
@@ -64,6 +66,7 @@ canvas {
 	border: 1px solid #545454;
 	position: absolute;
 	z-index: 5;
+	outline: none;
 }
 
 #cMap {
@@ -95,7 +98,7 @@ canvas {
 	border: 1px solid #000;
 	background-color: rgba(46, 46, 46, 0.9);
 	z-index: 6;
-	position: relative;
+	position: absolute;
 	top: 50px;
 	left: 50px;
 	display:none;
@@ -136,6 +139,8 @@ canvas {
 	right: 0px;
 	height: 25px;
 	margin-right: 15px;
+	font-weight: bold;
+	font-size: 14px;
 }
 
 #overlay{
@@ -145,7 +150,7 @@ canvas {
     bottom:0px;
     left:0px;
     right:0px;
-    z-index:100;
+    z-index:800;
 }
 
 #connectionError {
@@ -229,6 +234,7 @@ canvas {
 .item {
 	width: 60px;
 	height: 60px;
+	position: relative;
 }
 
 .item-count {
@@ -270,3 +276,117 @@ canvas {
 #thystame-item {
 	background: transparent url("img/item-thystame.png") no-repeat top left;	
 }
+
+/* TEAM PANEL */
+
+.panel {
+	width: 520px;
+	margin-top: 20px;
+	margin-right:-500px;
+	/*float:right;*/
+	position: absolute;
+	right: 0;
+	z-index: 400;
+}
+
+.panel-container {
+	float:right;
+}
+
+.panel-stats {
+	width: 485px;
+	height: 600px;
+	background: rgba(26,26,26,0.9);
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+	overflow: auto;
+	padding: 0 15px 0 0;
+	z-index: 412;
+	position: relative;
+}
+
+.panel-topbar {
+	width: 500px;
+	height: 29px;
+	background: transparent url("img/panel-topbar.png") no-repeat top left;
+	z-index: 411;
+	position: relative;
+}
+
+.btn-slide {
+	width: 20px;
+	height: 80px;
+	background: transparent url("img/panel-arrow.png") no-repeat top left;
+	margin-top: 290px;
+	float:left;
+	z-index: 410;
+	position: relative;
+}
+
+.active {
+	background: transparent url("img/panel-arrow.png") no-repeat -20px 0px;
+}
+
+.teambox {
+	padding: 10px 10px 0 10px;
+}
+
+.teamstats {
+	position: relative;
+	width: 465px;
+	height: 80px;
+	z-index: 430;
+	background: transparent url("img/teamstats-bg.png") no-repeat top left;
+}
+
+.team-picture {
+	width: 120px;
+	height: 80px;
+	float:left;
+	background: url("img/avatar.png") no-repeat top left;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.teamstats span {
+	position: absolute;
+	color: #262626;
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #ddd;	
+}
+
+.team-name {
+	top: 15px;
+	left: 130px;
+}
+
+.team-effective {
+	top: 45px;
+	left: 130px;
+}
+
+.team-maxlvl {
+	top: 45px;
+	left: 310px;
+}
+
+.team-maxlvl-number {
+	font-size: 4em;
+	left: 90px;
+	top: -42px;
+}
+
+.chart {
+	position: relative;
+	width: 465px;
+	height: 250px;
+	z-index: 42;
+	margin-top: -10px;
+	display: none;
+	background: transparent url("img/piechart-bg.png") no-repeat top left;
+}
+
+/* END TEAM PANEL */

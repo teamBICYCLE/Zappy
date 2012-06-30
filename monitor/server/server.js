@@ -68,11 +68,15 @@ else
 }
 
 function update() {
-	/* reset */
+	
+	var cache = zappy.getCache(),
+		players = cache.getPlayers();
+	
 	zappy.getSocket().write("mct\n");
 	zappy.getSocket().write("sgt\n");
 	
-	var cache = zappy.getCache();
+	for (var i = 0; i != players.length; i++)
+		zappy.getSocket().write("pin " + players[i].getId() + "\n");
 	
 	client.getClientSocket().emit('cacheUpdate', {
 		xsize: cache.getXSize(),
@@ -86,7 +90,7 @@ function update() {
 	
 	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	cache.cmdMessagesEmpty();
-	setTimeout(update, zappy.getCache().getCurrentTimeUnit());
+	setTimeout(update, cache.getCurrentTimeUnit());
 }
 
 function playerCmd(explode) {

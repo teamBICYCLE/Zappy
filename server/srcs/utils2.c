@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Tue Jun 19 16:53:59 2012 lois burg
+** Last update Fri Jun 29 17:13:33 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -38,7 +38,8 @@ static void	set_fd(void *ptr)
   t_users	*user;
 
   user = ptr;
-  FD_SET(user->socket, &g_info.writefds);
+  if (user->messages->size > 0)
+    FD_SET(user->socket, &g_info.writefds);
   FD_SET(user->socket, &g_info.readfds);
 }
 

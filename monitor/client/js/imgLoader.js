@@ -19,6 +19,9 @@ function ImgLoader() {
 		11 : {name: "player-south", img: new Image()},
 		12 : {name: "player-west", img: new Image()},
 		13 : {name: "player-east", img: new Image()},
+		14 : {name: "linemate_small", img: new Image()},
+		15 : {name: "linemate_medium", img: new Image()},
+		16 : {name: "linemate_large", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -35,6 +38,6 @@ ImgLoader.prototype.get = function(name) {
 			return this.imgs_[i].img;
 			
 	// undefined
-	displayError("Undefined reference to " + name + ".png.");
+	//displayError("Undefined reference to " + name + ".png.");
 	return this.imgs_[999].img;
 }

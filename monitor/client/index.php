@@ -6,7 +6,6 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
   		<script src="js/libs/jquery.min.js"></script>
   		<script src="js/libs/jquery-ui.min.js"></script>
-  		<script src="js/inventory.js"></script>
   		<?php
   			$port = "24542";
   			if (isset($_GET['port']) && is_numeric($_GET['port']))
@@ -36,19 +35,26 @@
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
+		<div class="panel">
+			<div class="panel-container">
+				<div class="panel-topbar"></div>
+				<div class="panel-stats"></div>
+			</div>
+			<div class="btn-slide"></div>
+		</div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>
 			</div>
 			<div id="inventory-containers">
-				<div class="container"><div id="food-item" class="item"><span class="food-count item-count">20</span></div></div>
-				<div class="container"><div id="linemate-item" class="item"><span class="linemate-count item-count">17</span></div></div>
-				<div class="container"><div id="deraumere-item" class="item"><span class="deraumere-count item-count">9</span></div></div>
-				<div class="container"><div id="sibur-item" class="item"><span class="sibur-count item-count">1</span></div></div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
 				<br style="clear: both;"/>
-				<div class="container"><div id="mendiane-item" class="item"><span class="mendiane-count item-count">10</span></div></div>
-				<div class="container"><div id="phiras-item" class="item"><span class="phiras-count item-count">7</span></div></div>
-				<div class="container"><div id="thystame-item" class="item"><span class="thystame-count item-count">5</span></div>			</div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
 				<div class="container"></div>
 				<br style="clear: both;"/>
 				<div class="container"></div>

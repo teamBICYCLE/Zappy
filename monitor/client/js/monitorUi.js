@@ -107,12 +107,97 @@ function initInventory() {
 	});
 }
 
+function initItem(item) {
+	src = null;
+	
+	options = {
+		revert:true,
+		opacity: 0.8,
+		zIndex: 100,
+		start: function() {
+			src = $(this).parent();
+		}
+	};
+	
+	$(".item").draggable(options);
+}
+
 function closeInventory() {
 	$("#inventory").hide();
+	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = -1;
 }
 
 function showInventory(id) {
 	$("#inventory").show();
+	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = id;
+}
+
+function emptyInventoryContent() {
+	var container = $("#inventory-containers .container");
+	
+	for (var i = 0; i != container.length; i++)
+		$(container[i]).children().remove();
+}
+
+function updateInventoryContent(inventory) {
+	
+	var ref = ["food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"];
+	
+	emptyInventoryContent();
+	for (var i = 0; i != inventory.length; i++)
+		if (inventory[i] > 0)
+			{
+				var container = $("#inventory-containers .container");
+				
+				for (var j = 0; j != container.length; j++)
+					if ($(container[j]).children().length == 0)
+					{
+						$(container[j]).append("<div id='"+ref[i]+"-item' class='item'><span class='"+ref[i]+"-count item-count'>"+inventory[i]+"</span></div>");
+						
+						break;
+					}
+				//console.log($("#inventory-containers .container"));
+			}
+			
+	initItem();
+}
+
+/* TEAMSTATS PANEL*/
+
+function addTeamsToPanel() {
+	var nbTeams = cache.getTeams().length;
+
+	for (var i = 1; i <= nbTeams; i++) {
+		var infos = cache.getTeamInfo(i);
+
+		$(".panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+										+ "<span class='team-name'>Name: "
+										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
+										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
+										+ "<div class='chart'></div></div>");
+	}
+}
+
+function initTeamPanel() {	
+	
+	$(".panel-stats").children().remove();
+	
+	addTeamsToPanel();
+	
+	$(".btn-slide").toggle(function() {
+			$(".panel").animate({marginRight: "0px"}, 200);
+			$(this).toggleClass("active");
+		}, function() {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(this).toggleClass("active");
+	});
+    
+   $(".teambox").click(function() {
+		if ($(".chart", this).is(':hidden')) {
+			$(".chart").slideUp("slow");
+		}
+		$(".chart", this).slideToggle("slow");
+   });
 }
