@@ -335,6 +335,7 @@ canvas {
 	height: 80px;
 	z-index: 430;
 	background: transparent url("img/teamstats-bg.png") no-repeat top left;
+	cursor:pointer;cursor:hand;
 }
 
 .team-picture {
