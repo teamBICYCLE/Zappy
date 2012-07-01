@@ -11,14 +11,19 @@
 #include <cstdlib>
 #include <iostream>
 #include "Trantorien/Map.hh"
+#include "FSM/Lexeme.hh"
+
+#include <fstream>
 
 int main(int argc, char *argv[])
 {
+  std::ifstream moto(argv[1]);
 
+  FSM::Lexeme::lex(moto);
 
-  Map jaques(std::pair<int, int>(10, 5));
+//  Map jaques(std::pair<int, int>(10, 5));
 
-  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
+//  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
   // jaques.avancer();
   // jaques.avancer();
   // Inventory eude;
