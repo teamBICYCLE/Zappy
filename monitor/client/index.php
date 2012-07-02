@@ -4,6 +4,7 @@
 	<head>
   		<title>Zappy</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link href="img/favicon.ico" rel="icon" type="image/x-icon" />
   		<script src="js/libs/jquery.min.js"></script>
   		<script src="js/libs/jquery-ui.min.js"></script>
   		<script src="js/libs/jquery.flot.min.js"></script>
@@ -34,9 +35,8 @@
 			<i class="zappy-logo"></i>
 			<i class="leaf-icon"></i>
 			<ul class="topbar-menu">
-				<li class="topbar-menu-disconnect"></li>
 				<li class="topbar-menu-settings"></li>
-				<li class="topbar-menu-search"></li>	
+				<li class="topbar-menu-userlist"></li>
 			</ul>
 		</div>
 		<div id="cmdResult"></div>
@@ -89,6 +89,12 @@
 				<li class="case-content-item tiny-mendiane">Mendiane: <span class="count">19</span></li>
 				<li class="case-content-item tiny-phiras">Phiras: <span class="count">12</span></li>
 				<li class="case-content-item tiny-thystame">Thystame: <span class="count">14</span></li>
+			</ul>
+		</div>
+		<div class="players-list">
+			<span class="players-list">Players List</span>
+			<ul class="players-list-content">
+				
 			</ul>
 		</div>
   	</body>
