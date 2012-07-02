@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Mon Jul  2 18:32:18 2012 lois burg
+** Last update Mon Jul  2 18:34:33 2012 lois burg
 */
 
 #include <stdio.h>
@@ -67,20 +67,24 @@ void		write_user(void *ptr)
   t_users      	*user;
   char		*str;
 
+  l = 0;
   user = ptr;
-  if (user->messages->size > 0 &&
+  if (l != -1 && user->messages->size > 0 &&
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
       l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
       if (l == -1)
 	perror("send :");
-      user->idx += l;
-      if (user->idx >= strlen(str))
+      else
 	{
-	  user->idx = 0;
-	  free(str);
-	  free(pop_front(user->messages));
+	  user->idx += l;
+	  if (user->idx >= strlen(str))
+	    {
+	      user->idx = 0;
+	      free(str);
+	      free(pop_front(user->messages));
+	    }
 	}
     }
 }
