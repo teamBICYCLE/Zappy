@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 29 15:26:27 2012 Jonathan Machado
+** Last update Mon Jul  2 18:16:24 2012 Jonathan Machado
 */
 
 #include <stdio.h>
@@ -107,8 +107,15 @@ void		read_user(void *ptr)
 	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
 	  log_msg(stdout, msg);
 	  delete_link(l, &free_users);
+	  user = NULL;
 	}
-      else if ((str = get_data(user->readring)) != NULL)
-	handle_cmd(user, str);
+      else if (user->type == TGRAPHICS)
+	printf("-s-\n%s-e-\n", user->readring->data);
+    }
+  if (user != NULL && user->readring->end != 0 &&
+      (str = get_data(user->readring)) != NULL)
+    {
+      puts("ok");
+      handle_cmd(user, str);
     }
 }
