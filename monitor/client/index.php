@@ -4,6 +4,7 @@
 	<head>
   		<title>Zappy</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link href="img/favicon.ico" rel="icon" type="image/x-icon" />
   		<script src="js/libs/jquery.min.js"></script>
   		<script src="js/libs/jquery-ui.min.js"></script>
   		<script src="js/libs/jquery.flot.min.js"></script>
