@@ -3,15 +3,18 @@
  */
 
 function highlight_draw(layers) {
-    
-    $("#cHighLight").click(function(e, pos, mapPos){
+        
+    $("#cHighLight").unbind('click');
+	$("#cHighLight").unbind('mousemove');
+	
+    $("#cHighLight").click(function(e, mapPos){
 	
     	if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 		{
 		    layers.clear("cHighLight");
 		    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
-		    displayCaseContent(pos, mapPos, layers, "cHighLight");
+		    displayCaseContent(mapPos, layers, "cHighLight");
 		}
 	});
 
@@ -20,6 +23,7 @@ function highlight_draw(layers) {
 		if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 		{		
+			console.log(layers.getMapSize().width);
 		    layers.clear("cHighLight");
 	    	layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
 		}
