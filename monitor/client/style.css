@@ -39,13 +39,7 @@ canvas {
 	height: 45px;
 	float: right;
 	margin: 2px 2px 0 0;
-}
-
-.topbar-menu li a {
-	margin: 5px;
-	width: 48px;
-	height: 37px;
-	display: block;
+	cursor: pointer;
 }
 
 .topbar-menu-userlist {
