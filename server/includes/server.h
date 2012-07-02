@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jun 27 16:15:38 2012 Jonathan Machado
+** Last update Mon Jul  2 16:17:35 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -23,8 +23,9 @@
 
 typedef void (*sighandler_t)(int);
 
-typedef struct s_users          t_users;
-typedef struct s_infos          t_infos;
+typedef struct	s_users         t_users;
+typedef struct	s_infos         t_infos;
+typedef	struct  s_task_info	t_task_info;
 
 typedef enum	e_direction
   {
@@ -43,6 +44,14 @@ typedef	enum	e_type
     TGRAPHICS,
     TFORMER_GHOST
   }		t_type;
+
+struct		s_task_info
+{
+  char		*data;
+  char		**args;
+  char		*duplicate;
+  bool		task_failure;
+};
 
 struct          s_users
 {
@@ -88,7 +97,7 @@ void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 void	reset_fd(t_infos *info);
 
-void   	exec_cmd(t_users *u, char **args, char *orig_cmd);
+void   	exec_cmd(t_users *u, t_task_info *ti);
 void	update_map(int const loop);
 
 /* TOOLS */
@@ -101,5 +110,6 @@ int	get_case(int *x, int *y, t_direction dir);
 void   	free_users(void *ptr);
 void   	free_teams(void *ptr);
 void	free_all(t_infos *info);
+void	free_task_info(t_task_info *ti);
 
 #endif /* __SERVER_H__ */

@@ -5,22 +5,26 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:51:15 2012 Jonathan Machado
-** Last update Wed Jun 20 16:35:30 2012 lois burg
+** Last update Mon Jul  2 16:18:03 2012 lois burg
 */
 
 #include <stdlib.h>
 #include "server.h"
 #include "task.h"
 
+void	free_task_info(t_task_info *ti)
+{
+  free(ti->data);
+  free(ti->args);
+  free(ti->duplicate);
+}
+
 void		free_tasks(void *ptr)
 {
   t_task	*t;
 
   t = ptr;
-  free(t->orig_cmd);
-  if (t->args)
-    free(t->args[0]);
-  free(t->args);
+  free_task_info(&t->ti);
   free(ptr);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon Jun 11 16:05:02 2012 Jonathan Machado
-** Last update Tue Jun 19 17:43:26 2012 lois burg
+** Last update Mon Jul  2 16:13:13 2012 lois burg
 */
 
 #ifndef __TASK_H__
@@ -37,8 +37,7 @@ struct		s_task
 {
   unsigned int	countdown;
   t_taskf      	f;
-  char		*orig_cmd;
-  char	       	**args;
+  t_task_info	ti;
 };
 
 void	free_tasks(void *);

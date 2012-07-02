@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 29 15:26:27 2012 Jonathan Machado
+** Last update Mon Jul  2 17:00:30 2012 lois burg
 */
 
 #include <stdio.h>
@@ -23,16 +23,14 @@ extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
 {
-  char		*orig_cmd;
-  char		**cmd;
+  t_task_info	ti;
 
-  (void)u;
-  orig_cmd = strdup(str);
-  cmd = parse(str, " \t\n");
-  if (cmd != NULL && cmd[0] == NULL)
-    free(str);
-  if (cmd != NULL)
-    exec_cmd(u, cmd, orig_cmd);
+  memset(&ti, 0, sizeof(ti));
+  ti.data = str;
+  ti.duplicate = strdup(ti.data);
+  ti.args = parse(ti.data, " \t\n");
+  if (ti.args != NULL)
+    exec_cmd(u, &ti);
 }
 
 void		add_user(void)

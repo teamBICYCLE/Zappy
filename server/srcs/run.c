@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 29 17:01:04 2012 lois burg
+** Last update Sun Jul  1 17:56:19 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -92,11 +92,11 @@ void			run(void)
   while (1)
     {
       reset_fd(&g_info);
-      printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
+      /* printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug */
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
+	  /* printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug */
 	  gettimeofday(&start, NULL); // start
 
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
@@ -104,7 +104,7 @@ void			run(void)
 	  iterate(g_info.users, &read_user);
 	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
 	    {
-	      printf("Sync: %d\n", sync);
+	      /* printf("Sync: %d\n", sync); */
 	      update_map(sync + 1);
 	      loop = g_info.world.smallest_t;
 	      sync = 0;
