@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Fri Jun 29 15:28:37 2012 Jonathan Machado
+** Last update Mon Jul  2 16:17:51 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -57,44 +57,37 @@ static t_graphicsmap	g_graphics_cmd[10] =
     {NULL, &answer_suc}
   };
 
-static void	add_task(t_users *u, char **args, char *orig_cmd)
+static void	add_task(t_users *u, t_task_info *ti)
 {
   t_task	t;
   int		i;
 
   i = 0;
   while (g_commands[i].key != NULL &&
-	 (!args[0] || strcmp(g_commands[i].key, args[0]) != 0))
+	 (!ti->args[0] || strcmp(g_commands[i].key, ti->args[0]) != 0))
     ++i;
   t.countdown = g_commands[i].countdown;
   t.f = g_commands[i].f;
-  t.orig_cmd = orig_cmd;
-  t.args = args;
+  t.ti = *ti;
   if (pretask_check(g_commands[i].key, u))
     push_back(u->tasks, new_link_by_param(&t, sizeof(t)));
   else
-    {
-      free(orig_cmd);
-      free(args[0]);
-      free(args);
-    }
+    ti->task_failure = true;
 }
 
-static void	answer_graphics(t_users *u, char **args, char *orig_cmd)
+static void	answer_graphics(t_users *u, t_task_info *ti)
 {
   int		i;
 
   i = 0;
   while (g_graphics_cmd[i].key != NULL &&
-	 (!args[0] || strcmp(g_graphics_cmd[i].key, args[0])))
+	 (!ti->args[0] || strcmp(g_graphics_cmd[i].key, ti->args[0])))
     ++i;
-  if (args[0])
-    (g_graphics_cmd[i].f)(u, &args[1]);
+  if (ti->args[0])
+    (g_graphics_cmd[i].f)(u, &ti->args[1]);
   else
-    (g_graphics_cmd[i].f)(u, &args[0]);
-  free(orig_cmd);
-  free(args[0]);
-  free(args);
+    (g_graphics_cmd[i].f)(u, &ti->args[0]);
+  ti->task_failure = true;
 }
 
 static void	assign_client(t_users *u, char **args)
@@ -121,28 +114,28 @@ static void	assign_client(t_users *u, char **args)
     }
 }
 
-void		exec_cmd(t_users *u, char **args, char *orig_cmd)
+void		exec_cmd(t_users *u, t_task_info *ti)
 {
   if (u->first_message == false && u->type != TGRAPHICS &&
       u->tasks->size < 10)
-    add_task(u, args, orig_cmd);
+    add_task(u, ti);
   else if (u->first_message == false && u->type == TGRAPHICS)
-    answer_graphics(u, args, orig_cmd);
+    answer_graphics(u, ti);
   else
     {
-      if (args && args[0])
+      if (ti->args && ti->args[0])
 	{
-	  if (!strcmp(args[0], GRAPHIC_USR))
+	  if (!strcmp(ti->args[0], GRAPHIC_USR))
 	    {
 	      u->type = TGRAPHICS;
 	      greet_graphics(u);
 	    }
 	  else
-	    assign_client(u, args);
+	    assign_client(u, ti->args);
 	  u->first_message = false;
 	}
-      free(orig_cmd);
-      free(args[0]);
-      free(args);
+      ti->task_failure = true;
     }
+  if (ti->task_failure)
+    free_task_info(ti);
 }

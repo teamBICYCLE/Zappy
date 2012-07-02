@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Mon Jun 25 13:55:58 2012 lois burg
+** Last update Mon Jul  2 16:13:50 2012 lois burg
 */
 
 #include <string.h>
@@ -34,7 +34,7 @@ static	void	do_task(void *ptr)
       t = u->tasks->head->ptr;
       if (t->countdown == 0)
 	{
-	  success = (t->f)(u, t->args, t->orig_cmd);
+	  success = (t->f)(u, t->ti.args, t->ti.duplicate);
 	  send_ok_ko(u, success);
 	  delete_link(pop_front(u->tasks), &free_tasks);
 	}
