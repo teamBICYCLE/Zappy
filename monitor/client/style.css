@@ -41,16 +41,19 @@ canvas {
 	margin: 2px 2px 0 0;
 }
 
-.topbar-menu-search {
-	background: transparent url("img/search_button.png") no-repeat top left;
+.topbar-menu li a {
+	margin: 5px;
+	width: 48px;
+	height: 37px;
+	display: block;
+}
+
+.topbar-menu-userlist {
+	background: transparent url("img/userlist_button.png") no-repeat top left;
 }
 
 .topbar-menu-settings {
 	background: transparent url("img/settings_button.png") no-repeat top left;
-}
-
-.topbar-menu-disconnect {
-	background: transparent url("img/shutdown_button.png") no-repeat top left;
 }
 
 i.zappy-logo {
