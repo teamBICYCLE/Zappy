@@ -76,8 +76,11 @@ function update() {
 	zappy.getSocket().write("sgt\n");
 	
 	for (var i = 0; i != players.length; i++)
+	{
 		zappy.getSocket().write("pin " + players[i].getId() + "\n");
-	
+		console.log("pin " + players[i].getId());
+	}
+		
 	client.getClientSocket().emit('cacheUpdate', {
 		xsize: cache.getXSize(),
 		ysize: cache.getYSize(),

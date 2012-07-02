@@ -37,17 +37,21 @@ $(function() {
 		$(".case-content").fadeOut(300);
 	});
 	
+	$(".topbar-menu-players").click(function(){
+		displayPlayersList();
+	});
+	
 });
 
 function displayError(msg) {
 	$("#errorBox .errorText").text("Error : " + msg);
-	$("#errorBox").fadeIn(1500).delay(1000).fadeOut(3000);
+	$("#errorBox").fadeIn(500).delay(1000).fadeOut(1500);
 }
 
-function displayCaseContent(pos, mapPos, layer, canvas) {
+function displayCaseContent(mapPos, layer, canvas) {
     var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
     
-    	$(".case-content-position").text("Position.x = "+mapPos.x+", Position.y = "+mapPos.y);
+    	$(".case-content-position").text("Position ("+mapPos.x+", "+mapPos.y + ")");
 		$(".tiny-food .count").text(ressources[0]);
 		$(".tiny-linemate .count").text(ressources[1]);
 		$(".tiny-deraumere .count").text(ressources[2]);
@@ -254,5 +258,21 @@ function updateTeamPanel(prev, now) {
 		{
 			$(".panel-stats").children().remove();
 			initTeamPanel();
+			updatePlayerList();
 		}	
+}
+
+/* PLAYERS LIST */
+
+function displayPlayersList() {
+	//genere les <li> a append dans .players-list-content
+	var players = cache.getPlayers();
+	console.log("displayPlayerList");
+	
+	// appeler showInventory(idDuPlayer);
+}
+
+function updatePlayerList() {
+	$(".players-list-content").children().remove();
+	displayPlayersList();
 }

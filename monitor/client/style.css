@@ -41,7 +41,7 @@ canvas {
 	margin: 2px 2px 0 0;
 }
 
-.topbar-menu-search {
+.topbar-menu-players {
 	background: transparent url("img/search_button.png") no-repeat top left;
 }
 
@@ -140,7 +140,7 @@ i.leaf-icon {
 	position: absolute;
 	top: 50px;
 	left: 50px;
-	display:none;
+	display: none;
 }
 
 #caseContent .contentText {
@@ -154,8 +154,7 @@ i.leaf-icon {
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
-	border: 1px solid #545454;
-	background-color: rgba(226, 0, 0, 0.9);
+	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 6;
 	top: 50px;
 	position: relative;
@@ -465,8 +464,8 @@ i.leaf-icon {
 	text-shadow: 1px 1px 1px #DDD;
 	line-height: 29px;
 	font-size: 12px;
-	text-indent: 75px;
 	font-weight: bold;
+	text-align: center;
 }
 
 .case-content-title {
@@ -563,4 +562,10 @@ i.leaf-icon {
 	font-family: Helvetica, Helv, swiss, sans-serif;
 	color: #eee;
 	text-shadow: #222 1px 1px 1px;
+}
+
+/* PLAYER LIST */
+
+.players-list {
+	display: none;	
 }
