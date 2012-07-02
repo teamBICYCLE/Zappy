@@ -17,8 +17,7 @@ function MonitorCache () {
 		3: "sibur",
 		4: "mendiane",
 		5: "phiras",
-		6: "thystame",
-		7: "empty"
+		6: "thystame"
 	};
 }
 
@@ -87,7 +86,7 @@ MonitorCache.prototype.getCase = function(target) {
 	displayError("Something wrong in MonitorCache.getCase()");
 }
 
-MonitorCache.prototype.getSprite = function(aCase) {
+MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
 	var sprite = 0,
    		value = aCase.ressources[0];
@@ -99,8 +98,23 @@ MonitorCache.prototype.getSprite = function(aCase) {
    			value = aCase.ressources[i];
    		}
    	if (value != 0)
-   		return (this.ref[sprite]);
-   	return (this.ref[7]);
+   		return ({name: this.ref[sprite], nb: value});
+   	return ({name: null, nb: 0}); // empty !
+}
+
+MonitorCache.prototype.getSprite = function(aCase) {
+	
+	var sprite = this.getSpriteBase(aCase);
+	
+	if (sprite.name == null)
+		return sprite.name;
+	else if (sprite.nb <= 2)
+		sprite.name += "_small";
+	else if (sprite.nb > 2 && sprite.nb <= 4)
+		sprite.name += "_medium";
+	else
+		sprite.name += "_large";
+	return sprite.name;
 }
 
 MonitorCache.prototype.getMap = function() {
@@ -113,7 +127,20 @@ MonitorCache.prototype.getPlayers = function() {
 
 MonitorCache.prototype.getTeamInfo = function(teamId) {
 	
-	var ret = {name: "", maxLevel: 1, number: 0, stats: [0, 0, 0, 0, 0, 0, 0, 0], color: "#FF0000"};
+	var ret = {
+			name: "", 
+			maxLevel: 1, 
+			number: 0, 
+			stats: [{label: "Level 1", data: 0, color: "#3266cc"},
+					{label: "Level 2", data: 0, color: "#db3711"},
+					{label: "Level 3", data: 0, color: "#ff9900"},
+					{label: "Level 4", data: 0, color: "#990099"},
+					{label: "Level 5", data: 0, color: "#0098c4"},
+					{label: "Level 6", data: 0, color: "#dd4578"},
+					{label: "Level 7", data: 0, color: "#65a900"},
+					{label: "Level 8", data: 0, color: "#958453"}], 
+			color: "#FF0000"
+		};
 	
 	if (teamId <= this.teams_.length)
 	{
@@ -125,12 +152,22 @@ MonitorCache.prototype.getTeamInfo = function(teamId) {
 				if (this.players_[i].level_ > ret.maxLevel)
 					ret.maxLevel = this.players_[i].level_;
 				
-				ret.stats[this.players_[i].level_ - 1] += 1;
+				ret.stats[this.players_[i].level_ - 1].data += 1;
 				ret.number += 1;
 			}
 	}
 	else
 		displayError("Something wrong in Cache.getTeamInfo() : undefined reference to team id " + teamId);
+	return ret;
+}
+
+MonitorCache.prototype.getAllTeamInfo = function() {
+	
+	var ret = new Array();
+	
+	for (var i = 0; i != this.teams_.length; i++)
+		ret[i] = this.getTeamInfo(i + 1);
+		
 	return ret;
 }
 
@@ -140,4 +177,18 @@ MonitorCache.prototype.playerExist = function(id) {
 		if (this.players_[i].id_ == id)
 			return true;
 	return false;
+}
+
+MonitorCache.prototype.getPlayer = function(id) {
+		
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].id_ == id)
+			return this.players_[i];
+			
+	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+MonitorCache.prototype.setInventoryChange = function(id, v) {
+		
+	this.getPlayer(id).inventoryChange_ = v;
 }

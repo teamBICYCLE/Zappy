@@ -17,6 +17,8 @@ function players_draw(layers) {
 	{
 		var player = cache.getPlayers()[i];
 
+		layers.drawSocle("cPlayers", player.color_, player.posx_, player.posy_);
+		//layers.draw("cPlayers", orientation[player.orientation_], 1, 0);
 		layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_);
 	}
 }

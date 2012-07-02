@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Wed Jun 13 12:24:34 2012 lois burg
+** Last update Fri Jun 29 16:11:47 2012 lois burg
 */
 
 #include <time.h>
@@ -41,7 +41,7 @@ static void	init_args_infos(t_arg_infos *infos)
   integer = 1 / infos->action_delay;
   decimal = (1.f / infos->action_delay) - integer;
   infos->smallest_t.tv_sec = integer;
-  infos->smallest_t.tv_usec = decimal * 100000.f;
+  infos->smallest_t.tv_usec = decimal * 1000000.f;
   infos->help_showed = false;
   infos->seed = time(NULL);
   infos->error = false;

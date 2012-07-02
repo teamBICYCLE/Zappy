@@ -8,7 +8,10 @@ function ressources_draw(layers) {
     
 	for (var i = 0; i != cache.getMap().length; i++)
 	{
-		var aCase = cache.getCase(i);		
-		layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y);
+		var aCase = cache.getCase(i),
+			sprite = cache.getSprite(aCase);
+			
+		if (sprite != null)		
+			layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y);
 	}
 }

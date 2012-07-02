@@ -8,7 +8,7 @@
 	// level_, team_, inventory_, animationLoop_,
 	// message_;
 
-var Player = function(arg) {
+var Player = function(arg, color) {
 	if (arg.length >= 7)
 	{
 		this.id_ = parseInt(arg[1].replace("#", ""));
@@ -17,10 +17,11 @@ var Player = function(arg) {
 	    this.orientation_ = parseInt(arg[4]);
 	    this.level_ = parseInt(arg[5]);
 	    this.team_ = arg[6];
+	    this.color_ = color;
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
 	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
 		this.message_ = "";
-		this.inventoryOpen = false;
+		this.inventoryChange_ = false;
 		//piex pbc pic pfk pdr pgt
 	} 
 };
@@ -113,7 +114,7 @@ Player.prototype.getInventory = function() {
 		deraumere: this.inventory_[2],
 		sibur: this.inventory_[3],
 		mendiane: this.inventory_[4],
-		mendiane: this.inventory_[5],
+		phiras: this.inventory_[5],
 		thystame: this.inventory_[6]
 	};
 	

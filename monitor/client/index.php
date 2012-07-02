@@ -6,7 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
   		<script src="js/libs/jquery.min.js"></script>
   		<script src="js/libs/jquery-ui.min.js"></script>
-  		<script src="js/inventory.js"></script>
+  		<script src="js/libs/jquery.flot.min.js"></script>
+		<script src="js/libs/jquery.flot.pie.min.js"></script>
   		<?php
   			$port = "24542";
   			if (isset($_GET['port']) && is_numeric($_GET['port']))
@@ -29,26 +30,41 @@
 		<canvas id="cRessources"></canvas>
 		<canvas id="cHighLight"></canvas>
   		<canvas id="cMap"></canvas>
-		<div id="header"></div>
+		<div id="header">
+			<i class="zappy-logo"></i>
+			<i class="leaf-icon"></i>
+			<ul class="topbar-menu">
+				<li class="topbar-menu-disconnect"></li>
+				<li class="topbar-menu-settings"></li>
+				<li class="topbar-menu-search"></li>	
+			</ul>
+		</div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><span class="errorText"></span></div>
 		<div id="caseContent"><span class="contentText"></span></div>
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
+		<div class="panel">
+			<div class="panel-container">
+				<div class="panel-topbar"></div>
+				<div class="panel-stats"></div>
+			</div>
+			<div class="btn-slide"></div>
+		</div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>
 			</div>
 			<div id="inventory-containers">
-				<div class="container"><div id="food-item" class="item"><span class="food-count item-count">20</span></div></div>
-				<div class="container"><div id="linemate-item" class="item"><span class="linemate-count item-count">17</span></div></div>
-				<div class="container"><div id="deraumere-item" class="item"><span class="deraumere-count item-count">9</span></div></div>
-				<div class="container"><div id="sibur-item" class="item"><span class="sibur-count item-count">1</span></div></div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
 				<br style="clear: both;"/>
-				<div class="container"><div id="mendiane-item" class="item"><span class="mendiane-count item-count">10</span></div></div>
-				<div class="container"><div id="phiras-item" class="item"><span class="phiras-count item-count">7</span></div></div>
-				<div class="container"><div id="thystame-item" class="item"><span class="thystame-count item-count">5</span></div>			</div>
+				<div class="container"></div>
+				<div class="container"></div>
+				<div class="container"></div>
 				<div class="container"></div>
 				<br style="clear: both;"/>
 				<div class="container"></div>
@@ -61,6 +77,19 @@
 				<div class="container"></div>
 				<div class="container"></div>
 			</div>
+		</div>
+		<div class="case-content">
+			<div class="case-content-topbar"><span class="case-content-position"></span></div>
+			<span class="case-content-title">Ressources:</span>
+			<ul class="case-content-itemlist">
+				<li class="case-content-item tiny-food">Food: <span class="count">15</span></li>
+				<li class="case-content-item tiny-linemate">Linemate: <span class="count">21</span></li>
+				<li class="case-content-item tiny-deraumere">Deraumere: <span class="count">5</span></li>
+				<li class="case-content-item tiny-sibur">Sibur: <span class="count">7</span></li>
+				<li class="case-content-item tiny-mendiane">Mendiane: <span class="count">19</span></li>
+				<li class="case-content-item tiny-phiras">Phiras: <span class="count">12</span></li>
+				<li class="case-content-item tiny-thystame">Thystame: <span class="count">14</span></li>
+			</ul>
 		</div>
   	</body>
   	<script src="js/canvasHandler.js"></script>

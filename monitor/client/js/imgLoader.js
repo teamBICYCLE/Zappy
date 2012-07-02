@@ -7,18 +7,32 @@ function ImgLoader() {
 	this.imgs_ = {
 		0 : {name: "floor", img: new Image()},
 		1 : {name: "food", img: new Image()},
-		2 : {name: "linemate", img: new Image()},
-		3 : {name: "highlight", img: new Image()},
-		4 : {name: "empty", img: new Image()},
-		5 : {name: "deraumere", img: new Image()},
-		6 : {name: "sibur", img: new Image()},
-		7 : {name: "mendiane", img: new Image()},
-		8 : {name: "phiras", img: new Image()},
-		9 : {name: "thystame", img: new Image()},
-		10 : {name: "player-north", img: new Image()},
-		11 : {name: "player-south", img: new Image()},
-		12 : {name: "player-west", img: new Image()},
-		13 : {name: "player-east", img: new Image()},
+		2 : {name: "highlight", img: new Image()},
+		3 : {name: "player-north", img: new Image()},
+		4 : {name: "player-south", img: new Image()},
+		5 : {name: "player-west", img: new Image()},
+		6 : {name: "player-east", img: new Image()},
+		7 : {name: "linemate_small", img: new Image()},
+		8 : {name: "linemate_medium", img: new Image()},
+		9 : {name: "linemate_large", img: new Image()},
+		10 : {name: "deraumere_small", img: new Image()},
+		11 : {name: "deraumere_medium", img: new Image()},
+		12 : {name: "deraumere_large", img: new Image()},
+		13 : {name: "sibur_small", img: new Image()},
+		14 : {name: "sibur_medium", img: new Image()},
+		15 : {name: "sibur_large", img: new Image()},
+		16 : {name: "mendiane_small", img: new Image()},
+		17 : {name: "mendiane_medium", img: new Image()},
+		18 : {name: "mendiane_large", img: new Image()},
+		19 : {name: "phiras_small", img: new Image()},
+		20 : {name: "phiras_medium", img: new Image()},
+		21 : {name: "phiras_large", img: new Image()},
+		22 : {name: "thystame_small", img: new Image()},
+		23 : {name: "thystame_medium", img: new Image()},
+		24 : {name: "thystame_large", img: new Image()},
+		25 : {name: "food_small", img: new Image()},
+		26 : {name: "food_medium", img: new Image()},
+		27 : {name: "food_large", img: new Image()},
 		999 : {name: "undefined", img: new Image()}
 	};
 	
@@ -35,6 +49,6 @@ ImgLoader.prototype.get = function(name) {
 			return this.imgs_[i].img;
 			
 	// undefined
-	displayError("Undefined reference to " + name + ".png.");
+	//displayError("Undefined reference to " + name + ".png.");
 	return this.imgs_[999].img;
 }

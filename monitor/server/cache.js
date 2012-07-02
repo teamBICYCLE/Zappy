@@ -46,7 +46,7 @@ exports.setCase = function(x, y, ressources) {
 
 exports.addPlayer = function(arg) {
     var Player = require("./objects/player.js");
-    players_.push(new Player(arg));
+    players_.push(new Player(arg, this.getTeamColor(arg[6])));
     this.addMessage("Team " + arg[6] + " welcomes a new player.");
 }
 
@@ -103,6 +103,15 @@ exports.getTeamsColor = function() {
 	return teamsColor_;
 }
 
+exports.getTeamColor = function(team) {
+	
+	for (var i = 0; i != teams_.length; i++)
+		if (team == teams_[i])
+			return teamsColor_[i];
+			
+	console.log("Something wrong in Cache.getTeamColor() : undefined reference to team " + team);
+}
+
 exports.getMap = function() {
 	return map_;
 }
@@ -124,7 +133,7 @@ exports.getPlayer = function(id) {
 		if (players_[i].getId() == id)
 			return players_[i];
 			
-	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 }
 
 exports.getEgg = function(id) {
@@ -135,10 +144,11 @@ exports.getEgg = function(id) {
 		if (eggs_[i].getId() == id)
 			return eggs_[i];
 			
-	displayError("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
+	console.log("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
 }
 
 exports.getPlayers = function() {
+	
 	return players_;
 }
 

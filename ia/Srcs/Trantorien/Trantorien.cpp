@@ -17,7 +17,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
       //      std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init("conf.cfg", "script.lua");
+  init("Scripts/conf.le", "Scripts/script.lua");
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -94,14 +94,14 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
   for (i = 1; i <= lua_gettop(state); ++i)
     {
       if (lua_isstring(state, i))
-	{
-	  std::string object(lua_tostring(state, i));
-	  network_.cmd("prend " + object);
-	  std::string result = network_.getline();
-	  if (result == "ok")
-	    inventory_.prendre(object);
-	  //	  lua_pushstring(state, result.c_str());
-	}
+        {
+          std::string object(lua_tostring(state, i));
+          network_.cmd("prend " + object);
+          std::string result = network_.getline();
+          if (result == "ok")
+            inventory_.prendre(object);
+          //	  lua_pushstring(state, result.c_str());
+        }
     }
   return (0);
 }
@@ -118,9 +118,9 @@ int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
           std::string direction(lua_tostring(state, i));
           network_.cmd(direction);
           std::string result = network_.getline();
-	  if (result == "ok")
-	    map_.changeDirection(direction);
-	}
+          if (result == "ok")
+            map_.changeDirection(direction);
+        }
     }
   return (0);
 }

@@ -11,7 +11,7 @@ var socket = io.connect('http://localhost', {
 	lastTimestamp = 0,
 	layers,
 	inventoryOpenId = -1;
-	
+
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
@@ -35,7 +35,8 @@ socket.on('firstConnection', function(data){
 		cache.setTeams(data.teams);
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
-		cache.setPlayers(data.players);
+		cache.setPlayers(setInventoryChange(data.players, true));
+		//cache.setPlayers(data.players);
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
@@ -43,16 +44,19 @@ socket.on('firstConnection', function(data){
 		// init draw
 		layers = new Layers(data.xsize, data.ysize);
 		
+		// init UI
+		initInventory();
+		initTeamPanel();
+		
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(layers);
 		players_draw(layers);
+		update_inventory();
 		
 		// event & draw
 		highlight_draw(layers);
 		events_handler(layers);
-		
-		// init UI
-		initInventory();
+		update_inventory();
 		
 		lastTimestamp = data.timestamp;
 	}
@@ -60,22 +64,32 @@ socket.on('firstConnection', function(data){
 
 socket.on('cacheUpdate', function(data){
 
-	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp));
+	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp)),
+		prevPlayers;
 	$(".latency .lValue").text(latency);
 	
 	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
 		cache.setMapSize(data.xsize, data.ysize);
 		
+		prevPlayers = cache.getPlayers();
+		prevInfo = cache.getAllTeamInfo();
+		
 		cache.setMap(data.map);
 		cache.setPlayers(data.players);
+
+		detectInventoryChange(prevPlayers);		
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
 
-		update_inventory();
+		nowInfo = cache.getAllTeamInfo();
+		
 		ressources_draw(layers);
 		players_draw(layers);
+		update_inventory();
+		updateTeamPanel(prevInfo, nowInfo);
+		//layers.zoom("cMap");
 		
 		lastTimestamp = data.timestamp;
 	}

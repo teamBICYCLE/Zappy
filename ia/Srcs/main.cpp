@@ -5,11 +5,12 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Fri Jun 29 11:40:30 2012 Thomas Duplomb
+// Last update Sun Jul  1 10:52:14 2012 Thomas Duplomb
 //
 
 #include <cstdlib>
 #include <iostream>
+#include "Trantorien/Trantorien.hh"
 #include "Trantorien/Map.hh"
 #include "FSM/Lexeme.hh"
 
@@ -17,10 +18,9 @@
 
 int main(int argc, char *argv[])
 {
-  std::ifstream moto(argv[1]);
+  Trantorien  joe("localhost", "4242");
 
-  FSM::Lexeme::lex(moto);
-
+  joe.run();
 //  Map jaques(std::pair<int, int>(10, 5));
 
 //  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
