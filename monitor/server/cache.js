@@ -45,10 +45,10 @@ function random_color(h, s, v) {
 		p = v * (1 - s),
 		q = v * (1 - f * s),
 		t = v * (1 - (1 - f) * s),
-		ret;
+		ret, r, g, b;
   	
   	if (h_i == 0)
-  		{r = v; g = t; v = p;}
+  		{r = v; g = t; b = p;}
   	else if (h_i == 1)
   		{r = q; g = v; b = p;}
   	else if (h_i == 2)
