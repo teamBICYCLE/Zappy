@@ -32,10 +32,12 @@ $(function() {
 		$("#overlay").fadeOut(300);
 	});
 	
+	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);
 		$(".case-content").fadeOut(300);
 	});
+	*/
 	
 	$(".topbar-menu-players").click(function(){
 		displayPlayersList();
@@ -71,13 +73,6 @@ function fadeAndRemove() {
 			fadeAndRemove();
 	})
 }
-
-// function addMessage(msg) {
-	// if ($("#cmdResult .entry").length >= 5)
-		// $("#cmdResult span:first-child").remove();
-	// $("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
-	// $('#cmdResult span:last-child').fadeOut(7000);
-// }
 
 function addMessage(msg) {
 	

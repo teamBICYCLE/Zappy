@@ -39,18 +39,16 @@ canvas {
 	height: 45px;
 	float: right;
 	margin: 2px 2px 0 0;
+	cursor: pointer;
 }
 
-.topbar-menu-players {
-	background: transparent url("img/search_button.png") no-repeat top left;
+
+.topbar-menu-userlist {
+	background: transparent url("img/userlist_button.png") no-repeat top left;
 }
 
 .topbar-menu-settings {
 	background: transparent url("img/settings_button.png") no-repeat top left;
-}
-
-.topbar-menu-disconnect {
-	background: transparent url("img/shutdown_button.png") no-repeat top left;
 }
 
 i.zappy-logo {
