@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Mon Jul  2 17:00:30 2012 lois burg
+** Last update Mon Jul  2 18:31:08 2012 lois burg
 */
 
 #include <stdio.h>
@@ -72,7 +72,7 @@ void		write_user(void *ptr)
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
-      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, 0);
+      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
       if (l == -1)
 	perror("send :");
       user->idx += l;
