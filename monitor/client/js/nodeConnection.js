@@ -11,7 +11,8 @@ var socket = io.connect('http://localhost', {
 	lastTimestamp = 0,
 	layers,
 	inventoryOpenId = -1,
-	currentTeam = "";
+	currentTeam = "",
+	zoom = 10;
 
 socket.on("disconnect", function(){
 	

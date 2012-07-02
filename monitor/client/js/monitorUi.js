@@ -32,6 +32,21 @@ $(function() {
 		$("#overlay").fadeOut(300);
 	});
 	
+	$("body").mousewheel(function(event, delta) {
+		if (delta > 0)
+			zoom = ((zoom == 10) ? (10) : (zoom + 1));
+		else
+			zoom = ((zoom == 1) ? (1) : (zoom - 1));
+		
+		layers.clear("cMap");
+		var tileSize = layers.getTileSize();
+		console.log(layers.getTileLevel(zoom));
+		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
+		
+		map_draw(cache.getWidth(), cache.getHeight(), layers);
+	});
+	
+	
 	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);

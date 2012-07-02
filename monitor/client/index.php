@@ -9,6 +9,7 @@
   		<script src="js/libs/jquery-ui.min.js"></script>
   		<script src="js/libs/jquery.flot.min.js"></script>
 		<script src="js/libs/jquery.flot.pie.min.js"></script>
+		<script src="js/libs/jquery.mousewheel.js"></script>
   		<?php
   			$port = "24542";
   			if (isset($_GET['port']) && is_numeric($_GET['port']))
