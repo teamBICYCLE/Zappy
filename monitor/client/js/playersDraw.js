@@ -12,11 +12,17 @@ function players_draw(layers) {
 		4: "player-east"
     }
 
-    layers.clear("cPlayers");    
+    layers.clear("cPlayers");
+    //var c = layers.get("cPlayers");
+    
+    //c.ctx.globalAlpha = 1;
 	for (var i = 0; i != cache.getPlayers().length; i++)
 	{
 		var player = cache.getPlayers()[i];
 
-		layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_);
+		if (player.team_ == currentTeam || currentTeam == "")
+			layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_, false);
+		else
+			layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_, true);
 	}
 }

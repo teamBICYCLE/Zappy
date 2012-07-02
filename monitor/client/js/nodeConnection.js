@@ -10,7 +10,8 @@ var socket = io.connect('http://localhost', {
 	}),
 	lastTimestamp = 0,
 	layers,
-	inventoryOpenId = -1;
+	inventoryOpenId = -1,
+	currentTeam = "";
 
 socket.on("disconnect", function(){
 	

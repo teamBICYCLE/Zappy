@@ -13,7 +13,7 @@ function highlight_draw(layers) {
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 		{
 		    layers.clear("cHighLight");
-		    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
+		    layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y, false);
 		    displayCaseContent(mapPos, layers, "cHighLight");
 		}
 	});
@@ -23,9 +23,8 @@ function highlight_draw(layers) {
 		if ((mapPos.x >= 0 && mapPos.x < layers.getMapSize().width)
 	    && (mapPos.y >= 0 && mapPos.y < layers.getMapSize().height))
 		{		
-			console.log(layers.getMapSize().width);
 		    layers.clear("cHighLight");
-	    	layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y);
+	    	layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y, false);
 		}
     });
 }

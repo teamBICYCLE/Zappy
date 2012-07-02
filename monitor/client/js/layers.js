@@ -46,7 +46,7 @@ Layers.prototype.padding = function(canvas) {
 	return ({left: leftOffset, top: topOffset});
 }
 
-Layers.prototype.draw = function(canvas, img, x, y) {
+Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 	
 	x = parseInt(x);
 	y = parseInt(y);
@@ -54,7 +54,14 @@ Layers.prototype.draw = function(canvas, img, x, y) {
 		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
 		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 
+	if (alpha)
+	{
+		c.ctx.save();
+		c.ctx.globalAlpha = 0.4;
+	}
 	c.ctx.drawImage(this.imgs.get(img), leftD, topD);
+	if (alpha)
+		c.ctx.restore();
 }
 
 Layers.prototype.drawFromPixel = function(canvas, img, x , y) {

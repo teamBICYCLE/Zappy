@@ -42,7 +42,6 @@ $(function() {
 	$(".topbar-menu-players").click(function(){
 		displayPlayersList();
 	});
-	
 });
 
 function displayError(msg) {
@@ -186,7 +185,7 @@ function addTeamsToPanel() {
 	for (var i = 1; i <= nbTeams; i++) {
 		var infos = cache.getTeamInfo(i);
 
-		$(".panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+		$(".panel-stats").append("<div class='teambox' id='teamid-" + infos.name + "'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
 										+ "<span class='team-name'>Name: "
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
@@ -232,6 +231,16 @@ function initTeamPanel() {
 		}
 		$(".chart", this).slideToggle("slow");
    });
+   
+   $(".teambox").mouseover(function(e) {
+   		//console.log(e.currentTarget.id.split("-")[1] + "currentTeam");
+		if (e.currentTarget.id.split("-")[1] != currentTeam)
+			currentTeam = e.currentTarget.id.split("-")[1];
+	});
+	
+	$(".teambox").mouseout(function(e) {
+			currentTeam = "";
+	});
 }
 
 function detectTeamPanelChange(prev, now) {

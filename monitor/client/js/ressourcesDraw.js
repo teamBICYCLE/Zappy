@@ -12,6 +12,6 @@ function ressources_draw(layers) {
 			sprite = cache.getSprite(aCase);
 			
 		if (sprite != null && !cache.playerHere(aCase.x, aCase.y))	
-			layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y);
+			layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y, false);
 	}
 }
