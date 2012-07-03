@@ -5,21 +5,32 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Fri Jun 29 15:25:58 2012 thibault carpentier
+// Last update Mon Jul  2 15:33:57 2012 thibault carpentier
 //
 
 #include <cstdlib>
 #include <iostream>
 #include "Trantorien/Map.hh"
+#include "Trantorien/Trantorien.hh"
 
 int main(int argc, char *argv[])
 {
 
 
-  Map jaques(std::pair<int, int>(10, 5));
+  Map jaques(std::pair<int, int>(2, 2));
 
-  jaques.voir("{joueur sibur phiras,, sibur, linemate, linemate, sibur, sibur linemate, linemate, linemate, linemate, sibur, nourriture, nourriture, nourriture, linemate, linemate}");
-  // jaques.avancer();
+  jaques.test();
+  jaques.voir("{ joueur sibur, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur mendiane mendiane, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur}");
+
+
+
+	      //{joueur sibur sibur,, sibur, sibur, sibur, sibur, sibur sibur, sibur, sibur, sibur, sibur, nourriture, nourriture, nourriture, sibur, sibur}");
+  jaques.test();
+  jaques.prendre("sibur");
+  //jaques.test();
+  //  jaques.poser("nourriture");
+  //jaques.test();
+//  jaques.avancer();
   // jaques.avancer();
   // Inventory eude;
 
