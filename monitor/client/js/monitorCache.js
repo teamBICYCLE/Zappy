@@ -110,10 +110,10 @@ MonitorCache.prototype.getSprite = function(aCase) {
 		return sprite.name;
 	else if (sprite.nb <= 2)
 		sprite.name += "_small";
-	else if (sprite.nb > 2 && sprite.nb <= 4)
-		sprite.name += "_medium";
 	else
-		sprite.name += "_large";
+		sprite.name += "_medium";
+	// else
+		// sprite.name += "_large";
 	return sprite.name;
 }
 
@@ -186,6 +186,14 @@ MonitorCache.prototype.getPlayer = function(id) {
 			return this.players_[i];
 			
 	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+MonitorCache.prototype.playerHere = function(x, y) {
+	
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].posx_ == x && this.players_[i].posy_ == y)
+			return true;
+	return false;
 }
 
 MonitorCache.prototype.setInventoryChange = function(id, v) {

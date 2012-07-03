@@ -28,7 +28,7 @@ class VM : public LuaVirtualMachine::Script {
 
   // initializers
   void    init(const std::string & conf, const std::string & luaFile);
-  void    init2(const std::string & conf, const std::string & luaFile);
+  void    readConfFile(const std::string & conf, const std::string & luaFile);
 
 
   void    addState(const std::string & stateName);
@@ -60,6 +60,7 @@ template <typename X>
 void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
   //  init2(conf, luaFile);
+  readConfFile(conf, luaFile);
 
   int     transitions[] = {1, 0, 0};
   int     transitions2[] = {2, 1, 1};
@@ -77,21 +78,17 @@ void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 }
 
 template <typename X>
-void FSM::VM<X>::init2(const std::string &confPath, const std::string &luaFilePath)
+void FSM::VM<X>::readConfFile(const std::string &confPath, const std::string &luaFilePath)
 {
   std::ifstream       confStream(confPath);
   std::string         line;
- //std::list<Lexemes>  lexemes;
 
   if (!confStream.good())
     throw LuaVirtualMachine::Failure("Open configuration file", "could not be open");
-  try {
-   // lexemes = lex(confStream);
-//    parse(lexemes);
-  }
-  catch (LuaVirtualMachine::Failure & e) {
-    std::cout << e.what() << std::endl;
-  }
+  while (std::getline(confStream, line))
+    {
+      std::cout << "line = " <<  line << std::endl;
+    }
 }
 
 template <typename X>

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 29 15:26:27 2012 Jonathan Machado
+** Last update Mon Jul  2 18:34:33 2012 lois burg
 */
 
 #include <stdio.h>
@@ -23,16 +23,14 @@ extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
 {
-  char		*orig_cmd;
-  char		**cmd;
+  t_task_info	ti;
 
-  (void)u;
-  orig_cmd = strdup(str);
-  cmd = parse(str, " \t\n");
-  if (cmd != NULL && cmd[0] == NULL)
-    free(str);
-  if (cmd != NULL)
-    exec_cmd(u, cmd, orig_cmd);
+  memset(&ti, 0, sizeof(ti));
+  ti.data = str;
+  ti.duplicate = strdup(ti.data);
+  ti.args = parse(ti.data, " \t\n");
+  if (ti.args != NULL)
+    exec_cmd(u, &ti);
 }
 
 void		add_user(void)
@@ -69,20 +67,24 @@ void		write_user(void *ptr)
   t_users      	*user;
   char		*str;
 
+  l = 0;
   user = ptr;
-  if (user->messages->size > 0 &&
+  if (l != -1 && user->messages->size > 0 &&
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
-      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, 0);
+      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
       if (l == -1)
 	perror("send :");
-      user->idx += l;
-      if (user->idx >= strlen(str))
+      else
 	{
-	  user->idx = 0;
-	  free(str);
-	  free(pop_front(user->messages));
+	  user->idx += l;
+	  if (user->idx >= strlen(str))
+	    {
+	      user->idx = 0;
+	      free(str);
+	      free(pop_front(user->messages));
+	    }
 	}
     }
 }
@@ -107,8 +109,15 @@ void		read_user(void *ptr)
 	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
 	  log_msg(stdout, msg);
 	  delete_link(l, &free_users);
+	  user = NULL;
 	}
-      else if ((str = get_data(user->readring)) != NULL)
-	handle_cmd(user, str);
+      else if (user->type == TGRAPHICS)
+	printf("-s-\n%s-e-\n", user->readring->data);
+    }
+  if (user != NULL && user->readring->end != 0 &&
+      (str = get_data(user->readring)) != NULL)
+    {
+      puts("ok");
+      handle_cmd(user, str);
     }
 }

@@ -5,17 +5,22 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Mon Jul  2 15:33:57 2012 thibault carpentier
 //
 
 #include <cstdlib>
 #include <iostream>
-#include "Trantorien/Map.hh"
 #include "Trantorien/Trantorien.hh"
+#include "Trantorien/Map.hh"
+#include "FSM/Lexeme.hh"
+
+#include <fstream>
 
 int main(int argc, char *argv[])
 {
+  // Trantorien  joe("localhost", "4242");
 
+  // joe.run();
+//  Map jaques(std::pair<int, int>(10, 5));
 
   Map jaques(std::pair<int, int>(2, 2));
 
@@ -30,18 +35,20 @@ int main(int argc, char *argv[])
   //jaques.test();
   //  jaques.poser("nourriture");
   //jaques.test();
-//  jaques.avancer();
+  //  jaques.avancer();
+  //  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
+  // jaques.avancer();
   // jaques.avancer();
   // Inventory eude;
 
-//  (void)argc;
-//  (void)argv;
+  //  (void)argc;
+  //  (void)argv;
 
   // eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
 
-   // Trantorien  joe("localhost", "4242");
+  // Trantorien  joe("localhost", "4242");
 
-   // joe.run();
+  // joe.run();
 
 //  Example toto;
 

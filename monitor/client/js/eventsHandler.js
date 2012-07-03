@@ -4,12 +4,15 @@
 
 function events_handler(layers) {
 	
+	$("#cEvents").unbind('click');
+	$("#cEvents").unbind('mousemove');
+	
 	$("#cEvents").click(function(e) {
 		
 		var pos = getMousePosition(e),
     		mapPos = realToMap(pos, layers, "cHighLight"),
     		players = cache.getPlayers();
-    	$("#cHighLight").trigger('click', [pos, mapPos]);
+    	$("#cHighLight").trigger('click', [mapPos]);
     	
     	for (var i = 0; i != players.length; i++)
     		if (players[i].posx_ == mapPos.x && players[i].posy_ == mapPos.y)

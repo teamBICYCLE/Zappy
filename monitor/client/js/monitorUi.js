@@ -32,22 +32,42 @@ $(function() {
 		$("#overlay").fadeOut(300);
 	});
 	
+	$("body").mousewheel(function(event, delta) {
+		if (delta > 0)
+			zoom = ((zoom == 10) ? (10) : (zoom + 1));
+		else
+			zoom = ((zoom == 1) ? (1) : (zoom - 1));
+		
+		layers.clear("cMap");
+		var tileSize = layers.getTileSize();
+		console.log(layers.getTileLevel(zoom));
+		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
+		
+		map_draw(cache.getWidth(), cache.getHeight(), layers);
+	});
+	
+	
+	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);
 		$(".case-content").fadeOut(300);
 	});
+	*/
 	
+	$(".topbar-menu-players").click(function(){
+		displayPlayersList();
+	});
 });
 
 function displayError(msg) {
 	$("#errorBox .errorText").text("Error : " + msg);
-	$("#errorBox").fadeIn(1500).delay(1000).fadeOut(3000);
+	$("#errorBox").fadeIn(500).delay(1000).fadeOut(1500);
 }
 
-function displayCaseContent(pos, mapPos, layer, canvas) {
+function displayCaseContent(mapPos, layer, canvas) {
     var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
     
-    	$(".case-content-position").text("Position.x = "+mapPos.x+", Position.y = "+mapPos.y);
+    	$(".case-content-position").text("Position ("+mapPos.x+", "+mapPos.y + ")");
 		$(".tiny-food .count").text(ressources[0]);
 		$(".tiny-linemate .count").text(ressources[1]);
 		$(".tiny-deraumere .count").text(ressources[2]);
@@ -67,13 +87,6 @@ function fadeAndRemove() {
 			fadeAndRemove();
 	})
 }
-
-// function addMessage(msg) {
-	// if ($("#cmdResult .entry").length >= 5)
-		// $("#cmdResult span:first-child").remove();
-	// $("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
-	// $('#cmdResult span:last-child').fadeOut(7000);
-// }
 
 function addMessage(msg) {
 	
@@ -187,7 +200,7 @@ function addTeamsToPanel() {
 	for (var i = 1; i <= nbTeams; i++) {
 		var infos = cache.getTeamInfo(i);
 
-		$(".panel-stats").append("<div class='teambox'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
+		$(".panel-stats").append("<div class='teambox' id='teamid-" + infos.name + "'><div class='teamstats'><div class='team-picture' style='background-color:"+infos.color+"'></div>"
 										+ "<span class='team-name'>Name: "
 										+ infos.name + "</span><span class='team-effective'>Effective: " + infos.number + "</span>"
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
@@ -233,6 +246,16 @@ function initTeamPanel() {
 		}
 		$(".chart", this).slideToggle("slow");
    });
+   
+   $(".teambox").mouseover(function(e) {
+   		//console.log(e.currentTarget.id.split("-")[1] + "currentTeam");
+		if (e.currentTarget.id.split("-")[1] != currentTeam)
+			currentTeam = e.currentTarget.id.split("-")[1];
+	});
+	
+	$(".teambox").mouseout(function(e) {
+			currentTeam = "";
+	});
 }
 
 function detectTeamPanelChange(prev, now) {
@@ -254,5 +277,21 @@ function updateTeamPanel(prev, now) {
 		{
 			$(".panel-stats").children().remove();
 			initTeamPanel();
+			updatePlayerList();
 		}	
+}
+
+/* PLAYERS LIST */
+
+function displayPlayersList() {
+	//genere les <li> a append dans .players-list-content
+	var players = cache.getPlayers();
+	console.log("displayPlayerList");
+	
+	// appeler showInventory(idDuPlayer);
+}
+
+function updatePlayerList() {
+	$(".players-list-content").children().remove();
+	displayPlayersList();
 }
