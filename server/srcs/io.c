@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jul  3 12:11:14 2012 lois burg
+** Last update Tue Jul  3 13:07:36 2012 lois burg
 */
 
 #include <stdio.h>
@@ -46,8 +46,8 @@ void		add_user(void)
       new.id = g_player_id++;
       new.lvl = 1;
       new.dir = NORTH;
-      new.inventory[FOOD] = 10;
-      new.life = (new.inventory[FOOD] * 126) * 500;/* * 500 temporaire */
+      new.inventory[FOOD] = 5;
+      new.life = (new.inventory[FOOD] * 126);// * 500;/* * 500 temporaire */
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
