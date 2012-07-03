@@ -59,7 +59,7 @@ protected:
 template <typename X>
 void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
-  init2(conf, luaFile);
+  //  init2(conf, luaFile);
 
   int     transitions[] = {1, 0, 0};
   int     transitions2[] = {2, 1, 1};

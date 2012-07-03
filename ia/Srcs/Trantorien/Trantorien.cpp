@@ -17,7 +17,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
       //      std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init("conf.cfg", "script.lua");
+    init("conf.cfg", "Scripts/cript.lua");
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -71,6 +71,8 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   ret = network_.getline();
   if (ret != "ko")
     map_.voir(ret);
+  map_.test();
+  abort();
   return 0;
 }
 
@@ -99,7 +101,10 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 	  network_.cmd("prend " + object);
 	  std::string result = network_.getline();
 	  if (result == "ok")
-	    inventory_.prendre(object);
+	    {
+	      inventory_.prendre(object);
+	      map_.prendre(object);
+	    }
 	  //	  lua_pushstring(state, result.c_str());
 	}
     }
@@ -139,7 +144,10 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           network_.cmd("pose " + object);
           std::string result = network_.getline();
           if (result == "ok")
-            inventory_.poser(object);
+            {
+	      inventory_.poser(object);
+	      map_.poser(object);
+	    }
           //lua_pushstring(state, result.c_str());
         }
     }
