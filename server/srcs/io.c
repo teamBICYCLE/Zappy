@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Mon Jul  2 18:34:33 2012 lois burg
+** Last update Tue Jul  3 12:11:14 2012 lois burg
 */
 
 #include <stdio.h>
@@ -101,7 +101,7 @@ void		read_user(void *ptr)
     {
       if (read_data(user->socket, user->readring) == 0)
 	{
-	  if (user->team && user->type != TFORMER_GHOST)
+	  if (user->team && user->type == TPLAYER)
 	    ++user->team->free_slots;
 	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
 	  if (user->type != TGRAPHICS)

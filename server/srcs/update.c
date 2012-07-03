@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Mon Jul  2 16:13:50 2012 lois burg
+** Last update Tue Jul  3 12:44:43 2012 lois burg
 */
 
 #include <string.h>
@@ -69,6 +69,7 @@ static	void	decr_life(void *ptr)
 	{
 	  --u->life;
 	  u->inventory[FOOD] = u->life / 126;
+	  lookup(g_info.users, graphics_pin(u), &notify_graphic);
 	}
     }
 }
