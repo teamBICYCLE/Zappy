@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:02:40 2012 lois burg
-** Last update Thu Jun 21 18:14:17 2012 lois burg
+** Last update Tue Jul  3 11:51:47 2012 lois burg
 */
 
 #include <string.h>
@@ -63,11 +63,11 @@ static void	send_players(t_users *usr)
       if ((plyr_lnk = get_link(g_info.users, i)))
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
-	  if (plyr->team)
+	  if (plyr->team && plyr->type != TGRAPHICS)
 	    {
 	      if (plyr->type == TEGG)
 		msg = graphics_enw(plyr);
-	      else if (plyr->type != TGRAPHICS)
+	      else
 		msg = graphics_pnw(plyr);
 	      push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
 	    }
