@@ -7,12 +7,16 @@
 function MapCase() {
 
 	this.ressources_ = [0, 0, 0, 0, 0, 0, 0];
+	this.x_ = 0;
+	this.y_ = 0;
 	this.spell_ = -1;
 	this.spellAnimation = 5;
 }
 
-function MapCase(f, l, d, s, m, p, t) {
+function MapCase(x, y, f, l, d, s, m, p, t) {
 	
+	this.x_ = x;
+	this.y_ = y;
 	this.ressources_ = [f, l, d, s, m, p, t];
 }
 

@@ -13,6 +13,9 @@ var xsize_ = 0,
 	players_ = new Array(),
 	eggs_ = new Array(),
 	cmdMessages_ = new Array();
+	changeMap_ = new Array();
+	
+var Case = require("./objects/mapCase.js");
 	
 /* SET */
 
@@ -64,9 +67,7 @@ function random_color(h, s, v) {
   g = parseInt(g * 256);
   b = parseInt(b * 256);
   
-  console.log(r + " " + g + " " + b);
   ret = b | (g << 8) | (r << 16);
-  console.log('#' + ret.toString(16));
   return '#' + ret.toString(16);
 }
 
@@ -82,7 +83,13 @@ exports.addTeamColor = function() {
 }
 
 exports.setCase = function(x, y, ressources) {
+	
 	map_.setCase(this, x, y, ressources);
+	
+	var aCase = new Case(x, y, ressources[0], ressources[1],
+									ressources[2], ressources[3], 
+									ressources[4], ressources[5], ressources[6]);
+	changeMap_.push(aCase);
 }
 
 exports.addPlayer = function(arg) {
@@ -129,11 +136,15 @@ exports.getXSize = function() {
 }
 
 exports.getMapSize = function() {
-	return "x : " + xsize_ + " | y : " + ysize_;
+	return "width : " + xsize_ + ", height : " + ysize_;
 }
 
 exports.getCurrentTimeUnit = function() {
 	return currentTimeUnit_;
+}
+
+exports.getCurrentTimeUnitText = function() {
+	return "Server current time unit : " + currentTimeUnit_ + " ms";
 }
 
 exports.getTeams = function() {
@@ -155,6 +166,10 @@ exports.getTeamColor = function(team) {
 
 exports.getMap = function() {
 	return map_;
+}
+
+exports.getChangeMap = function() {
+	return changeMap_;
 }
 
 exports.getFormatedMap = function() {
@@ -220,4 +235,8 @@ exports.dump = function() {
 
 exports.cmdMessagesEmpty = function() {
 	cmdMessages_ = [];
+}
+
+exports.changeMapEmpty = function() {
+	changeMap_ = [];
 }

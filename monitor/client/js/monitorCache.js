@@ -63,6 +63,26 @@ MonitorCache.prototype.getTeamsColor = function() {
 	return this.teamsColor_;
 }
 
+MonitorCache.prototype.updateMap = function(data) {
+	
+	var target, x, y;
+	
+	for (var i = 0; i != data.length; i++)
+		{
+			x = parseInt(data[i].x_);
+			y = parseInt(data[i].y_);
+			target = (y * this.ysize_) + x;
+			if (this.ysize_ != 0 && this.xsize_ != 0 &&
+				x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
+				{
+					this.map_[target] = data[i];
+					console.log(data[i]);
+				}
+			else
+				console.log("Something wrong in MonitorCache.updateMap()");
+		}
+}
+
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
     var target = (parseInt(y) * this.ysize_) + parseInt(x);
     
@@ -89,13 +109,13 @@ MonitorCache.prototype.getCase = function(target) {
 MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
 	var sprite = 0,
-   		value = aCase.ressources[0];
+   		value = aCase.ressources_[0];
    		
-   	for (var i = 0; i != aCase.ressources.length; i++)
-   		if (aCase.ressources[i] > value)
+   	for (var i = 0; i != aCase.ressources_.length; i++)
+   		if (aCase.ressources_[i] > value)
    		{
    			sprite = i;
-   			value = aCase.ressources[i];
+   			value = aCase.ressources_[i];
    		}
    	if (value != 0)
    		return ({name: this.ref[sprite], nb: value});

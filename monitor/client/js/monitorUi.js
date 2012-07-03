@@ -65,7 +65,7 @@ function displayError(msg) {
 }
 
 function displayCaseContent(mapPos, layer, canvas) {
-    var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
+    var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources_;
     
     	$(".case-content-position").text("Position ("+mapPos.x+", "+mapPos.y + ")");
 		$(".tiny-food .count").text(ressources[0]);

@@ -31,7 +31,7 @@ function sendCmd(cmd) {
 	cmd = cleanCmd(cmd);
 	
 	if (cmd == "help")
-		addMessage("Available commands : tna, msz, bct, mct, ppo, plv, pin, sgt, sst, help");
+		addMessage("Available commands : tna, msz, bct, ppo, plv, pin, sgt, sst, help");
 	else if (cmd != "" && checkCmd(cmd))
 	{
 		socket.emit('requestData', {cmd : cmd});
@@ -49,7 +49,6 @@ var ref = {
   "tna": 1, 
   "msz": 1,
   "bct": 3,
-  "mct": 1,
   "ppo": 2,
   "plv": 2,
   "pin": 2,

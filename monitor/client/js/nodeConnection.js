@@ -77,7 +77,7 @@ socket.on('cacheUpdate', function(data){
 		prevPlayers = cache.getPlayers();
 		prevInfo = cache.getAllTeamInfo();
 		
-		cache.setMap(data.map);
+		cache.updateMap(data.changeMap);
 		cache.setPlayers(data.players);
 
 		detectInventoryChange(prevPlayers);		

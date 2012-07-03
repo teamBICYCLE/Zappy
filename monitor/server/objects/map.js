@@ -39,7 +39,7 @@ Map.prototype.getCase = function(cache, x, y) {
 		for (var i = 0; i != data_.length; i++)
 		{
 			if (i == target)
-				return ({x: x, y: y, ressources: data_[i].getRessources()});
+				return ({x_: x, y_: y, ressources_: data_[i].getRessources()});
 		}
 	}
 	console.log("Something wrong in Map.getCase()");
@@ -57,7 +57,7 @@ Map.prototype.setCase = function(cache, x, y, ressources) {
 		{
 			if (i == target)
 			{
-				data_[i] = new Case(ressources[0], ressources[1],
+				data_[i] = new Case(x, y, ressources[0], ressources[1],
 									ressources[2], ressources[3], 
 									ressources[4], ressources[5], ressources[6]);
 			}
