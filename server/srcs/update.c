@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Tue Jul  3 12:44:43 2012 lois burg
+** Last update Tue Jul  3 12:54:00 2012 lois burg
 */
 
 #include <string.h>
@@ -43,6 +43,16 @@ static	void	do_task(void *ptr)
     }
 }
 
+static void	decr_and_notify(t_users *u)
+{
+  const size_t 	prev_food = u->inventory[FOOD];
+
+  --u->life;
+  u->inventory[FOOD] = (u->life / 126) + 1;
+  if (prev_food != u->inventory[FOOD])
+    lookup(g_info.users, graphics_pin(u), &notify_graphic);
+}
+
 static	void	decr_life(void *ptr)
 {
   t_users	*u;
@@ -66,11 +76,7 @@ static	void	decr_life(void *ptr)
 	    }
 	}
       else
-	{
-	  --u->life;
-	  u->inventory[FOOD] = u->life / 126;
-	  lookup(g_info.users, graphics_pin(u), &notify_graphic);
-	}
+	decr_and_notify(u);
     }
 }
 
