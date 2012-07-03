@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Mon Jul  2 15:28:33 2012 Jonathan Machado
+** Last update Tue Jul  3 16:10:35 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -42,11 +42,13 @@ int		read_data(int fd, t_ringbuffer *ring)
 {
   int		l;
 
-  if ((l = read(fd, ring->data, ring->size - ring->end - 1)) <= 0)
-    return ((ring->size - ring->end - 1 == 0 ? 1 : 0));
+  l = 0;
+  if (ring->size - ring->end - 1 > 0)
+    if ((l = read(fd, &ring->data[ring->end], ring->size - ring->end - 1)) <= 0)
+      return (l);
   ring->end += l;
   ring->data[ring->end] = 0;
-  return (1);
+  return (l);
 }
 
 char		*get_data(t_ringbuffer *ring)
