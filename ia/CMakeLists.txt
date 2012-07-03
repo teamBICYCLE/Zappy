@@ -4,7 +4,7 @@ project(iazappy)
 set(iazappy_VERSION_MAJOR 0)
 set(iazappy_VERSION_MINOR 3)
 
-ADD_DEFINITIONS(-Wall -std=c++0x)
+ADD_DEFINITIONS(-Wall -std=c++0x -ggdb -g3)
 
 
 include_directories(
@@ -27,5 +27,5 @@ target_link_libraries(
     lua
     boost_system
     boost_regex
-pthread
+    pthread
 )

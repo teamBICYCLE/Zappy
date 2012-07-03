@@ -59,6 +59,7 @@ protected:
 template <typename X>
 void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
+  //  init2(conf, luaFile);
   readConfFile(conf, luaFile);
 
   int     transitions[] = {1, 0, 0};

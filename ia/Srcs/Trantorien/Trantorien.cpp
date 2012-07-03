@@ -14,7 +14,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
     std::cout << "successfully connected" << std::endl;
   else
     {
-      //      std::cout << network_.error().message() << std::endl;
+      //std::cout << network_.error().message() << std::endl;
       abort();
     }
   init("Scripts/conf.le", "Scripts/script.lua");
@@ -71,6 +71,8 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   ret = network_.getline();
   if (ret != "ko")
     map_.voir(ret);
+  map_.test();
+  abort();
   return 0;
 }
 
@@ -94,14 +96,17 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
   for (i = 1; i <= lua_gettop(state); ++i)
     {
       if (lua_isstring(state, i))
-        {
-          std::string object(lua_tostring(state, i));
-          network_.cmd("prend " + object);
-          std::string result = network_.getline();
-          if (result == "ok")
-            inventory_.prendre(object);
-          //	  lua_pushstring(state, result.c_str());
-        }
+	{
+	  std::string object(lua_tostring(state, i));
+	  network_.cmd("prend " + object);
+	  std::string result = network_.getline();
+	  if (result == "ok")
+	    {
+	      inventory_.prendre(object);
+	      map_.prendre(object);
+	    }
+	  //	  lua_pushstring(state, result.c_str());
+	}
     }
   return (0);
 }
@@ -139,7 +144,10 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           network_.cmd("pose " + object);
           std::string result = network_.getline();
           if (result == "ok")
-            inventory_.poser(object);
+            {
+	      inventory_.poser(object);
+	      map_.poser(object);
+	    }
           //lua_pushstring(state, result.c_str());
         }
     }

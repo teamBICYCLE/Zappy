@@ -5,7 +5,6 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun  4 15:13:05 2012 thibault carpentier
-// Last update Sun Jul  1 10:52:14 2012 Thomas Duplomb
 //
 
 #include <cstdlib>
@@ -18,24 +17,38 @@
 
 int main(int argc, char *argv[])
 {
-  Trantorien  joe("localhost", "4242");
+  // Trantorien  joe("localhost", "4242");
 
-  joe.run();
+  // joe.run();
 //  Map jaques(std::pair<int, int>(10, 5));
 
-//  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
+  Map jaques(std::pair<int, int>(2, 2));
+
+  jaques.test();
+  jaques.voir("{ joueur sibur, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur mendiane mendiane, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur}");
+
+
+
+	      //{joueur sibur sibur,, sibur, sibur, sibur, sibur, sibur sibur, sibur, sibur, sibur, sibur, nourriture, nourriture, nourriture, sibur, sibur}");
+  jaques.test();
+  jaques.prendre("sibur");
+  //jaques.test();
+  //  jaques.poser("nourriture");
+  //jaques.test();
+  //  jaques.avancer();
+  //  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
   // jaques.avancer();
   // jaques.avancer();
   // Inventory eude;
 
-//  (void)argc;
-//  (void)argv;
+  //  (void)argc;
+  //  (void)argv;
 
   // eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
 
-   // Trantorien  joe("localhost", "4242");
+  // Trantorien  joe("localhost", "4242");
 
-   // joe.run();
+  // joe.run();
 
 //  Example toto;
 

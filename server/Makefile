@@ -5,7 +5,7 @@
 ## Login   <jonathan.machado@epitech.net>
 ##
 ## Started on  Sat May 12 14:30:37 2012 Jonathan Machado
-## Last update Wed Jun 20 16:17:20 2012 Jonathan Machado
+## Last update Tue Jul  3 18:35:08 2012 lois burg
 ##
 
 CC		= gcc
@@ -15,6 +15,7 @@ NAME		= zappyd
 SRCS_DIR	= srcs/
 INC_DIR		= includes/
 OBJS_DIR	= objs/
+LIB_DIR		= lib/
 
 CFLAGS		+= -W -Wall -Werror -g3 #-O3
 IFLAGS		+= -I $(INC_DIR) -I lib
@@ -23,17 +24,23 @@ DFLAGS		+= -D_BSD_SOURCE -D_XOPEN_SOURCE
 
 SRCS		+= $(wildcard $(SRCS_DIR)*.c)
 
+LIB_SRCS	+= $(wildcard $(LIB_DIR)*.c)
+
 INCLUDES	+= $(wildcard $(INC_DIR)*.h)
 
 OBJS		= $(SRCS:%.c=%.o)
 OBJS		:= $(notdir $(OBJS))
 OBJS		:= $(addprefix $(OBJS_DIR), $(OBJS))
 
-$(NAME)		: $(OBJS)
+$(NAME)		: $(OBJS_DIR) $(OBJS) $(LIB_SRCS)
+		  make -sC ./lib
 		  $(CC) -o $(NAME) $(OBJS) $(LFLAGS)
 
 $(OBJS_DIR)%.o	: $(SRCS_DIR)%.c $(INCLUDES)
 		  $(CC) -c $(CFLAGS) $(DFLAGS) $(IFLAGS) $< -o $@
+
+$(OBJS_DIR)	:
+		  mkdir $(OBJS_DIR)
 
 all		: $(NAME)
 

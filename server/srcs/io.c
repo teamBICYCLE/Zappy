@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jul  3 13:07:36 2012 lois burg
+** Last update Tue Jul  3 18:25:46 2012 lois burg
 */
 
 #include <stdio.h>
@@ -25,12 +25,28 @@ static void	handle_cmd(t_users *u, char *str)
 {
   t_task_info	ti;
 
+  /* printf("Cmd: [%s]\n", str); */
   memset(&ti, 0, sizeof(ti));
   ti.data = str;
   ti.duplicate = strdup(ti.data);
   ti.args = parse(ti.data, " \t\n");
   if (ti.args != NULL)
     exec_cmd(u, &ti);
+}
+
+static void	remove_user(t_users *user)
+{
+  t_link	*l;
+  char		msg[LOG_MSG_SZ];
+
+  if (user->team && user->type == TPLAYER)
+    ++user->team->free_slots;
+  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
+  if (user->type != TGRAPHICS)
+    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
+  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
+  log_msg(stdout, msg);
+  delete_link(l, &free_users);
 }
 
 void		add_user(void)
@@ -75,7 +91,10 @@ void		write_user(void *ptr)
       str = user->messages->head->ptr;
       l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
       if (l == -1)
-	perror("send :");
+	{
+	  perror("send :");
+	  remove_user(user);
+	}
       else
 	{
 	  user->idx += l;
@@ -93,31 +112,19 @@ void		read_user(void *ptr)
 {
   char		*str;
   t_users      	*user;
-  t_link	*l;
-  char		msg[LOG_MSG_SZ];
 
   user = ptr;
   if (FD_ISSET(user->socket, &g_info.readfds))
     {
-      if (read_data(user->socket, user->readring) == 0)
+      if (read_data(user->socket, user->readring) <= 0)
 	{
-	  if (user->team && user->type == TPLAYER)
-	    ++user->team->free_slots;
-	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-	  if (user->type != TGRAPHICS)
-	    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
-	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
-	  log_msg(stdout, msg);
-	  delete_link(l, &free_users);
+	  remove_user(user);
 	  user = NULL;
 	}
-      else if (user->type == TGRAPHICS)
-	printf("-s-\n%s-e-\n", user->readring->data);
+      /* else if (user->type == TGRAPHICS) *\/ */
+      /* 	printf("-s-\n%s-e-\n", user->readring->data); */
     }
   if (user != NULL && user->readring->end != 0 &&
       (str = get_data(user->readring)) != NULL)
-    {
-      puts("ok");
-      handle_cmd(user, str);
-    }
+    handle_cmd(user, str);
 }
