@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Mon Jul  2 18:17:48 2012 thibault carpentier
+// Last update Tue Jul  3 16:42:20 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -144,11 +144,14 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
     {
       boost::regex extract("(" + values_[i] + ")");
       boost::match_results<std::string::const_iterator> what;
-      regex_search(caseContent.begin(), caseContent.end(), what, extract, boost::match_default);
-      if (what[1] != "")
-	//verifier l ajout.
-	items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
-				     updatePosition(currentPos_.second + incrStart, mapsize_.second)));
+      std::string::const_iterator s1 = caseContent.begin();
+      std::string::const_iterator s2 = caseContent.end();
+      while(regex_search(s1, s2, what, extract, boost::match_default))
+	{
+	  s1 = what[0].second;
+	  items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
+				       updatePosition(currentPos_.second + incrStart, mapsize_.second)));
+	}
     }
 }
 
@@ -237,6 +240,8 @@ void Map::poser(const std::string &value)
 	return;
       }
 }
+
+
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"
 

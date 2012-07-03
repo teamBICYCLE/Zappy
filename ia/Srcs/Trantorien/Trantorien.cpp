@@ -14,7 +14,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
     std::cout << "successfully connected" << std::endl;
   else
     {
-      //      std::cout << network_.error().message() << std::endl;
+      //std::cout << network_.error().message() << std::endl;
       abort();
     }
   init("Scripts/conf.le", "Scripts/script.lua");

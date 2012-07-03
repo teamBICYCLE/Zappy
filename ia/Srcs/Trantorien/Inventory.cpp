@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:29 2012 thibault carpentier
-// Last update Mon Jun 25 13:29:17 2012 thibault carpentier
+// Last update Tue Jul  3 16:13:28 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -84,13 +84,13 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
 	{
 	  boost::regex extract(" *" + values_[i] + " +([0-9]+)");
 	  boost::match_results<std::string::const_iterator> what;
-	  regex_search(values.begin(), values.end(), what, extract, boost::match_default);
-	  if (what.size() >= 1)
-	    {
-	      std::stringstream convert;
-	      convert << what[1];
-	      convert >> ret[i];
-	    }
+	  if (regex_search(values.begin(), values.end(), what, extract, boost::match_default))
+	    if (what.size() >= 1)
+	      {
+		std::stringstream convert;
+		convert << what[1];
+		convert >> ret[i];
+	      }
 	}
     }
   else
