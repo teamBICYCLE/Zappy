@@ -5,7 +5,7 @@
 ## Login   <jonathan.machado@epitech.net>
 ##
 ## Started on  Sat May 12 14:30:37 2012 Jonathan Machado
-## Last update Tue Jul  3 18:31:26 2012 lois burg
+## Last update Tue Jul  3 18:35:08 2012 lois burg
 ##
 
 CC		= gcc
@@ -32,12 +32,15 @@ OBJS		= $(SRCS:%.c=%.o)
 OBJS		:= $(notdir $(OBJS))
 OBJS		:= $(addprefix $(OBJS_DIR), $(OBJS))
 
-$(NAME)		: $(OBJS) $(LIB_SRCS)
+$(NAME)		: $(OBJS_DIR) $(OBJS) $(LIB_SRCS)
 		  make -sC ./lib
 		  $(CC) -o $(NAME) $(OBJS) $(LFLAGS)
 
 $(OBJS_DIR)%.o	: $(SRCS_DIR)%.c $(INCLUDES)
 		  $(CC) -c $(CFLAGS) $(DFLAGS) $(IFLAGS) $< -o $@
+
+$(OBJS_DIR)	:
+		  mkdir $(OBJS_DIR)
 
 all		: $(NAME)
 
