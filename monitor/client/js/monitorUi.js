@@ -33,6 +33,9 @@ $(function() {
 	});
 	
 	$("body").mousewheel(function(event, delta) {
+		
+		previousZoom = zoom;
+		
 		if (delta > 0)
 			zoom = ((zoom == 10) ? (10) : (zoom + 1));
 		else
@@ -40,7 +43,6 @@ $(function() {
 		
 		layers.clear("cMap");
 		var tileSize = layers.getTileSize();
-		console.log(layers.getTileLevel(zoom));
 		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
 		
 		map_draw(cache.getWidth(), cache.getHeight(), layers);

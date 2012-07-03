@@ -83,7 +83,6 @@ function update() {
 	});
 	
 	cache.cmdMessagesEmpty();
-	console.log(cache.getChangeMap());
 	cache.changeMapEmpty();
 	setTimeout(update, cache.getCurrentTimeUnit());
 }

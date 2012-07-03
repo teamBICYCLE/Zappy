@@ -7,6 +7,7 @@ var layers = new Layers();
 function Layers(xsize, ysize){
 	
 	this.imgs = new ImgLoader();
+	this.imgs.load();
 	
 	this.canvasHandler = new CanvasHandler();
 	
@@ -66,8 +67,8 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 	x = parseInt(x);
 	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas),
-		// leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
-		// topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
+		//leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
+		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
 	

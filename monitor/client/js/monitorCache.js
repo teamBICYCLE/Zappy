@@ -69,15 +69,13 @@ MonitorCache.prototype.updateMap = function(data) {
 	
 	for (var i = 0; i != data.length; i++)
 		{
+			console.log("UPDATE MAP !");
 			x = parseInt(data[i].x_);
 			y = parseInt(data[i].y_);
 			target = (y * this.ysize_) + x;
 			if (this.ysize_ != 0 && this.xsize_ != 0 &&
 				x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
-				{
 					this.map_[target] = data[i];
-					console.log(data[i]);
-				}
 			else
 				console.log("Something wrong in MonitorCache.updateMap()");
 		}
@@ -88,21 +86,14 @@ MonitorCache.prototype.getCaseFromPos = function(x, y) {
     
 	if (this.ysize_ != 0 && this.xsize_ != 0 &&
 		x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
-	{
-		for (var i = 0; i != this.map_.length; i++)
-		{
-			if (i == target)
-				return this.map_[i];
-		}
-	}
+		return this.map_[target];
 	console.log("Something wrong in MonitorCache.getCase()");
 }
 
 MonitorCache.prototype.getCase = function(target) {
 	
-	for (var i = 0; i != this.map_.length; i++)
-		if (i == target)
-			return this.map_[i];
+	if (target >= 0 && target < this.map_.length)
+		return this.map_[target];
 	displayError("Something wrong in MonitorCache.getCase()");
 }
 

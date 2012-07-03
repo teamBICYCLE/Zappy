@@ -29,15 +29,6 @@ exports.setCurrentTimeUnit = function(t) {
 	currentTimeUnit_ = t;
 }
 
-// function random_color() {
-    // var letters = '0123456789ABCDEF'.split('');
-    // var color = '#';
-    // for (var i = 0; i < 6; i++ ) {
-        // color += letters[Math.round(Math.random() * 15)];
-    // }
-    // return color;
-// }
-
 function random_color(h, s, v) {
 	
 	h += 0.618033988749895;

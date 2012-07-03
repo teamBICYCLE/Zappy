@@ -29,40 +29,29 @@ Map.prototype.make = function(x, y) {
 }
 
 Map.prototype.getCase = function(cache, x, y) {
-	var target = parseInt(y * cache.getXSize()) + parseInt(x);
-
+	
 	x = parseInt(x);
 	y = parseInt(y);
+	var target = parseInt(y * cache.getXSize()) + parseInt(x);
+	
 	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
 		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)
-	{
-		for (var i = 0; i != data_.length; i++)
-		{
-			if (i == target)
-				return ({x_: x, y_: y, ressources_: data_[i].getRessources()});
-		}
-	}
+		return ({x_: x, y_: y, ressources_: data_[target].getRessources()});
 	console.log("Something wrong in Map.getCase()");
 }
 
 Map.prototype.setCase = function(cache, x, y, ressources) {
-	var target = parseInt(y * cache.getXSize()) + parseInt(x);
 	
 	x = parseInt(x);
 	y = parseInt(y);
+	var target = parseInt(y * cache.getXSize()) + parseInt(x);
+	
 	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
 		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)
 	{
-		for (var i = 0; i != data_.length; i++)
-		{
-			if (i == target)
-			{
-				data_[i] = new Case(x, y, ressources[0], ressources[1],
-									ressources[2], ressources[3], 
-									ressources[4], ressources[5], ressources[6]);
-			}
-		}
-		
+		data_[target] = new Case(x, y, ressources[0], ressources[1],
+							ressources[2], ressources[3], 
+							ressources[4], ressources[5], ressources[6]);
 	}
 	else
 		console.log("Something wrong in Cache.setCase()");

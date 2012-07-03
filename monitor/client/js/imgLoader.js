@@ -35,9 +35,13 @@ function ImgLoader() {
 		999 : {name: "undefined", img: new Image()}
 	};
 	
+}
+
+ImgLoader.prototype.load = function() {
+	
 	for (var i = 0; typeof(this.imgs_[i]) != "undefined"; i++)
 		this.imgs_[i].img.src = "img/" + this.imgs_[i].name + ".png";
-		
+	
 	this.imgs_[999].img.src = "img/" + this.imgs_[999].name + ".png";
 }
 

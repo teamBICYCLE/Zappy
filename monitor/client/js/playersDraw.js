@@ -13,9 +13,7 @@ function players_draw(layers) {
     }
 
     layers.clear("cPlayers");
-    //var c = layers.get("cPlayers");
-    
-    //c.ctx.globalAlpha = 1;
+
 	for (var i = 0; i != cache.getPlayers().length; i++)
 	{
 		var player = cache.getPlayers()[i];

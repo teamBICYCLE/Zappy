@@ -12,7 +12,8 @@ var socket = io.connect('http://localhost', {
 	layers,
 	inventoryOpenId = -1,
 	currentTeam = "",
-	zoom = 10;
+	zoom = 10,
+	previousZoom = 10;
 
 socket.on("disconnect", function(){
 	
@@ -38,7 +39,6 @@ socket.on('firstConnection', function(data){
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
 		cache.setPlayers(setInventoryChange(data.players, true));
-		//cache.setPlayers(data.players);
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
@@ -87,7 +87,8 @@ socket.on('cacheUpdate', function(data){
 
 		nowInfo = cache.getAllTeamInfo();
 		
-		ressources_draw(layers);
+		if (data.changeMap.length > 0 || zoom != previousZoom)
+			ressources_draw(layers);
 		players_draw(layers);
 		update_inventory();
 		updateTeamPanel(prevInfo, nowInfo);
