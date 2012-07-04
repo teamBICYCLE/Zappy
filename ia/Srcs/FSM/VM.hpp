@@ -8,9 +8,12 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <boost/regex.hpp>
 
 #include "lua/Script.hh"
 #include "lua/Failure.hh"
+
+#define DEBUG
 
 namespace FSM {
 template <typename X>
@@ -20,18 +23,27 @@ class VM : public LuaVirtualMachine::Script {
   // Types
   typedef bool          (X::* ValidityTest)(void) const;
   typedef int           (X::* ContextInteraction)(LuaVirtualMachine::VirtualMachine &);
+  typedef std::vector< std::pair< std::string, std::vector< int > > > StateVector;
 
   // constructor / destructor
-  VM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test) {}
+  VM(X & context, ValidityTest test): context_(context), currentState_(0), keepRunning_(test)
+  {
+    //retCode_.push_back("SELF");
+  }
 
   virtual ~VM() {}
 
   // initializers
   void    init(const std::string & conf, const std::string & luaFile);
+private:
   void    readConfFile(const std::string & conf, const std::string & luaFile);
+  void    createStates(std::istream & stream);
+  void    setRetValueGlobals();
 
-
+public:
   void    addState(const std::string & stateName);
+  void    addLink(const std::string & startState, const std::string & answer,
+                  const std::string & finalState);
   void    addInteraction(const std::string & fctName, ContextInteraction fct);
 
   // lua handlers
@@ -47,8 +59,8 @@ protected:
   X &                       context_;
   std::vector< ContextInteraction >
   contextFunctions_;
-  std::vector< std::pair< std::string, std::vector< int > > >
-  states_;
+  StateVector               states_;
+  std::vector<std::string>  retCode_;
   unsigned int              currentState_;
   ValidityTest              keepRunning_;
 };
@@ -61,17 +73,17 @@ void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
   readConfFile(conf, luaFile);
 
-  int     transitions[] = {1, 0, 0};
-  int     transitions2[] = {2, 1, 1};
-  int     transitions3[] = {0, 2, 2};
-  std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
-  std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
-  std::vector<int>  tete(transitions3, transitions3 + sizeof(transitions3) / sizeof(int));
+//  int     transitions[] = {1, 0, 0};
+//  int     transitions2[] = {2, 1, 1};
+//  int     transitions3[] = {0, 2, 2};
+//  std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
+//  std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
+//  std::vector<int>  tete(transitions3, transitions3 + sizeof(transitions3) / sizeof(int));
 
-  states_.resize(3);
-  states_[0] = std::make_pair("avance", toto );
-  states_[1] = std::make_pair("voir", tata );
-  states_[2] = std::make_pair("prendre", tete );
+//  states_.resize(3);
+//  states_[0] = std::make_pair("avance", toto );
+//  states_[1] = std::make_pair("voir", tata );
+//  states_[2] = std::make_pair("prendre", tete );
   compileFile(luaFile);
   std::cout << "init done" << std::endl;
 }
@@ -84,9 +96,66 @@ void FSM::VM<X>::readConfFile(const std::string &confPath, const std::string &lu
 
   if (!confStream.good())
     throw LuaVirtualMachine::Failure("Open configuration file", "could not be open");
-  while (std::getline(confStream, line))
+  createStates(confStream);
+  setRetValueGlobals();
+
+  std::cout << std::endl<< "GET READY FOR THE DUMP !" << std::endl;
+  std::for_each(states_.begin(), states_.end(), [&](std::pair<std::string, std::vector<int> > item) -> void {
+                std::cout << item.first << " {";
+      for (unsigned int i = 0; i < item.second.size(); ++i) {
+    std::cout << item.second[i] << ", ";
+  }
+  std::cout << "}" << std::endl;
+});
+}
+
+template <typename X>
+void FSM::VM<X>::createStates(std::istream &stream)
+{
+  boost::regex    state("state: *([a-zA-Z][a-zA-Z0-9_-]*)");
+  boost::regex    link("([a-zA-Z][a-zA-Z0-9_-]*) *\\[([A-Z]+)] *-> *([a-zA-Z][a-zA-Z0-9_-]*)");
+  std::string     line;
+
+  while (std::getline(stream, line))
     {
-      std::cout << "line = " <<  line << std::endl;
+      boost::match_results<std::string::iterator>  what;
+
+#ifdef DEBUG
+      std::cout << "line: " << line << std::endl;
+#endif
+      if (boost::regex_search(line.begin(), line.end(), what, state,
+                          boost::regex_constants::match_default))
+        {
+#ifdef DEBUG
+          std::cout << "MATCHED with " << state.expression() << std::endl;
+          std::cout << "Extracted: " << what[1] << std::endl;
+#endif
+          addState(what[1]);
+        }
+      else if (boost::regex_search(line.begin(), line.end(), what, link,
+                                   boost::regex_constants::match_default))
+        {
+#ifdef DEBUG
+          std::cout << "MATCHED with " << link.expression() << std::endl;
+          std::cout << "Extracted: " << what[1] << " && " << what[2] << " && " << what[3] << std::endl;
+          addLink(what[1], what[2], what[3]);
+#endif
+        }
+#ifdef DEBUG
+      else
+        std::cout << "DID NOT MATCHED" << std::endl;
+#endif
+    }
+}
+
+template <typename X>
+void FSM::VM<X>::setRetValueGlobals()
+{
+  lua_State   *state = getVM().getLua();
+
+  for (unsigned int i = 0; i < retCode_.size(); ++i) {
+      lua_pushinteger(state, i);
+      lua_setglobal(state, retCode_[i].c_str());
     }
 }
 
@@ -95,7 +164,41 @@ void FSM::VM<X>::addState(const std::string &stateName)
 {
   std::vector<int>  toto;
 
-  states_.push_back( std::make_pair(stateName, toto));
+  if (std::find_if(states_.begin(), states_.end(),
+               [stateName](const std::pair<std::string, std::vector<int> > & pair)
+               -> bool {return pair.first == stateName;}) == states_.end())
+    states_.push_back( std::make_pair(stateName, toto));
+}
+
+template <typename X>
+void FSM::VM<X>::addLink(const std::string &startState, const std::string &answer, const std::string &finalState)
+{
+  StateVector::iterator               toEdit, toPoint;
+  std::vector<std::string>::iterator  answerPos;
+
+  // create answer in retCode array
+  answerPos = std::find(retCode_.begin(), retCode_.end(), answer);
+  if (answerPos == retCode_.end())
+    {
+      retCode_.push_back(answer);
+      answerPos = retCode_.begin() + (retCode_.size() - 1);
+      for (int i = 0; i < static_cast<int>(states_.size()); ++i) {
+          states_[i].second.resize(retCode_.size(), i);
+        }
+    }
+  // find position in states array of start and pointed state
+
+  if ((toEdit = std::find_if(states_.begin(), states_.end(),
+               [startState](const std::pair<std::string, std::vector<int> > & pair)
+               -> bool {return pair.first == startState;})) == states_.end())
+    throw LuaVirtualMachine::Failure("add link", startState + " state doesnt exists.");
+  if ((toPoint = std::find_if(states_.begin(), states_.end(),
+                   [finalState](const std::pair<std::string, std::vector<int> > & pair)
+                   -> bool {return pair.first == finalState;})) == states_.end())
+    throw LuaVirtualMachine::Failure("add link", finalState + " state doesnt exists.");
+
+  // push
+  (*toEdit).second[std::distance(retCode_.begin(), answerPos)] = std::distance(states_.begin(), toPoint);
 }
 
 template <typename X>

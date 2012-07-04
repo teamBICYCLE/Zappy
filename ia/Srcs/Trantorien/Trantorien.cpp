@@ -89,10 +89,10 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
-  int i;
+  int i = 1;
 
-  for (i = 1; i <= lua_gettop(state); ++i)
-    {
+//  for (i = 1; i <= lua_gettop(state); ++i)
+//    {
       if (lua_isstring(state, i))
         {
           std::string object(lua_tostring(state, i));
@@ -100,10 +100,10 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
           std::string result = network_.getline();
           if (result == "ok")
             inventory_.prendre(object);
-          //	  lua_pushstring(state, result.c_str());
+          lua_pushstring(state, result.c_str());
         }
-    }
-  return (0);
+//    }
+  return (1);
 }
 
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)

@@ -27,10 +27,10 @@ void	Map::changeDirection(const std::string &direction)
 {
   if (direction == "droite")
     currentOrientation_ = (currentOrientation_ + 1 > OUEST ?
-			   NORD : static_cast<Direction>(currentOrientation_ + 1));
+                           NORD : static_cast<Direction>(currentOrientation_ + 1));
   else if (direction == "gauche")
     currentOrientation_ = (currentOrientation_ - 1 < NORD ?
-			   OUEST : static_cast<Direction>(currentOrientation_ - 1));
+                           OUEST : static_cast<Direction>(currentOrientation_ - 1));
 }
 
 int Map::updatePosition(int value, int size)
@@ -123,16 +123,16 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
   formatValues(distance, incrStart);
   for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
     {
-      std::cout << "testing " << values_[i] << std::endl;
+      //std::cout << "testing " << values_[i] << std::endl;
       boost::regex extract("(" + values_[i] + ")");
       boost::match_results<std::string::const_iterator> what;
       regex_search(caseContent.begin(), caseContent.end(), what, extract, boost::match_default);
       if (what[1] != "")
-	;//	addPosition(i, distance, incrStart);
+        ;//	addPosition(i, distance, incrStart);
     }
-  std::cout << " X : " << distance
-	    << " Y : " << incrStart
-	    << std::endl;
+//  std::cout << " X : " << distance
+//	    << " Y : " << incrStart
+//	    << std::endl;
 }
 
 void Map::analyse(const std::string &values)
@@ -147,15 +147,15 @@ void Map::analyse(const std::string &values)
   while (endCaseParse < std::string::npos)
     {
       if (nbCaseStair != savNbCaseStair)
-	{
-	  incrStart = offset(nbCaseStair);
-	  incrEnd = -incrStart;
-	  savNbCaseStair = nbCaseStair;
-	  distance = incrStart > 0 ? incrStart : -incrStart;
-	}
+        {
+          incrStart = offset(nbCaseStair);
+          incrEnd = -incrStart;
+          savNbCaseStair = nbCaseStair;
+          distance = incrStart > 0 ? incrStart : -incrStart;
+        }
       endCaseParse = values.find(",", beginCaseParse);
       std::string caseSee(values, beginCaseParse, endCaseParse - beginCaseParse);
-      std::cout <<"result : "<< caseSee << std::endl;
+      //std::cout <<"result : "<< caseSee << std::endl;
       // std::cout << "Je me situe a l'etage : " << distance
       // 		<< " comportant " << nbCaseStair << " cases."
       // 		<< "Je vais avoir un offset de  : " << incrStart
@@ -163,14 +163,14 @@ void Map::analyse(const std::string &values)
       remember(caseSee, distance, incrStart);
       beginCaseParse =  endCaseParse + 1;
       if (incrStart == incrEnd)
-	nbCaseStair += 2;
+        nbCaseStair += 2;
       else
-	{
-	  if (currentOrientation_ == EST || currentOrientation_ == NORD)
-	    ++incrStart;
-	  else
-	    --incrStart;
-	}
+        {
+          if (currentOrientation_ == EST || currentOrientation_ == NORD)
+            ++incrStart;
+          else
+            --incrStart;
+        }
     }
 }
 
