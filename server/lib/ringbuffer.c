@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Tue Jul  3 16:10:35 2012 Jonathan Machado
+** Last update Wed Jul  4 14:22:53 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -41,12 +41,23 @@ void		delete_ringbuffer(t_ringbuffer *ring)
 int		read_data(int fd, t_ringbuffer *ring)
 {
   int		l;
+  int		offset;
+  char		garbage[4096];
 
   l = 0;
   if (ring->size - ring->end - 1 > 0)
-    if ((l = read(fd, &ring->data[ring->end], ring->size - ring->end - 1)) <= 0)
+    {
+      if ((l = read(fd, &ring->data[ring->end], ring->size - ring->end - 1)) <= 0)
+	return (l);
+    }
+  else
+    if ((l = read(fd, garbage, sizeof(garbage))) <= 0)
       return (l);
-  ring->end += l;
+  offset = strchr(&ring->data[ring->end], '\0') - &ring->data[ring->end];
+  printf ("%i %i\n",offset, l);
+  if (offset + 1 > l)
+    offset = 0;
+  ring->end += l - offset;
   ring->data[ring->end] = 0;
   return (l);
 }
