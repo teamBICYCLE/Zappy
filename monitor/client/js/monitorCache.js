@@ -63,39 +63,50 @@ MonitorCache.prototype.getTeamsColor = function() {
 	return this.teamsColor_;
 }
 
+MonitorCache.prototype.updateMap = function(data) {
+	
+	var target, x, y;
+	
+	for (var i = 0; i != data.length; i++)
+		{
+			console.log("UPDATE MAP !");
+			x = parseInt(data[i].x_);
+			y = parseInt(data[i].y_);
+			target = (y * this.ysize_) + x;
+			if (this.ysize_ != 0 && this.xsize_ != 0 &&
+				x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
+					this.map_[target] = data[i];
+			else
+				console.log("Something wrong in MonitorCache.updateMap()");
+		}
+}
+
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
     var target = (parseInt(y) * this.ysize_) + parseInt(x);
     
 	if (this.ysize_ != 0 && this.xsize_ != 0 &&
 		x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
-	{
-		for (var i = 0; i != this.map_.length; i++)
-		{
-			if (i == target)
-				return this.map_[i];
-		}
-	}
+		return this.map_[target];
 	console.log("Something wrong in MonitorCache.getCase()");
 }
 
 MonitorCache.prototype.getCase = function(target) {
 	
-	for (var i = 0; i != this.map_.length; i++)
-		if (i == target)
-			return this.map_[i];
+	if (target >= 0 && target < this.map_.length)
+		return this.map_[target];
 	displayError("Something wrong in MonitorCache.getCase()");
 }
 
 MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
 	var sprite = 0,
-   		value = aCase.ressources[0];
+   		value = aCase.ressources_[0];
    		
-   	for (var i = 0; i != aCase.ressources.length; i++)
-   		if (aCase.ressources[i] > value)
+   	for (var i = 0; i != aCase.ressources_.length; i++)
+   		if (aCase.ressources_[i] > value)
    		{
    			sprite = i;
-   			value = aCase.ressources[i];
+   			value = aCase.ressources_[i];
    		}
    	if (value != 0)
    		return ({name: this.ref[sprite], nb: value});
@@ -110,10 +121,10 @@ MonitorCache.prototype.getSprite = function(aCase) {
 		return sprite.name;
 	else if (sprite.nb <= 2)
 		sprite.name += "_small";
-	else if (sprite.nb > 2 && sprite.nb <= 4)
-		sprite.name += "_medium";
 	else
-		sprite.name += "_large";
+		sprite.name += "_medium";
+	// else
+		// sprite.name += "_large";
 	return sprite.name;
 }
 
@@ -186,6 +197,14 @@ MonitorCache.prototype.getPlayer = function(id) {
 			return this.players_[i];
 			
 	displayError("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+}
+
+MonitorCache.prototype.playerHere = function(x, y) {
+	
+	for (var i = 0; i != this.players_.length; i++)
+		if (this.players_[i].posx_ == x && this.players_[i].posy_ == y)
+			return true;
+	return false;
 }
 
 MonitorCache.prototype.setInventoryChange = function(id, v) {

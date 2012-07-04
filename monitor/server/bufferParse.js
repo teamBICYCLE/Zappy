@@ -70,7 +70,6 @@ var pinFct = function(arg, cache){
 	
 	var player = cache.getPlayer(arg[1]);
 	
-	//console.log(player);
 	player.setPosX(arg[2]);
 	player.setPosY(arg[3]);
 	

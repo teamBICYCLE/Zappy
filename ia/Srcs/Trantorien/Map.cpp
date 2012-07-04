@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sat Jun 30 16:08:58 2012 thibault carpentier
+// Last update Tue Jul  3 16:42:20 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -68,7 +68,6 @@ void Map::avancer(void)
       currentPos_.first =  updatePosition(currentPos_.first - 1, mapsize_.first);
       break;
     }
-  //  std::cout << currentPos_.first << " " << currentPos_.second << std::endl;
 }
 
 // temporary
@@ -118,27 +117,63 @@ void Map::formatValues(int &distance, int &incrStart)
     }
 }
 
+void Map::forgetPrevData(int x, int y)
+{
+  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+    {
+      unsigned int j = 0;
+      while (j < items_[i].size())
+        {
+          if (items_[i][j].first == x && items_[i][j].second == y)
+            items_[i].erase(items_[i].begin() + j);
+          else
+            ++j;
+        }
+    }
+
+  (void)x;
+  (void)y;
+}
+
 void Map::remember(const std::string &caseContent, int distance, int incrStart)
 {
   formatValues(distance, incrStart);
+  forgetPrevData(updatePosition(currentPos_.first + distance, mapsize_.first),
+                 updatePosition(currentPos_.second + incrStart, mapsize_.second));
   for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
     {
-      //std::cout << "testing " << values_[i] << std::endl;
       boost::regex extract("(" + values_[i] + ")");
       boost::match_results<std::string::const_iterator> what;
-      regex_search(caseContent.begin(), caseContent.end(), what, extract, boost::match_default);
-      if (what[1] != "")
-        ;//	addPosition(i, distance, incrStart);
+      std::string::const_iterator s1 = caseContent.begin();
+      std::string::const_iterator s2 = caseContent.end();
+      while(regex_search(s1, s2, what, extract, boost::match_default))
+        {
+          s1 = what[0].second;
+          items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
+                                       updatePosition(currentPos_.second + incrStart, mapsize_.second)));
+        }
     }
-//  std::cout << " X : " << distance
-//	    << " Y : " << incrStart
-//	    << std::endl;
+}
+
+void Map::test(void) const
+{
+  for (unsigned int i = 0;  i < (sizeof(values_) / sizeof(std::string)); ++i)
+    {
+      std::vector<position>::const_iterator it;
+
+      std::cout << "Item : " << values_[i] << std::endl;
+      for (it = items_[i].begin(); it != items_[i].end(); ++it)
+        {
+          std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
+        }
+      std::cout << "end item" << std::endl;
+    }
 }
 
 void Map::analyse(const std::string &values)
 {
   // TEST
-  currentOrientation_ = EST;
+  //  currentOrientation_ = EST;
 
   size_t beginCaseParse = 0, endCaseParse = 0;
   unsigned int nbCaseStair = 1, savNbCaseStair = 0;
@@ -155,11 +190,6 @@ void Map::analyse(const std::string &values)
         }
       endCaseParse = values.find(",", beginCaseParse);
       std::string caseSee(values, beginCaseParse, endCaseParse - beginCaseParse);
-      //std::cout <<"result : "<< caseSee << std::endl;
-      // std::cout << "Je me situe a l'etage : " << distance
-      // 		<< " comportant " << nbCaseStair << " cases."
-      // 		<< "Je vais avoir un offset de  : " << incrStart
-      // 		<< std::endl;
       remember(caseSee, distance, incrStart);
       beginCaseParse =  endCaseParse + 1;
       if (incrStart == incrEnd)
@@ -185,6 +215,30 @@ void Map::voir(const std::string &values)
     }
   else
     throw TrantorienFailure("Map voir", "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
+}
+
+void Map::prendre(const std::string &value)
+{
+  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+    if (values_[i] == value)
+      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+        {
+          if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+            {
+              items_[i].erase(it);
+              return;
+            }
+        }
+}
+
+void Map::poser(const std::string &value)
+{
+  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+    if (values_[i] == value)
+      {
+        items_[i].push_back(currentPos_);
+        return;
+      }
 }
 
 

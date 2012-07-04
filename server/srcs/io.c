@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jun 29 15:26:27 2012 Jonathan Machado
+** Last update Tue Jul  3 18:25:46 2012 lois burg
 */
 
 #include <stdio.h>
@@ -23,16 +23,30 @@ extern t_infos	g_info;
 
 static void	handle_cmd(t_users *u, char *str)
 {
-  char		*orig_cmd;
-  char		**cmd;
+  t_task_info	ti;
 
-  (void)u;
-  orig_cmd = strdup(str);
-  cmd = parse(str, " \t\n");
-  if (cmd != NULL && cmd[0] == NULL)
-    free(str);
-  if (cmd != NULL)
-    exec_cmd(u, cmd, orig_cmd);
+  /* printf("Cmd: [%s]\n", str); */
+  memset(&ti, 0, sizeof(ti));
+  ti.data = str;
+  ti.duplicate = strdup(ti.data);
+  ti.args = parse(ti.data, " \t\n");
+  if (ti.args != NULL)
+    exec_cmd(u, &ti);
+}
+
+static void	remove_user(t_users *user)
+{
+  t_link	*l;
+  char		msg[LOG_MSG_SZ];
+
+  if (user->team && user->type == TPLAYER)
+    ++user->team->free_slots;
+  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
+  if (user->type != TGRAPHICS)
+    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
+  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
+  log_msg(stdout, msg);
+  delete_link(l, &free_users);
 }
 
 void		add_user(void)
@@ -48,8 +62,8 @@ void		add_user(void)
       new.id = g_player_id++;
       new.lvl = 1;
       new.dir = NORTH;
-      new.inventory[FOOD] = 10;
-      new.life = (new.inventory[FOOD] * 126) * 500;/* * 500 temporaire */
+      new.inventory[FOOD] = 5;
+      new.life = (new.inventory[FOOD] * 126);// * 500;/* * 500 temporaire */
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
@@ -69,20 +83,27 @@ void		write_user(void *ptr)
   t_users      	*user;
   char		*str;
 
+  l = 0;
   user = ptr;
-  if (user->messages->size > 0 &&
+  if (l != -1 && user->messages->size > 0 &&
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
-      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, 0);
+      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
       if (l == -1)
-	perror("send :");
-      user->idx += l;
-      if (user->idx >= strlen(str))
 	{
-	  user->idx = 0;
-	  free(str);
-	  free(pop_front(user->messages));
+	  perror("send :");
+	  remove_user(user);
+	}
+      else
+	{
+	  user->idx += l;
+	  if (user->idx >= strlen(str))
+	    {
+	      user->idx = 0;
+	      free(str);
+	      free(pop_front(user->messages));
+	    }
 	}
     }
 }
@@ -91,24 +112,19 @@ void		read_user(void *ptr)
 {
   char		*str;
   t_users      	*user;
-  t_link	*l;
-  char		msg[LOG_MSG_SZ];
 
   user = ptr;
   if (FD_ISSET(user->socket, &g_info.readfds))
     {
-      if (read_data(user->socket, user->readring) == 0)
+      if (read_data(user->socket, user->readring) <= 0)
 	{
-	  if (user->team && user->type != TFORMER_GHOST)
-	    ++user->team->free_slots;
-	  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-	  if (user->type != TGRAPHICS)
-	    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
-	  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
-	  log_msg(stdout, msg);
-	  delete_link(l, &free_users);
+	  remove_user(user);
+	  user = NULL;
 	}
-      else if ((str = get_data(user->readring)) != NULL)
-	handle_cmd(user, str);
+      /* else if (user->type == TGRAPHICS) *\/ */
+      /* 	printf("-s-\n%s-e-\n", user->readring->data); */
     }
+  if (user != NULL && user->readring->end != 0 &&
+      (str = get_data(user->readring)) != NULL)
+    handle_cmd(user, str);
 }

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Fri Jun 29 17:01:04 2012 lois burg
+** Last update Tue Jul  3 17:35:18 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -91,21 +91,24 @@ void			run(void)
   sync = 0;
   while (1)
     {
+      /* printf("Nb clients: %u\n", g_info.users->size); */
       reset_fd(&g_info);
-      printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
+      //printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
+	  //	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
 	  gettimeofday(&start, NULL); // start
 
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
 	    add_user();
 	  iterate(g_info.users, &read_user);
-	  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
+	  if ((loop.tv_sec <= 0 && loop.tv_usec <= 0) || sync != 0)
 	    {
-	      printf("Sync: %d\n", sync);
-	      update_map(sync + 1);
+	      if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
+		++sync;
+	      //	      printf("Sync: %d\n", sync);
+	      update_map(sync);
 	      loop = g_info.world.smallest_t;
 	      sync = 0;
 	    }
@@ -118,14 +121,14 @@ void			run(void)
 	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
 		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
 	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
-	  loop.tv_usec = diff % 1000000;
-	  loop.tv_sec = diff / 1000000;
-	  if (loop.tv_sec <= 0 && loop.tv_usec < 0)
+	  if (diff < 0)
 	    {
 	      ++sync;
-	      loop.tv_usec += g_info.world.smallest_t.tv_usec;
-	      loop.tv_sec += g_info.world.smallest_t.tv_sec;
+	      diff += (g_info.world.smallest_t.tv_usec +
+		       g_info.world.smallest_t.tv_sec * 1000000);
 	    }
+	  loop.tv_usec = diff % 1000000;
+	  loop.tv_sec = diff / 1000000;
 	}
     }
 }

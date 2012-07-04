@@ -35,6 +35,7 @@ var ZappyConnection = function (ip, port) {
 			if (cache.isWhole() && first)
 			{
 				self.emit('cacheWhole');
+				cache.addTeamColor();
 				first = false;
 			}
 			// else

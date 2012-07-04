@@ -13,6 +13,9 @@ var xsize_ = 0,
 	players_ = new Array(),
 	eggs_ = new Array(),
 	cmdMessages_ = new Array();
+	changeMap_ = new Array();
+	
+var Case = require("./objects/mapCase.js");
 	
 /* SET */
 
@@ -26,22 +29,58 @@ exports.setCurrentTimeUnit = function(t) {
 	currentTimeUnit_ = t;
 }
 
-function random_color() {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.round(Math.random() * 15)];
-    }
-    return color;
+function random_color(h, s, v) {
+	
+	h += 0.618033988749895;
+	h %= 1;
+	
+	var h_i = parseInt(h * 6),
+		f = h * 6 - h_i,
+		p = v * (1 - s),
+		q = v * (1 - f * s),
+		t = v * (1 - (1 - f) * s),
+		ret, r, g, b;
+  	
+  	if (h_i == 0)
+  		{r = v; g = t; b = p;}
+  	else if (h_i == 1)
+  		{r = q; g = v; b = p;}
+  	else if (h_i == 2)
+  		{r = p; g = v; b = t;}
+  	else if (h_i == 3)
+  		{r = p; g = q; b = v;}
+  	else if (h_i == 4)
+  		{r = t; g = p; b = v;}
+  	else if (h_i == 5)
+  		{r = v; g = p; b = q;}
+  	
+  r = parseInt(r * 256);
+  g = parseInt(g * 256);
+  b = parseInt(b * 256);
+  
+  ret = b | (g << 8) | (r << 16);
+  return '#' + ret.toString(16);
 }
 
 exports.addTeam = function(name) {
 	teams_.push(name);
-	teamsColor_.push(random_color());
+}
+
+exports.addTeamColor = function() {
+	for (var i = 0; i != teams_.length;  i++)
+		teamsColor_.push(random_color(((i + 1) / teams_.length), 0.55, 0.99));
+	teams_.reverse();
+	teamsColor_.reverse();
 }
 
 exports.setCase = function(x, y, ressources) {
+	
 	map_.setCase(this, x, y, ressources);
+	
+	var aCase = new Case(x, y, ressources[0], ressources[1],
+									ressources[2], ressources[3], 
+									ressources[4], ressources[5], ressources[6]);
+	changeMap_.push(aCase);
 }
 
 exports.addPlayer = function(arg) {
@@ -60,7 +99,7 @@ exports.removePlayer = function(argId) {
 	this.addMessage("Player " + id + " died (not enough food)");
 }
 
-exports.addEggs = function(id, x, y) {
+exports.addEgg = function(id, x, y) {
 	var Egg = require("./objects/egg.js");
 	eggs_.push(new Egg(id, x, y));
 }
@@ -88,11 +127,15 @@ exports.getXSize = function() {
 }
 
 exports.getMapSize = function() {
-	return "x : " + xsize_ + " | y : " + ysize_;
+	return "width : " + xsize_ + ", height : " + ysize_;
 }
 
 exports.getCurrentTimeUnit = function() {
 	return currentTimeUnit_;
+}
+
+exports.getCurrentTimeUnitText = function() {
+	return "Server current time unit : " + currentTimeUnit_ + " ms";
 }
 
 exports.getTeams = function() {
@@ -114,6 +157,10 @@ exports.getTeamColor = function(team) {
 
 exports.getMap = function() {
 	return map_;
+}
+
+exports.getChangeMap = function() {
+	return changeMap_;
 }
 
 exports.getFormatedMap = function() {
@@ -179,4 +226,8 @@ exports.dump = function() {
 
 exports.cmdMessagesEmpty = function() {
 	cmdMessages_ = [];
+}
+
+exports.changeMapEmpty = function() {
+	changeMap_ = [];
 }
