@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Sun Jun 17 14:17:48 2012 lois burg
+** Last update Wed Jul  4 17:26:49 2012 Jonathan Machado
 */
 
 #include <stdio.h>
@@ -14,7 +14,8 @@
 #include "diamond_generation.h"
 #include "map.h"
 
-static void	fill_map(t_map *map, t_dmap *dmap, const int elem, const int pctg)
+static void	fill_map(t_map *map, t_dmap *dmap,
+			 const int elem, const int pctg)
 {
   uint	x;
   uint	y;
@@ -56,6 +57,5 @@ t_map		*generate_map(const int x, const int y, int seed)
   dmap = compute_dmap(x, y, seed++);
   fill_map(map, dmap, THYSTAME, (THYSTAME_PCTG * dmap->max_val) / 100.f);
   puts("Done!");
-  /* dump_map(map); */
   return (map);
 }
