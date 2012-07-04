@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jul  4 17:53:40 2012 lois burg
+** Last update Wed Jul  4 18:05:09 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -78,14 +78,12 @@ struct          s_users
 
 struct          s_infos
 {
-  bool		end_game;
   int           ss;
   int           smax;
   fd_set        writefds;
   fd_set        readfds;
   t_list        *users;
   t_map		*map;
-  t_team	*winning_team;
   t_arg_infos	world;
 };
 

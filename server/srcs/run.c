@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Wed Jul  4 17:59:42 2012 lois burg
+** Last update Wed Jul  4 18:05:19 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -77,7 +77,6 @@ static void		init_network(int const port)
 
 void			run(void)
 {
-  char			key;
   int			sync;
   int			diff;
   struct timeval	loop;
@@ -85,57 +84,49 @@ void			run(void)
   struct timeval	end;
 
   init_network(g_info.world.port);
+  init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
+  loop = g_info.world.smallest_t;
+  sync = 0;
   while (1)
     {
-      puts("Press any key to start a game...");
-      read(0, &key, 1);
-      init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
-      loop = g_info.world.smallest_t;
-      sync = 0;
-      while (g_info.end_game != true)
+      /* printf("Nb clients: %u\n", g_info.users->size); */
+      reset_fd(&g_info);
+      //printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
+      if (select(g_info.smax + 1, &g_info.readfds,
+		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  /* printf("Nb clients: %u\n", g_info.users->size); */
-	  reset_fd(&g_info);
-	  //printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
-	  if (select(g_info.smax + 1, &g_info.readfds,
-		     &g_info.writefds, NULL, &loop) != -1)
+	  //printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f));
+	  gettimeofday(&start, NULL); // start
+
+	  if (FD_ISSET(g_info.ss, &g_info.readfds))
+	    add_user();
+	  iterate(g_info.users, &read_user);
+	  if ((loop.tv_sec <= 0 && loop.tv_usec <= 0) || sync != 0)
 	    {
-	      //printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f));
-	      gettimeofday(&start, NULL); // start
-
-	      if (FD_ISSET(g_info.ss, &g_info.readfds))
-		add_user();
-	      iterate(g_info.users, &read_user);
-	      if ((loop.tv_sec <= 0 && loop.tv_usec <= 0) || sync != 0)
-		{
-		  if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
-		    ++sync;
-		  //	      printf("Sync: %d\n", sync);
-		  update_map(sync);
-		  loop = g_info.world.smallest_t;
-		  sync = 0;
-		}
-	      iterate(g_info.users, &write_user);
-
-	      // a metre dans fonction ?
-	      gettimeofday(&end, NULL);
-	      sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
-		       (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	      diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
-		      (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	      diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
-	      if (diff < 0)
-		{
-		  ++sync;
-		  diff += (g_info.world.smallest_t.tv_usec +
-			   g_info.world.smallest_t.tv_sec * 1000000);
-		}
-	      loop.tv_usec = diff % 1000000;
-	      loop.tv_sec = diff / 1000000;
+	      if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
+		++sync;
+	      //	      printf("Sync: %d\n", sync);
+	      update_map(sync);
+	      loop = g_info.world.smallest_t;
+	      sync = 0;
 	    }
+	  iterate(g_info.users, &write_user);
+
+	  // a metre dans fonction ?
+	  gettimeofday(&end, NULL);
+	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
+		   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
+		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
+	  if (diff < 0)
+	    {
+	      ++sync;
+	      diff += (g_info.world.smallest_t.tv_usec +
+		       g_info.world.smallest_t.tv_sec * 1000000);
+	    }
+	  loop.tv_usec = diff % 1000000;
+	  loop.tv_sec = diff / 1000000;
 	}
-      if (g_info.winning_team)
-	printf("The team %s won!\n", g_info.winning_team->name);
-      /*reset_game();*/
     }
 }
