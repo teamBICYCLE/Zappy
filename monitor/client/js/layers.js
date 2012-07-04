@@ -64,13 +64,13 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 	x = parseInt(x);
 	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas),
-		//leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
-		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
-		leftD = ((x - y) * this.tileWidth / 2),
-		topD = ((x + y) * this.tileHeight / 4);
+		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
+		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
+		//leftD = ((x - y) * this.tileWidth / 2),
+		//topD = ((x + y) * this.tileHeight / 4);
 	
 	c.ctx.save();
-	c.ctx.translate((c.width / 2) - (this.tileWidth / 2), (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)));
+	//c.ctx.translate((c.width / 2) - (this.tileWidth / 2), (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)));
 	if (alpha)
 		c.ctx.globalAlpha = 0.4;
 	

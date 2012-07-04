@@ -41,11 +41,17 @@ $(function() {
 		else
 			zoom = ((zoom == 1) ? (1) : (zoom - 1));
 		
-		layers.clear("cMap");
 		var tileSize = layers.getTileSize();
 		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
 		
-		map_draw(cache.getWidth(), cache.getHeight(), layers);
+		if (previousZoom != zoom)
+		{
+			layers.clear("cMap");
+			layers.clear("cHighLight");
+			map_draw(cache.getWidth(), cache.getHeight(), layers);
+			ressources_draw(layers);
+			players_draw(layers);
+		}
 	});
 	
 	
@@ -208,7 +214,7 @@ function addTeamsToPanel() {
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
 										+ "<div class='chart'><div class='chart-content'></div></div></div>");
 	
-		if (infos.number > 0)
+		if (infos.number > 0)		
 			$.plot($(".chart-content:last"), infos.stats,
 			{
 		        series: {
