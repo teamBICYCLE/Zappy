@@ -565,11 +565,12 @@ i.leaf-icon {
 /* PLAYER LIST */
 
 .player-list {
+	min-width: 420px;
 	max-width: 420px;
 	display: none;
-	position: relative; /* PROBLEME A REGLER */
+	position: absolute; /* PROBLEME A REGLER */
 	top:50px;
-	right:-1130px; /* PROBLEME A REGLER */
+	right:50px; /* PROBLEME A REGLER */
 	z-index: 500;
 }
  
