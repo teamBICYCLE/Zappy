@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Mon Jun 25 18:13:12 2012 lois burg
+** Last update Wed Jul  4 14:40:14 2012 lois burg
 */
 
 #include <string.h>
@@ -36,10 +36,10 @@ void		levelup_engaged(const int x, const int y, const int lvl)
     }
 }
 
-static void	send_world(void)
+void	send_world(void)
 {
-  uint		x;
-  uint		y;
+  uint	x;
+  uint	y;
 
   y = 0;
   while (y < g_info.map->y)

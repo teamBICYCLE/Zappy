@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Tue Jul  3 18:32:12 2012 lois burg
+** Last update Wed Jul  4 15:21:14 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -41,16 +41,26 @@ void		delete_ringbuffer(t_ringbuffer *ring)
 int		read_data(int fd, t_ringbuffer *ring)
 {
   int		l;
+  int		offset;
+  char		garbage[4096];
   /* unsigned int i = 0; */
   /* char		toto[4096]; */
 
   l = 0;
   if (ring->size - ring->end - 1 > 0)
-    if ((l = read(fd, &ring->data[ring->end], ring->size - ring->end - 1)) <= 0)
+    {
+      if ((l = read(fd, &ring->data[ring->end], ring->size - ring->end - 1)) <= 0)
+	return (l);
+    }
+  else
+    if ((l = read(fd, garbage, sizeof(garbage))) <= 0)
       return (l);
-    /* printf("Toto: [%s]. l = %d\n", ring->data, l); */
+  /* printf("Toto: [%s]. l = %d\n", ring->data, l); */
   /* strncpy(&ring->data[ring->end], toto, l); */
-  ring->end += l;
+  offset = strchr(&ring->data[ring->end], '\0') - &ring->data[ring->end];
+  if (offset + 1 > l)
+    offset = l;
+  ring->end += offset;
   ring->data[ring->end] = 0;
   /* for (i = 0; i < ring->end; ++i) */
   /*   printf("[%d] ", ring->data[i]); */
@@ -72,9 +82,9 @@ char		*get_data(t_ringbuffer *ring)
 	  memcpy(ret, ring->data, s - ring->data);
 	  ret[s - ring->data] = 0;
 	  memmove(ring->data, s + 1, ring->size - strlen(ret) - 1);
-	  	  /* printf("get_data end: %lu\n", ring->end); */
+	  /* printf("get_data end: %lu\n", ring->end); */
 	  ring->end -= (strlen(ret) + 1);
-	  	  /* printf("get_data end: %lu. [%lu]\n", ring->end, strlen(ret) + 1); */
+	  /* printf("get_data end: %lu. [%lu]\n", ring->end, strlen(ret) + 1); */
 	  if (strlen(ret) && ret[strlen(ret) - 1] == '\r')
 	    ret[strlen(ret) - 1] = 0;
 	}

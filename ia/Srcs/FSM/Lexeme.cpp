@@ -71,7 +71,6 @@ std::list<Lexeme> Lexeme::lex(std::ifstream &input)
 {
   std::list<Lexeme> list;
   std::string       item;
-  boost::regex      regex(regexMap_[WORD]);
 
   while (input >> item)
     {

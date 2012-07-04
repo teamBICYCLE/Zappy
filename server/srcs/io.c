@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jul  3 18:25:46 2012 lois burg
+** Last update Wed Jul  4 14:25:43 2012 lois burg
 */
 
 #include <stdio.h>
@@ -34,17 +34,26 @@ static void	handle_cmd(t_users *u, char *str)
     exec_cmd(u, &ti);
 }
 
-static void	remove_user(t_users *user)
+void		remove_user(t_users *u)
 {
   t_link	*l;
   char		msg[LOG_MSG_SZ];
 
-  if (user->team && user->type == TPLAYER)
-    ++user->team->free_slots;
-  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-  if (user->type != TGRAPHICS)
-    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
-  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
+  l = lookup_and_pop(g_info.users, &u->socket, &cmp_socket);
+  if (u->first_message == false)
+    {
+      if (u->team && u->type == TPLAYER)
+	++u->team->free_slots;
+      if (u->type == TPLAYER || u->type == TFORMER_GHOST)
+	lookup(g_info.users, graphics_pdi(u), &notify_graphic);
+      if (u->life > 0)
+	snprintf(msg, sizeof(msg), "User %d disconnected!\n", u->id);
+      else
+	snprintf(msg, sizeof(msg), "User %d died a horrible death!\n", u->id);
+      loot_plyr(u);
+    }
+  else
+    snprintf(msg, sizeof(msg), "User %d left!\n", u->id);
   log_msg(stdout, msg);
   delete_link(l, &free_users);
 }

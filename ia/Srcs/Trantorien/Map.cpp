@@ -27,10 +27,10 @@ void	Map::changeDirection(const std::string &direction)
 {
   if (direction == "droite")
     currentOrientation_ = (currentOrientation_ + 1 > OUEST ?
-			   NORD : static_cast<Direction>(currentOrientation_ + 1));
+                           NORD : static_cast<Direction>(currentOrientation_ + 1));
   else if (direction == "gauche")
     currentOrientation_ = (currentOrientation_ - 1 < NORD ?
-			   OUEST : static_cast<Direction>(currentOrientation_ - 1));
+                           OUEST : static_cast<Direction>(currentOrientation_ - 1));
 }
 
 int Map::updatePosition(int value, int size)
@@ -123,12 +123,12 @@ void Map::forgetPrevData(int x, int y)
     {
       unsigned int j = 0;
       while (j < items_[i].size())
-	{
-	  if (items_[i][j].first == x && items_[i][j].second == y)
-	    items_[i].erase(items_[i].begin() + j);
-	  else
-	    ++j;
-	}
+        {
+          if (items_[i][j].first == x && items_[i][j].second == y)
+            items_[i].erase(items_[i].begin() + j);
+          else
+            ++j;
+        }
     }
 
   (void)x;
@@ -139,7 +139,7 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
 {
   formatValues(distance, incrStart);
   forgetPrevData(updatePosition(currentPos_.first + distance, mapsize_.first),
-		 updatePosition(currentPos_.second + incrStart, mapsize_.second));
+                 updatePosition(currentPos_.second + incrStart, mapsize_.second));
   for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
     {
       boost::regex extract("(" + values_[i] + ")");
@@ -147,11 +147,11 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
       std::string::const_iterator s1 = caseContent.begin();
       std::string::const_iterator s2 = caseContent.end();
       while(regex_search(s1, s2, what, extract, boost::match_default))
-	{
-	  s1 = what[0].second;
-	  items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
-				       updatePosition(currentPos_.second + incrStart, mapsize_.second)));
-	}
+        {
+          s1 = what[0].second;
+          items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
+                                       updatePosition(currentPos_.second + incrStart, mapsize_.second)));
+        }
     }
 }
 
@@ -163,9 +163,9 @@ void Map::test(void) const
 
       std::cout << "Item : " << values_[i] << std::endl;
       for (it = items_[i].begin(); it != items_[i].end(); ++it)
-	{
-	  std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
-	}
+        {
+          std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
+        }
       std::cout << "end item" << std::endl;
     }
 }
@@ -182,25 +182,25 @@ void Map::analyse(const std::string &values)
   while (endCaseParse < std::string::npos)
     {
       if (nbCaseStair != savNbCaseStair)
-	{
-	  incrStart = offset(nbCaseStair);
-	  incrEnd = -incrStart;
-	  savNbCaseStair = nbCaseStair;
-	  distance = incrStart > 0 ? incrStart : -incrStart;
-	}
+        {
+          incrStart = offset(nbCaseStair);
+          incrEnd = -incrStart;
+          savNbCaseStair = nbCaseStair;
+          distance = incrStart > 0 ? incrStart : -incrStart;
+        }
       endCaseParse = values.find(",", beginCaseParse);
       std::string caseSee(values, beginCaseParse, endCaseParse - beginCaseParse);
       remember(caseSee, distance, incrStart);
       beginCaseParse =  endCaseParse + 1;
       if (incrStart == incrEnd)
-	nbCaseStair += 2;
+        nbCaseStair += 2;
       else
-	{
-	  if (currentOrientation_ == EST || currentOrientation_ == NORD)
-	    ++incrStart;
-	  else
-	    --incrStart;
-	}
+        {
+          if (currentOrientation_ == EST || currentOrientation_ == NORD)
+            ++incrStart;
+          else
+            --incrStart;
+        }
     }
 }
 
@@ -222,13 +222,13 @@ void Map::prendre(const std::string &value)
   for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
     if (values_[i] == value)
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
-	{
-	  if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
-	    {
-	      items_[i].erase(it);
-	      return;
-	    }
-	}
+        {
+          if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+            {
+              items_[i].erase(it);
+              return;
+            }
+        }
 }
 
 void Map::poser(const std::string &value)
@@ -236,8 +236,8 @@ void Map::poser(const std::string &value)
   for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
     if (values_[i] == value)
       {
-	items_[i].push_back(currentPos_);
-	return;
+        items_[i].push_back(currentPos_);
+        return;
       }
 }
 
