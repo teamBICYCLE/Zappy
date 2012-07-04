@@ -38,7 +38,6 @@ socket.on('firstConnection', function(data){
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
 		cache.setPlayers(setInventoryChange(data.players, true));
-		//cache.setPlayers(data.players);
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
@@ -77,7 +76,7 @@ socket.on('cacheUpdate', function(data){
 		prevPlayers = cache.getPlayers();
 		prevInfo = cache.getAllTeamInfo();
 		
-		cache.setMap(data.map);
+		cache.updateMap(data.changeMap);
 		cache.setPlayers(data.players);
 
 		detectInventoryChange(prevPlayers);		
@@ -87,7 +86,9 @@ socket.on('cacheUpdate', function(data){
 
 		nowInfo = cache.getAllTeamInfo();
 		
-		ressources_draw(layers);
+		//console.log(zoom + " " + previousZoom);
+		if (data.changeMap.length > 0)
+			ressources_draw(layers);
 		players_draw(layers);
 		update_inventory();
 		updateTeamPanel(prevInfo, nowInfo);

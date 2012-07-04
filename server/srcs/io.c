@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jul  3 16:11:04 2012 Jonathan Machado
+** Last update Tue Jul  3 18:25:46 2012 lois burg
 */
 
 #include <stdio.h>
@@ -25,6 +25,7 @@ static void	handle_cmd(t_users *u, char *str)
 {
   t_task_info	ti;
 
+  /* printf("Cmd: [%s]\n", str); */
   memset(&ti, 0, sizeof(ti));
   ti.data = str;
   ti.duplicate = strdup(ti.data);

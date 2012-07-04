@@ -28,17 +28,17 @@ static int luaCallMeth(lua_State *lua)
     {
       lua_rawgeti(lua, 1, 0);
       if (lua_islightuserdata(lua, -1))
-	{
-	  Script *script = static_cast<Script *>(lua_touserdata(lua, -1));
-	  int methIdx = lua_tonumber(lua, idx);
-	  if (script && methIdx <= script->getNbMeth())
-	    {
-	      lua_remove(lua, 1);
-	      lua_remove(lua, -1);
-	      nbRet = script->scriptCalling(script->getVM(), methIdx);
-	      success = true;
-	    }
-	}
+        {
+          Script *script = static_cast<Script *>(lua_touserdata(lua, -1));
+          int methIdx = lua_tonumber(lua, idx);
+          if (script && methIdx <= script->getNbMeth())
+            {
+              lua_remove(lua, 1);
+              lua_remove(lua, -1);
+              nbRet = script->scriptCalling(script->getVM(), methIdx);
+              success = true;
+            }
+        }
     }
   if (success == false)
     {
@@ -133,7 +133,10 @@ bool Script::compileFile(const std::string &filename)
     if (lua_pcall(VM_.getLua(), 0, LUA_MULTRET, 0) == 0)
       fSuccess = true;
   if (!fSuccess)
-    throw Failure("compileFile", "Error on compileFile");
+    {
+      std::cout << lua_tostring((lua_State *) VM_.getLua(), -1) << std::endl;
+      throw Failure("compileFile", lua_tostring((lua_State *) VM_.getLua(), -1));
+    }
   return fSuccess;
 }
 
@@ -149,13 +152,13 @@ bool Script::selectFct(const std::string &fctName)
       lua_remove(VM_.getLua(), -2);
       lua_rawgeti(VM_.getLua(), LUA_REGISTRYINDEX, refThis_);
       if (!lua_isfunction(VM_.getLua(), -2))
-	lua_pop(VM_.getLua(), 2);
+        lua_pop(VM_.getLua(), 2);
       else
-	{
-	  nbArgs_ = 0;
-	  fctName_ = fctName;
-	  success = true;
-	}
+        {
+          nbArgs_ = 0;
+          fctName_ = fctName;
+          success = true;
+        }
     }
   return (success);
 }
@@ -166,13 +169,13 @@ bool Script::callFct(int nbRet)
   if (VM_.isFonctionnal())
     {
       if (lua_isfunction(VM_.getLua(), (-1 * (nbArgs_ + 1) - 1)))
-	{
-	  if (lua_pcall(VM_.getLua(), nbArgs_ + 1, nbRet, 0))
-	    throw Failure(lua_tostring(VM_.getLua(), -1), "Error, on lua_pcall");
-	  getReturn(VM_, fctName_);
-	  lua_pop(VM_.getLua(), nbRet);
-	  return (true);
-	}
+        {
+          if (lua_pcall(VM_.getLua(), nbArgs_ + 1, nbRet, 0))
+            throw Failure(lua_tostring(VM_.getLua(), -1), "Error, on lua_pcall");
+          getReturn(VM_, fctName_);
+          lua_pop(VM_.getLua(), nbRet);
+          return (true);
+        }
     }
   return (false);
 }
@@ -187,7 +190,7 @@ bool Script::fctExist(const std::string &filename)
       lua_rawget(VM_.getLua(), -2);
       lua_remove(VM_.getLua(), -2);
       if (lua_isfunction(VM_.getLua(), -1))
-	return (true);
+        return (true);
     }
   return (false);
 }

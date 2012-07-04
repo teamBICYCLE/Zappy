@@ -33,17 +33,25 @@ $(function() {
 	});
 	
 	$("body").mousewheel(function(event, delta) {
+		
+		previousZoom = zoom;
+		
 		if (delta > 0)
 			zoom = ((zoom == 10) ? (10) : (zoom + 1));
 		else
 			zoom = ((zoom == 1) ? (1) : (zoom - 1));
 		
-		layers.clear("cMap");
 		var tileSize = layers.getTileSize();
-		console.log(layers.getTileLevel(zoom));
 		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
 		
-		map_draw(cache.getWidth(), cache.getHeight(), layers);
+		if (previousZoom != zoom)
+		{
+			layers.clear("cMap");
+			layers.clear("cHighLight");
+			map_draw(cache.getWidth(), cache.getHeight(), layers);
+			ressources_draw(layers);
+			players_draw(layers);
+		}
 	});
 	
 	
@@ -65,7 +73,7 @@ function displayError(msg) {
 }
 
 function displayCaseContent(mapPos, layer, canvas) {
-    var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources;
+    var ressources = cache.getCaseFromPos(mapPos.x, mapPos.y).ressources_;
     
     	$(".case-content-position").text("Position ("+mapPos.x+", "+mapPos.y + ")");
 		$(".tiny-food .count").text(ressources[0]);
@@ -206,7 +214,7 @@ function addTeamsToPanel() {
 										+ "<span class='team-maxlvl'>Max level: <span class='team-maxlvl-number'>" + infos.maxLevel + "</span></span></div>"
 										+ "<div class='chart'><div class='chart-content'></div></div></div>");
 	
-		if (infos.number > 0)
+		if (infos.number > 0)		
 			$.plot($(".chart-content:last"), infos.stats,
 			{
 		        series: {

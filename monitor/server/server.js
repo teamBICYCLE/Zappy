@@ -71,28 +71,19 @@ function update() {
 	
 	var cache = zappy.getCache(),
 		players = cache.getPlayers();
-	
-	zappy.getSocket().write("mct\n");
-	zappy.getSocket().write("sgt\n");
-	
-	for (var i = 0; i != players.length; i++)
-	{
-		zappy.getSocket().write("pin " + players[i].getId() + "\n");
-		console.log("pin " + players[i].getId());
-	}
 		
 	client.getClientSocket().emit('cacheUpdate', {
 		xsize: cache.getXSize(),
 		ysize: cache.getYSize(),
-		map: cache.getFormatedMap(),
+		changeMap: cache.getChangeMap(),
 		players: cache.getPlayers(),
 		eggs: cache.getEggs(),
 		messages: cache.getCmdMessages(),
 		timestamp: new Date().getTime()
 	});
 	
-	//console.log("update at " + zappy.getCache().getCurrentTimeUnit());
 	cache.cmdMessagesEmpty();
+	cache.changeMapEmpty();
 	setTimeout(update, cache.getCurrentTimeUnit());
 }
 
@@ -116,8 +107,7 @@ function getCmd(cmd) {
 		ref = {
 		  "tna": zappy.getCache().getTeams(), 
 		  "msz": zappy.getCache().getMapSize(),
-		  "mct": zappy.getCache().getMap(),
-		  "sgt": zappy.getCache().getCurrentTimeUnit()
+		  "sgt": zappy.getCache().getCurrentTimeUnitText()
 		};
 		
 	if (typeof(ref[explode[0]]) != "undefined")

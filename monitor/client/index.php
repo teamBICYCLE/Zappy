@@ -36,8 +36,8 @@
 			<i class="zappy-logo"></i>
 			<i class="leaf-icon"></i>
 			<ul class="topbar-menu">
-				<li class="topbar-menu-settings"></li>
-				<li class="topbar-menu-userlist"></li>
+				<!-- <li class="topbar-menu-settings"></li>
+				<li class="topbar-menu-userlist"></li> -->
 			</ul>
 		</div>
 		<div id="cmdResult"></div>

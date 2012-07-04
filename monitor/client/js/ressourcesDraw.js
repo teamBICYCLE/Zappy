@@ -11,7 +11,11 @@ function ressources_draw(layers) {
 		var aCase = cache.getCase(i),
 			sprite = cache.getSprite(aCase);
 			
-		if (sprite != null && !cache.playerHere(aCase.x, aCase.y))	
-			layers.draw("cRessources", cache.getSprite(aCase), aCase.x, aCase.y, false);
+		if (sprite != null)
+		{	
+			layers.draw("cRessources", cache.getSprite(aCase), aCase.x_, aCase.y_, false);
+			//previousZoom = zoom;
+		}
 	}
+	return;
 }
