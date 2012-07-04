@@ -50,6 +50,7 @@ $(function() {
 			layers.clear("cHighLight");
 			map_draw(cache.getWidth(), cache.getHeight(), layers);
 			ressources_draw(layers);
+			players_draw(layers);
 		}
 	});
 	
