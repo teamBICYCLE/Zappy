@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Tue Jul  3 18:45:35 2012 lois burg
+** Last update Wed Jul  4 17:37:56 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -39,7 +39,7 @@ static void		leave(const char *msg)
   exit(EXIT_FAILURE);
 }
 
-static void		init_world(unsigned int const x, unsigned int const  y, int const seed)
+static void		init_world(const uint x, const uint y, int const seed)
 {
   g_info.ss = -1;
   g_info.users = new_list();
@@ -48,7 +48,6 @@ static void		init_world(unsigned int const x, unsigned int const  y, int const s
       signal(SIGTERM, server_quit) == SIG_ERR)
     perror("signal failed: ");
   g_info.map = generate_map(x, y, seed);
-  /**/
   print_serv_conf(&g_info.world);
   // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 1000000.f));
   /* dump_map(map); */
@@ -58,7 +57,7 @@ static void		init_network(int const port)
 {
   struct sockaddr_in    sin;
   struct protoent	*pe;
-  const int		opt = 1;
+  const int		o = 1;
 
   memset(&sin, 0, sizeof(sin));
   if ((pe = getprotobyname("TCP")) == NULL)
@@ -67,7 +66,7 @@ static void		init_network(int const port)
   sin.sin_family = AF_INET;
   sin.sin_port = htons(port);
   sin.sin_addr.s_addr = INADDR_ANY;
-  setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt));
+  setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&o, sizeof(o));
   if (bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
     leave("bind failed: ");
   if (listen(g_info.ss, 5) == -1)
@@ -97,7 +96,7 @@ void			run(void)
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  //	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
+	  //printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f));
 	  gettimeofday(&start, NULL); // start
 
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
