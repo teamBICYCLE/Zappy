@@ -570,7 +570,7 @@ i.leaf-icon {
 	max-width: 410px;
 	display: none;
 	position: absolute;
-	top:50px;
+	top:45px;
 	right:50px;
 	z-index: 500;
 }
@@ -588,7 +588,7 @@ i.leaf-icon {
 }
 
 .player-list-topbar {
-	height: 30px;
+	height: 25px;
 	background: transparent url("img/player-list-topbar.png") no-repeat top left;
 }
 
@@ -603,7 +603,7 @@ i.leaf-icon {
 	/*padding: 7px 0 0 0;*/
 	height: 30px;
 	margin-bottom: 7px;
-	background: transparent url("img/case-content-topbar.png") no-repeat top left;
+	background: transparent url("img/labels-topbar.png") no-repeat top left;
 	border-top-left-radius: 10px;
 	-moz-border-radius-topleft: 10px;
 	border-top-right-radius: 10px;
