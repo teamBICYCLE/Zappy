@@ -48,6 +48,7 @@ socket.on('firstConnection', function(data){
 		// init UI
 		initInventory();
 		initTeamPanel();
+		initPlayersList();
 		
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(layers);
