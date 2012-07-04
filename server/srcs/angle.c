@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun 27 15:52:02 2012 Jonathan Machado
-** Last update Wed Jun 27 18:07:49 2012 Jonathan Machado
+** Last update Wed Jul  4 17:22:45 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -52,12 +52,13 @@ double	get_angle(int *x, int *y, t_direction dir)
   int		shorter;
   double       	size;
   double	angle;
-  const	int	xx[] = {
-    x[1], x[1] + g_info.map->x, x[1] - g_info.map->x, x[1], x[1], x[1] + g_info.map->x,
-    x[1] - g_info.map->x, x[1] + g_info.map->x, x[1] - g_info.map->x};
-  const int	yy[] = {
-    y[1], y[1], y[1], y[1] + g_info.map->y, y[1] - g_info.map->y, y[1] + g_info.map->y,
-    y[1] - g_info.map->y, y[1] - g_info.map->y, y[1] + g_info.map->y};
+  const	int	xx[] = { x[1], x[1] + g_info.map->x, x[1] - g_info.map->x,
+			 x[1], x[1], x[1] + g_info.map->x, x[1] - g_info.map->x,
+			 x[1] + g_info.map->x, x[1] - g_info.map->x };
+  const int	yy[] = { y[1], y[1], y[1], y[1] + g_info.map->y,
+			 y[1] - g_info.map->y, y[1] +  g_info.map->y,
+			 y[1] - g_info.map->y, y[1] - g_info.map->y,
+			 y[1] + g_info.map->y};
 
   i = 1;
   shorter = 0;

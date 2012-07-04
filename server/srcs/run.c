@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Tue Jul  3 18:45:35 2012 lois burg
+** Last update Wed Jul  4 18:05:19 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -39,16 +39,13 @@ static void		leave(const char *msg)
   exit(EXIT_FAILURE);
 }
 
-static void		init_world(unsigned int const x, unsigned int const  y, int const seed)
+static void		init_world(const uint x, const uint y, int const seed)
 {
-  g_info.ss = -1;
-  g_info.users = new_list();
   if (signal(SIGINT, server_quit) == SIG_ERR ||
       signal(SIGQUIT, server_quit) == SIG_ERR ||
       signal(SIGTERM, server_quit) == SIG_ERR)
     perror("signal failed: ");
   g_info.map = generate_map(x, y, seed);
-  /**/
   print_serv_conf(&g_info.world);
   // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 1000000.f));
   /* dump_map(map); */
@@ -58,8 +55,9 @@ static void		init_network(int const port)
 {
   struct sockaddr_in    sin;
   struct protoent	*pe;
-  const int		opt = 1;
+  const int		o = 1;
 
+  g_info.users = new_list();
   memset(&sin, 0, sizeof(sin));
   if ((pe = getprotobyname("TCP")) == NULL)
     leave("protocol error: ");
@@ -67,7 +65,7 @@ static void		init_network(int const port)
   sin.sin_family = AF_INET;
   sin.sin_port = htons(port);
   sin.sin_addr.s_addr = INADDR_ANY;
-  setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt));
+  setsockopt(g_info.ss, SOL_SOCKET, SO_REUSEADDR, (const char *)&o, sizeof(o));
   if (bind(g_info.ss, (const struct sockaddr *)&sin, sizeof(sin)) == -1)
     leave("bind failed: ");
   if (listen(g_info.ss, 5) == -1)
@@ -85,8 +83,8 @@ void			run(void)
   struct timeval	start;
   struct timeval	end;
 
-  init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
   init_network(g_info.world.port);
+  init_world(g_info.world.x, g_info.world.y, g_info.world.seed);
   loop = g_info.world.smallest_t;
   sync = 0;
   while (1)
@@ -97,7 +95,7 @@ void			run(void)
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  //	  printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f)); // debug
+	  //printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f));
 	  gettimeofday(&start, NULL); // start
 
 	  if (FD_ISSET(g_info.ss, &g_info.readfds))
@@ -117,7 +115,7 @@ void			run(void)
 	  // a metre dans fonction ?
 	  gettimeofday(&end, NULL);
 	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
-	  	   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
+		   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
 	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
 		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
 	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;

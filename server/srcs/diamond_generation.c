@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Tue Jun 19 11:39:47 2012 lois burg
+** Last update Wed Jul  4 17:32:19 2012 lois burg
 */
 
 #include <string.h>
@@ -37,16 +37,16 @@ static void	diamond_step(const int x, const int y, t_dmap *dmap)
     dmap->max_val = avg;
 }
 
-static void	square_step(const int x, const int y, t_dmap *dmap, const int size)
+static void	square_step(const int x, const int y, t_dmap *dmap, const int s)
 {
   const int	half_step = dmap->step / 2;
 
-  dmap->map[y][x + half_step] = avg_diamond(x + half_step, y, dmap, size);
-  dmap->map[y + half_step][x] = avg_diamond(x, y + half_step, dmap, size);
+  dmap->map[y][x + half_step] = avg_diamond(x + half_step, y, dmap, s);
+  dmap->map[y + half_step][x] = avg_diamond(x, y + half_step, dmap, s);
   dmap->map[y + dmap->step][x + half_step] =
-    avg_diamond(x + half_step, y + dmap->step, dmap, size);
+    avg_diamond(x + half_step, y + dmap->step, dmap, s);
   dmap->map[y + half_step][x + dmap->step] =
-    avg_diamond(x + dmap->step, y + half_step, dmap, size);
+    avg_diamond(x + dmap->step, y + half_step, dmap, s);
 }
 
 static void	do_step(const int nb_iter, t_dmap *dmap, const int size)
