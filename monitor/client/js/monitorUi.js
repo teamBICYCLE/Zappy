@@ -54,7 +54,6 @@ $(function() {
 		}
 	});
 	
-	
 	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);
