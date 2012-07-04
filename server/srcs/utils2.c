@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Fri Jun 29 17:13:33 2012 lois burg
+** Last update Wed Jul  4 17:29:00 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -49,47 +49,4 @@ void	reset_fd(t_infos *info)
   FD_ZERO(&info->readfds);
   FD_SET(info->ss, &info->readfds);
   iterate(info->users, &set_fd);
-}
-
-size_t	case_content_sz(const t_case *c)
-{
-  int		i;
-  uint		j;
-  size_t	sz;
-
-  sz = 0;
-  i = 0;
-  while (i < LAST)
-    {
-      j = 0;
-      sz += 1;
-      while (j < c->elements[i])
-	{
-	  sz += strlen(g_res_names[i]) + 1;
-	  ++j;
-	}
-      ++i;
-    }
-  sz += 2;
-  return (sz);
-}
-
-char	*case_content(const t_case *c, char *buf)
-{
-  int	i;
-  uint	j;
-
-  i = 0;
-  while (i < LAST)
-    {
-      j = 0;
-      while (j < c->elements[i])
-	{
-	  strcat(buf, " ");
-	  strcat(buf, g_res_names[i]);
-	  ++j;
-	}
-      ++i;
-    }
-  return (buf);
 }

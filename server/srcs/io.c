@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jul  4 14:25:43 2012 lois burg
+** Last update Wed Jul  4 17:23:13 2012 lois burg
 */
 
 #include <stdio.h>
@@ -25,7 +25,6 @@ static void	handle_cmd(t_users *u, char *str)
 {
   t_task_info	ti;
 
-  /* printf("Cmd: [%s]\n", str); */
   memset(&ti, 0, sizeof(ti));
   ti.data = str;
   ti.duplicate = strdup(ti.data);
@@ -72,7 +71,7 @@ void		add_user(void)
       new.lvl = 1;
       new.dir = NORTH;
       new.inventory[FOOD] = 5;
-      new.life = (new.inventory[FOOD] * 126);// * 500;/* * 500 temporaire */
+      new.life = (new.inventory[FOOD] * 126);/* * 500;*/
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
@@ -98,8 +97,8 @@ void		write_user(void *ptr)
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
-      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
-      if (l == -1)
+      if ((l = send(user->socket, &str[user->idx],
+		    strlen(str) - user->idx, MSG_NOSIGNAL)) == -1)
 	{
 	  perror("send :");
 	  remove_user(user);
@@ -130,8 +129,6 @@ void		read_user(void *ptr)
 	  remove_user(user);
 	  user = NULL;
 	}
-      /* else if (user->type == TGRAPHICS) *\/ */
-      /* 	printf("-s-\n%s-e-\n", user->readring->data); */
     }
   if (user != NULL && user->readring->end != 0 &&
       (str = get_data(user->readring)) != NULL)

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Wed Jul  4 16:35:09 2012 lois burg
+** Last update Wed Jul  4 17:18:45 2012 lois burg
 */
 
 #include <string.h>
@@ -20,7 +20,8 @@ char	*graphics_msz(void)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "msz %d %d\n", g_info.world.x, g_info.world.y);
+  snprintf(msg, GRAPHICS_MSG_SZ, "msz %d %d\n",
+	   g_info.world.x, g_info.world.y);
   return (msg);
 }
 

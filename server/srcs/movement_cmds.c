@@ -5,9 +5,10 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Wed Jul  4 15:00:56 2012 lois burg
+** Last update Wed Jul  4 17:20:16 2012 lois burg
 */
 
+#include <stdio.h>
 #include <string.h>
 #include "graphics.h"
 #include "server.h"
@@ -44,7 +45,6 @@ t_cmd_ret	right_cmd(t_users *u, char **args, char *orig_cmd)
   return (SUCCESS);
 }
 
-#include <stdio.h>
 t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd)
 {
   (void)args;
