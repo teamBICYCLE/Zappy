@@ -64,7 +64,6 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 {
-  (void)vm;
   std::string ret;
 
   network_.cmd("voir");
@@ -72,7 +71,6 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   if (ret != "ko")
     map_.voir(ret);
   map_.test();
-  abort();
   return 0;
 }
 
@@ -90,25 +88,30 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 {
-  lua_State *state = vm.getLua();
-  int i;
+  lua_State               *state = vm.getLua();
+  std::list<std::string>  answers;
+  int i = 1;
 
   for (i = 1; i <= lua_gettop(state); ++i)
     {
       if (lua_isstring(state, i))
-	{
-	  std::string object(lua_tostring(state, i));
-	  network_.cmd("prend " + object);
-	  std::string result = network_.getline();
-	  if (result == "ok")
-	    {
-	      inventory_.prendre(object);
-	      map_.prendre(object);
-	    }
-	  //	  lua_pushstring(state, result.c_str());
-	}
+        {
+          std::string object(lua_tostring(state, i));
+          network_.cmd("prend " + object);
+          std::string result = network_.getline();
+          if (result == "ok")
+            inventory_.prendre(object);
+          answers.push_back(result);
+        }
     }
-  return (0);
+  i = 0;
+  while (!answers.empty())
+    {
+      lua_pushstring(state, answers.front().c_str());
+      answers.pop_front();
+      ++i;
+    }
+  return (i);
 }
 
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
@@ -145,9 +148,9 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           std::string result = network_.getline();
           if (result == "ok")
             {
-	      inventory_.poser(object);
-	      map_.poser(object);
-	    }
+              inventory_.poser(object);
+              map_.poser(object);
+            }
           //lua_pushstring(state, result.c_str());
         }
     }

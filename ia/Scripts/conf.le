@@ -3,10 +3,13 @@ automaton
 state: avance geometry: <9.0,5.0> 1.0; 
 state: voir geometry: <17.0,5.0> 1.0; 
 state: prendre geometry: <17.0,10.0> 1.0; 
+state: tourne geometry: <17.0,10.0> 1.0; 
 
 transition:
 avance [OK]  -> voir geometry: <17.5,8>; 
 voir [OK]  -> prendre geometry: <13,10.2>; 
-prendre [OK]  -> avance geometry: <9.2,7.5>; 
+prendre [OK]  -> prendre geometry: <9.2,7.5>; 
+prendre [KO]  -> avance geometry: <9.2,7.5>; 
+tourne [OK]  -> avance geometry: <9.2,7.5>; 
 end
 

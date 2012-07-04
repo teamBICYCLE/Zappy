@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 19 16:39:50 2012 lois burg
-** Last update Wed Jun 27 18:07:49 2012 Jonathan Machado
+** Last update Wed Jul  4 17:38:43 2012 lois burg
 */
 
 #include <string.h>
@@ -16,18 +16,19 @@
 
 extern t_infos	g_info;
 
-static void	send_msg(const t_users *sender, t_users *recvr, const char *broadcast)
+static void	send_msg(const t_users *sender, t_users *rcvr, const char *broadcast)
 {
   char		msg[BASE_BROADCAST_SZ + strlen(broadcast) + 1];
   int		x[2];
   int		y[2];
 
   x[0] = sender->x;
-  x[1] = recvr->x;
+  x[1] = rcvr->x;
   y[0] = sender->y;
-  y[1] = recvr->y;
-  snprintf(msg, sizeof(msg), "message %i,%s\n", get_case(x, y, recvr->dir), broadcast);
-  push_back(recvr->messages, new_link_by_param(msg, strlen(msg) + 1));
+  y[1] = rcvr->y;
+  snprintf(msg, sizeof(msg), "message %i,%s\n",
+	   get_case(x, y, rcvr->dir), broadcast);
+  push_back(rcvr->messages, new_link_by_param(msg, strlen(msg) + 1));
 }
 
 t_cmd_ret	broadcast_cmd(t_users *usr, char **args, char *orig_cmd)

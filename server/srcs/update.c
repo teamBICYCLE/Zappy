@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Tue Jul  3 13:09:03 2012 lois burg
+** Last update Wed Jul  4 17:24:40 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -16,11 +16,6 @@
 #include "graphics.h"
 
 extern t_infos		g_info;
-
-static	int	cmp_ptr(void *a, void *b)
-{
-  return (a != b);
-}
 
 static	void	do_task(void *ptr)
 {
@@ -48,7 +43,10 @@ static void	decr_and_notify(t_users *u)
   const size_t 	prev_food = u->inventory[FOOD];
 
   --u->life;
-  u->inventory[FOOD] = (u->life / 126) + 1;
+  if (u->life > 0)
+    u->inventory[FOOD] = (u->life / 126) + 1;
+  else
+    u->inventory[FOOD] = 0;
   if (u->first_message == false && prev_food != u->inventory[FOOD])
     lookup(g_info.users, graphics_pin(u), &notify_graphic);
 }
@@ -63,7 +61,7 @@ static	void	decr_life(void *ptr)
       if (u->life == 0)
 	{
 	  if (u->first_message == true)
-	    delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
+	    remove_user(u);
 	  else
 	    {
 	      if (u->is_dead == false)
@@ -72,12 +70,7 @@ static	void	decr_life(void *ptr)
 		  u->is_dead = true;
 		}
 	      else if (u->messages->size == 0)
-		{
-		  if (u->team && u->type == TPLAYER)
-		    ++u->team->free_slots;
-		  lookup(g_info.users, graphics_pdi(u), &notify_graphic);
-		  delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users);
-		}
+		remove_user(u);
 	    }
 	}
       else

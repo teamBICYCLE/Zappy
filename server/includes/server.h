@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Mon Jul  2 16:17:35 2012 lois burg
+** Last update Wed Jul  4 18:05:09 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -56,9 +56,6 @@ struct		s_task_info
 struct          s_users
 {
   bool		first_message;
-  /* bool		is_egg; */
-  /* bool		is_ghost; */
-  /* bool		is_graphics; */
   t_type	type;
   bool		is_dead;
   /* server */
@@ -96,9 +93,12 @@ void   	add_user(void);
 void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 void	reset_fd(t_infos *info);
+void	remove_user(t_users *u);
+void	loot_plyr(t_users *u);
 
 void   	exec_cmd(t_users *u, t_task_info *ti);
 void	update_map(int const loop);
+void	send_world(void);
 
 /* TOOLS */
 int    	cmp_socket(void *a, void *b);

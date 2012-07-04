@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Tue Jul  3 13:07:52 2012 lois burg
+** Last update Wed Jul  4 17:02:50 2012 lois burg
 */
 
 #include <string.h>

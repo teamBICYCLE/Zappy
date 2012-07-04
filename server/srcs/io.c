@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Tue Jul  3 18:25:46 2012 lois burg
+** Last update Wed Jul  4 17:23:13 2012 lois burg
 */
 
 #include <stdio.h>
@@ -25,7 +25,6 @@ static void	handle_cmd(t_users *u, char *str)
 {
   t_task_info	ti;
 
-  /* printf("Cmd: [%s]\n", str); */
   memset(&ti, 0, sizeof(ti));
   ti.data = str;
   ti.duplicate = strdup(ti.data);
@@ -34,17 +33,26 @@ static void	handle_cmd(t_users *u, char *str)
     exec_cmd(u, &ti);
 }
 
-static void	remove_user(t_users *user)
+void		remove_user(t_users *u)
 {
   t_link	*l;
   char		msg[LOG_MSG_SZ];
 
-  if (user->team && user->type == TPLAYER)
-    ++user->team->free_slots;
-  l = lookup_and_pop(g_info.users, &user->socket, &cmp_socket);
-  if (user->type != TGRAPHICS)
-    lookup(g_info.users, graphics_pdi(l->ptr), &notify_graphic);
-  snprintf(msg, sizeof(msg), "User %d disconnected !\n", ((t_users*)l->ptr)->id);
+  l = lookup_and_pop(g_info.users, &u->socket, &cmp_socket);
+  if (u->first_message == false)
+    {
+      if (u->team && u->type == TPLAYER)
+	++u->team->free_slots;
+      if (u->type == TPLAYER || u->type == TFORMER_GHOST)
+	lookup(g_info.users, graphics_pdi(u), &notify_graphic);
+      if (u->life > 0)
+	snprintf(msg, sizeof(msg), "User %d disconnected!\n", u->id);
+      else
+	snprintf(msg, sizeof(msg), "User %d died a horrible death!\n", u->id);
+      loot_plyr(u);
+    }
+  else
+    snprintf(msg, sizeof(msg), "User %d left!\n", u->id);
   log_msg(stdout, msg);
   delete_link(l, &free_users);
 }
@@ -63,7 +71,7 @@ void		add_user(void)
       new.lvl = 1;
       new.dir = NORTH;
       new.inventory[FOOD] = 5;
-      new.life = (new.inventory[FOOD] * 126);// * 500;/* * 500 temporaire */
+      new.life = (new.inventory[FOOD] * 126);/* * 500;*/
       new.messages = new_list();
       new.first_message = true;
       push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
@@ -89,8 +97,8 @@ void		write_user(void *ptr)
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;
-      l = send(user->socket, &str[user->idx], strlen(str) - user->idx, MSG_NOSIGNAL);
-      if (l == -1)
+      if ((l = send(user->socket, &str[user->idx],
+		    strlen(str) - user->idx, MSG_NOSIGNAL)) == -1)
 	{
 	  perror("send :");
 	  remove_user(user);
@@ -121,8 +129,6 @@ void		read_user(void *ptr)
 	  remove_user(user);
 	  user = NULL;
 	}
-      /* else if (user->type == TGRAPHICS) *\/ */
-      /* 	printf("-s-\n%s-e-\n", user->readring->data); */
     }
   if (user != NULL && user->readring->end != 0 &&
       (str = get_data(user->readring)) != NULL)

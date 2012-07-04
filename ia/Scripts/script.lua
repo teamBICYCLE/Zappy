@@ -2,15 +2,23 @@
 
 function this.avance(this)
 	 this:IAAvance()
-	 return (0)
+	 return (OK)
 end
 
 function this.voir(this)
 	 this:IAVoir()
-	 return (0)
+	 return (OK)
 end
 
 function this.prendre(this)
-	 this:IAPrendre("nourriture")
-	 return (0)
+	 str = this:IAPrendre("nourriture")
+	 if str == "ok"
+	    then return (OK)
+	    else return (KO)
+	 end
+end
+
+function this.tourne(this)
+	 this:IATourner("droite")
+	 return (OK)
 end

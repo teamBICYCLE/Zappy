@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:26:54 2012 lois burg
-** Last update Tue Jun 19 11:28:00 2012 lois burg
+** Last update Wed Jul  4 17:18:45 2012 lois burg
 */
 
 #include <string.h>
@@ -20,7 +20,8 @@ char	*graphics_msz(void)
   char	*msg;
 
   msg = get_graphics_buf();
-  snprintf(msg, GRAPHICS_MSG_SZ, "msz %d %d\n", g_info.world.x, g_info.world.y);
+  snprintf(msg, GRAPHICS_MSG_SZ, "msz %d %d\n",
+	   g_info.world.x, g_info.world.y);
   return (msg);
 }
 
@@ -69,7 +70,7 @@ char	*graphics_pnw(t_users *usr)
 
   msg = get_graphics_buf();
   snprintf(msg, GRAPHICS_MSG_SZ, "pnw %d %d %d %d %d %s\n",
-	   usr->id, usr->x, usr->y, usr->dir, usr->lvl, usr->team->name);
+	   usr->id, usr->x, usr->y, usr->dir + 1, usr->lvl, usr->team->name);
   return (msg);
 }
 
@@ -79,6 +80,6 @@ char	*graphics_ppo(t_users *usr)
 
   msg = get_graphics_buf();
   snprintf(msg, GRAPHICS_MSG_SZ, "ppo %d %d %d %d\n",
-	   usr->id, usr->x, usr->y, usr->dir);
+	   usr->id, usr->x, usr->y, usr->dir + 1);
   return (msg);
 }
