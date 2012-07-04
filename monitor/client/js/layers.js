@@ -2,12 +2,9 @@
  * @author sylvia_r
  */
 
-var layers = new Layers();
-
 function Layers(xsize, ysize){
 	
 	this.imgs = new ImgLoader();
-	this.imgs.load();
 	
 	this.canvasHandler = new CanvasHandler();
 	
@@ -96,15 +93,4 @@ Layers.prototype.clear = function(canvas) {
 	var c = this.canvasHandler.get(canvas);
 	
 	c.ctx.clearRect(0, 0, c.width, c.height);
-}
-
-Layers.prototype.zoom = function(canvas) {
-
-
-	var c = this.canvasHandler.get(canvas);
-	// c.ctx.scale(10, 10);
-	// c.ctx.scale(0.5, 0.5);
-	// c.ctx.scale(-10, -10);
-	console.log('eeee');
-	this.draw(canvas, "floor", 150, 150);
 }
