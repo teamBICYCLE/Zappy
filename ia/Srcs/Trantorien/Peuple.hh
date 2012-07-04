@@ -7,6 +7,12 @@ class Peuple {
 private:
   Peuple();
   ~Peuple();
+
+public:
+
+
+private:
+
 };
 
 #endif // PEUPLE_HH__
