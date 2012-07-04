@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Wed Jul  4 14:26:08 2012 Jonathan Machado
+** Last update Wed Jul  4 15:21:14 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -59,8 +59,8 @@ int		read_data(int fd, t_ringbuffer *ring)
   /* strncpy(&ring->data[ring->end], toto, l); */
   offset = strchr(&ring->data[ring->end], '\0') - &ring->data[ring->end];
   if (offset + 1 > l)
-    offset = 0;
-  ring->end += l - offset;
+    offset = l;
+  ring->end += offset;
   ring->data[ring->end] = 0;
   /* for (i = 0; i < ring->end; ++i) */
   /*   printf("[%d] ", ring->data[i]); */
