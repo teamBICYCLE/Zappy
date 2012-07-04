@@ -49,14 +49,46 @@ Layers.prototype.setTileSize = function(w, h) {
 
 /* DRAWING */
 
+function abs(nb) {
+	return ((nb < 0) ? (-nb) : (nb));
+}
+
+Layers.prototype.centerAt = function(x, y) {
+	
+	var left, top, ox, oy, medx, medy, multx, multy;
+	
+	medx = parseInt(this.mapWidth / 2);
+	medy = parseInt(this.mapHeight / 2);
+	multx = 1;
+	multy = 1;
+	
+	ox = abs(x - medx);
+	oy = abs(y - medy);
+	if (x > medx)
+		multx = -1;	
+	if (y > medy)
+		multy = -1;	
+	
+	left = ox * this.tileWidth;
+	left *= multx;
+	top = oy * (this.tileHeight / 2);
+	top *= multy;
+	//top = (this.mapHeight / 2) * (this.tileHeight / 2) - (this.tileHeight / 4);
+	//console.log(left);
+	return ({left: left, top: top});
+}
+
 Layers.prototype.padding = function(canvas) {
 	
 	var c = this.canvasHandler.get(canvas),
-	topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2));
-	leftOffset = (c.width / 2) - (this.tileWidth / 2);
+		topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)),
+		leftOffset = (c.width / 2) - (this.tileWidth / 2),
+		center = this.centerAt(parseInt(this.mapHeight / 2), parseInt(this.mapWidth / 2));
 	
+	//leftOffset += (this.mapWidth / 2) * this.tileWidth - (this.tileWidth / 2);
+	//topOffset += (this.mapHeight / 2) * (this.tileHeight / 2) - (this.tileHeight / 4);
 	//console.log(leftOffset + " " + topOffset);
-	return ({left: leftOffset, top: topOffset});
+	return ({left: leftOffset + center.left, top: topOffset + center.top});
 }
 
 Layers.prototype.draw = function(canvas, img, x, y, alpha) {
@@ -64,17 +96,19 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 	x = parseInt(x);
 	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas),
-		leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
-		topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
-		//leftD = ((x - y) * this.tileWidth / 2),
-		//topD = ((x + y) * this.tileHeight / 4);
-	
+		//leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
+		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
+		leftD = ((x - y) * this.tileWidth / 2),
+		topD = ((x + y) * this.tileHeight / 4);
+		
 	c.ctx.save();
-	//c.ctx.translate((c.width / 2) - (this.tileWidth / 2), (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)));
+	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
+	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	if (alpha)
 		c.ctx.globalAlpha = 0.4;
 	
-	c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));
+	if (zoom != 10)
+		c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));
 	c.ctx.drawImage(this.imgs.get(img), leftD, topD);
 	c.ctx.restore();
 }
