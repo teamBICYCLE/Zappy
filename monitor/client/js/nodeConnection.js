@@ -12,8 +12,7 @@ var socket = io.connect('http://localhost', {
 	layers,
 	inventoryOpenId = -1,
 	currentTeam = "",
-	zoom = 10,
-	previousZoom = 10;
+	zoom = 10;
 
 socket.on("disconnect", function(){
 	
@@ -87,7 +86,8 @@ socket.on('cacheUpdate', function(data){
 
 		nowInfo = cache.getAllTeamInfo();
 		
-		if (data.changeMap.length > 0 || zoom != previousZoom)
+		//console.log(zoom + " " + previousZoom);
+		if (data.changeMap.length > 0)
 			ressources_draw(layers);
 		players_draw(layers);
 		update_inventory();
