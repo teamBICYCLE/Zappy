@@ -568,9 +568,9 @@ i.leaf-icon {
 	min-width: 420px;
 	max-width: 420px;
 	display: none;
-	position: absolute; /* PROBLEME A REGLER */
+	position: absolute;
 	top:50px;
-	right:50px; /* PROBLEME A REGLER */
+	right:50px;
 	z-index: 500;
 }
  
