@@ -43,7 +43,7 @@ canvas {
 }
 
 
-.topbar-menu-userlist {
+.topbar-menu-players {
 	background: transparent url("img/userlist_button.png") no-repeat top left;
 }
 
@@ -419,7 +419,7 @@ i.leaf-icon {
 .chart {
 	position: relative;
 	width: 465px;
-	height: 250px;
+	height: 235px;
 	z-index: 42;
 	margin-top: -10px;
 	display: none;
@@ -564,6 +564,96 @@ i.leaf-icon {
 
 /* PLAYER LIST */
 
-.players-list {
-	display: none;	
+.player-list {
+	max-width: 420px;
+	display: none;
+	position: relative; /* PROBLEME A REGLER */
+	top:50px;
+	right:-1130px; /* PROBLEME A REGLER */
+	z-index: 500;
 }
+ 
+.player-list-container {
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	position: relative;
+	max-width: 420px;
+	min-height: 300px;
+	max-height: 500px;
+	background: rgba(0,0,0,0.5);
+	overflow: auto;
+	padding: 0;
+}
+
+.player-list-topbar {
+	height: 30px;
+	background: transparent url("img/player-list-topbar.png") no-repeat top left;
+}
+
+.player-list-container ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	color: #eee;
+	font-size: 16px;
+}
+
+.labels {
+	padding: 7px 0 0 0;
+	height: 30px;
+	margin-bottom: 7px;
+	background: #111;
+	border-top-left-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+}
+
+.label {
+	line-height: 30px;
+}
+
+.player-list-container span {
+	margin-left: 20px;
+	display: inline-block;
+	line-height: 25px;
+	max-height: 25px;
+	vertical-align: middle;
+}
+
+.player-list li {
+	margin-bottom: 8px;
+	background: #191919;
+}
+
+.player-id {
+	font-weight: bold;
+	padding-left: 2px;
+}
+
+.player-lvl {
+	padding-left: 15px;
+}
+
+.player-team {
+	padding-left: 25px;
+	width: 180px;
+	overflow: hidden;
+}
+
+.player-follow-button {
+	text-shadow: none;
+	cursor: pointer;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	display: inline-block;
+	background: #0791f2;
+	margin-right: 10px;
+	padding: 5px 10px 5px 10px;
+}
+
+.player-follow-button:hover {
+	background: #63b5ee;
+}
+
+/* END PLAYER LIST */
