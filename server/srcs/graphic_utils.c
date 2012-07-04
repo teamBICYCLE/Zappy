@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:02:40 2012 lois burg
-** Last update Tue Jul  3 11:51:47 2012 lois burg
+** Last update Wed Jul  4 14:40:03 2012 lois burg
 */
 
 #include <string.h>
@@ -30,7 +30,7 @@ char		*get_graphics_buf(void)
   return (msg);
 }
 
-static void	send_world(t_users *usr)
+static void	send_world_clnt(t_users *usr)
 {
   uint		x;
   uint		y;
@@ -84,7 +84,7 @@ void	greet_graphics(t_users *usr)
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   msg = graphics_sgt();
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
-  send_world(usr);
+  send_world_clnt(usr);
   msg = graphics_tna();
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   send_players(usr);

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Tue Jul  3 17:30:25 2012 lois burg
+** Last update Wed Jul  4 15:00:56 2012 lois burg
 */
 
 #include <string.h>
@@ -72,6 +72,10 @@ t_cmd_ret	put_cmd(t_users *u, char **args, char *orig_cmd)
 	{
 	  --u->inventory[i];
 	  ++g_info.map->cases[u->y][u->x].elements[i];
+	  if (i == FOOD && (int)u->life - 126 >= 0)
+	    u->life -= 126;
+	  else if (i == FOOD)
+	    u->life = 0;
 	  lookup(g_info.users, graphics_pdr(u, i), &notify_graphic);
 	  lookup(g_info.users, graphics_pin(u), &notify_graphic);
 	  lookup(g_info.users, graphics_bct(u->x, u->y), &notify_graphic);
@@ -95,6 +99,8 @@ t_cmd_ret	take_cmd(t_users *u, char **args, char *orig_cmd)
 	{
 	  ++u->inventory[i];
 	  --g_info.map->cases[u->y][u->x].elements[i];
+	  if (i == FOOD)
+	    u->life += 126;
 	  lookup(g_info.users, graphics_pgt(u, i), &notify_graphic);
 	  lookup(g_info.users, graphics_pin(u), &notify_graphic);
 	  lookup(g_info.users, graphics_bct(u->x, u->y), &notify_graphic);

@@ -5,14 +5,17 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 12:22:39 2012 lois burg
-** Last update Wed Jun 20 17:04:16 2012 lois burg
+** Last update Wed Jul  4 15:06:42 2012 lois burg
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "server.h"
 #include "protocol.h"
 #include "cmds.h"
+
+extern t_infos	g_info;
 
 int		cmp_team(void *t1, void *t2)
 {
@@ -46,4 +49,33 @@ void	greet_clnt(const t_users *usr, const int wx, const int wy)
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   snprintf(msg, sizeof(msg), "%d %d\n", wx, wy);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+}
+
+void	loot_plyr(t_users *u)
+{
+  int	i;
+  int	x;
+  int	y;
+  int	dx;
+  int	dy;
+
+  i = 0;
+  while (i < NB_RESSOURCES)
+    {
+      while (u->inventory[i] > 0)
+	{
+	  dx = (rand() % 2) + 1;
+	  dy = (rand() % 2) + 1;
+	  if (rand() % 2 == 0)
+	    dx *= -1;
+	  if (rand() % 2 == 0)
+	    dy *= -1;
+	  x = ((u->x + dx) + g_info.map->x) % g_info.map->x;
+	  y = ((u->y + dy) + g_info.map->y) % g_info.map->y;
+	  ++g_info.map->cases[y][x].elements[i];
+	  --u->inventory[i];
+	}
+      ++i;
+    }
+  send_world();
 }
