@@ -64,7 +64,6 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 {
-  (void)vm;
   std::string ret;
 
   network_.cmd("voir");
@@ -72,7 +71,6 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   if (ret != "ko")
     map_.voir(ret);
   map_.test();
-  abort();
   return 0;
 }
 

@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat May  5 11:46:41 2012 thibault carpentier
-// Last update Thu Jun  7 16:21:30 2012 thibault carpentier
+// Last update Wed Jul  4 16:09:35 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -133,7 +133,7 @@ bool Script::compileFile(const std::string &filename)
     if (lua_pcall(VM_.getLua(), 0, LUA_MULTRET, 0) == 0)
       fSuccess = true;
   if (!fSuccess)
-    throw Failure("compileFile", "Error on compileFile");
+    throw Failure("compileFile", lua_tostring((lua_State *) VM_.getLua(), -1));
   return fSuccess;
 }
 

@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat May 12 09:41:03 2012 thibault carpentier
-// Last update Sat Jun 23 14:32:42 2012 thibault carpentier
+// Last update Wed Jul  4 15:20:15 2012 thibault carpentier
 //
 
 #ifndef _FAILLURE_H_
@@ -16,7 +16,7 @@
 
 namespace LuaVirtualMachine
 {
-  class       Failure : public std::runtime_error
+  class       Failure : public std::exception
   {
   public:
     Failure(const std::string& func, const std::string& msg) throw();
@@ -34,6 +34,7 @@ namespace LuaVirtualMachine
   private:
     std::string               mFunc;
     std::string               mMsg;
+    std::string		      what_;
   };
 }
 

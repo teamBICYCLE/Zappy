@@ -13,25 +13,29 @@
 #include "Trantorien/Map.hh"
 #include "FSM/Lexeme.hh"
 
+#include <exception>
+
 #include <fstream>
 
 int main(int argc, char *argv[])
 {
-  // Trantorien  joe("localhost", "4242");
+  Trantorien  joe("localhost", "4242");
 
-  // joe.run();
-//  Map jaques(std::pair<int, int>(10, 5));
+  try
+    {
+      joe.run();
+    }
+  catch (std::exception &e)
+    {
+      std::cout << "fail: " << e.what() << std::endl;
+    }
+  //  Map jaques(std::pair<int, int>(10, 5));
+  // Map jaques(std::pair<int, int>(2, 2));
 
-  Map jaques(std::pair<int, int>(2, 2));
-
-  jaques.test();
-  jaques.voir("{ joueur sibur, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur mendiane mendiane, nourriture nourriture linemate linemate deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane phiras phiras phiras phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur, nourriture nourriture nourriture nourriture nourriture linemate linemate linemate linemate linemate linemate deraumere deraumere deraumere deraumere sibur sibur sibur sibur sibur sibur mendiane mendiane mendiane mendiane phiras phiras thystame, joueur sibur}");
-
-
-
-	      //{joueur sibur sibur,, sibur, sibur, sibur, sibur, sibur sibur, sibur, sibur, sibur, sibur, nourriture, nourriture, nourriture, sibur, sibur}");
-  jaques.test();
-  jaques.prendre("sibur");
+  // jaques.test();
+  // jaques.voir("{joueur sibur, deraumere, linemate, deraumere, joueur sibur, thystame, joueur sibur, thystame, joueur sibur}");
+  // jaques.test();
+  //  jaques.prendre("sibur");
   //jaques.test();
   //  jaques.poser("nourriture");
   //jaques.test();
