@@ -26,7 +26,9 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IAVoir", &Trantorien::voir);
   addInteraction("IAInventaire", &Trantorien::inventaire);
   addInteraction("IAPrendre", &Trantorien::prendre);
+  addInteraction("IAPose", &Trantorien::poser);
   addInteraction("IATourner", &Trantorien::tourner);
+  addInteraction("IAElevate", &Trantorien::elevate);
 
   setValidityTest(&Trantorien::isValid);
 
@@ -91,14 +93,14 @@ bool Trantorien::isValid() const
 
 int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 {
-  (void)vm;
   std::string ret;
 
   this->cmd("avance");
   ret = this->getline();
   if (ret == "ok")
     map_.avancer();
- return 0;
+  lua_pushstring(vm.getLua(), ret.c_str());
+ return 1;
 }
 
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
@@ -110,7 +112,8 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   if (ret != "ko")
     map_.voir(ret);
   map_.test();
-  return 0;
+  lua_pushstring(vm.getLua(), ret.c_str());
+  return 1;
 }
 
 int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
@@ -150,7 +153,15 @@ int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
            if (result == "ok")
               map_.changeDirection(direction);
            return result;
-  }));
+}));
+}
+
+int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
+{
+  this->cmd("incantation");
+  std::string ret = this->getline();
+  lua_pushstring(vm.getLua(), ret.c_str());
+  return 1;
 }
 
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)

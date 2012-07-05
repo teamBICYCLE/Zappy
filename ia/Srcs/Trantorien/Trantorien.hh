@@ -37,6 +37,7 @@ private:
   int	       prendre(LuaVirtualMachine::VirtualMachine &);
   int	       poser(LuaVirtualMachine::VirtualMachine &);
   int	       tourner(LuaVirtualMachine::VirtualMachine &);
+  int          elevate(LuaVirtualMachine::VirtualMachine & vm);
 
   int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
                                 std::function<std::string(lua_State *,
