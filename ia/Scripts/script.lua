@@ -1,7 +1,13 @@
 #!/usr/bin/lua
 
+c = 0
+
 function this.avance(this)
+   if (c % 3) == 0
+   then this:IATourner("gauche")
+   end
    this:IAAvance()
+   c = c + 1
    return (OK)
 end
 
@@ -24,7 +30,7 @@ function this.tourne(this)
 end
 
 function this.elevate(this)
-   this:IAPose("linemate")
+   this:IAPoser("linemate")
    ret = this:IAElevate()
    if ret == "ok"
    then return (OK)

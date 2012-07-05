@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Fri Jun 29 16:27:44 2012 lois burg
+** Last update Thu Jul  5 11:23:07 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -44,8 +44,9 @@ void	unknown_options(t_arg_infos *infos, char *argv[])
 void	print_help(t_arg_infos *infos, char *argv[])
 {
   (void)argv;
-  printf("How does this server work ?\n");
-  printf("Here are the valid options:\n");
+  printf("Usage: ./zappyd [-p PORT] [-x WIDTH] [-y HEIGHT] [-c CLIENTS]"
+	 " [-t DELAY] [-s SEED] [-h] -n team1 team2 [... teamn]\n");
+  printf("Options description:\n");
   printf("\t-p <int>: Port to use (default is 4242).\n");
   printf("\t-x <int>: World width (default is 20).\n");
   printf("\t-y <int>: World height (default is 20).\n");
@@ -54,7 +55,6 @@ void	print_help(t_arg_infos *infos, char *argv[])
   printf("\t-t <int>: Delay between actions (default is 100).\n");
   printf("\t-s <int>: The seed used to generate the map (default is time).\n");
   printf("\t-h: Display this help and quits.\n");
-  printf("Any invalid options will not stop ");
   infos->help_showed = true;
 }
 

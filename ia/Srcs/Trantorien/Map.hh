@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Mon Jul  2 18:01:45 2012 thibault carpentier
+// Last update Thu Jul  5 13:47:15 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -64,13 +64,14 @@ public:
 
   void test(void) const;
 
-
+  std::vector<unsigned int> caseContent(position coord);
   void update(void);
   void changeDirection(const std::string &direction);
   void avancer(void);
   void voir(const std::string &);
   void prendre(const std::string &value);
   void poser(const std::string &value);
+  position getCurrentPos(void) const;
 };
 
 #endif /*!_MAP_H_*/

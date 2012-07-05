@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:34 2012 thibault carpentier
-// Last update Mon Jun 25 10:39:15 2012 thibault carpentier
+// Last update Thu Jul  5 14:54:54 2012 thibault carpentier
 //
 
 //{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}
@@ -35,9 +35,11 @@ public:
   Inventory &   operator=(const Inventory & source);
   ~Inventory();
 
+  const std::vector<unsigned int> &getIventory(void) const;
   void      update(const std::string & values);
   void	    prendre(const std::string &value);
   void	    poser(const std::string &value);
+  std::vector<unsigned int>	    getInventory(void) const;
 
 private:
   static const std::string values_[];

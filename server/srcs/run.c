@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Wed Jul  4 18:05:19 2012 lois burg
+** Last update Thu Jul  5 12:51:13 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -128,5 +128,7 @@ void			run(void)
 	  loop.tv_usec = diff % 1000000;
 	  loop.tv_sec = diff / 1000000;
 	}
+      if (g_info.end_game == true)
+	reset_game();
     }
 }
