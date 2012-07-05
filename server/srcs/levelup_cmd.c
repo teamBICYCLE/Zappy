@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Wed Jul  4 17:25:57 2012 lois burg
+** Last update Thu Jul  5 12:47:07 2012 lois burg
 */
 
 #include "log.h"
@@ -63,6 +63,17 @@ static void	lvlup_plyr(const int x, const int y, const int lvl)
 	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
 	    {
 	      ++plyr->lvl;
+	      /* plyr->lvl = MAX_LVL; */
+	      if (plyr->lvl == MAX_LVL)
+		{
+		  ++plyr->team->nb_max_lvl;
+		  /* plyr->team->nb_max_lvl = NB_PLYR_MAX_LVL; */
+		  if (plyr->team->nb_max_lvl == NB_PLYR_MAX_LVL)
+		    {
+		      g_info.end_game = true;
+		      g_info.winner = plyr->team;
+		    }
+		}
 	      snprintf(msg, sizeof(msg), "Level up! Player #%d is level %d!\n",
 		       plyr->id, plyr->lvl);
 	      log_msg(stdout, msg);

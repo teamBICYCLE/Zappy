@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Wed Jul  4 16:43:36 2012 thibault carpentier
+// Last update Thu Jul  5 13:45:26 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -209,10 +209,7 @@ void Map::voir(const std::string &values)
   boost::regex regex(REGEX_VALUE);
 
   if (boost::regex_match(values, regex))
-    {
-      std::cout << values << std::endl;
       analyse(values);
-    }
   else
     throw TrantorienFailure("Map voir", "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
 }
@@ -241,7 +238,24 @@ void Map::poser(const std::string &value)
       }
 }
 
+std::vector<unsigned int> Map::caseContent(position coord)
+{
+  std::vector<unsigned int> result;// = new std::vector<unsigned int>();
+  for (unsigned int i = 0; i <= THYSTAME; ++i)
+    {
+      unsigned int nbRessources = 0;
+      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+	if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+	  ++nbRessources;
+      result.push_back(nbRessources);
+    }
+  return (result);
+}
 
+position Map::getCurrentPos(void) const
+{
+  return (currentPos_);
+}
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"
 

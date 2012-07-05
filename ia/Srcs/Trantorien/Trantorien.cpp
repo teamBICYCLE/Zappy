@@ -24,9 +24,13 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IAInventaire", &Trantorien::inventaire);
   addInteraction("IAPrendre", &Trantorien::prendre);
   addInteraction("IATourner", &Trantorien::tourner);
-
+  addInteraction("IAPoser", &Trantorien::poser);
+  addInteraction("IACaseContent", &Trantorien::caseContent);
+  addInteraction("IACurrentPosition", &Trantorien::currentPosition);
+  addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
   setValidityTest(&Trantorien::isValid);
 
+  //  getVM().getLua();
   joinTeam("toto");
   network_.getline();
   network_.getline();
@@ -77,13 +81,19 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
+  unsigned int i;
+  lua_State *state = vm.getLua();
 
   network_.cmd("inventaire");
   ret = network_.getline();
   if (ret != "ko")
     inventory_.update(ret);
-  lua_pushstring(vm.getLua(), ret.c_str());
-  return (1);
+
+  const std::vector<unsigned int> & inventory = inventory_.getIventory();
+  for ( i = 0; i < inventory.size(); ++i)
+    lua_pushinteger(state, inventory[i]);
+  //  lua_pushstring(vm.getLua(), ret.c_str());
+  return (i);
 }
 
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
@@ -154,5 +164,59 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           //lua_pushstring(state, result.c_str());
         }
     }
+  return (0);
+}
+
+int Trantorien::caseContent(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  unsigned int nbRet = 0;
+
+
+  if (lua_gettop(state) >= 2 && lua_isnumber(state, 1) && lua_isnumber(state, 2))
+    {
+      std::pair<int, int> position(lua_tonumber(state, 1), lua_tonumber(state, 2));
+      std::vector<unsigned int> result = map_.caseContent(position);
+      for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+	{
+	  lua_pushinteger(state, (*it));
+	  ++nbRet;
+	}
+    }
+  return (nbRet);
+}
+
+int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+
+  std::pair<int, int> position = map_.getCurrentPos();
+  lua_pushinteger(state, position.first);
+  lua_pushinteger(state, position.second);
+  return (2);
+}
+
+int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::vector<unsigned int> inventory = inventory_.getInventory();
+
+  if (lua_gettop(state) == 0)
+    {
+      for (std::vector<unsigned int>::iterator it = inventory.begin(); it != inventory.end(); ++it)
+	{
+	  lua_pushinteger(state, (*it));
+	  return (inventory.size());
+	}
+    }
+  else
+    for (int i = 1; i < lua_gettop(state); ++i)
+      {
+  	// if (lua_isnumber(state, i))
+  	//   {
+  	//     lua_tonumber(state, i)
+  	//     lua_pushinteger(state, j);
+  	//   }
+      }
   return (0);
 }

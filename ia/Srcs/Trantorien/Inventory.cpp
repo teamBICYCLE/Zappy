@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:29 2012 thibault carpentier
-// Last update Tue Jul  3 16:13:28 2012 thibault carpentier
+// Last update Thu Jul  5 14:47:22 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -31,6 +31,11 @@ Inventory::Inventory(const std::string &values)
 Inventory::Inventory(const Inventory &source)
 {
   this->inventory_ = source.inventory_;
+}
+
+const std::vector<unsigned int> &Inventory::getIventory(void) const
+{
+  return (inventory_);
 }
 
 Inventory &Inventory::operator=(const Inventory &source)
@@ -97,4 +102,9 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
     throw TrantorienFailure("Inventory parse",
 			    "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
   return ret;
+}
+
+std::vector<unsigned int> Inventory::getInventory(void) const
+{
+  return (inventory_);
 }
