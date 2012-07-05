@@ -36,27 +36,27 @@ $(function() {
 		
 		previousZoom = zoom;
 		
-		if (delta > 0)
+		if (playerFollowed == -1)
 		{
-			zoom = ((zoom == 10) ? (10) : (zoom + 1));
-			layers.setCenter(lastMapPos.x, lastMapPos.y);
-		}
-		else
-		{
-			console.log(lastMapPos);
-			zoom = ((zoom == 1) ? (1) : (zoom - 1));
-		}
-		
-		var tileSize = layers.getTileSize();
-		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
-		
-		if (previousZoom != zoom)
-		{
-			layers.clear("cMap");
-			layers.clear("cHighLight");
-			map_draw(cache.getWidth(), cache.getHeight(), layers);
-			ressources_draw(layers);
-			players_draw(layers);
+			if (delta > 0)
+			{
+				zoom = ((zoom == 10) ? (10) : (zoom + 1));
+				layers.setCenter(lastMapPos.x, lastMapPos.y);
+			}
+			else
+				zoom = ((zoom == 1) ? (1) : (zoom - 1));
+	
+			var tileSize = layers.getTileSize();
+			layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
+			
+			if (previousZoom != zoom)
+			{
+				layers.clear("cMap");
+				layers.clear("cHighLight");
+				map_draw(cache.getWidth(), cache.getHeight(), layers);
+				ressources_draw(layers);
+				players_draw(layers);
+			}
 		}
 	});
 	
@@ -310,15 +310,21 @@ function initPlayersList() {
 								"<span class='player-follow-button' style='margin-left:0;'>Follow</span>" +
 								"</li>");
 	}
+	
 	$(".player-follow-button").click(function() {
 		if ($(this).text() == "Follow") {
 			$(".player-follow-button").text("Follow");
 			$(this).text("Unfollow");
-			playerFollowed = $(this).parent().children().html();
+			
+			var id = parseInt($(this).parent().children().html());
+			playerFollowed = id;
+			showInventory(id);
+			layers.resetAndRedraw();
 		}
 		else {
 			$(this).text("Follow");
 			playerFollowed = -1;
+			layers.resetAndRedraw();
 		}
 	});
 }

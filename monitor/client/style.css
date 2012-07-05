@@ -235,6 +235,8 @@ i.leaf-icon {
 	width: 288px;
 	height: 320px;
 	display: none;
+	left: 13px;
+	bottom: 55px;
 	position: absolute !important;
 	z-index: 5;
 }

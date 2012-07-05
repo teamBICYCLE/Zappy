@@ -6,10 +6,10 @@ function players_draw(layers) {
     
 
     var orientation = {
-		1: "player-south",
-		2: "player-west",
-		3: "player-north",
-		4: "player-east"
+		1: "player-north",
+		2: "player-east",
+		3: "player-south",
+		4: "player-west"
     }
 
     layers.clear("cPlayers");

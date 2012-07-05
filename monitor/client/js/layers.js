@@ -51,9 +51,22 @@ Layers.prototype.setTileSize = function(w, h) {
 
 Layers.prototype.setCenter = function(x, y) {
 	
-	console.log("follow !");
 	this.centerX = x;
 	this.centerY = y;
+}
+
+Layers.prototype.resetAndRedraw = function() {
+	this.centerX = (this.mapWidth / 2);
+	this.centerY = (this.mapHeight / 2);
+	this.zoom = 10;
+	this.tileWidth = 128;
+	this.tileHeight = 128;
+	
+	this.clear("cHighLight");
+	this.clear("cMap");
+	ressources_draw(this);
+	players_draw(this);
+	map_draw(this.mapWidth, this.mapHeight, this);
 }
 
 /* DRAWING */
@@ -81,15 +94,28 @@ Layers.prototype.padding = function(canvas) {
 		topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)),
 		leftOffset = (c.width / 2) - (this.tileWidth / 2);
 		
-	console.log(playerFollowed);
-	// if (playerFollowed == -1)	
-		// center = this.centerAt(this.centerX, this.centerY);
-	// else
-	// {
-		// console.log("yo !");
-		// var player = cache.getPlayer(playerFollowed);
-		// center = this.centerAt(player.posx_, player.posy_);
-	// }
+	if (playerFollowed == -1)	
+		center = this.centerAt(this.centerX, this.centerY);
+	else
+	{
+		var player = cache.getPlayer(playerFollowed),
+			oldCenter = {x: this.centerX, y: this.centerY},
+			pPos = {x: parseInt(player.posx_), y: parseInt(player.posy_)};
+		
+		this.setCenter(pPos.x, pPos.y);
+		if (oldCenter.x != this.centerX || oldCenter.y != this.centerY)
+			{
+				zoom = 10;
+				this.tileWidth = 128;
+				this.tileHeight = 128;
+				console.log("draw");
+				center = this.centerAt(pPos.x, pPos.y);
+				this.clear("cHighLight");
+				ressources_draw(this);
+				players_draw(this);
+				map_draw(this.mapWidth, this.mapHeight, this);
+			}
+	}
 		
 	return ({left: leftOffset + center.left , top: topOffset + center.top});
 }
@@ -104,6 +130,7 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
 		
+	console.log(zoom, this.tileWidth);
 	c.ctx.save();
 	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
