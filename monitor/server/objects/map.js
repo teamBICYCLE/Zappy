@@ -40,6 +40,18 @@ Map.prototype.getCase = function(cache, x, y) {
 	console.log("Something wrong in Map.getCase()");
 }
 
+Map.prototype.getRealCase = function(cache, x, y) {
+	
+	x = parseInt(x);
+	y = parseInt(y);
+	var target = parseInt(y * cache.getXSize()) + parseInt(x);
+	
+	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
+		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)
+		return data_[target];
+	console.log("Something wrong in Map.getRealCase()");
+}
+
 Map.prototype.setCase = function(cache, x, y, ressources) {
 	
 	x = parseInt(x);
