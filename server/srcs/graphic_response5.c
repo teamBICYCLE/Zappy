@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 15:13:51 2012 lois burg
-** Last update Sat Jun 16 15:16:00 2012 lois burg
+** Last update Thu Jul  5 17:52:57 2012 lois burg
 */
 
 #include <string.h>
@@ -49,3 +49,11 @@ char	*graphics_sbp(void)
   return (msg);
 }
 
+char	*graphics_gkp(t_users *u)
+{
+  char	*msg;
+
+  msg = get_graphics_buf();
+  snprintf(msg, GRAPHICS_MSG_SZ, "gkp %d\n", u->id);
+  return (msg);
+}

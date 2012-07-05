@@ -33,9 +33,34 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IACaseContent", &Trantorien::caseContent);
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
+  addInteraction("IAExpulse", &Trantorien::expulse);
   setValidityTest(&Trantorien::isValid);
 
-  //  getVM().getLua();
+  lua_State *state = getVM().getLua();
+  lua_pushinteger(state, NORD);
+  lua_setglobal(state, "NORD");
+  lua_pushinteger(state, EST);
+  lua_setglobal(state, "EST");
+  lua_pushinteger(state, SUD);
+  lua_setglobal(state, "SUD");
+  lua_pushinteger(state, OUEST);
+  lua_setglobal(state, "OUEST");
+
+  lua_pushinteger(state, NOURRITURE);
+  lua_setglobal(state, "NOURRITURE");
+  lua_pushinteger(state, LINEMATE);
+  lua_setglobal(state, "LINEMATE");
+  lua_pushinteger(state, DERAUMERE);
+  lua_setglobal(state, "DERAUMERE");
+  lua_pushinteger(state, SIBUR);
+  lua_setglobal(state, "SIBUR");
+  lua_pushinteger(state, MENDIANE);
+  lua_setglobal(state, "MENDIANE");
+  lua_pushinteger(state, PHIRAS);
+  lua_setglobal(state, "PHIRAS");
+  lua_pushinteger(state, THYSTAME);
+  lua_setglobal(state, "THYSTAME");
+
   joinTeam("toto");
   this->getline();
   this->getline();
@@ -305,4 +330,14 @@ int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
       }));
     }
   return (0);
+}
+
+int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string ret;
+
+  network_.cmd("expluse");
+  ret = this->getline();
+  lua_pushstring(vm.getLua(), ret.c_str());
+  return 1;
 }

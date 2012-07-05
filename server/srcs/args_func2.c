@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jul  5 11:23:07 2012 lois burg
+** Last update Thu Jul  5 15:26:52 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -62,7 +62,10 @@ void	set_seed(t_arg_infos *infos, char *argv[])
 {
   (void)argv;
   if (contains_only_digits(optarg))
-    infos->seed = strtol(optarg, NULL, 10);
+    {
+      infos->seed = strtol(optarg, NULL, 10);
+      infos->seed_spec = true;
+    }
   else
     invalid_param(infos, "-s: Invalid seed. Must be a numeric value.");
 }

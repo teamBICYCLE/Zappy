@@ -37,9 +37,15 @@ $(function() {
 		previousZoom = zoom;
 		
 		if (delta > 0)
+		{
 			zoom = ((zoom == 10) ? (10) : (zoom + 1));
+			layers.setCenter(lastMapPos.x, lastMapPos.y);
+		}
 		else
+		{
+			console.log(lastMapPos);
 			zoom = ((zoom == 1) ? (1) : (zoom - 1));
+		}
 		
 		var tileSize = layers.getTileSize();
 		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
@@ -66,6 +72,7 @@ $(function() {
 	}, function() {
 		$(".player-list").fadeOut(300);
 	});
+
 });
 
 function displayError(msg) {
@@ -303,6 +310,17 @@ function initPlayersList() {
 								"<span class='player-follow-button'>Follow</span>" +
 								"</li>");
 	}
+	$(".player-follow-button").click(function() {
+		if ($(this).text() == "Follow") {
+			$(".player-follow-button").text("Follow");
+			$(this).text("Unfollow");
+			playerFollowed = $(this).parent().children().html();
+		}
+		else {
+			$(this).text("Follow");
+			playerFollowed = -1;
+		}
+	});
 }
 
 function updatePlayerList() {
