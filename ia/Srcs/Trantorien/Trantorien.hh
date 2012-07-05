@@ -3,6 +3,9 @@
 #ifndef _TRANTORIEN_HH_
 #define _TRANTORIEN_HH_
 
+#include <string>
+#include <list>
+#include <functional>
 #include "FSM/VM.hpp"
 #include "Inventory.hh"
 #include "Network.hh"
@@ -21,6 +24,9 @@ private: // print infos
 
 private: // server interactions
   void                  joinTeam(const std::string & teamName);
+  void                  cmd(const std::string & command);
+  std::string           getline();
+  std::string           getBroadcastLine();
 
 private:
   bool                  isValid() const;
@@ -32,10 +38,15 @@ private:
   int	       poser(LuaVirtualMachine::VirtualMachine &);
   int	       tourner(LuaVirtualMachine::VirtualMachine &);
 
+  int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
+                                std::function<std::string(lua_State *,
+                                                          const std::string &)> fct);
+
 private:
-  Inventory     inventory_;
-  Network       network_;
-  Map		map_;
+  Inventory               inventory_;
+  Network                 network_;
+  Map                     map_;
+  std::list<std::string>  broadcastHistory_;
 };
 
 #endif // _TRANDORIEN_HH_
