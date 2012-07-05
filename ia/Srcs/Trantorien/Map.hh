@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Thu Jul  5 13:47:15 2012 thibault carpentier
+// Last update Thu Jul  5 16:32:52 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -13,25 +13,7 @@
 
 #include <vector>
 #include <string>
-
-enum Direction
-  {
-    NORD = 1,
-    EST = 2,
-    SUD = 3,
-    OUEST = 4
-  };
-
-enum Ressources
-  {
-    NOURRITURE = 0,
-    LINEMATE = 1,
-    DERAUMERE = 2,
-    SIBUR = 3,
-    MENDIANE = 4,
-    PHIRAS = 5,
-    THYSTAME = 6,
-  };
+#include "Ressources.hh"
 
 typedef std::pair<int, int> position;
 

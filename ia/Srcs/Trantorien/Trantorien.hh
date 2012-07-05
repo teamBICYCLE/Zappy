@@ -10,8 +10,10 @@
 #include "Inventory.hh"
 #include "Network.hh"
 #include "Map.hh"
+#include "Ressources.hh"
 
 class Trantorien : public FSM::VM<Trantorien> {
+
 public:
   Trantorien(const std::string ip, const std::string port);
   virtual ~Trantorien();
