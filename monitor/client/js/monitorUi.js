@@ -54,7 +54,6 @@ $(function() {
 		}
 	});
 	
-	
 	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);
@@ -62,8 +61,10 @@ $(function() {
 	});
 	*/
 	
-	$(".topbar-menu-players").click(function(){
-		displayPlayersList();
+	$(".topbar-menu-players").toggle(function() {
+		$(".player-list").fadeIn(300);
+	}, function() {
+		$(".player-list").fadeOut(300);
 	});
 });
 
@@ -291,15 +292,20 @@ function updateTeamPanel(prev, now) {
 
 /* PLAYERS LIST */
 
-function displayPlayersList() {
-	//genere les <li> a append dans .players-list-content
+function initPlayersList() {
 	var players = cache.getPlayers();
-	console.log("displayPlayerList");
-	
-	// appeler showInventory(idDuPlayer);
+
+	for (var i = 0; i < players.length; i++) {
+		$(".player-list-container ul").append("<li>" +
+								"<span class='player-id'>" + players[i].id_ + "</span>" +
+								"<span class='player-lvl'>" + players[i].level_ + "</span>" +
+								"<span class='player-team'>" + players[i].team_ + "</span>" +
+								"<span class='player-follow-button'>Follow</span>" +
+								"</li>");
+	}
 }
 
 function updatePlayerList() {
-	$(".players-list-content").children().remove();
-	displayPlayersList();
+	$(".player-list-container ul").children().remove();
+	initPlayersList();
 }

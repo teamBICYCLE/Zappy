@@ -64,7 +64,6 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 {
-  (void)vm;
   std::string ret;
 
   network_.cmd("voir");

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jul  4 15:04:08 2012 lois burg
+** Last update Wed Jul  4 17:24:40 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -62,7 +62,6 @@ static	void	decr_life(void *ptr)
 	{
 	  if (u->first_message == true)
 	    remove_user(u);
-	    /* delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users); */
 	  else
 	    {
 	      if (u->is_dead == false)
@@ -72,12 +71,6 @@ static	void	decr_life(void *ptr)
 		}
 	      else if (u->messages->size == 0)
 		remove_user(u);
-		/* { */
-		  /* if (u->team && u->type == TPLAYER) */
-		  /*   ++u->team->free_slots; */
-		  /* lookup(g_info.users, graphics_pdi(u), &notify_graphic); */
-		  /* delete_link(lookup_and_pop(g_info.users, ptr, &cmp_ptr), &free_users); */
-		/* } */
 	    }
 	}
       else

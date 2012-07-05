@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 11:43:52 2012 lois burg
-** Last update Thu Jun 21 18:09:15 2012 lois burg
+** Last update Wed Jul  4 17:19:03 2012 lois burg
 */
 
 #include <string.h>
@@ -31,11 +31,13 @@ char	*graphics_pin(t_users *usr)
   char	*msg;
 
   msg = get_graphics_buf();
-  idx = snprintf(msg, GRAPHICS_MSG_SZ, "pin %d %d %d", usr->id, usr->x, usr->y);
+  idx = snprintf(msg, GRAPHICS_MSG_SZ, "pin %d %d %d",
+		 usr->id, usr->x, usr->y);
   i = 0;
   while (i < NB_RESSOURCES)
     {
-      idx += snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, " %d", usr->inventory[i]);
+      idx += snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, " %d",
+		      usr->inventory[i]);
       ++i;
     }
   snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, "\n");

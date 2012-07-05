@@ -34,6 +34,7 @@ function events_handler(layers) {
 function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
+	pos.y += (128 - layers.getTileSize().width);
     pos.x -= layers.padding(canvas).left;
     pos.y -= layers.padding(canvas).top;
     x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);

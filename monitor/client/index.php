@@ -36,10 +36,11 @@
 			<i class="zappy-logo"></i>
 			<i class="leaf-icon"></i>
 			<ul class="topbar-menu">
-				<!-- <li class="topbar-menu-settings"></li>
-				<li class="topbar-menu-userlist"></li> -->
+				<li class="topbar-menu-settings"></li>
+				<li class="topbar-menu-players"></li>
 			</ul>
 		</div>
+	</div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><span class="errorText"></span></div>
 		<div id="caseContent"><span class="contentText"></span></div>
@@ -92,11 +93,13 @@
 				<li class="case-content-item tiny-thystame">Thystame: <span class="count">14</span></li>
 			</ul>
 		</div>
-		<div class="players-list">
-			<span class="players-list">Players List</span>
-			<ul class="players-list-content">
-				
-			</ul>
+		<div class="player-list">
+			<div class="player-list-topbar"></div>
+			<div class="player-list-container">
+			<div class="labels">
+				<span class="label">ID</span><span class="label">Level</span><span class="label">Team</span>
+			</div>		
+			<ul></ul>
 		</div>
   	</body>
   	<script src="js/canvasHandler.js"></script>
