@@ -458,7 +458,7 @@ i.leaf-icon {
 	width: 305px;
 	height: 29px;
 	background: transparent url("img/case-content-topbar.png") no-repeat top left;
-	color: #262626;
+	color: #000;
 	text-shadow: 1px 1px 1px #DDD;
 	line-height: 29px;
 	font-size: 12px;
@@ -613,7 +613,7 @@ i.leaf-icon {
 .label {
 	margin-top: 3px;
 	line-height: 30px;
-	color: #262626;
+	color: #000;
 	text-shadow: 1px 1px 1px #DDD;
 }
 

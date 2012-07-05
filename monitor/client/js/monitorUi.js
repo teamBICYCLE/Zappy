@@ -307,7 +307,7 @@ function initPlayersList() {
 								"<span class='player-id'>" + players[i].id_ + "</span>" +
 								"<span class='player-lvl'>" + players[i].level_ + "</span>" +
 								"<span class='player-team'>" + players[i].team_ + "</span>" +
-								"<span class='player-follow-button'>Follow</span>" +
+								"<span class='player-follow-button' style='margin-left:0;'>Follow</span>" +
 								"</li>");
 	}
 	$(".player-follow-button").click(function() {
