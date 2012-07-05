@@ -31,6 +31,9 @@ private:
   int	       prendre(LuaVirtualMachine::VirtualMachine &);
   int	       poser(LuaVirtualMachine::VirtualMachine &);
   int	       tourner(LuaVirtualMachine::VirtualMachine &);
+  int	       caseContent(LuaVirtualMachine::VirtualMachine &);
+  int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
+  int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory     inventory_;
