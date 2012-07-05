@@ -18,7 +18,6 @@ function players_draw(layers) {
 	{
 		var player = cache.getPlayers()[i];
 
-		console.log(player.orientation_);
 		if (player.team_ == currentTeam || currentTeam == "")
 			layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_, false);
 		else

@@ -311,14 +311,14 @@ function initPlayersList() {
 								"</li>");
 	}
 	$(".player-follow-button").click(function() {
-		$(".player-follow-button").text("Follow");
 		if ($(this).text() == "Follow") {
+			$(".player-follow-button").text("Follow");
 			$(this).text("Unfollow");
-			playerFollow = $(this).parent().children().html();
-			console.log(playerFollow);
+			playerFollowed = $(this).parent().children().html();
 		}
 		else {
-			playerFollow = -1;
+			$(this).text("Follow");
+			playerFollowed = -1;
 		}
 	});
 }
