@@ -14,6 +14,8 @@ function Layers(xsize, ysize){
 	this.tileHeight = 128;
 	this.mapWidth = xsize;
 	this.mapHeight = ysize;
+	this.centerX = (this.mapWidth / 2);
+	this.centerY = (this.mapHeight / 2);
 }
 
 /* GET */
@@ -47,48 +49,49 @@ Layers.prototype.setTileSize = function(w, h) {
     this.tileHeight = h;
 }
 
-/* DRAWING */
-
-function abs(nb) {
-	return ((nb < 0) ? (-nb) : (nb));
+Layers.prototype.setCenter = function(x, y) {
+	
+	if (playerFollowed == -1)
+	{
+		this.centerX = x;
+		this.centerY = y;
+	}
 }
+
+/* DRAWING */
 
 Layers.prototype.centerAt = function(x, y) {
 	
-	var left, top, ox, oy, medx, medy, multx, multy;
+	var alignTop, alignLeft;
 	
-	medx = parseInt(this.mapWidth / 2);
-	medy = parseInt(this.mapHeight / 2);
-	multx = 1;
-	multy = 1;
+	alignTop = ((this.mapHeight - 1) - (x + y)) * (this.tileHeight / 4);
+		
+	if (x <= y)
+		alignLeft = ((y - x) * (this.tileWidth / 2));
+	else if (x > y)
+	{
+		alignLeft = ((x - y) * (this.tileWidth / 2));
+		alignLeft *= -1;
+	}
 	
-	ox = abs(x - medx);
-	oy = abs(y - medy);
-	if (x > medx)
-		multx = -1;	
-	if (y > medy)
-		multy = -1;	
-	
-	left = ox * this.tileWidth;
-	left *= multx;
-	top = oy * (this.tileHeight / 2);
-	top *= multy;
-	//top = (this.mapHeight / 2) * (this.tileHeight / 2) - (this.tileHeight / 4);
-	//console.log(left);
-	return ({left: left, top: top});
+	return ({left: alignLeft, top: alignTop});
 }
 
 Layers.prototype.padding = function(canvas) {
 	
 	var c = this.canvasHandler.get(canvas),
 		topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)),
-		leftOffset = (c.width / 2) - (this.tileWidth / 2),
-		center = this.centerAt(parseInt(this.mapHeight / 2), parseInt(this.mapWidth / 2));
-	
-	//leftOffset += (this.mapWidth / 2) * this.tileWidth - (this.tileWidth / 2);
-	//topOffset += (this.mapHeight / 2) * (this.tileHeight / 2) - (this.tileHeight / 4);
-	//console.log(leftOffset + " " + topOffset);
-	return ({left: leftOffset + center.left, top: topOffset + center.top});
+		leftOffset = (c.width / 2) - (this.tileWidth / 2);
+		
+	if (playerFollowed == -1)	
+		center = this.centerAt(this.centerX, this.centerY);
+	else
+	{
+		var player = cache.getPlayer(playerFollowed);
+		center = this.centerAt(player.posx_, player.posy_);
+	}
+		
+	return ({left: leftOffset + center.left , top: topOffset + center.top});
 }
 
 Layers.prototype.draw = function(canvas, img, x, y, alpha) {
