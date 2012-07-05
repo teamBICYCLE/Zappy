@@ -20,6 +20,10 @@ public:
   void                  run();
 
 private: // print infos
+  template <typename X>
+  int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
+                                std::function<X(lua_State *,
+                                                          const X &)> fct);
   void                  dump() const;
 
 private: // server interactions
@@ -41,10 +45,6 @@ private:
   int	       caseContent(LuaVirtualMachine::VirtualMachine &);
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
-
-  int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
-                                std::function<std::string(lua_State *,
-                                                          const std::string &)> fct);
 
 private:
   Inventory               inventory_;
