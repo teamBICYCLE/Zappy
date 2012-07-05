@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Tue Jul  3 19:13:36 2012 lois burg
+** Last update Thu Jul  5 17:55:04 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -43,7 +43,7 @@ static t_tasksmap	g_commands[] =
     {0, &unknown_cmd, NULL}
   };
 
-static t_graphicsmap	g_graphics_cmd[10] =
+static t_graphicsmap	g_graphics_cmd[] =
   {
     {"msz", &answer_msz},
     {"bct", &answer_bct},
@@ -54,6 +54,7 @@ static t_graphicsmap	g_graphics_cmd[10] =
     {"pin", &answer_pin},
     {"sgt", &answer_sgt},
     {"sst", &answer_sst},
+    {"gkp", &answer_gkp},
     {NULL, &answer_suc}
   };
 

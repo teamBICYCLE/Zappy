@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul  5 12:48:32 2012 lois burg
-** Last update Thu Jul  5 16:29:15 2012 lois burg
+** Last update Thu Jul  5 17:10:36 2012 lois burg
 */
 
 #include <time.h>
@@ -36,6 +36,7 @@ void		reset_game(void)
     {
       u = (t_users*)l->ptr;
       u->team->free_slots = g_info.world.clients_per_team;
+      u->team->nb_max_lvl = 0;
       delete_link(l, &free_users);
     }
   free_map(g_info.map);
