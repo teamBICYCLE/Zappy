@@ -34,6 +34,7 @@ private:
   int	       caseContent(LuaVirtualMachine::VirtualMachine &);
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
+  int	       expulse(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory     inventory_;

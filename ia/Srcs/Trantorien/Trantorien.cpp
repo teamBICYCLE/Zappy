@@ -28,6 +28,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IACaseContent", &Trantorien::caseContent);
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
+  addInteraction("IAExpulse", &Trantorien::expulse);
   setValidityTest(&Trantorien::isValid);
 
   //  getVM().getLua();
@@ -219,4 +220,14 @@ int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
   	//   }
       }
   return (0);
+}
+
+int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string ret;
+
+  network_.cmd("expluse");
+  ret = network_.getline();
+  lua_pushstring(vm.getLua(), ret.c_str());
+  return 1;
 }
