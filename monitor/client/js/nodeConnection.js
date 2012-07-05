@@ -12,7 +12,8 @@ var socket = io.connect('http://localhost', {
 	layers,
 	inventoryOpenId = -1,
 	currentTeam = "",
-	zoom = 10;
+	zoom = 10,
+	playerFollowed = -1;
 
 socket.on("disconnect", function(){
 	

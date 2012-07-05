@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Wed Jul  4 17:26:49 2012 Jonathan Machado
+** Last update Thu Jul  5 16:18:01 2012 lois burg
 */
 
 #include <stdio.h>
@@ -42,20 +42,20 @@ t_map		*generate_map(const int x, const int y, int seed)
 
   puts("Generating map...");
   map = new_map(x, y);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, FOOD, (FOOD_PCTG * dmap->max_val) / 100.f);
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, FOOD, (FOOD_PCTG * dmap->max_val) / 100.f); */
   dmap = compute_dmap(x, y, seed++);
   fill_map(map, dmap, LINEMATE, (LINEMATE_PCTG * dmap->max_val) / 100.f);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, DERAUMERE, (DERAUMERE_PCTG * dmap->max_val) / 100.f);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, SIBUR, (SIBUR_PCTG * dmap->max_val) / 100.f);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, MENDIANE, (MENDIANE_PCTG * dmap->max_val) / 100.f);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, PHIRAS, (PHIRAS_PCTG * dmap->max_val) / 100.f);
-  dmap = compute_dmap(x, y, seed++);
-  fill_map(map, dmap, THYSTAME, (THYSTAME_PCTG * dmap->max_val) / 100.f);
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, DERAUMERE, (DERAUMERE_PCTG * dmap->max_val) / 100.f); */
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, SIBUR, (SIBUR_PCTG * dmap->max_val) / 100.f); */
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, MENDIANE, (MENDIANE_PCTG * dmap->max_val) / 100.f); */
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, PHIRAS, (PHIRAS_PCTG * dmap->max_val) / 100.f); */
+  /* dmap = compute_dmap(x, y, seed++); */
+  /* fill_map(map, dmap, THYSTAME, (THYSTAME_PCTG * dmap->max_val) / 100.f); */
   puts("Done!");
   return (map);
 }

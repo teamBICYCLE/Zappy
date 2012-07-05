@@ -3,7 +3,7 @@
  */
 
 function events_handler(layers) {
-	
+		
 	$("#cEvents").unbind('click');
 	$("#cEvents").unbind('mousemove');
 	
@@ -28,13 +28,14 @@ function events_handler(layers) {
     	var pos = getMousePosition(e),
     		mapPos = realToMap(pos, layers, "cHighLight");
     	$("#cHighLight").trigger('mousemove', [mapPos]);
+    	
     });
 }
 
 function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
-	pos.y += (128 - layers.getTileSize().width);
+	pos.y += (128 - layers.getTileSize().width); // pos max - pos.y
     pos.x -= layers.padding(canvas).left;
     pos.y -= layers.padding(canvas).top;
     x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);

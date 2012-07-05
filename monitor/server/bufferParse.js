@@ -138,7 +138,8 @@ var smgFct = function(arg, cache) {
 var pieFct = function(arg, cache) {
 	
 	var msg = "A spell has ";
-	cache.getMap().getCase(cache, arg[1], arg[2]).setSpell(arg[3]);
+	cache.getMap().getRealCase(cache, arg[1], arg[2]).setSpell(arg[3]);
+	
 	if (arg[3] == "1")
 		msg += " succeeded";
 	else

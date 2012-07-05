@@ -37,9 +37,15 @@ $(function() {
 		previousZoom = zoom;
 		
 		if (delta > 0)
+		{
 			zoom = ((zoom == 10) ? (10) : (zoom + 1));
+			layers.setCenter(lastMapPos.x, lastMapPos.y);
+		}
 		else
+		{
+			console.log(lastMapPos);
 			zoom = ((zoom == 1) ? (1) : (zoom - 1));
+		}
 		
 		var tileSize = layers.getTileSize();
 		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
