@@ -139,6 +139,8 @@ var pieFct = function(arg, cache) {
 	
 	var msg = "A spell has ";
 	cache.getMap().getCase(cache, arg[1], arg[2]).setSpell(arg[3]);
+	console.log(arg[1] + " " + arg[2] + " " + arg[3]);
+	console.log(cache.getMap().getCase(cache, arg[1], arg[2]));
 	if (arg[3] == "1")
 		msg += " succeeded";
 	else
