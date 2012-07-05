@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun 18 14:08:35 2012 lois burg
-** Last update Mon Jun 18 14:33:34 2012 lois burg
+** Last update Thu Jul  5 11:19:19 2012 lois burg
 */
 
 #include <string.h>
@@ -21,6 +21,7 @@ void		push_team(t_arg_infos *infos, const char *name)
     {
       t.name = strdup(name);
       t.free_slots = infos->clients_per_team;
+      t.nb_max_lvl = 0;
       push_back(infos->teams_names, new_link_by_param(&t, sizeof(t)));
     }
 }

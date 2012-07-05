@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Wed Jul  4 18:05:09 2012 lois burg
+** Last update Thu Jul  5 12:47:49 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -20,6 +20,9 @@
 # include "libdatac_list.h"
 # include "ringbuffer.h"
 # include "args.h"
+
+# define	MAX_LVL		8
+# define	NB_PLYR_MAX_LVL	6
 
 typedef void (*sighandler_t)(int);
 
@@ -84,6 +87,8 @@ struct          s_infos
   fd_set        readfds;
   t_list        *users;
   t_map		*map;
+  t_team	*winner;
+  bool		end_game;
   t_arg_infos	world;
 };
 
@@ -93,6 +98,7 @@ void   	add_user(void);
 void   	write_user(void *ptr);
 void   	read_user(void *ptr);
 void	reset_fd(t_infos *info);
+void	reset_game(void);
 void	remove_user(t_users *u);
 void	loot_plyr(t_users *u);
 

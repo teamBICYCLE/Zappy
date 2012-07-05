@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Fri Jun 29 16:19:09 2012 lois burg
+** Last update Thu Jul  5 11:18:22 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -25,6 +25,7 @@ struct	s_team
 {
   char	*name;
   int	free_slots;
+  int	nb_max_lvl;
 };
 
 struct	s_arg_func
