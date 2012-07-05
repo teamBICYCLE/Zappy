@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jul  4 17:23:13 2012 lois burg
+** Last update Thu Jul  5 17:53:56 2012 lois burg
 */
 
 #include <stdio.h>
@@ -46,7 +46,7 @@ void		remove_user(t_users *u)
       if (u->type == TPLAYER || u->type == TFORMER_GHOST)
 	lookup(g_info.users, graphics_pdi(u), &notify_graphic);
       if (u->life > 0)
-	snprintf(msg, sizeof(msg), "User %d disconnected!\n", u->id);
+	snprintf(msg, sizeof(msg), "User %d disconnected (kicked?)!\n", u->id);
       else
 	snprintf(msg, sizeof(msg), "User %d died a horrible death!\n", u->id);
       loot_plyr(u);
