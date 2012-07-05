@@ -25,6 +25,7 @@ function highlight_draw(layers) {
 		{		
 		    layers.clear("cHighLight");
 	    	layers.draw("cHighLight", "highlight", mapPos.x, mapPos.y, false);
+	    	lastMapPos = mapPos;
 		}
     });
 }
