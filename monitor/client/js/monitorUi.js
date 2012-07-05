@@ -66,6 +66,7 @@ $(function() {
 	}, function() {
 		$(".player-list").fadeOut(300);
 	});
+
 });
 
 function displayError(msg) {
@@ -303,6 +304,17 @@ function initPlayersList() {
 								"<span class='player-follow-button'>Follow</span>" +
 								"</li>");
 	}
+	$(".player-follow-button").click(function() {
+		$(".player-follow-button").text("Follow");
+		if ($(this).text() == "Follow") {
+			$(this).text("Unfollow");
+			playerFollow = $(this).parent().children().html();
+			console.log(playerFollow);
+		}
+		else {
+			playerFollow = -1;
+		}
+	});
 }
 
 function updatePlayerList() {
