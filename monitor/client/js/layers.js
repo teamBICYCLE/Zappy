@@ -51,11 +51,9 @@ Layers.prototype.setTileSize = function(w, h) {
 
 Layers.prototype.setCenter = function(x, y) {
 	
-	if (playerFollowed == -1)
-	{
-		this.centerX = x;
-		this.centerY = y;
-	}
+	console.log("follow !");
+	this.centerX = x;
+	this.centerY = y;
 }
 
 /* DRAWING */
@@ -83,13 +81,15 @@ Layers.prototype.padding = function(canvas) {
 		topOffset = (c.height / 2) - ((this.mapHeight / 2) * (this.tileHeight / 2)),
 		leftOffset = (c.width / 2) - (this.tileWidth / 2);
 		
-	if (playerFollowed == -1)	
-		center = this.centerAt(this.centerX, this.centerY);
-	else
-	{
-		var player = cache.getPlayer(playerFollowed);
-		center = this.centerAt(player.posx_, player.posy_);
-	}
+	console.log(playerFollowed);
+	// if (playerFollowed == -1)	
+		// center = this.centerAt(this.centerX, this.centerY);
+	// else
+	// {
+		// console.log("yo !");
+		// var player = cache.getPlayer(playerFollowed);
+		// center = this.centerAt(player.posx_, player.posy_);
+	// }
 		
 	return ({left: leftOffset + center.left , top: topOffset + center.top});
 }
