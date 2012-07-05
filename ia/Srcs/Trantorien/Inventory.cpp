@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:29 2012 thibault carpentier
-// Last update Thu Jul  5 14:47:22 2012 thibault carpentier
+// Last update Thu Jul  5 18:51:10 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -13,9 +13,8 @@
 #include <boost/regex.hpp>
 #include "Inventory.hh"
 #include "TrantorienFailure.hh"
+#include "Ressources.hh"
 
-std::string const Inventory::values_[] =
-  {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"};
 std::string const           Inventory::REGEX_VALUE = " *\\{( *[A-Za-z]+ +[0-9]+ *,)* *[A-Za-z]+ +[0-9]+ *\\}";
 
 Inventory::Inventory()
@@ -61,18 +60,18 @@ void Inventory::update(const std::string &values)
 
 void Inventory::prendre(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
     {
-      if (values_[i] == value)
+      if (g_values[i] == value)
 	++inventory_[i];
     }
 }
 
 void Inventory::poser(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
     {
-      if (values_[i] == value)
+      if (g_values[i] == value)
 	--inventory_[i];
     }
 }
@@ -85,9 +84,9 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
   ret.resize(END);
   if (boost::regex_match(values, regex))
     {
-      for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+      for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
 	{
-	  boost::regex extract(" *" + values_[i] + " +([0-9]+)");
+	  boost::regex extract(" *" + g_values[i] + " +([0-9]+)");
 	  boost::match_results<std::string::const_iterator> what;
 	  if (regex_search(values.begin(), values.end(), what, extract, boost::match_default))
 	    if (what.size() >= 1)

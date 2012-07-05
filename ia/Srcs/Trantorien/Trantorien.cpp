@@ -166,15 +166,17 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-        variableArgsCall(vm,
-                         [&](lua_State * state, const std::string & object) ->
-        std::string {
-             this->cmd("prend " + object);
-             std::string result = this->getline();
-             if (result == "ok")
-                 inventory_.prendre(object);
-           return result;
-  }));
+	  variableArgsCall(vm,
+			   [&](lua_State * state, const std::string & object) ->
+			   std::string
+			   {
+			     this->cmd("prend " + object);
+			     std::string result = this->getline();
+			     if (result == "ok")
+			       inventory_.prendre(object);
+			     return result;
+			   }
+			   ));
 }
 
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
