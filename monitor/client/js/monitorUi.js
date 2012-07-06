@@ -59,6 +59,32 @@ $(function() {
 		}
 	});
 	
+	Mousetrap.bind('up up down down left right left right b a', function() {
+	    console.log("Konami Code !");
+	});
+	
+	Mousetrap.bind('i', function() {
+	    if (playerFollowed != -1)
+	    {
+	    	if ($("#inventory").is(':hidden'))
+	    		showInventory(playerFollowed);
+	    	else
+	    		closeInventory();
+	    }
+	});
+	
+	Mousetrap.bind('p', function() {
+		$(".player-list").toggle();
+	});
+	
+	Mousetrap.bind('t', function() {
+
+		if ($(".panel").css("margin-right") == "-500px")
+			$(".panel").animate({marginRight: "0px"}, 200);
+		else
+			$(".panel").animate({marginRight: "-500px"}, 200);
+	});
+	
 	/*
 	$("#overlay").click(function() {
 		$(this).fadeOut(300);
@@ -166,14 +192,14 @@ function initItem(item) {
 }
 
 function closeInventory() {
+	
 	$("#inventory").hide();
-	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = -1;
 }
 
 function showInventory(id) {
+	
 	$("#inventory").show();
-	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = id;
 }
 
@@ -324,6 +350,7 @@ function initPlayersList() {
 			$(this).text("Follow");
 			playerFollowed = -1;
 			layers.resetAndRedraw();
+			closeInventory();
 		}
 	});
 }
