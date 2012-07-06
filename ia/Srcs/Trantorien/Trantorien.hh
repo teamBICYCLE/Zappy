@@ -48,12 +48,14 @@ private:
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
+  int	       getLevel(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
   std::list<std::string>  broadcastHistory_;
+  unsigned int		  level_;
 };
 
 #endif // _TRANDORIEN_HH_
