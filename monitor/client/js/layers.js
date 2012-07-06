@@ -51,11 +51,22 @@ Layers.prototype.setTileSize = function(w, h) {
 
 Layers.prototype.setCenter = function(x, y) {
 	
-	if (playerFollowed == -1)
-	{
-		this.centerX = x;
-		this.centerY = y;
-	}
+	this.centerX = x;
+	this.centerY = y;
+}
+
+Layers.prototype.resetAndRedraw = function() {
+	this.centerX = (this.mapWidth / 2);
+	this.centerY = (this.mapHeight / 2);
+	zoom = 10;
+	this.tileWidth = 128;
+	this.tileHeight = 128;
+	
+	this.clear("cHighLight");
+	this.clear("cMap");
+	ressources_draw(this);
+	players_draw(this);
+	map_draw(this.mapWidth, this.mapHeight, this);
 }
 
 /* DRAWING */
@@ -87,8 +98,22 @@ Layers.prototype.padding = function(canvas) {
 		center = this.centerAt(this.centerX, this.centerY);
 	else
 	{
-		var player = cache.getPlayer(playerFollowed);
-		center = this.centerAt(player.posx_, player.posy_);
+		var player = cache.getPlayer(playerFollowed),
+			oldCenter = {x: this.centerX, y: this.centerY},
+			pPos = {x: parseInt(player.posx_), y: parseInt(player.posy_)};
+		
+		this.setCenter(pPos.x, pPos.y);
+		if (oldCenter.x != this.centerX || oldCenter.y != this.centerY)
+			{
+				zoom = 10;
+				this.tileWidth = 128;
+				this.tileHeight = 128;
+				console.log("draw");
+				center = this.centerAt(pPos.x, pPos.y);
+				this.clear("cHighLight");
+				ressources_draw(this);
+				map_draw(this.mapWidth, this.mapHeight, this);
+			}
 	}
 		
 	return ({left: leftOffset + center.left , top: topOffset + center.top});
@@ -103,12 +128,12 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
-		
+
 	c.ctx.save();
 	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	if (alpha)
-		c.ctx.globalAlpha = 0.4;
+		c.ctx.globalAlpha = 0.6;
 	
 	if (zoom != 10)
 		c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));

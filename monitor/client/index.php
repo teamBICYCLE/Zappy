@@ -16,6 +16,7 @@
   				$port = $_GET['port'];
   			echo "<script src='http://localhost:".$port."/socket.io/socket.io.js'></script>";
   		?>
+  		<script src="js/libs/mousetrap.min.js"></script>
   		<script src="js/monitorUi.js"></script>	
   		<script src="js/cmd.js"></script>
   		<script src="js/monitorCache.js"></script>
@@ -38,6 +39,7 @@
 			<ul class="topbar-menu">
 				<li class="topbar-menu-settings"></li>
 				<li class="topbar-menu-players"></li>
+				<li class="topbar-menu-centermap"></li>
 			</ul>
 		</div>
 	</div>

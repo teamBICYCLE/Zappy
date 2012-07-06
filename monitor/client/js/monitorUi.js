@@ -36,28 +36,59 @@ $(function() {
 		
 		previousZoom = zoom;
 		
-		if (delta > 0)
+		if (playerFollowed == -1)
 		{
-			zoom = ((zoom == 10) ? (10) : (zoom + 1));
-			layers.setCenter(lastMapPos.x, lastMapPos.y);
+			if (delta > 0)
+			{
+				zoom = ((zoom == 10) ? (10) : (zoom + 1));
+				layers.setCenter(lastMapPos.x, lastMapPos.y);
+			}
+			else
+				zoom = ((zoom == 1) ? (1) : (zoom - 1));
+	
+			var tileSize = layers.getTileSize();
+
+			//layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));			
+			if (previousZoom != zoom)
+			{
+				layers.clear("cHighLight");
+				map_draw(cache.getWidth(), cache.getHeight(), layers);
+				ressources_draw(layers);
+				players_draw(layers);
+			}
 		}
-		else
-		{
-			console.log(lastMapPos);
-			zoom = ((zoom == 1) ? (1) : (zoom - 1));
+	});
+	
+	Mousetrap.bind('up up down down left right left right b a', function() {
+	    console.log("Konami Code !");
+	});
+	
+	Mousetrap.bind('i', function() {
+	    if (playerFollowed != -1)
+	    {
+	    	if ($("#inventory").is(':hidden'))
+	    		showInventory(playerFollowed);
+	    	else
+	    		closeInventory();
+	    }
+	});
+	
+	Mousetrap.bind('p', function() {
+		if ($(".btn-slide").hasClass("active")) {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").toggleClass("active");
 		}
-		
-		var tileSize = layers.getTileSize();
-		layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
-		
-		if (previousZoom != zoom)
-		{
-			layers.clear("cMap");
-			layers.clear("cHighLight");
-			map_draw(cache.getWidth(), cache.getHeight(), layers);
-			ressources_draw(layers);
-			players_draw(layers);
-		}
+		$(".player-list").toggle();
+	});
+	
+	Mousetrap.bind('t', function() {
+
+		if ($(".panel").css("margin-right") == "-500px") {
+			$(".player-list").fadeOut(300);
+			$(".panel").animate({marginRight: "0px"}, 200);
+		} else
+			$(".panel").animate({marginRight: "-500px"}, 200);
+		$(".btn-slide").toggleClass("active");
 	});
 	
 	/*
@@ -69,10 +100,17 @@ $(function() {
 	
 	$(".topbar-menu-players").toggle(function() {
 		$(".player-list").fadeIn(300);
+		$(".panel").animate({marginRight: "-500px"}, 200);
+		if ($(".btn-slide").hasClass("active"))
+			$(".btn-slide").toggleClass("active");
 	}, function() {
 		$(".player-list").fadeOut(300);
 	});
 
+	$(".topbar-menu-centermap").click(function() {
+		layers.resetAndRedraw();
+	});
+	
 });
 
 function displayError(msg) {
@@ -167,14 +205,14 @@ function initItem(item) {
 }
 
 function closeInventory() {
+	
 	$("#inventory").hide();
-	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = -1;
 }
 
 function showInventory(id) {
+	
 	$("#inventory").show();
-	//lastInventoryOpenId = inventoryOpenId;
 	inventoryOpenId = id;
 }
 
@@ -249,9 +287,13 @@ function initTeamPanel() {
 	addTeamsToPanel();
 	
 	$(".btn-slide").toggle(function() {
-			$(".panel").animate({marginRight: "0px"}, 200);
-			$(".btn-slide").toggleClass("active");
+			$(".player-list").fadeOut(300);
+			if ($(".btn-slide").not(".active")) {
+				$(".panel").animate({marginRight: "0px"}, 200);
+				$(".btn-slide").toggleClass("active");
+			}
 		}, function() {
+			$(".player-list").fadeOut(300);			
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").toggleClass("active");
 	});
@@ -307,18 +349,25 @@ function initPlayersList() {
 								"<span class='player-id'>" + players[i].id_ + "</span>" +
 								"<span class='player-lvl'>" + players[i].level_ + "</span>" +
 								"<span class='player-team'>" + players[i].team_ + "</span>" +
-								"<span class='player-follow-button'>Follow</span>" +
+								"<span class='player-follow-button' style='margin-left:0;'>Follow</span>" +
 								"</li>");
 	}
+	
 	$(".player-follow-button").click(function() {
 		if ($(this).text() == "Follow") {
 			$(".player-follow-button").text("Follow");
 			$(this).text("Unfollow");
-			playerFollowed = $(this).parent().children().html();
+			
+			var id = parseInt($(this).parent().children().html());
+			playerFollowed = id;
+			showInventory(id);
+			layers.resetAndRedraw();
 		}
 		else {
 			$(this).text("Follow");
 			playerFollowed = -1;
+			layers.resetAndRedraw();
+			closeInventory();
 		}
 	});
 }
