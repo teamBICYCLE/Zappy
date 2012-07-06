@@ -58,7 +58,7 @@ Layers.prototype.setCenter = function(x, y) {
 Layers.prototype.resetAndRedraw = function() {
 	this.centerX = (this.mapWidth / 2);
 	this.centerY = (this.mapHeight / 2);
-	this.zoom = 10;
+	zoom = 10;
 	this.tileWidth = 128;
 	this.tileHeight = 128;
 	
