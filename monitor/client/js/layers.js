@@ -129,7 +129,7 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
-		
+
 	c.ctx.save();
 	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
