@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:25 2012 lois burg
-** Last update Wed Jul  4 17:32:19 2012 lois burg
+** Last update Fri Jul  6 15:29:30 2012 lois burg
 */
 
 #include <string.h>
@@ -75,6 +75,8 @@ t_dmap		*compute_dmap(const int x, const int y, const int seed)
   t_dmap	*dmap;
 
   dmap = new_dmap(size);
+  if (dmap == NULL)
+    return (NULL);
   nb_iter = 1;
   srand(seed);
   dmap->map[0][0] = (rand() % RAND_RANGE);

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Fri Jul  6 13:48:00 2012 lois burg
+** Last update Fri Jul  6 15:26:08 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -113,6 +113,7 @@ char	**parse(char *str, const char *delim);
 double	get_angle(int *x, int *y, t_direction dir);
 int	get_case(int *x, int *y, t_direction dir);
 size_t	carray_size(char const **a);
+void	leave(const char *msg);
 
 void   	free_users(void *ptr);
 void   	free_teams(void *ptr);

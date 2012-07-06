@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon Oct 24 10:18:44 2011 Jonathan Machado
-** Last update Thu Jun  7 10:27:10 2012 Jonathan Machado
+** Last update Fri Jul  6 15:42:26 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -27,9 +27,8 @@ t_link		*new_link_by_param(void *ptr, size_t s)
 {
   t_link       	*new;
 
-  new = NULL;
   new = new_link();
-  if (ptr != NULL)
+  if (new != NULL && ptr != NULL)
     {
       new->ptr = malloc(s);
       memset(new->ptr, 0, s);
