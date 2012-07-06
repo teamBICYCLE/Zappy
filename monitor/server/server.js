@@ -117,8 +117,11 @@ function getCmd(cmd) {
 	else if (explode[0] == "bct" && parseInt(explode[1]) >= 0 &&
 			parseInt(explode[2]) >= 0 && parseInt(explode[1]) < zappy.getCache().getXSize() &&
 			parseInt(explode[2]) < zappy.getCache().getYSize())
+			{
+		console.log(zappy.getCache().getMap().getCase(zappy.getCache(), parseInt(explode[1]), parseInt(explode[2])));
 		return "Case content in (" + explode[1] + ", " + explode[2] + ") : " +
-		zappy.getCache().getMap().getCase(zappy.getCache(), parseInt(explode[1]), parseInt(explode[2])).ressources;
+		zappy.getCache().getMap().getCase(zappy.getCache(), parseInt(explode[1]), parseInt(explode[2])).ressources_;
+		}
 	else if (explode[0] == "sst")
 	{
 		zappy.getSocket().write(explode[0] + " " + explode[1] + "\n");

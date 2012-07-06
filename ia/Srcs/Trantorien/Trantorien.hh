@@ -22,9 +22,9 @@ public:
   void                  run();
 
 private: // print infos
-  template <typename X>
+  template <typename X, typename Y>
   int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
-                                std::function<X(lua_State *,
+                                std::function<Y(lua_State *,
                                                           const X &)> fct);
   void                  dump() const;
 
@@ -48,12 +48,14 @@ private:
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
+  int	       getLevel(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
   std::list<std::string>  broadcastHistory_;
+  unsigned int		  level_;
 };
 
 #endif // _TRANDORIEN_HH_

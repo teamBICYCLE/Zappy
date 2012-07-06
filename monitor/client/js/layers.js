@@ -58,7 +58,7 @@ Layers.prototype.setCenter = function(x, y) {
 Layers.prototype.resetAndRedraw = function() {
 	this.centerX = (this.mapWidth / 2);
 	this.centerY = (this.mapHeight / 2);
-	this.zoom = 10;
+	zoom = 10;
 	this.tileWidth = 128;
 	this.tileHeight = 128;
 	
@@ -112,7 +112,6 @@ Layers.prototype.padding = function(canvas) {
 				center = this.centerAt(pPos.x, pPos.y);
 				this.clear("cHighLight");
 				ressources_draw(this);
-				players_draw(this);
 				map_draw(this.mapWidth, this.mapHeight, this);
 			}
 	}
@@ -129,7 +128,7 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
-		
+
 	c.ctx.save();
 	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
