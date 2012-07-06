@@ -2,6 +2,8 @@
  * @author sylvia_r
  */
 
+var allowInventoryUpdate = true;
+
 $(function() {
 
 	/* events */
@@ -162,7 +164,14 @@ function initInventory() {
 		}
 	};
 		
-	$("#inventory").draggable();
+	$("#inventory").draggable({
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
+		}
+	});
 	$(".item").draggable(options);
 	
 	$(".container").droppable({
