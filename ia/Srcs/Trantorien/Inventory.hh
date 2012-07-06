@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:34 2012 thibault carpentier
-// Last update Thu Jul  5 14:54:54 2012 thibault carpentier
+// Last update Thu Jul  5 18:50:52 2012 thibault carpentier
 //
 
 //{nourriture 10,linemate 0,deraumere 0,sibur 0,mendiane 0,phiras 0,thystame 0}
@@ -42,7 +42,6 @@ public:
   std::vector<unsigned int>	    getInventory(void) const;
 
 private:
-  static const std::string values_[];
   static std::string const REGEX_VALUE;
   std::vector<unsigned int>  parse(const std::string & values);
 
