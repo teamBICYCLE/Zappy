@@ -2,6 +2,8 @@
  * @author sylvia_r
  */
 
+var allowInventoryUpdate = true;
+
 $(function() {
 
 	/* events */
@@ -74,37 +76,34 @@ $(function() {
 	});
 	
 	Mousetrap.bind('p', function() {
-		if ($(".btn-slide").hasClass("active")) {
+		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
-			$(".btn-slide").toggleClass("active");
+			$(".btn-slide").removeClass("active");
+			$(".player-list").fadeIn(300);
+		} else {
+			$(".player-list").fadeOut(300);
 		}
-		$(".player-list").toggle();
 	});
 	
 	Mousetrap.bind('t', function() {
-
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".player-list").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
-		} else
+			$(".btn-slide").addClass("active");
+		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
-		$(".btn-slide").toggleClass("active");
+			$(".btn-slide").removeClass("active");
+		}
 	});
 	
-	/*
-	$("#overlay").click(function() {
-		$(this).fadeOut(300);
-		$(".case-content").fadeOut(300);
-	});
-	*/
-	
-	$(".topbar-menu-players").toggle(function() {
-		$(".player-list").fadeIn(300);
-		$(".panel").animate({marginRight: "-500px"}, 200);
-		if ($(".btn-slide").hasClass("active"))
-			$(".btn-slide").toggleClass("active");
-	}, function() {
-		$(".player-list").fadeOut(300);
+	$(".topbar-menu-players").click(function() {
+		if ($(".player-list").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".player-list").fadeIn(300);
+		} else {
+			$(".player-list").fadeOut(300);
+		}
 	});
 
 	$(".topbar-menu-centermap").click(function() {
@@ -165,7 +164,14 @@ function initInventory() {
 		}
 	};
 		
-	$("#inventory").draggable();
+	$("#inventory").draggable({
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
+		}
+	});
 	$(".item").draggable(options);
 	
 	$(".container").droppable({
@@ -323,6 +329,18 @@ function initTeamPanel() {
 	
 	addTeamsToPanel();
 	
+	$(".btn-slide").click(function() {
+		if ($(".panel").css("margin-right") == "-500px") {
+			$(".player-list").fadeOut(300);
+			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").addClass("active");
+		} else {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+		}
+	});	
+	
+	/*
 	$(".btn-slide").toggle(function() {
 			$(".player-list").fadeOut(300);
 			if ($(".btn-slide").not(".active")) {
@@ -334,6 +352,7 @@ function initTeamPanel() {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").toggleClass("active");
 	});
+    */
     
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {

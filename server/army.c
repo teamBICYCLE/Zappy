@@ -53,14 +53,14 @@ int	connect_to(char const *name, char const *port)
 int main()
 {
   unsigned int i = 0;
-  int sock[1];
+  int sock[50];
   char lol[8192];
 
   for (i = 0; i < sizeof(sock) / sizeof(int); ++i)
     {
       sock[i] = connect_to("localhost", "4242");
       read(sock[i], lol, sizeof(lol));
-      write(sock[i], "1\n", sizeof("1\n") - 1);
+      write(sock[i], "1\n", sizeof("1\n"));
       read(sock[i], lol, sizeof(lol));
     }
   puts("Army Connected!");
@@ -68,7 +68,7 @@ int main()
     {
       for (i = 0; i < sizeof(sock) / sizeof(int); ++i)
 	{
-	  write(sock[i], "avance\n", sizeof("avance\n") - 1);
+	  write(sock[i], "avance\n", sizeof("avance\n"));
 	  read(sock[i], lol, sizeof(lol));
 	}
     }

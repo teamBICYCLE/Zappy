@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jul  5 15:26:52 2012 lois burg
+** Last update Fri Jul  6 14:50:08 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -31,7 +31,7 @@ void		get_action_delay(t_arg_infos *infos, char *argv[])
     }
   else
     invalid_param(infos, "-t: Invalid time. "
-		  "Must be a positive, non-null integer <= 1,000,000.");
+		  "Must be a positive, non-null integer <= 100,000.");
 }
 
 void	unknown_options(t_arg_infos *infos, char *argv[])
