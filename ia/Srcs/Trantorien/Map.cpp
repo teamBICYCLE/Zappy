@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Thu Jul  5 18:50:31 2012 thibault carpentier
+// Last update Fri Jul  6 14:52:02 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -239,7 +239,7 @@ void Map::poser(const std::string &value)
 std::vector<unsigned int> Map::caseContent(position coord)
 {
   std::vector<unsigned int> result;// = new std::vector<unsigned int>();
-  for (unsigned int i = 0; i <= THYSTAME; ++i)
+  for (unsigned int i = 0; i <= JOUEUR; ++i)
     {
       unsigned int nbRessources = 0;
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)

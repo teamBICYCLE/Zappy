@@ -49,6 +49,9 @@ private:
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
   int	       getLevel(LuaVirtualMachine::VirtualMachine &);
+  int	       missingRockOnCase(LuaVirtualMachine::VirtualMachine &);
+  int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
+  int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory               inventory_;
