@@ -112,7 +112,6 @@ Layers.prototype.padding = function(canvas) {
 				center = this.centerAt(pPos.x, pPos.y);
 				this.clear("cHighLight");
 				ressources_draw(this);
-				players_draw(this);
 				map_draw(this.mapWidth, this.mapHeight, this);
 			}
 	}

@@ -47,7 +47,7 @@ $(function() {
 				zoom = ((zoom == 1) ? (1) : (zoom - 1));
 	
 			var tileSize = layers.getTileSize();
-			layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
+			//layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
 			
 			if (previousZoom != zoom)
 			{
