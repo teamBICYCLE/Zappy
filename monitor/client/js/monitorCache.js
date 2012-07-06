@@ -44,19 +44,23 @@ MonitorCache.prototype.setMap = function(map) {
 MonitorCache.prototype.setPlayers = function(players) {
 	this.players_ = players;
 	
-	var playerFollowedFind = false;
-	
-	for (var i = 0; i != this.players_.length; i++)
-		if (this.players_[i].id_ == playerFollowed)
-		{
-			playerFollowedFind = true;
-			break;
-		}
-		
-	if (!playerFollowedFind)
+	if (playerFollowed != -1)
 	{
-		playerFollowed = -1;
-		// center !!!
+		var playerFollowedFind = false;
+		
+		for (var i = 0; i != this.players_.length; i++)
+			if (this.players_[i].id_ == playerFollowed)
+			{
+				playerFollowedFind = true;
+				break;
+			}
+			
+		if (!playerFollowedFind)
+		{
+			playerFollowed = -1;
+			if (typeof(layers) != "undefined")
+				layers.resetAndRedraw();
+		}
 	}
 }
 

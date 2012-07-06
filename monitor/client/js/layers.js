@@ -130,12 +130,11 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
 		
-	console.log(zoom, this.tileWidth);
 	c.ctx.save();
 	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	if (alpha)
-		c.ctx.globalAlpha = 0.4;
+		c.ctx.globalAlpha = 0.6;
 	
 	if (zoom != 10)
 		c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));

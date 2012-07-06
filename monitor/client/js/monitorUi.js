@@ -51,7 +51,6 @@ $(function() {
 			
 			if (previousZoom != zoom)
 			{
-				layers.clear("cMap");
 				layers.clear("cHighLight");
 				map_draw(cache.getWidth(), cache.getHeight(), layers);
 				ressources_draw(layers);
