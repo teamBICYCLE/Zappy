@@ -74,9 +74,8 @@ socket.on('cacheUpdate', function(data){
 	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
 		
-		console.log(data);
 		if (data.endGame.state)
-			console.log("END GAME :) " + data.endGame_.name);
+			console.log("END GAME :) " + data.endGame.name);
 		cache.setMapSize(data.xsize, data.ysize);
 		
 		prevPlayers = cache.getPlayers();

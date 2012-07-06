@@ -125,7 +125,7 @@ exports.setEndGame = function(v, name) {
 	map_ = new (require("./objects/map.js"));
 	players_ = [];
 	eggs_ = [];
-	cmdMessages_ = ["Team " + name + "wins !"];
+	cmdMessages_ = ["Team " + name + " wins !"];
 	changeMap_ = [];
 }
 
