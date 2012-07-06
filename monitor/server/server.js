@@ -50,7 +50,8 @@ if (process.argv.length >= 3)
 				players: cache.getPlayers(),
 				eggs: cache.getEggs(),
 				messages: cache.getCmdMessages(),
-				timestamp: new Date().getTime()
+				timestamp: new Date().getTime(),
+				endGame: cache.getEndGame()
 			});
 		});
 		
@@ -73,15 +74,21 @@ function update() {
 		players = cache.getPlayers();
 		
 	client.getClientSocket().emit('cacheUpdate', {
-		xsize: cache.getXSize(),
-		ysize: cache.getYSize(),
+		xsize: cache.getXSize(), // WTF ??????????????????????????????????????? <-----
+		ysize: cache.getYSize(), // WTF ???????????????????????????????????????  <-----
 		changeMap: cache.getChangeMap(),
 		players: cache.getPlayers(),
 		eggs: cache.getEggs(),
 		messages: cache.getCmdMessages(),
-		timestamp: new Date().getTime()
+		timestamp: new Date().getTime(),
+		endGame: cache.getEndGame()
 	});
 	
+	if (cache.getEndGame().state)
+		{
+			zappy.getSocket().write("mct\n");
+			cache.setEndGame(false, "");
+		}
 	cache.cmdMessagesEmpty();
 	cache.changeMapEmpty();
 	setTimeout(update, cache.getCurrentTimeUnit());

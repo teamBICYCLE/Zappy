@@ -148,13 +148,16 @@ var pieFct = function(arg, cache) {
 	cache.addMessage(msg);
 }
 
+var segFct = function(arg, cache) {
+	
+	cache.setEndGame(true, arg[1]);
+}
+
 var ptr = {
-  "msz": {nb: 3, ptr: mszFct}, 
-  "sgt": {nb: 2, ptr: sgtFct},
+  "msz": {nb: 3, ptr: mszFct},
   "bct": {nb: 10, ptr: bctFct},
   "tna": {nb: 2, ptr: tnaFct},
-  "pnw": {nb: 7, ptr: pnwFct},
-  "enw": {nb: 5, ptr: enwFct},
+  "pnw": {nb: 7, ptr: pnwFct}, 
   "ppo": {nb: 5, ptr: ppoFct},
   "plv": {nb: 3, ptr: plvFct},
   "pin": {nb: 11, ptr: pinFct},
@@ -169,5 +172,7 @@ var ptr = {
   "enw": {nb: 5, ptr: enwFct},
   "eht": {nb: 2, ptr: ehtFct},
   "edi": {nb: 2, ptr: ediFct},
-  "smg": {nb: 2, ptr: smgFct}
+  "sgt": {nb: 2, ptr: sgtFct},
+  "smg": {nb: 2, ptr: smgFct},
+  "seg": {nb: 2, ptr: segFct}
 };
