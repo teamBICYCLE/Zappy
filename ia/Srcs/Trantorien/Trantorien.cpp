@@ -10,7 +10,7 @@ static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 
 Trantorien::Trantorien(const std::string ip, const std::string port)
-  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(10, 10)), level_(0)
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1)
 {
   std::string tmp;
 
@@ -35,6 +35,9 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
   addInteraction("IAExpulse", &Trantorien::expulse);
   addInteraction("IAGetLevel", &Trantorien::getLevel);
+  addInteraction("IAMissingRockOnCase", &Trantorien::missingRockOnCase);
+  addInteraction("IAMissingRockInInventory", &Trantorien::missingRockInInventory);
+  addInteraction("IAGetCLosestItem", &Trantorien::getClosestItem);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -283,7 +286,7 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) == "ok")
+    if ((ret = this->getline()) != "ko")
       ++level_;
   lua_pushstring(vm.getLua(), ret.c_str());
   return 1;
@@ -379,4 +382,43 @@ int Trantorien::getLevel(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_pushnumber(vm.getLua(), level_);
   return (1);
+}
+
+int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+
+  std::pair<int, int> position = map_.getCurrentPos();
+  std::vector<unsigned int> result = map_.caseContent(position);
+
+  int j = 0;
+  for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+    {
+      lua_pushinteger(state, g_levels[level_ - 1][j] - (*it));
+      ++j;
+    }
+  return (j);
+}
+
+int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::vector<unsigned int> result = inventory_.getIventory();
+
+  int j = 0;
+  for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+    {
+      lua_pushinteger(state, g_levels[level_ - 1][j] - (*it));
+      ++j;
+    }
+  return (j);
+}
+
+int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::pair<int, int> position = map_.getCurrentPos();
+
+  //  map_.seekClosest(position)
+  return (0);
 }
