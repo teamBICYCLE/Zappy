@@ -22,9 +22,9 @@ public:
   void                  run();
 
 private: // print infos
-  template <typename X>
+  template <typename X, typename Y>
   int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
-                                std::function<X(lua_State *,
+                                std::function<Y(lua_State *,
                                                           const X &)> fct);
   void                  dump() const;
 
