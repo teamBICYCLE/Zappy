@@ -47,8 +47,8 @@ $(function() {
 				zoom = ((zoom == 1) ? (1) : (zoom - 1));
 	
 			var tileSize = layers.getTileSize();
-			//layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));
-			
+
+			//layers.setTileSize(layers.getTileLevel(zoom), layers.getTileLevel(zoom));			
 			if (previousZoom != zoom)
 			{
 				layers.clear("cHighLight");
@@ -74,15 +74,21 @@ $(function() {
 	});
 	
 	Mousetrap.bind('p', function() {
+		if ($(".btn-slide").hasClass("active")) {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").toggleClass("active");
+		}
 		$(".player-list").toggle();
 	});
 	
 	Mousetrap.bind('t', function() {
 
-		if ($(".panel").css("margin-right") == "-500px")
+		if ($(".panel").css("margin-right") == "-500px") {
+			$(".player-list").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
-		else
+		} else
 			$(".panel").animate({marginRight: "-500px"}, 200);
+		$(".btn-slide").toggleClass("active");
 	});
 	
 	/*
@@ -94,10 +100,17 @@ $(function() {
 	
 	$(".topbar-menu-players").toggle(function() {
 		$(".player-list").fadeIn(300);
+		$(".panel").animate({marginRight: "-500px"}, 200);
+		if ($(".btn-slide").hasClass("active"))
+			$(".btn-slide").toggleClass("active");
 	}, function() {
 		$(".player-list").fadeOut(300);
 	});
 
+	$(".topbar-menu-centermap").click(function() {
+		layers.resetAndRedraw();
+	});
+	
 });
 
 function displayError(msg) {
@@ -274,9 +287,13 @@ function initTeamPanel() {
 	addTeamsToPanel();
 	
 	$(".btn-slide").toggle(function() {
-			$(".panel").animate({marginRight: "0px"}, 200);
-			$(".btn-slide").toggleClass("active");
+			$(".player-list").fadeOut(300);
+			if ($(".btn-slide").not(".active")) {
+				$(".panel").animate({marginRight: "0px"}, 200);
+				$(".btn-slide").toggleClass("active");
+			}
 		}, function() {
+			$(".player-list").fadeOut(300);			
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").toggleClass("active");
 	});

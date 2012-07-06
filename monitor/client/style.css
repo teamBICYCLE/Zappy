@@ -51,6 +51,10 @@ canvas {
 	background: transparent url("img/settings_button.png") no-repeat top left;
 }
 
+.topbar-menu-centermap {
+	background: yellowgreen;
+}
+
 i.zappy-logo {
 	display: block;
 	width: 242px;
@@ -235,8 +239,8 @@ i.leaf-icon {
 	width: 288px;
 	height: 320px;
 	display: none;
-	left: 13px;
-	bottom: 55px;
+	left: 50px;
+	bottom: 150px;
 	position: absolute !important;
 	z-index: 5;
 }

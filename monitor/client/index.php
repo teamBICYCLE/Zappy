@@ -39,6 +39,7 @@
 			<ul class="topbar-menu">
 				<li class="topbar-menu-settings"></li>
 				<li class="topbar-menu-players"></li>
+				<li class="topbar-menu-centermap"></li>
 			</ul>
 		</div>
 	</div>
