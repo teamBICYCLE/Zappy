@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon Oct 24 14:47:22 2011 Jonathan Machado
-** Last update Fri Apr 20 22:50:22 2012 Jonathan Machado
+** Last update Fri Jul  6 17:41:49 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -14,19 +14,16 @@
 
 void	push_back(t_list *list, t_link *new)
 {
-  if (list != NULL)
+  if (list != NULL && new != NULL)
     {
-      if (new != NULL)
-	{
-	  new->prev = list->tail;
-	  new->next = NULL;
-	  if (list->tail != NULL)
-	    list->tail->next = new;
-	  if (list->head == NULL)
-	    list->head = new;
-	  list->tail = new;
-	  list->size += 1;
-	}
+      new->prev = list->tail;
+      new->next = NULL;
+      if (list->tail != NULL)
+	list->tail->next = new;
+      if (list->head == NULL)
+	list->head = new;
+      list->tail = new;
+      list->size += 1;
     }
 }
 

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Fri Jul  6 15:33:01 2012 lois burg
+** Last update Fri Jul  6 15:48:11 2012 lois burg
 */
 
 #include <stdio.h>
@@ -58,7 +58,6 @@ t_map		*generate_map(const int x, const int y, int seed)
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
 	fill_map(map, dmap, THYSTAME, (THYSTAME_PCTG * dmap->max_val) / 100.f);
     }
-  dump_map(map);
   puts("Done!");
   return (map);
 }
