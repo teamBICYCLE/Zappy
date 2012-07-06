@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jul  4 17:24:40 2012 Jonathan Machado
+** Last update Fri Jul  6 16:27:18 2012 lois burg
 */
 
 #include <string.h>
@@ -24,7 +24,8 @@ static	void	do_task(void *ptr)
   t_cmd_ret	success;
 
   u = ptr;
-  if (u->type != TGRAPHICS && u->life != 0 && u->tasks->size > 0)
+  if (u->type != TGRAPHICS && u->life != 0 &&
+      u->tasks && u->tasks->size > 0)
     {
       t = u->tasks->head->ptr;
       if (t->countdown == 0)

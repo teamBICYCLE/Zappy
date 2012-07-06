@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Fri Apr 20 22:42:35 2012 Jonathan Machado
-** Last update Mon Jun 18 17:25:07 2012 lois burg
+** Last update Fri Jul  6 16:10:42 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -65,11 +65,14 @@ static void	delete_link_list(t_link *link, void (*f)(void *))
 
 void	delete_list(t_list *list, void (*f)(void *))
 {
-  if (list->head != NULL)
-    list->head->prev = NULL;
-  if (list->tail != NULL)
-    list->tail->next = NULL;
-  delete_link_list(list->head, f);
-  free(list);
-  list = NULL;
+  if (list != NULL)
+    {
+      if (list->head != NULL)
+	list->head->prev = NULL;
+      if (list->tail != NULL)
+	list->tail->next = NULL;
+      delete_link_list(list->head, f);
+      free(list);
+      list = NULL;
+    }
 }
