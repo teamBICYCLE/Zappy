@@ -226,7 +226,8 @@ MonitorCache.prototype.playerHere = function(x, y) {
 	return false;
 }
 
-MonitorCache.prototype.setInventoryChange = function(id, v) {
+MonitorCache.prototype.setInventoryChange = function(id, v, lastInventory) {
 		
 	this.getPlayer(id).inventoryChange_ = v;
+	this.getPlayer(id).lastInventory_ = lastInventory;
 }

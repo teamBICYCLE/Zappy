@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Apr 19 10:36:22 2012 Jonathan Machado
-** Last update Sun Apr 22 14:08:38 2012 Jonathan Machado
+** Last update Fri Jul  6 17:39:16 2012 lois burg
 */
 
 #include <string.h>
@@ -24,7 +24,7 @@ t_refstring	*new_refstring(char *str)
       ret->len = strlen(str);
       ret->str = str;
     }
-  return	(ret);
+  return (ret);
 }
 
 void	unref(t_refstring **str)

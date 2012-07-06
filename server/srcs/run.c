@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jul  5 12:51:13 2012 lois burg
+** Last update Fri Jul  6 15:25:58 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -30,7 +30,7 @@ static	void		server_quit(int i)
   exit(EXIT_SUCCESS);
 }
 
-static void		leave(const char *msg)
+void		leave(const char *msg)
 {
   perror(msg);
   free_all(&g_info);
@@ -45,7 +45,8 @@ static void		init_world(const uint x, const uint y, int const seed)
       signal(SIGQUIT, server_quit) == SIG_ERR ||
       signal(SIGTERM, server_quit) == SIG_ERR)
     perror("signal failed: ");
-  g_info.map = generate_map(x, y, seed);
+  if ((g_info.map = generate_map(x, y, seed)) == NULL)
+    leave("Failed to generate map");
   print_serv_conf(&g_info.world);
   // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 1000000.f));
   /* dump_map(map); */

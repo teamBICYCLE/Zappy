@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul  5 12:48:32 2012 lois burg
-** Last update Thu Jul  5 17:10:36 2012 lois burg
+** Last update Fri Jul  6 17:27:33 2012 lois burg
 */
 
 #include <time.h>
@@ -44,7 +44,8 @@ void		reset_game(void)
     seed = g_info.world.seed;
   else
     seed = time(NULL);
-  g_info.map = generate_map(g_info.world.x, g_info.world.y, seed);
+  if ((g_info.map = generate_map(g_info.world.x, g_info.world.y, seed)) == NULL)
+    leave("Failed to generate map");
   g_info.winner = NULL;
   g_info.end_game = false;
 }

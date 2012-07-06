@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:54:05 2012 Jonathan Machado
-** Last update Thu Jun 14 16:28:13 2012 lois burg
+** Last update Fri Jul  6 15:27:33 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -19,15 +19,19 @@ t_map		*new_map(const unsigned int x, const unsigned int y)
   t_map		*map;
 
   i = 0;
-  map = malloc(sizeof(*map));
-  map->x = x;
-  map->y = y;
-  map->cases = malloc(y * sizeof(*map->cases));
-  while (i < y)
+  if ((map = malloc(sizeof(*map))))
     {
-      map->cases[i] = malloc(x * sizeof(**map->cases));
-      memset(map->cases[i], 0, x * sizeof(**map->cases));
-      ++i;
+      map->x = x;
+      map->y = y;
+      map->cases = malloc(y * sizeof(*map->cases));
+      if (map->cases == NULL)
+	return (NULL);
+      while (i < y)
+	{
+	  map->cases[i] = malloc(x * sizeof(**map->cases));
+	  memset(map->cases[i], 0, x * sizeof(**map->cases));
+	  ++i;
+	}
     }
   return (map);
 }

@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Wed Jul  4 17:18:55 2012 Jonathan Machado
+** Last update Fri Jul  6 16:03:33 2012 lois burg
 */
 
 #include <string.h>
@@ -34,7 +34,8 @@ t_ringbuffer	*new_ringbuffer(size_t size)
 
 void		delete_ringbuffer(t_ringbuffer *ring)
 {
-  free(ring->data);
+  if (ring)
+    free(ring->data);
   free(ring);
 }
 

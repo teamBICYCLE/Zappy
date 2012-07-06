@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Thu Jul  5 17:53:56 2012 lois burg
+** Last update Fri Jul  6 17:37:24 2012 lois burg
 */
 
 #include <stdio.h>
@@ -31,6 +31,8 @@ static void	handle_cmd(t_users *u, char *str)
   ti.args = parse(ti.data, " \t\n");
   if (ti.args != NULL)
     exec_cmd(u, &ti);
+  else
+    free_task_info(&ti);
 }
 
 void		remove_user(t_users *u)
@@ -63,22 +65,29 @@ void		add_user(void)
   char		log[LOG_MSG_SZ];
 
   memset(&new, 0, sizeof(new));
-  new.socket = accept(g_info.ss, NULL, NULL);
-  if (new.socket != -1)
+  if ((new.socket = accept(g_info.ss, NULL, NULL)) != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
       new.id = g_player_id++;
       new.lvl = 1;
-      new.dir = NORTH;
+      new.dir = rand() % (WEST + 1);
       new.inventory[FOOD] = 5;
       new.life = (new.inventory[FOOD] * 126);/* * 500;*/
       new.messages = new_list();
       new.first_message = true;
-      push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
       new.readring = new_ringbuffer(4096);
       new.tasks = new_list();
-      push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
-      snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
+      if (new.tasks != NULL && new.messages != NULL && new.readring != NULL)
+	{
+	  push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
+	  push_back(g_info.users, new_link_by_param(&new, sizeof(new)));
+	  snprintf(log, sizeof(log), "New user connected ! Welcome %d.\n", new.id);
+	}
+      else
+	{
+	  snprintf(log, sizeof(log), "Memory exhausted for user #%d.\n", new.id);
+	  close(new.socket);
+	}
       log_msg(stdout, log);
     }
   else
@@ -122,7 +131,7 @@ void		read_user(void *ptr)
   t_users      	*user;
 
   user = ptr;
-  if (FD_ISSET(user->socket, &g_info.readfds))
+  if (user != NULL && FD_ISSET(user->socket, &g_info.readfds))
     {
       if (read_data(user->socket, user->readring) <= 0)
 	{
@@ -130,7 +139,7 @@ void		read_user(void *ptr)
 	  user = NULL;
 	}
     }
-  if (user != NULL && user->readring->end != 0 &&
+  if (user != NULL && user->readring != NULL && user->readring->end != 0 &&
       (str = get_data(user->readring)) != NULL)
     handle_cmd(user, str);
 }

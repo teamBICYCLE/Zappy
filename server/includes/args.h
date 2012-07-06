@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Thu Jul  5 15:26:25 2012 lois burg
+** Last update Fri Jul  6 14:49:36 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -15,7 +15,7 @@
 # include	<stdbool.h>
 # include	"libdatac_list.h"
 
-# define	MAX_FREQUENCY	1000000
+# define	MAX_FREQUENCY	100000
 
 typedef	struct	s_arg_func	t_arg_func;
 typedef	struct	s_arg_infos	t_arg_infos;

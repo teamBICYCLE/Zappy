@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 19:20:53 2012 lois burg
-** Last update Thu Jun 14 18:13:31 2012 lois burg
+** Last update Fri Jul  6 15:30:56 2012 lois burg
 */
 
 #include <string.h>
@@ -48,9 +48,11 @@ static double	**alloc_map(const int size)
 
   i = 0;
   map = malloc(size * sizeof(*map));
-  while (i < size)
+  while (map != NULL && i < size)
     {
       map[i] = malloc(size * sizeof(**map));
+      if (map[i] == NULL)
+	return (NULL);
       memset(map[i], 0, size * sizeof(**map));
       ++i;
     }
@@ -61,11 +63,15 @@ t_dmap		*new_dmap(const int size)
 {
   t_dmap	*dmap;
 
-  dmap = malloc(sizeof(*dmap));
-  dmap->size = size;
-  dmap->max_val = 0;
-  dmap->step = dmap->size - 1;
-  dmap->map = alloc_map(dmap->size);
+  if ((dmap = malloc(sizeof(*dmap))) != NULL)
+    {
+      dmap->size = size;
+      dmap->max_val = 0;
+      dmap->step = dmap->size - 1;
+      dmap->map = alloc_map(dmap->size);
+      if (dmap->map == NULL)
+	return (NULL);
+    }
   return (dmap);
 }
 

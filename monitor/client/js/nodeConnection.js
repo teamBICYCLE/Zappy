@@ -38,7 +38,7 @@ socket.on('firstConnection', function(data){
 		cache.setTeams(data.teams);
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
-		cache.setPlayers(setInventoryChange(data.players, true));
+		cache.setPlayers(setAllInventoryChange(data.players, true));
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
