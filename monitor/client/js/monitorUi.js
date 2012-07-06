@@ -210,7 +210,6 @@ function initItem(item) {
 	};
 	
 	$(".item").draggable(options);
-	//$(".item").removeClass("newItem");
 }
 
 function closeInventory() {
@@ -239,10 +238,7 @@ function inventorySetChange(inventory, lastInventory) {
 	for (var i = 0; i != inventory.length; i++)
 	{
 		if (inventory[i] != 0 && lastInventory[i] != 0)
-		{
-			console.log("eeee");
 			change.updated.push({id: i, q: inventory[i]});
-		}
 		else if (inventory[i] == 0 && lastInventory[i] != 0)
 			change.deleted.push({id: i, q: inventory[i]});
 		else if (inventory[i] != 0 && lastInventory[i] == 0)
@@ -255,9 +251,7 @@ function updateInventoryContent(inventory, lastInventory) {
 	
 	var ref = ["food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"];
 	
-	//console.log(inventory, lastInventory);
 	change = inventorySetChange(inventory, lastInventory);
-	//console.log(change);
 	
 	/* delete */
 	for (var i = 0; i != change.deleted.length; i++)
@@ -266,16 +260,13 @@ function updateInventoryContent(inventory, lastInventory) {
 	/* update */
 	for (var i = 0; i != change.updated.length; i++)
 	{
-			if ($("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").length)
-				$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
-			else
-				change.added.push(change.updated[i]);
-			//console.log("update", "#inventory-containers .container #" + ref[change.updated[i].id] + "-item span");
+		if ($("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").length)
+			$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
+		else
+			change.added.push(change.updated[i]);
 	}
 			
-	//emptyInventoryContent();
 	/* add */		
-	
 	for (var i = 0; i != change.added.length; i++)
 	{
 		var container = $("#inventory-containers .container");
@@ -283,7 +274,7 @@ function updateInventoryContent(inventory, lastInventory) {
 		for (var j = 0; j != container.length; j++)
 			if ($(container[j]).children().length == 0)
 			{
-				$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item newItem'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
+				$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
 				break;
 			}
 	}
