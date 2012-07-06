@@ -70,7 +70,7 @@ Trantorien::~Trantorien()
 {}
 
 template <>
-int Trantorien::variableArgsCall<std::string>(LuaVirtualMachine::VirtualMachine &vm,
+int Trantorien::variableArgsCall<std::string, std::string>(LuaVirtualMachine::VirtualMachine &vm,
                                  std::function<std::string(lua_State *,
                                                            const std::string &)> fct)
 {
@@ -97,7 +97,7 @@ int Trantorien::variableArgsCall<std::string>(LuaVirtualMachine::VirtualMachine 
 }
 
 template <>
-int Trantorien::variableArgsCall<int>(LuaVirtualMachine::VirtualMachine &vm,
+int Trantorien::variableArgsCall<int, int>(LuaVirtualMachine::VirtualMachine &vm,
                                  std::function<int(lua_State *,
                                                    const int &)> fct)
 {
@@ -220,7 +220,7 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-        variableArgsCall<std::string>(vm,
+        variableArgsCall<std::string,std::string>(vm,
                          [&](lua_State * state, const std::string & object) ->
         std::string {
              this->cmd("prend " + object);
@@ -234,7 +234,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-        variableArgsCall<std::string>(vm,
+        variableArgsCall<std::string, std::string>(vm,
                          [&](lua_State * state, const std::string & direction) ->
         std::string {
            this->cmd(direction);
@@ -258,7 +258,7 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-        variableArgsCall<std::string>(vm,
+        variableArgsCall<std::string, std::string>(vm,
                          [&](lua_State * state, const std::string & object) ->
         std::string {
            std::string result;
@@ -321,7 +321,7 @@ int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
   else
     {
       return (
-            variableArgsCall<int>(vm,
+            variableArgsCall<int, int>(vm,
                              [&](lua_State * state, int object) ->
             int {
             if (object < static_cast<int>(inventory.size()))
