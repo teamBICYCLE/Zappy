@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Sat Jul  7 16:21:31 2012 lois burg
+// Last update Sat Jul  7 16:22:59 2012 lois burg
 //
 
 #ifndef _MAP_H_

@@ -619,12 +619,12 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
   if (lua_gettop(state) >= 3)
     {
       int x = 0, y = 0;
-      Direction dir;
+      UserGlobal::Direction dir;
       // a changer
 
       x = lua_tonumber(state, 1);
       y = lua_tonumber(state, 2);
-      dir = static_cast<Direction>(lua_tonumber(state, 3));
+      dir = static_cast<UserGlobal::Direction>(lua_tonumber(state, 3));
       return (map_.changeFrame(position(x, y), dir));
     }
   return (-1);
