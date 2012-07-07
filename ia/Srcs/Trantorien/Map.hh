@@ -22,9 +22,9 @@ class Map
 private:
   position  mapsize_;
   position  offset_;
-  Direction currentOrientation_;
+  UserGlobal::Direction currentOrientation_;
   position  currentPos_;
-  std::vector<position> items_[JOUEUR + 1];
+  std::vector<position> items_[UserGlobal::JOUEUR + 1];
 
 private:
 
@@ -50,13 +50,13 @@ public:
 
   std::vector<unsigned int> caseContent(position coord);
   void update(void);
-  void changeDirection(const std::string &direction);
+  void changeDirection(const int &direction);
   void avancer(void);
   void voir(const std::string &);
   void prendre(const std::string &value);
   void poser(const std::string &value);
   position getCurrentPos(void) const;
-  Direction getDirection(void) const;
+  UserGlobal::Direction getDirection(void) const;
 };
 
 #endif /*!_MAP_H_*/

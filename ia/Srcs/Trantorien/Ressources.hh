@@ -11,6 +11,7 @@
 #ifndef _RESSOURCES_H_
 # define _RESSOURCES_H_
 
+namespace UserGlobal {
 enum Direction
   {
     NORD = 1,
@@ -31,10 +32,22 @@ enum Ressources
     JOUEUR = 7
   };
 
-std::string const g_values[] =
-  {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame", "joueur"};
+enum Orientation
+{
+  GAUCHE = 0,
+  DROITE
+};
+}
 
-int const g_levels[8][8] =
+namespace GlobalToString {
+
+std::string const orientation[] = {"gauche", "droite"};
+
+std::string const inventaireObject[] =
+  {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame", "joueur"};
+}
+
+int const levels[8][8] =
   {
     {0, 1, 0, 0, 0, 0, 0, 1},
     {0, 1, 1, 1, 0, 0, 0, 2},
@@ -44,5 +57,4 @@ int const g_levels[8][8] =
     {0, 1, 2, 3, 0, 1, 0, 6},
     {0, 2, 2, 2, 2, 2, 1, 6},
   };
-
 #endif /*!_RESSOURCES_H_*/
