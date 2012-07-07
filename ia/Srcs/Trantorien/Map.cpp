@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sat Jul  7 16:21:21 2012 lois burg
+// Last update Sat Jul  7 16:24:24 2012 lois burg
 //
 
 #include <sstream>
@@ -27,12 +27,13 @@ Map::Map(position mapsize)
 Map::~Map(void)
 {}
 
-int		Map::changeFrame(position p, Direction d)
+int		Map::changeFrame(position p, UserGlobal::Direction d)
 {
   int		angle;
   int const	diff = d - currentOrientation_;
 
-  if (p.first > mapsize_.first || p.second > mapsize_.second || d > OUEST || d < NORD)
+  if (p.first > mapsize_.first || p.second > mapsize_.second ||
+      d > UserGlobal::OUEST || d < UserGlobal::NORD)
     return (-1);
   angle = 0;
   if (diff != 0)
@@ -44,7 +45,7 @@ int		Map::changeFrame(position p, Direction d)
       else
 	angle = 180;
     }
-  for (int i = NOURRITURE; i <= JOUEUR; ++i)
+  for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
     {
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
 	{
