@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:55:25 2012 lois burg
-** Last update Wed Jul  4 17:29:16 2012 lois burg
+** Last update Sat Jul  7 17:01:19 2012 lois burg
 */
 
 #include <string.h>
@@ -33,7 +33,7 @@ size_t	case_content_sz(const t_case *c)
 
   sz = 0;
   i = 0;
-  while (i < LAST)
+  while (i < EGG)
     {
       j = 0;
       sz += 1;
@@ -54,7 +54,7 @@ char	*case_content(const t_case *c, char *buf)
   uint	j;
 
   i = 0;
-  while (i < LAST)
+  while (i < EGG)
     {
       j = 0;
       while (j < c->elements[i])

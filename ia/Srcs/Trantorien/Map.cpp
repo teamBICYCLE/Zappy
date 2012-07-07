@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sat Jul  7 16:24:24 2012 lois burg
+// Last update Sat Jul  7 18:08:12 2012 lois burg
 //
 
 #include <sstream>
@@ -27,11 +27,14 @@ Map::Map(position mapsize)
 Map::~Map(void)
 {}
 
+#include <iostream>
+
 int		Map::changeFrame(position p, UserGlobal::Direction d)
 {
-  int		angle;
+  double	angle;
   int const	diff = d - currentOrientation_;
 
+  // std::cout << "d : " << d << " - cur: " << currentOrientation_ << std::endl;
   if (p.first > mapsize_.first || p.second > mapsize_.second ||
       d > UserGlobal::OUEST || d < UserGlobal::NORD)
     return (-1);
@@ -39,24 +42,51 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
   if (diff != 0)
     {
       if (diff == 1)
-	angle = 90;
-      else if (diff == -1)
 	angle = -90;
+      else if (diff == -1)
+	angle = 90;
       else
 	angle = 180;
     }
+
+  // std::cout << "Angle: " << angle << std::endl;
+  // std::cout << "Player:" << std::endl << "\tX: " << currentPos_.first << " - Y: " << currentPos_.second << std::endl;
+  // for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
+  //   {
+  //     std::cout << "Ressource: " << i << std::endl;
+  //     for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+  // 	std::cout << "\tX: " << it->first << " - Y: " << it->second << std::endl;
+  //   }
+  // std::cout << "-----------------------" << std::endl << std::endl;
+
   for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
     {
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
 	{
+	  double	d1;
+	  double	d2;
+
 	  it->first = updatePosition(it->first + (p.first - currentPos_.first), mapsize_.first);
 	  it->second = updatePosition(it->second + (p.second - currentPos_.second), mapsize_.second);
-	  it->first = updatePosition(it->first * cos(angle) + it->second * sin(angle), mapsize_.first);
-	  it->second = updatePosition(-it->first * sin(angle) + it->second * cos(angle), mapsize_.second);
+	  // std::cout << "\t\tX: " << it->first << " - Y: " << it->second << std::endl;
+	  d1 = static_cast<double>(it->first) * cos(angle) + static_cast<double>(it->second) * sin(angle);
+	  d2 = -static_cast<double>(it->first) * sin(angle) + static_cast<double>(it->second) * cos(angle);
+	  // std::cout << "\t\tX: " << d1 << " - Y: " << d2 << std::endl;
+	  it->first = updatePosition(d1, mapsize_.first);
+	  it->second = updatePosition(d2, mapsize_.second);
 	}
     }
   currentPos_ = p;
   currentOrientation_ = d;
+
+  // std::cout << "Player:" << std::endl << "\tX: " << currentPos_.first << " - Y: " << currentPos_.second << std::endl;
+  // for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
+  //   {
+  //     std::cout << "Ressource: " << i << std::endl;
+  //     for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+  // 	std::cout << "\tX: " << it->first << " - Y: " << it->second << std::endl;
+  //   }
+  // std::cout << "-----------------------" << std::endl << std::endl;
   return (0);
 }
 
