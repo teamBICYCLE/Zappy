@@ -5,30 +5,51 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sat Jul  7 15:44:43 2012 thibault carpentier
+// Last update Sat Jul  7 15:58:39 2012 thibault carpentier
 //
 
+#include <sstream>
 #include <boost/regex.hpp>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
 
 std::string const Map::REGEX_VALUE = " *\\{( *(joueur|linemate|deraumere|sibur|mendiane|phiras|thystame|nourriture) *([ ,]*|\\} *$){1} *)+ *\\} *";
 
+Map::Map()
+  : offset_(std::pair<int, int>(0, 0)), currentOrientation_(UserGlobal::EST), currentPos_(0, 0)
+{
+}
+
 Map::Map(position mapsize)
-  : mapsize_(mapsize), offset_(std::pair<int, int>(0, 0)), currentOrientation_(EST), currentPos_(0, 0)
+  : mapsize_(mapsize), offset_(std::pair<int, int>(0, 0)), currentOrientation_(UserGlobal::EST), currentPos_(0, 0)
 {}
 
 Map::~Map(void)
 {}
 
-void	Map::changeDirection(const std::string &direction)
+void Map::setSize(const position &mapsize)
 {
-  if (direction == "droite")
-    currentOrientation_ = (currentOrientation_ + 1 > OUEST ?
-                           NORD : static_cast<Direction>(currentOrientation_ + 1));
-  else if (direction == "gauche")
-    currentOrientation_ = (currentOrientation_ - 1 < NORD ?
-                           OUEST : static_cast<Direction>(currentOrientation_ - 1));
+  mapsize_ = mapsize;
+}
+
+void Map::setSize(const std::string &mapsize)
+{
+  std::stringstream  st(mapsize);
+  position      size;
+
+  st >> size.first;
+  st >> size.second;
+  setSize(size);
+}
+
+void	Map::changeDirection(const int &direction)
+{
+  if (direction == UserGlobal::DROITE)
+    currentOrientation_ = (currentOrientation_ + 1 > UserGlobal::OUEST ?
+                           UserGlobal::NORD : static_cast<UserGlobal::Direction>(currentOrientation_ + 1));
+  else if (direction == UserGlobal::GAUCHE)
+    currentOrientation_ = (currentOrientation_ - 1 < UserGlobal::NORD ?
+                           UserGlobal::OUEST : static_cast<UserGlobal::Direction>(currentOrientation_ - 1));
 }
 
 int Map::updatePosition(int value, int size)
@@ -53,16 +74,16 @@ void Map::avancer(void)
 {
   switch (currentOrientation_)
     {
-    case NORD :
+    case UserGlobal::NORD :
       currentPos_.second = updatePosition(currentPos_.second - 1, mapsize_.second);
       break;
-    case EST:
+    case UserGlobal::EST:
       currentPos_.first =  updatePosition(currentPos_.first + 1, mapsize_.first);
       break;
-    case SUD :
+    case UserGlobal::SUD :
       currentPos_.second =  updatePosition(currentPos_.second + 1, mapsize_.second);
       break;
-    case OUEST :
+    case UserGlobal::OUEST :
       currentPos_.first =  updatePosition(currentPos_.first - 1, mapsize_.first);
       break;
     }
@@ -78,10 +99,10 @@ int Map::offset(int nbCaseStair)
 
   switch (currentOrientation_)
     {
-    case NORD :
+    case UserGlobal::NORD :
       res = -res;
       break;
-    case EST :
+    case UserGlobal::EST :
       res = -res;
       break;
     default:
@@ -96,19 +117,19 @@ void Map::formatValues(int &distance, int &incrStart)
 
   switch (currentOrientation_)
     {
-    case NORD :
+    case UserGlobal::NORD :
       distance = savIncrStart;
       incrStart = -savDistance;
       break;
-    case EST :
+    case UserGlobal::EST :
       distance = savDistance;
       incrStart = savIncrStart;
       break;
-    case SUD :
+    case UserGlobal::SUD :
       distance = savIncrStart;
       incrStart = savDistance;
       break;
-    case OUEST :
+    case UserGlobal::OUEST :
       distance = -savDistance;
       incrStart = savIncrStart;
       break;
@@ -117,7 +138,7 @@ void Map::formatValues(int &distance, int &incrStart)
 
 void Map::forgetPrevData(int x, int y)
 {
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
       unsigned int j = 0;
       while (j < items_[i].size())
@@ -138,9 +159,9 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
   formatValues(distance, incrStart);
   forgetPrevData(updatePosition(currentPos_.first + distance, mapsize_.first),
                  updatePosition(currentPos_.second + incrStart, mapsize_.second));
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
-      boost::regex extract("(" + g_values[i] + ")");
+      boost::regex extract("(" + GlobalToString::inventaireObject[i] + ")");
       boost::match_results<std::string::const_iterator> what;
       std::string::const_iterator s1 = caseContent.begin();
       std::string::const_iterator s2 = caseContent.end();
@@ -155,11 +176,11 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
 
 void Map::test(void) const
 {
-  for (unsigned int i = 0;  i < (sizeof(g_values) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0;  i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
       std::vector<position>::const_iterator it;
 
-      std::cout << "Item : " << g_values[i] << std::endl;
+      std::cout << "Item : " << GlobalToString::inventaireObject[i] << std::endl;
       for (it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
@@ -194,7 +215,7 @@ void Map::analyse(const std::string &values)
         nbCaseStair += 2;
       else
         {
-          if (currentOrientation_ == EST || currentOrientation_ == NORD)
+          if (currentOrientation_ == UserGlobal::EST || currentOrientation_ == UserGlobal::NORD)
             ++incrStart;
           else
             --incrStart;
@@ -214,8 +235,8 @@ void Map::voir(const std::string &values)
 
 void Map::prendre(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
-    if (g_values[i] == value)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
+    if (GlobalToString::inventaireObject[i] == value)
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
@@ -228,8 +249,8 @@ void Map::prendre(const std::string &value)
 
 void Map::poser(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
-    if (g_values[i] == value)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
+    if (GlobalToString::inventaireObject[i] == value)
       {
         items_[i].push_back(currentPos_);
         return;
@@ -239,12 +260,12 @@ void Map::poser(const std::string &value)
 std::vector<unsigned int> Map::caseContent(position coord)
 {
   std::vector<unsigned int> result;// = new std::vector<unsigned int>();
-  for (unsigned int i = 0; i <= JOUEUR; ++i)
+  for (unsigned int i = 0; i <= UserGlobal::JOUEUR; ++i)
     {
       unsigned int nbRessources = 0;
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
-	if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
-	  ++nbRessources;
+        if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+          ++nbRessources;
       result.push_back(nbRessources);
     }
   return (result);
@@ -271,6 +292,11 @@ position Map::getClosestItem(position pos, int object) const
 	}
     }
   return (res);
+}
+
+UserGlobal::Direction Map::getDirection() const
+{
+  return currentOrientation_;
 }
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"

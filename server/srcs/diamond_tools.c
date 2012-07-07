@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 19:20:53 2012 lois burg
-** Last update Fri Jul  6 15:30:56 2012 lois burg
+** Last update Sat Jul  7 13:09:39 2012 lois burg
 */
 
 #include <string.h>
@@ -18,7 +18,8 @@ static void	add_avg(double *avg, double *sum, const double val)
   *sum += 1;
 }
 
-double		avg_diamond(const int x, const int y, t_dmap *dmap, const int size)
+double		avg_diamond(const int x, const int y,
+			    t_dmap *dmap, const int size)
 {
   double	avg;
   double	sum;

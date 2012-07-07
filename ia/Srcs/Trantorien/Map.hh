@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Sat Jul  7 15:45:00 2012 thibault carpentier
+// Last update Sat Jul  7 15:52:27 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -24,9 +24,9 @@ class Map
 private:
   position  mapsize_;
   position  offset_;
-  Direction currentOrientation_;
+  UserGlobal::Direction currentOrientation_;
   position  currentPos_;
-  std::vector<position> items_[JOUEUR + 1];
+  std::vector<position> items_[UserGlobal::JOUEUR + 1];
 
 private:
 
@@ -41,21 +41,25 @@ private:
   Map& operator=(Map const &);
   static const std::string REGEX_VALUE;
 public:
+  Map();
   Map(position);
   ~Map(void);
 
+  void  setSize(const position & mapsize);
+  void  setSize(const std::string & mapsize);
 
   void test(void) const;
 
   std::vector<unsigned int> caseContent(position coord);
   void update(void);
-  void changeDirection(const std::string &direction);
+  void changeDirection(const int &direction);
   void avancer(void);
   void voir(const std::string &);
   void prendre(const std::string &value);
   void poser(const std::string &value);
   position getCurrentPos(void) const;
   position getClosestItem(position pos, int object) const;
+  UserGlobal::Direction getDirection(void) const;
 };
 
 #endif /*!_MAP_H_*/

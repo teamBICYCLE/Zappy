@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 19 16:39:50 2012 lois burg
-** Last update Wed Jul  4 17:38:43 2012 lois burg
+** Last update Sat Jul  7 13:17:26 2012 lois burg
 */
 
 #include <string.h>
@@ -16,7 +16,8 @@
 
 extern t_infos	g_info;
 
-static void	send_msg(const t_users *sender, t_users *rcvr, const char *broadcast)
+static void	send_msg(const t_users *sender, t_users *rcvr,
+			 char const *broadcast)
 {
   char		msg[BASE_BROADCAST_SZ + strlen(broadcast) + 1];
   int		x[2];

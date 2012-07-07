@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Fri Jul  6 17:40:52 2012 lois burg
+** Last update Sat Jul  7 13:12:05 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -115,7 +115,7 @@ static void	init_egg(t_users *egg, t_users *father)
   egg->messages = new_list();
   egg->team = father->team;
   egg->inventory[FOOD] = 10;
-  egg->life = egg->inventory[FOOD] * 126 * 500;/* temporaire */
+  egg->life = egg->inventory[FOOD] * 126;
 }
 
 t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)
