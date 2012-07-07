@@ -52,6 +52,7 @@ private:
   int	       missingRockOnCase(LuaVirtualMachine::VirtualMachine &);
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
+  int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
 
 private:
   Inventory               inventory_;

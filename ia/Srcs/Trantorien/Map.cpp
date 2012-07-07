@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jul  6 14:52:02 2012 thibault carpentier
+// Last update Sat Jul  7 16:11:44 2012 lois burg
 //
 
 #include <boost/regex.hpp>
@@ -20,6 +20,38 @@ Map::Map(position mapsize)
 
 Map::~Map(void)
 {}
+
+int		Map::changeFrame(position p, Direction d)
+{
+  int		angle;
+  int const	diff = d - currentOrientation_;
+
+  if (p.first > mapsize_.first || p.second > mapsize_.second || d > OUEST || d < NORD)
+    return (-1);
+  angle = 0;
+  if (diff != 0)
+    {
+      if (diff == 1)
+	angle = 90;
+      else if (diff == -1)
+	angle = -90;
+      else
+	angle = 180;
+    }
+  for (int i = NOURRITURE; i <= JOUEUR; ++i)
+    {
+      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+	{
+	  it->first = updatePosition(it->first + (p.first - currentPos_.first), mapsize_.first);
+	  it->second = updatePosition(it->second + (p.second - currentPos_.second), mapsize_.second);
+	  it->first = updatePosition(it->first * cos(angle) + it->second * sin(angle), mapsize_.first);
+	  it->second = updatePosition(-it->first * sin(angle) + it->second * cos(angle), mapsize_.second);
+	}
+    }
+  currentPos_ = p;
+  currentOrientation_ = d;
+  return (0);
+}
 
 void	Map::changeDirection(const std::string &direction)
 {

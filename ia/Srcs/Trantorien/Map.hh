@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Fri Jul  6 14:41:02 2012 thibault carpentier
+// Last update Sat Jul  7 15:05:57 2012 lois burg
 //
 
 #ifndef _MAP_H_
@@ -45,6 +45,7 @@ public:
 
   void test(void) const;
 
+  int	changeFrame(position p, Direction d);
   std::vector<unsigned int> caseContent(position coord);
   void update(void);
   void changeDirection(const std::string &direction);
