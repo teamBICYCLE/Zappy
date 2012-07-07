@@ -1,13 +1,14 @@
 #!/usr/bin/lua
 
-obj = NOURRITURE
 gx, gy = 0, 0
 just_turned = false
 
 function this.obj_sur_case(this)
+   print("in obj sur case")
+   obj = NOURRITURE
    this:IAVoir()
    local r = {this:IACaseContent(this:IACurrentPosition())}
-   if r[obj] > 0
+   if r[obj + 1] > 0
    then return OK
    else return KO
    end
@@ -19,7 +20,9 @@ end
 
 function this.voit_obj(this)
    this:IAVoir()
-   gx, gy = this:IAGetClosestItem(obj)
+   print (obj)
+   gx, gy = this:IAGetCLosestItem(obj)
+   print (gx, gy)
    if gx == -1 or gy == -1
    then return KO
    else return OK

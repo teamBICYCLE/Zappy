@@ -1,4 +1,4 @@
-module search : 
+module search :
 state: obj_sur_case;
 state: prendre_obj ;
 state: voit_obj ;
@@ -13,5 +13,5 @@ go_to [OK]  -> obj_sur_case;
 go_to [KO]  -> go_to;
 voit_obj [KO]  -> parcours_map;
 parcours_map [OK]  -> voit_obj;
+prendre_obj [OK] -> obj_sur_case;
 end
-

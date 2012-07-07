@@ -117,8 +117,8 @@ void FSM::VM<X>::createStates(std::istream &stream)
 #ifdef DEBUG
           std::cout << "MATCHED with " << link.expression() << std::endl;
           std::cout << "Extracted: " << what[1] << " && " << what[2] << " && " << what[3] << std::endl;
-          addLink(what[1], what[2], what[3]);
 #endif
+          addLink(what[1], what[2], what[3]);
         }
 #ifdef DEBUG
       else
@@ -132,9 +132,11 @@ void FSM::VM<X>::setRetValueGlobals()
 {
   lua_State   *state = getVM().getLua();
 
+  std::cout << "lol ?" << std::endl;
   for (unsigned int i = 0; i < retCode_.size(); ++i) {
       lua_pushinteger(state, i);
       lua_setglobal(state, retCode_[i].c_str());
+      std::cout << retCode_[i] << " pushed." << std::endl;
     }
 }
 
