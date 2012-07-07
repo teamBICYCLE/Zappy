@@ -50,7 +50,7 @@ public:
 
   void test(void) const;
 
-  int	changeFrame(position p, Direction d);
+  int	changeFrame(position p, UserGlobal::Direction d);
   std::vector<unsigned int> caseContent(position coord);
   void update(void);
   void changeDirection(const int &direction);
