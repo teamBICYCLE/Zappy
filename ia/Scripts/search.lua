@@ -1,11 +1,62 @@
 #!/usr/bin/lua
 
+dofile("Scripts/utils.lua")
 gx, gy = 0, 0
-just_turned = false
+
+function this.enought_food(this)
+   this:IAVoir()
+   print("test: ", this:IAMissingRockOnCase())
+   this:IAInventaire()
+   if this:IAgetInventoyValue(NOURRITURE) > 8
+   then return OK
+   else
+      obj = NOURRITURE
+      return KO
+   end
+end
+
+function this.can_elevate(this)
+   print("DANS CAN ELEVATE")
+   this:IAInventaire()
+   if (this:IAgetInventoyValue(LINEMATE) > 0)
+   then return OK
+   else
+      print ("search linemate")
+      obj = LINEMATE
+      return KO
+   end
+end
+
+function AjustRock(count, type)
+   print ("AJUST: ", count, type)
+   if (count < 0)
+   then
+      count = -count
+      while count > 0 do
+	 this:IAPrendre(type)
+	 count = count - 1
+      end
+   else while count > 0 do
+	 this:IAPoser(type)
+	 count = count - 1
+	end
+   end
+end
+
+function this.elevate(this)
+   this:IAVoir()
+   local n, l, d, s, m, p, t = this:IAMissingRockOnCase()
+   AjustRock(l, LINEMATE)
+   AjustRock(d, DERAUMERE)
+   AjustRock(s, SIBUR)
+   AjustRock(m, MENDIANE)
+   AjustRock(p, PHIRAS)
+   AjustRock(t, THYSTAME)
+   this:IAElevate()
+   return OK
+end
 
 function this.obj_sur_case(this)
-   print("in obj sur case")
-   obj = NOURRITURE
    this:IAVoir()
    local r = {this:IACaseContent(this:IACurrentPosition())}
    if r[obj + 1] > 0
@@ -38,6 +89,7 @@ function this.go_to(this)
    end
 end
 
+just_turned = false
 function this.parcours_map(this)
    if not just_turned
    then

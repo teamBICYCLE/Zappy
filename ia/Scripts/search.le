@@ -1,4 +1,7 @@
 module search :
+state: enought_food ;
+state: can_elevate;
+state: elevate;
 state: obj_sur_case;
 state: prendre_obj ;
 state: voit_obj ;
@@ -6,6 +9,11 @@ state: go_to ;
 state: parcours_map ;
 
 transition:
+enought_food [OK]  -> can_elevate;
+enought_food [KO]  -> obj_sur_case;
+can_elevate [OK]  -> elevate;
+can_elevate [KO]  -> obj_sur_case;
+elevate [OK] -> enought_food;
 obj_sur_case [OK]  -> prendre_obj;
 obj_sur_case [KO]  -> voit_obj;
 voit_obj [OK]  -> go_to;
@@ -13,5 +21,5 @@ go_to [OK]  -> obj_sur_case;
 go_to [KO]  -> go_to;
 voit_obj [KO]  -> parcours_map;
 parcours_map [OK]  -> voit_obj;
-prendre_obj [OK] -> obj_sur_case;
+prendre_obj [OK] -> enought_food;
 end

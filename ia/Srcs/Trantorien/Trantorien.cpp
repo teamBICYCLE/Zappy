@@ -72,6 +72,9 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   joinTeam("toto");
   this->getline();
   map_.setSize(this->getline());
+
+  this->cmd("fork");
+  this->getline();
 }
 
 Trantorien::~Trantorien()
@@ -433,13 +436,8 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
       to.first = lua_tonumber(vm.getLua(), 1);
       to.second = lua_tonumber(vm.getLua(), 2);
     }
-  std::cout << "goto ! " << map_.getCurrentPos().first << "-" << map_.getCurrentPos().second
-            << " -> " << to.first << "-" << to.second << "direction: " << map_.getDirection()<< std::endl;
   if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
-    {
-      std::cout << "connerie ?" << std::endl;
-      return 0;
-    }
+    return 0;
   switch (map_.getDirection())
     {
     case UserGlobal::NORD:
@@ -572,7 +570,7 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
   int j = 0;
   for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
     {
-      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+      lua_pushinteger(state, static_cast<int>(levels[level_ - 1][j] - (*it)));
       ++j;
     }
   return (j);
@@ -586,7 +584,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
   int j = 0;
   for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
     {
-      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+      lua_pushinteger(state,  static_cast<int>(levels[level_ - 1][j]) - (*it));
       ++j;
     }
   return (j);
