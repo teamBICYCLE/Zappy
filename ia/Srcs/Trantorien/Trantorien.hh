@@ -37,6 +37,8 @@ private: // server interactions
 private:
   bool                  isValid() const;
 
+  void          droite(void);
+  void          gauche(void);
   int          avance(LuaVirtualMachine::VirtualMachine &);
   int          voir(LuaVirtualMachine::VirtualMachine &);
   int	       inventaire(LuaVirtualMachine::VirtualMachine&);
@@ -48,6 +50,7 @@ private:
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
+  int          goTo(LuaVirtualMachine::VirtualMachine &);
 
 private:
   Inventory               inventory_;

@@ -39,6 +39,8 @@ namespace LuaVirtualMachine
     void	addParam(double param);		       // add a param to the selected fct
     bool	callFct(int nbRet = 0);		       // Call the selected fct
 
+    static int luaCallMeth(lua_State *lua);
+
   private:			// unused constructors
     Script(Script const &other);
     Script& operator=(Script const &other);

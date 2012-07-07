@@ -34,6 +34,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
   addInteraction("IAExpulse", &Trantorien::expulse);
+  addInteraction("IAGoto", &Trantorien::goTo);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -63,7 +64,7 @@ Trantorien::Trantorien(const std::string ip, const std::string port)
 
   joinTeam("toto");
   this->getline();
-  this->getline();
+  map_.setSize(this->getline());
 }
 
 Trantorien::~Trantorien()
@@ -174,10 +175,27 @@ bool Trantorien::isValid() const
   return network_;
 }
 
+void Trantorien::droite()
+{
+  this->cmd("droite");
+  this->getline();
+  map_.changeDirection("droite");
+  std::cout << "droite" << std::endl;
+}
+
+void Trantorien::gauche()
+{
+  this->cmd("gauche");
+  this->getline();
+  map_.changeDirection("gauche");
+  std::cout << "gauche" << std::endl;
+}
+
 int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
 
+  std::cout << "in avance" << std::endl;
   this->cmd("avance");
   ret = this->getline();
   if (ret == "ok")
@@ -340,4 +358,136 @@ int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
   ret = this->getline();
   lua_pushstring(vm.getLua(), ret.c_str());
   return 1;
+}
+
+int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
+{
+  position  to;
+
+  if (lua_gettop(vm.getLua()) == 2)
+    {
+      to.first = lua_tonumber(vm.getLua(), 1);
+      to.second = lua_tonumber(vm.getLua(), 2);
+    }
+  std::cout << "goto ! " << map_.getCurrentPos().first << "-" << map_.getCurrentPos().second
+            << " -> " << to.first << "-" << to.second << "direction: " << map_.getDirection()<< std::endl;
+  if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
+    {
+      std::cout << "connerie ?" << std::endl;
+      return 0;
+    }
+  switch (map_.getDirection())
+    {
+    case NORD:
+      if (to.second < map_.getCurrentPos().second)
+      {
+        avance(vm);
+        return 0;
+      }
+      break;
+    case SUD:
+      if (to.second > map_.getCurrentPos().second)
+        {
+          avance(vm);
+          return 0;
+        }
+      break;
+    case OUEST:
+      if (to.first < map_.getCurrentPos().first)
+        {
+          avance(vm);
+          return 0;
+        }
+      break;
+    case EST:
+      if (to.first > map_.getCurrentPos().first)
+        {
+          avance(vm);
+          return 0;
+        }
+      break;
+    }
+  if (to.second < map_.getCurrentPos().second)
+    {
+      switch (map_.getDirection())
+        {
+        case SUD:
+          droite();
+          droite();
+          return 0;
+          break;
+        case OUEST:
+          droite();
+          return 0;
+          break;
+        case EST:
+          gauche();
+          return 0;
+          break;
+        default:
+          break;
+        }
+    }
+  else if (to.second > map_.getCurrentPos().second)
+    {
+      switch (map_.getDirection())
+        {
+        case NORD:
+          droite();
+          droite();
+          return 0;
+          break;
+        case OUEST:
+          gauche();
+          return 0;
+          break;
+        case EST:
+          droite();
+          return 0;
+          break;
+        default:
+          break;
+        }
+    }
+  if (to.first < map_.getCurrentPos().first)
+    {
+      switch (map_.getDirection())
+        {
+        case NORD:
+          gauche();
+          return 0;
+        case SUD:
+          droite();
+          return 0;
+          break;
+        case EST:
+          gauche();
+          gauche();
+          return 0;
+          break;
+        default:
+          break;
+        }
+    }
+  else if (to.first > map_.getCurrentPos().first)
+    {
+      switch (map_.getDirection())
+        {
+        case NORD:
+          droite();
+          return 0;
+        case SUD:
+          gauche();
+          return 0;
+          break;
+        case OUEST:
+          gauche();
+          gauche();
+          return 0;
+          break;
+        default:
+          break;
+        }
+    }
+  return 0;
 }

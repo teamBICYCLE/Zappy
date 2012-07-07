@@ -8,6 +8,7 @@
 // Last update Thu Jul  5 16:37:14 2012 thibault carpentier
 //
 
+#include <sstream>
 #include <boost/regex.hpp>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
@@ -16,12 +17,32 @@ std::string const Map::values_[] =
   {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"};
 std::string const Map::REGEX_VALUE = " *\\{( *(joueur|linemate|deraumere|sibur|mendiane|phiras|thystame|nourriture) *([ ,]*|\\} *$){1} *)+ *\\} *";
 
+Map::Map()
+  : offset_(std::pair<int, int>(0, 0)), currentOrientation_(EST), currentPos_(0, 0)
+{
+}
+
 Map::Map(position mapsize)
   : mapsize_(mapsize), offset_(std::pair<int, int>(0, 0)), currentOrientation_(EST), currentPos_(0, 0)
 {}
 
 Map::~Map(void)
 {}
+
+void Map::setSize(const position &mapsize)
+{
+  mapsize_ = mapsize;
+}
+
+void Map::setSize(const std::string &mapsize)
+{
+  std::stringstream  st(mapsize);
+  position      size;
+
+  st >> size.first;
+  st >> size.second;
+  setSize(size);
+}
 
 void	Map::changeDirection(const std::string &direction)
 {
@@ -245,8 +266,8 @@ std::vector<unsigned int> Map::caseContent(position coord)
     {
       unsigned int nbRessources = 0;
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
-	if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
-	  ++nbRessources;
+        if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+          ++nbRessources;
       result.push_back(nbRessources);
     }
   return (result);
@@ -255,6 +276,11 @@ std::vector<unsigned int> Map::caseContent(position coord)
 position Map::getCurrentPos(void) const
 {
   return (currentPos_);
+}
+
+Direction Map::getDirection() const
+{
+  return currentOrientation_;
 }
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"

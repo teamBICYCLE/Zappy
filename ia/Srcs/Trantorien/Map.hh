@@ -40,9 +40,12 @@ private:
   Map& operator=(Map const &);
   static const std::string REGEX_VALUE;
 public:
+  Map();
   Map(position);
   ~Map(void);
 
+  void  setSize(const position & mapsize);
+  void  setSize(const std::string & mapsize);
 
   void test(void) const;
 
@@ -54,6 +57,7 @@ public:
   void prendre(const std::string &value);
   void poser(const std::string &value);
   position getCurrentPos(void) const;
+  Direction getDirection(void) const;
 };
 
 #endif /*!_MAP_H_*/
