@@ -1,7 +1,6 @@
 #!/usr/bin/lua
 
 obj = NOURRITURE
-
 gx, gy = 0, 0
 just_turned = false
 
@@ -21,10 +20,19 @@ end
 function this.voit_obj(this)
    this:IAVoir()
    gx, gy = this:IAGetClosestItem(obj)
+   if gx == -1 or gy == -1
+   then return KO
+   else return OK
+   end
 end
 
 function this.go_to(this)
    this:IAGoto(gx, gy)
+   local x, y = this:IACurrentPosition()
+   if gx == x and gy == y
+   then return OK
+   else return KO
+   end
 end
 
 function this.parcours_map(this)
@@ -43,4 +51,5 @@ function this.parcours_map(this)
       end
    else this:avance()
    end
+   return OK
 end

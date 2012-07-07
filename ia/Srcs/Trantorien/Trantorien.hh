@@ -15,7 +15,8 @@
 class Trantorien : public FSM::VM<Trantorien> {
 
 public:
-  Trantorien(const std::string ip, const std::string port);
+  Trantorien(const std::string & ip, const std::string & port,
+             const std::string & scriptConf, const std::string & scriptCode);
   virtual ~Trantorien();
 
 

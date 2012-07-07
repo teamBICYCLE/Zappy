@@ -10,11 +10,10 @@
 Network::Network(const std::string &ip, const std::string &port)
   : boost::asio::ip::tcp::iostream(ip, port)
 {
+  if (*this)
+    std::cout << "Network: init OK" << std::endl;
   if (!*this || getline() != WELCOME_MSG)
-    {
-      std::cout << "could not connect" << std::endl;
-      throw std::exception();
-    }
+    throw std::runtime_error("Network: failed to init");
 }
 
 

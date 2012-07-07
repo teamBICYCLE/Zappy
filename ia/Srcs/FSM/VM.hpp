@@ -13,7 +13,7 @@
 #include "lua/Script.hh"
 #include "lua/Failure.hh"
 
-#define DEBUG
+//#define DEBUG
 
 namespace FSM {
 template <typename X>
@@ -71,22 +71,9 @@ protected:
 template <typename X>
 void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
-  //  init2(conf, luaFile);
   readConfFile(conf, luaFile);
-
-//  int     transitions[] = {1, 0, 0};
-//  int     transitions2[] = {2, 1, 1};
-//  int     transitions3[] = {0, 2, 2};
-//  std::vector<int>  toto(transitions, transitions + sizeof(transitions) / sizeof(int));
-//  std::vector<int>  tata(transitions2, transitions2 + sizeof(transitions2) / sizeof(int));
-//  std::vector<int>  tete(transitions3, transitions3 + sizeof(transitions3) / sizeof(int));
-
-//  states_.resize(3);
-//  states_[0] = std::make_pair("avance", toto );
-//  states_[1] = std::make_pair("voir", tata );
-//  states_[2] = std::make_pair("prendre", tete );
   compileFile(luaFile);
-  std::cout << "init done" << std::endl;
+  std::cout << "Finite State Machine: init OK" << std::endl;
 }
 
 template <typename X>
@@ -99,15 +86,6 @@ void FSM::VM<X>::readConfFile(const std::string &confPath, const std::string &lu
     throw LuaVirtualMachine::Failure("Open configuration file", "could not be open");
   createStates(confStream);
   setRetValueGlobals();
-
-  std::cout << std::endl<< "GET READY FOR THE DUMP !" << std::endl;
-  std::for_each(states_.begin(), states_.end(), [&](std::pair<std::string, std::vector<int> > item) -> void {
-                std::cout << item.first << " {";
-      for (unsigned int i = 0; i < item.second.size(); ++i) {
-    std::cout << item.second[i] << ", ";
-  }
-  std::cout << "}" << std::endl;
-});
 }
 
 template <typename X>

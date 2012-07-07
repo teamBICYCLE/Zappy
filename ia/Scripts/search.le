@@ -9,8 +9,8 @@ transition:
 obj_sur_case [OK]  -> prendre_obj;
 obj_sur_case [KO]  -> voit_obj;
 voit_obj [OK]  -> go_to;
-go_to [OK]  -> prendre_obj;
-go_to [KO]  -> voit_obj;
+go_to [OK]  -> obj_sur_case;
+go_to [KO]  -> go_to;
 voit_obj [KO]  -> parcours_map;
 parcours_map [OK]  -> voit_obj;
 end

@@ -9,19 +9,16 @@ static const std::string PLAYER_DEAD_STRING = "mort";
 static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 
-Trantorien::Trantorien(const std::string ip, const std::string port)
+Trantorien::Trantorien(const std::string & ip, const std::string & port,
+                       const std::string & scriptConf, const std::string & scriptCode)
   : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1)
 {
-  std::string tmp;
-
-  if (network_)
-    std::cout << "successfully connected" << std::endl;
-  else
+  if (!network_)
     {
       //std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init("Scripts/conf.le", "Scripts/script.lua");
+  init(scriptConf, scriptCode);
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -247,7 +244,6 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   ret = this->getline();
   if (ret != "ko")
     map_.voir(ret);
-  map_.test();
   lua_pushstring(vm.getLua(), ret.c_str());
   return 1;
 }

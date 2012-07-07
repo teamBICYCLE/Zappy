@@ -9,61 +9,28 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <exception>
+#include <fstream>
+#include <boost/program_options.hpp>
 #include "Trantorien/Trantorien.hh"
 #include "Trantorien/Map.hh"
 #include "FSM/Lexeme.hh"
 
-#include <exception>
-
-#include <fstream>
-
 int main(int argc, char *argv[])
 {
-  Trantorien  joe("localhost", "4242");
-
-  try
+  if (argc > 2)
     {
-      joe.run();
+      try
+      {
+        Trantorien  joe("localhost", "4242", argv[1], argv[2]);
+
+        joe.run();
+      }
+      catch (std::exception &e)
+      {
+        std::cout << "FATAL ERROR: " << e.what() << std::endl;
+      }
     }
-  catch (std::exception &e)
-    {
-      std::cout << "fail: " << e.what() << std::endl;
-    }
-  //  Map jaques(std::pair<int, int>(10, 5));
-  // Map jaques(std::pair<int, int>(2, 2));
-
-  // jaques.test();
-  // jaques.voir("{joueur sibur, deraumere, linemate, deraumere, joueur sibur, thystame, joueur sibur, thystame, joueur sibur}");
-  // jaques.test();
-  //  jaques.prendre("sibur");
-  //jaques.test();
-  //  jaques.poser("nourriture");
-  //jaques.test();
-  //  jaques.avancer();
-  //  jaques.voir("{joueur sibur phiras,, sibur, linemate}");
-  // jaques.avancer();
-  // jaques.avancer();
-  // Inventory eude;
-
-  //  (void)argc;
-  //  (void)argv;
-
-  // eude.update("{nourriture 1,linemate 2,deraumere 3 ,sibur  4 ,mendiane    5 ,phiras   6}");// , thystame 7}");
-
-  // Trantorien  joe("localhost", "4242");
-
-  // joe.run();
-
-//  Example toto;
-
-//  toto.compileFile(FILE);
-
-//  toto.selectFct("oneRet");
-//  toto.callFct(1);
-
-//  toto.selectFct("multRet");
-//  toto.addParam(12);
-//  toto.addParam("totopar");
-//  toto.callFct(5);
-//  return (EXIT_SUCCESS);
+  else
+    std::cout << argv[0] << " conf.le script.lua" << std::endl;
 }
