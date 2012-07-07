@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jul  6 14:52:02 2012 thibault carpentier
+// Last update Sat Jul  7 15:44:43 2012 thibault carpentier
 //
 
 #include <boost/regex.hpp>
@@ -253,6 +253,24 @@ std::vector<unsigned int> Map::caseContent(position coord)
 position Map::getCurrentPos(void) const
 {
   return (currentPos_);
+}
+
+position Map::getClosestItem(position pos, int object) const
+{
+  position res(-1, -1);
+  position tmp(-1, -1);
+
+  for (std::vector<position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+    {
+      if ((ABS(pos.first, (*it).first) + ABS(pos.first, (*it).second)) > (tmp.first + tmp.second))
+	{
+	  tmp.first = (ABS(pos.first, (*it).first));
+	  tmp.second = (ABS(pos.second, (*it).second));
+	  res.first = (*it).first;
+	  res.second = (*it).second;
+	}
+    }
+  return (res);
 }
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"

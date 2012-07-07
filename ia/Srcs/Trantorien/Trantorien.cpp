@@ -127,6 +127,34 @@ int  Trantorien::variableArgsCall<int, std::string>(LuaVirtualMachine::VirtualMa
   return (i);
 }
 
+template <>
+int  Trantorien::variableArgsCall<int, std::pair< int, int> >(LuaVirtualMachine::VirtualMachine &vm,
+							      std::function<std::pair<int, int>(lua_State *,
+									const int &)> fct)
+{
+  lua_State *state = vm.getLua();
+  std::list<std::pair<int, int> >  answers;
+  int i = 1;
+
+  for (i = 1; i <= lua_gettop(state); ++i)
+    {
+      if (lua_isnumber(state, i))
+        {
+	  std::pair<int, int> result = fct(state, lua_tointeger(state, i));
+          answers.push_back(result);
+        }
+    }
+  i = 0;
+  while (!answers.empty())
+    {
+      lua_pushinteger(state, answers.front().first);
+      lua_pushinteger(state, answers.front().second);
+      answers.pop_front();
+      ++i;
+    }
+  return (i);
+}
+
 
 template <>
 int Trantorien::variableArgsCall<int, int>(LuaVirtualMachine::VirtualMachine &vm,
@@ -416,8 +444,19 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
-  lua_State *state = vm.getLua();
-  std::pair<int, int> position = map_.getCurrentPos();
+  return (
+	  variableArgsCall<int, std::pair<int, int> >(vm,
+						      [&](lua_State * state, int object) ->
+						      std::pair<int, int> {
+							std::pair<int, int>result (-1, -1);
+							std::pair<int, int> position = map_.getCurrentPos();
+							if (object <= JOUEUR + 1)
+							  result = map_.getClosestItem(position, object);
+							return (result);
+						      }));
+
+
+
 
   //  map_.seekClosest(position)
   return (0);
