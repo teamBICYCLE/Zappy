@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jul  6 14:52:02 2012 thibault carpentier
+// Last update Sat Jul  7 16:21:21 2012 lois burg
 //
 
 #include <sstream>
@@ -26,6 +26,38 @@ Map::Map(position mapsize)
 
 Map::~Map(void)
 {}
+
+int		Map::changeFrame(position p, Direction d)
+{
+  int		angle;
+  int const	diff = d - currentOrientation_;
+
+  if (p.first > mapsize_.first || p.second > mapsize_.second || d > OUEST || d < NORD)
+    return (-1);
+  angle = 0;
+  if (diff != 0)
+    {
+      if (diff == 1)
+	angle = 90;
+      else if (diff == -1)
+	angle = -90;
+      else
+	angle = 180;
+    }
+  for (int i = NOURRITURE; i <= JOUEUR; ++i)
+    {
+      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+	{
+	  it->first = updatePosition(it->first + (p.first - currentPos_.first), mapsize_.first);
+	  it->second = updatePosition(it->second + (p.second - currentPos_.second), mapsize_.second);
+	  it->first = updatePosition(it->first * cos(angle) + it->second * sin(angle), mapsize_.first);
+	  it->second = updatePosition(-it->first * sin(angle) + it->second * cos(angle), mapsize_.second);
+	}
+    }
+  currentPos_ = p;
+  currentOrientation_ = d;
+  return (0);
+}
 
 void Map::setSize(const position &mapsize)
 {
@@ -274,6 +306,24 @@ std::vector<unsigned int> Map::caseContent(position coord)
 position Map::getCurrentPos(void) const
 {
   return (currentPos_);
+}
+
+position Map::getClosestItem(position pos, int object) const
+{
+  position res(-1, -1);
+  position tmp(-1, -1);
+
+  for (std::vector<position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+    {
+      if ((ABS(pos.first, (*it).first) + ABS(pos.first, (*it).second)) > (tmp.first + tmp.second))
+	{
+	  tmp.first = (ABS(pos.first, (*it).first));
+	  tmp.second = (ABS(pos.second, (*it).second));
+	  res.first = (*it).first;
+	  res.second = (*it).second;
+	}
+    }
+  return (res);
 }
 
 UserGlobal::Direction Map::getDirection() const

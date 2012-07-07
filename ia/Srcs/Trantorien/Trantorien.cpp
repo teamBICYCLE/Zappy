@@ -36,6 +36,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAMissingRockOnCase", &Trantorien::missingRockOnCase);
   addInteraction("IAMissingRockInInventory", &Trantorien::missingRockInInventory);
   addInteraction("IAGetCLosestItem", &Trantorien::getClosestItem);
+  addInteraction("IAChangeFrame", &Trantorien::changeFrame);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -124,6 +125,34 @@ int  Trantorien::variableArgsCall<int, std::string>(LuaVirtualMachine::VirtualMa
   while (!answers.empty())
     {
       lua_pushstring(state, answers.front().c_str());
+      answers.pop_front();
+      ++i;
+    }
+  return (i);
+}
+
+template <>
+int  Trantorien::variableArgsCall<int, std::pair< int, int> >(LuaVirtualMachine::VirtualMachine &vm,
+							      std::function<std::pair<int, int>(lua_State *,
+									const int &)> fct)
+{
+  lua_State *state = vm.getLua();
+  std::list<std::pair<int, int> >  answers;
+  int i = 1;
+
+  for (i = 1; i <= lua_gettop(state); ++i)
+    {
+      if (lua_isnumber(state, i))
+        {
+	  std::pair<int, int> result = fct(state, lua_tointeger(state, i));
+          answers.push_back(result);
+        }
+    }
+  i = 0;
+  while (!answers.empty())
+    {
+      lua_pushinteger(state, answers.front().first);
+      lua_pushinteger(state, answers.front().second);
       answers.pop_front();
       ++i;
     }
@@ -565,9 +594,38 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
-  lua_State *state = vm.getLua();
-  std::pair<int, int> position = map_.getCurrentPos();
+  return (
+	  variableArgsCall<int, std::pair<int, int> >(vm,
+						      [&](lua_State * state, int object) ->
+						      std::pair<int, int> {
+							std::pair<int, int>result (-1, -1);
+							std::pair<int, int> position = map_.getCurrentPos();
+							if (object <= UserGlobal::JOUEUR + 1)
+							  result = map_.getClosestItem(position, object);
+							return (result);
+						      }));
+
+
+
 
   //  map_.seekClosest(position)
   return (0);
+}
+
+int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+
+  if (lua_gettop(state) >= 3)
+    {
+      int x = 0, y = 0;
+      Direction dir;
+      // a changer
+
+      x = lua_tonumber(state, 1);
+      y = lua_tonumber(state, 2);
+      dir = static_cast<Direction>(lua_tonumber(state, 3));
+      return (map_.changeFrame(position(x, y), dir));
+    }
+  return (-1);
 }
