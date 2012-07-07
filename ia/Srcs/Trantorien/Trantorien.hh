@@ -57,7 +57,7 @@ private:
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
-
+  int		missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
 private:
   Inventory               inventory_;
   Network                 network_;

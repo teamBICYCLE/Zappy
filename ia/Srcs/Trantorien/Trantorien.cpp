@@ -37,6 +37,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAMissingRockInInventory", &Trantorien::missingRockInInventory);
   addInteraction("IAGetCLosestItem", &Trantorien::getClosestItem);
   addInteraction("IAChangeFrame", &Trantorien::changeFrame);
+  addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -291,7 +292,6 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
   const std::vector<unsigned int> & inventory = inventory_.getIventory();
   for ( i = 0; i < inventory.size(); ++i)
     lua_pushinteger(state, inventory[i]);
-  //  lua_pushstring(vm.getLua(), ret.c_str());
   return (i);
 }
 
@@ -604,10 +604,6 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
-
-
-
-
   //  map_.seekClosest(position)
   return (0);
 }
@@ -628,4 +624,22 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
       return (map_.changeFrame(position(x, y), dir));
     }
   return (-1);
+}
+
+int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::pair<int, int> position = map_.getCurrentPos();
+  std::vector<unsigned int> inventory = inventory_.getIventory();
+  std::vector<unsigned int> map = map_.caseContent(position);
+
+  int j = 0;
+  for (std::vector<unsigned int>::iterator it = inventory.begin(),
+	 it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
+    {
+      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1)));
+      ++j;
+    }
+  return (j);
+
 }
