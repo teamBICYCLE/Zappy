@@ -18,7 +18,7 @@
 
 using namespace LuaVirtualMachine;
 
-static int luaCallMeth(lua_State *lua)
+ int Script::luaCallMeth(lua_State *lua)
 {
   int nbRet = 0;
   int idx = lua_upvalueindex(1);
@@ -203,7 +203,7 @@ int  Script::registerFct(const std::string &fctName)
       lua_rawgeti(VM_.getLua(), LUA_REGISTRYINDEX, refThis_);
       lua_pushstring(VM_.getLua(), fctName.c_str());
       lua_pushnumber(VM_.getLua(), methIdx);
-      lua_pushcclosure(VM_.getLua(), luaCallMeth, 1);
+      lua_pushcclosure(VM_.getLua(), Script::luaCallMeth, 1);
       lua_settable(VM_.getLua(), -3);
     }
   return (methIdx);

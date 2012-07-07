@@ -60,19 +60,19 @@ void Inventory::update(const std::string &values)
 
 void Inventory::prendre(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
-      if (g_values[i] == value)
-	++inventory_[i];
+      if (GlobalToString::inventaireObject[i] == value)
+        ++inventory_[i];
     }
 }
 
 void Inventory::poser(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
-      if (g_values[i] == value)
-	--inventory_[i];
+      if (GlobalToString::inventaireObject[i] == value)
+        --inventory_[i];
     }
 }
 
@@ -84,22 +84,22 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
   ret.resize(END);
   if (boost::regex_match(values, regex))
     {
-      for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
-	{
-	  boost::regex extract(" *" + g_values[i] + " +([0-9]+)");
-	  boost::match_results<std::string::const_iterator> what;
-	  if (regex_search(values.begin(), values.end(), what, extract, boost::match_default))
-	    if (what.size() >= 1)
-	      {
-		std::stringstream convert;
-		convert << what[1];
-		convert >> ret[i];
-	      }
-	}
+      for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
+        {
+          boost::regex extract(" *" + GlobalToString::inventaireObject[i] + " +([0-9]+)");
+          boost::match_results<std::string::const_iterator> what;
+          if (regex_search(values.begin(), values.end(), what, extract, boost::match_default))
+            if (what.size() >= 1)
+              {
+                std::stringstream convert;
+                convert << what[1];
+                convert >> ret[i];
+              }
+        }
     }
   else
     throw TrantorienFailure("Inventory parse",
-			    "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
+                            "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
   return ret;
 }
 

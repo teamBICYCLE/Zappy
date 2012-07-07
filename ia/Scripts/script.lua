@@ -1,14 +1,15 @@
 #!/usr/bin/lua
 
 c = 0
+gx, gy = 12, 8
 
 function this.avance(this)
-   if (c % 7) == 0
-   then this:IATourner("gauche")
+   this:IAGoto(gx, gy)
+   local x, y = this:IACurrentPosition()
+   if x == gx and y == gy
+   then return OK
+   else return KO
    end
-   this:IAAvance()
-   c = c + 1
-   return (OK)
 end
 
 function this.voir(this)
