@@ -44,15 +44,15 @@ function this.parcours_map(this)
       local r = math.random(100)
       if r < 13
       then
-	 this:tourne(gauche)
+	 this:IATourner(GAUCHE)
 	 just_turned = true
       elseif r < 26
       then
-	 this:tourne(droite)
+	 this:IATourner(DROITE)
 	 just_turned = true
-      else this:avance()
+      else this:IAAvance()
       end
-   else this:avance()
+   else this:IAAvance()
    end
    return OK
 end
