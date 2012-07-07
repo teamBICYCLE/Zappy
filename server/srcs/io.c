@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Fri Jul  6 17:37:24 2012 lois burg
+** Last update Sat Jul  7 14:33:21 2012 lois burg
 */
 
 #include <stdio.h>
@@ -68,15 +68,7 @@ void		add_user(void)
   if ((new.socket = accept(g_info.ss, NULL, NULL)) != -1)
     {
       g_info.smax = g_info.smax < new.socket ? new.socket : g_info.smax;
-      new.id = g_player_id++;
-      new.lvl = 1;
-      new.dir = rand() % (WEST + 1);
-      new.inventory[FOOD] = 5;
-      new.life = (new.inventory[FOOD] * 126);/* * 500;*/
-      new.messages = new_list();
-      new.first_message = true;
-      new.readring = new_ringbuffer(4096);
-      new.tasks = new_list();
+      init_new_user(&new);
       if (new.tasks != NULL && new.messages != NULL && new.readring != NULL)
 	{
 	  push_back(new.messages, new_link_by_param(GREETINGS, sizeof(GREETINGS)));
@@ -112,15 +104,11 @@ void		write_user(void *ptr)
 	  perror("send :");
 	  remove_user(user);
 	}
-      else
+      else if ((user->idx += l) >= strlen(str))
 	{
-	  user->idx += l;
-	  if (user->idx >= strlen(str))
-	    {
-	      user->idx = 0;
-	      free(str);
-	      free(pop_front(user->messages));
-	    }
+	  user->idx = 0;
+	  free(str);
+	  free(pop_front(user->messages));
 	}
     }
 }

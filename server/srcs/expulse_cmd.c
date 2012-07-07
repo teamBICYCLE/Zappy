@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun 27 16:46:56 2012 Jonathan Machado
-** Last update Wed Jun 27 17:42:21 2012 Jonathan Machado
+** Last update Sat Jul  7 13:22:10 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -26,21 +26,21 @@ static	t_dir_mov	g_dir_tab[4] =
     {-1, 0}
   };
 
-static int	expulse(t_users *sender, t_users *recvr)
+static int	expulse(t_users *sender, t_users *r)
 {
   char		msg[EXPULSE_MSG_SZ];
   int		x[2];
   int		y[2];
 
-  recvr->x = (recvr->x + g_dir_tab[sender->dir].dx + g_info.map->x) % g_info.map->x; ;
-  recvr->y = (recvr->y + g_dir_tab[sender->dir].dy + g_info.map->y) % g_info.map->y;;
+  r->x = (r->x + g_dir_tab[sender->dir].dx + g_info.map->x) % g_info.map->x;
+  r->y = (r->y + g_dir_tab[sender->dir].dy + g_info.map->y) % g_info.map->y;
   x[0] = sender->x;
   y[0] = sender->y;
-  x[1] = recvr->x;
-  y[1] = recvr->y;
-  snprintf(msg, sizeof(msg), "deplacement: %i\n", get_case(x, y, recvr->dir));
-  push_back(recvr->messages, new_link_by_param(msg, strlen(msg) + 1));
-  lookup(g_info.users, graphics_ppo(recvr), &notify_graphic);
+  x[1] = r->x;
+  y[1] = r->y;
+  snprintf(msg, sizeof(msg), "deplacement: %i\n", get_case(x, y, r->dir));
+  push_back(r->messages, new_link_by_param(msg, strlen(msg) + 1));
+  lookup(g_info.users, graphics_ppo(r), &notify_graphic);
   return (1);
 }
 
