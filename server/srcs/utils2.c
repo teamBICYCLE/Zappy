@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Thu Jul  5 12:48:26 2012 lois burg
+** Last update Fri Jul  6 16:18:09 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -38,7 +38,7 @@ static void	set_fd(void *ptr)
   t_users	*user;
 
   user = ptr;
-  if (user->messages->size > 0)
+  if (user->messages != NULL && user->messages->size > 0)
     FD_SET(user->socket, &g_info.writefds);
   FD_SET(user->socket, &g_info.readfds);
 }
@@ -49,4 +49,14 @@ void	reset_fd(t_infos *info)
   FD_ZERO(&info->readfds);
   FD_SET(info->ss, &info->readfds);
   iterate(info->users, &set_fd);
+}
+
+size_t		carray_size(char const **a)
+{
+  size_t	i;
+
+  i = 0;
+  while (a && a[i])
+    ++i;
+  return (i);
 }

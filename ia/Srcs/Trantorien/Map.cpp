@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Thu Jul  5 16:37:14 2012 thibault carpentier
+// Last update Fri Jul  6 14:52:02 2012 thibault carpentier
 //
 
 #include <sstream>
@@ -13,8 +13,6 @@
 #include "Map.hh"
 #include "TrantorienFailure.hh"
 
-std::string const Map::values_[] =
-  {"nourriture", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"};
 std::string const Map::REGEX_VALUE = " *\\{( *(joueur|linemate|deraumere|sibur|mendiane|phiras|thystame|nourriture) *([ ,]*|\\} *$){1} *)+ *\\} *";
 
 Map::Map()
@@ -140,7 +138,7 @@ void Map::formatValues(int &distance, int &incrStart)
 
 void Map::forgetPrevData(int x, int y)
 {
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
     {
       unsigned int j = 0;
       while (j < items_[i].size())
@@ -161,9 +159,9 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
   formatValues(distance, incrStart);
   forgetPrevData(updatePosition(currentPos_.first + distance, mapsize_.first),
                  updatePosition(currentPos_.second + incrStart, mapsize_.second));
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
     {
-      boost::regex extract("(" + values_[i] + ")");
+      boost::regex extract("(" + g_values[i] + ")");
       boost::match_results<std::string::const_iterator> what;
       std::string::const_iterator s1 = caseContent.begin();
       std::string::const_iterator s2 = caseContent.end();
@@ -178,11 +176,11 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
 
 void Map::test(void) const
 {
-  for (unsigned int i = 0;  i < (sizeof(values_) / sizeof(std::string)); ++i)
+  for (unsigned int i = 0;  i < (sizeof(g_values) / sizeof(std::string)); ++i)
     {
       std::vector<position>::const_iterator it;
 
-      std::cout << "Item : " << values_[i] << std::endl;
+      std::cout << "Item : " << g_values[i] << std::endl;
       for (it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
@@ -237,8 +235,8 @@ void Map::voir(const std::string &values)
 
 void Map::prendre(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
-    if (values_[i] == value)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+    if (g_values[i] == value)
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
@@ -251,8 +249,8 @@ void Map::prendre(const std::string &value)
 
 void Map::poser(const std::string &value)
 {
-  for (unsigned int i = 0; i < (sizeof(values_) / sizeof(std::string)); ++i)
-    if (values_[i] == value)
+  for (unsigned int i = 0; i < (sizeof(g_values) / sizeof(std::string)); ++i)
+    if (g_values[i] == value)
       {
         items_[i].push_back(currentPos_);
         return;
@@ -262,7 +260,7 @@ void Map::poser(const std::string &value)
 std::vector<unsigned int> Map::caseContent(position coord)
 {
   std::vector<unsigned int> result;// = new std::vector<unsigned int>();
-  for (unsigned int i = 0; i <= THYSTAME; ++i)
+  for (unsigned int i = 0; i <= JOUEUR; ++i)
     {
       unsigned int nbRessources = 0;
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)

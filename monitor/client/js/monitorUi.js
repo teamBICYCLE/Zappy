@@ -2,6 +2,8 @@
  * @author sylvia_r
  */
 
+var allowInventoryUpdate = true;
+
 $(function() {
 
 	/* events */
@@ -74,37 +76,34 @@ $(function() {
 	});
 	
 	Mousetrap.bind('p', function() {
-		if ($(".btn-slide").hasClass("active")) {
+		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
-			$(".btn-slide").toggleClass("active");
+			$(".btn-slide").removeClass("active");
+			$(".player-list").fadeIn(300);
+		} else {
+			$(".player-list").fadeOut(300);
 		}
-		$(".player-list").toggle();
 	});
 	
 	Mousetrap.bind('t', function() {
-
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".player-list").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
-		} else
+			$(".btn-slide").addClass("active");
+		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
-		$(".btn-slide").toggleClass("active");
+			$(".btn-slide").removeClass("active");
+		}
 	});
 	
-	/*
-	$("#overlay").click(function() {
-		$(this).fadeOut(300);
-		$(".case-content").fadeOut(300);
-	});
-	*/
-	
-	$(".topbar-menu-players").toggle(function() {
-		$(".player-list").fadeIn(300);
-		$(".panel").animate({marginRight: "-500px"}, 200);
-		if ($(".btn-slide").hasClass("active"))
-			$(".btn-slide").toggleClass("active");
-	}, function() {
-		$(".player-list").fadeOut(300);
+	$(".topbar-menu-players").click(function() {
+		if ($(".player-list").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".player-list").fadeIn(300);
+		} else {
+			$(".player-list").fadeOut(300);
+		}
 	});
 
 	$(".topbar-menu-centermap").click(function() {
@@ -165,7 +164,14 @@ function initInventory() {
 		}
 	};
 		
-	$("#inventory").draggable();
+	$("#inventory").draggable({
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
+		}
+	});
 	$(".item").draggable(options);
 	
 	$(".container").droppable({
@@ -192,8 +198,10 @@ function initInventory() {
 function initItem(item) {
 	src = null;
 	
+	$(".item").draggable("destroy");
+
 	options = {
-		revert:true,
+		revert: true,
 		opacity: 0.8,
 		zIndex: 100,
 		start: function() {
@@ -223,25 +231,53 @@ function emptyInventoryContent() {
 		$(container[i]).children().remove();
 }
 
-function updateInventoryContent(inventory) {
+function inventorySetChange(inventory, lastInventory) {
+	
+	var change = {updated: [], deleted:[], added:[]};
+	
+	for (var i = 0; i != inventory.length; i++)
+	{
+		if (inventory[i] != 0 && lastInventory[i] != 0)
+			change.updated.push({id: i, q: inventory[i]});
+		else if (inventory[i] == 0 && lastInventory[i] != 0)
+			change.deleted.push({id: i, q: inventory[i]});
+		else if (inventory[i] != 0 && lastInventory[i] == 0)
+			change.added.push({id: i, q: inventory[i]});
+	}
+	return change;
+}
+
+function updateInventoryContent(inventory, lastInventory) {
 	
 	var ref = ["food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"];
 	
-	emptyInventoryContent();
-	for (var i = 0; i != inventory.length; i++)
-		if (inventory[i] > 0)
+	change = inventorySetChange(inventory, lastInventory);
+	
+	/* delete */
+	for (var i = 0; i != change.deleted.length; i++)
+			$("#inventory-containers .container #" + ref[change.deleted[i].id] + "-item").remove();
+	
+	/* update */
+	for (var i = 0; i != change.updated.length; i++)
+	{
+		if ($("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").length)
+			$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
+		else
+			change.added.push(change.updated[i]);
+	}
+			
+	/* add */		
+	for (var i = 0; i != change.added.length; i++)
+	{
+		var container = $("#inventory-containers .container");
+		
+		for (var j = 0; j != container.length; j++)
+			if ($(container[j]).children().length == 0)
 			{
-				var container = $("#inventory-containers .container");
-				
-				for (var j = 0; j != container.length; j++)
-					if ($(container[j]).children().length == 0)
-					{
-						$(container[j]).append("<div id='"+ref[i]+"-item' class='item'><span class='"+ref[i]+"-count item-count'>"+inventory[i]+"</span></div>");
-						
-						break;
-					}
-				//console.log($("#inventory-containers .container"));
+				$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
+				break;
 			}
+	}
 			
 	initItem();
 }
@@ -276,8 +312,6 @@ function addTeamsToPanel() {
 		else
 			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									
 	}
-	// $("#interactive").bind("plothover", pieHover);
-	// $("#interactive").bind("plotclick", pieClick);
 }
 
 function initTeamPanel() {	
@@ -286,6 +320,18 @@ function initTeamPanel() {
 	
 	addTeamsToPanel();
 	
+	$(".btn-slide").click(function() {
+		if ($(".panel").css("margin-right") == "-500px") {
+			$(".player-list").fadeOut(300);
+			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").addClass("active");
+		} else {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+		}
+	});	
+	
+	/*
 	$(".btn-slide").toggle(function() {
 			$(".player-list").fadeOut(300);
 			if ($(".btn-slide").not(".active")) {
@@ -297,6 +343,7 @@ function initTeamPanel() {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").toggleClass("active");
 	});
+    */
     
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {
@@ -306,7 +353,6 @@ function initTeamPanel() {
    });
    
    $(".teambox").mouseover(function(e) {
-   		//console.log(e.currentTarget.id.split("-")[1] + "currentTeam");
 		if (e.currentTarget.id.split("-")[1] != currentTeam)
 			currentTeam = e.currentTarget.id.split("-")[1];
 	});

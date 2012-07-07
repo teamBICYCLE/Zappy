@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Thu Jul  5 16:32:52 2012 thibault carpentier
+// Last update Fri Jul  6 14:41:02 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -24,8 +24,7 @@ private:
   position  offset_;
   Direction currentOrientation_;
   position  currentPos_;
-  std::vector<position> items_[THYSTAME + 1];
-  static const std::string values_[];
+  std::vector<position> items_[JOUEUR + 1];
 
 private:
 

@@ -38,7 +38,7 @@ socket.on('firstConnection', function(data){
 		cache.setTeams(data.teams);
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
-		cache.setPlayers(setInventoryChange(data.players, true));
+		cache.setPlayers(setAllInventoryChange(data.players, true));
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
@@ -73,6 +73,9 @@ socket.on('cacheUpdate', function(data){
 	
 	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
+		
+		if (data.endGame.state)
+			console.log("END GAME :) " + data.endGame.name);
 		cache.setMapSize(data.xsize, data.ysize);
 		
 		prevPlayers = cache.getPlayers();

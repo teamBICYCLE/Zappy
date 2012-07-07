@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 19:20:53 2012 lois burg
-** Last update Thu Jun 14 18:13:31 2012 lois burg
+** Last update Sat Jul  7 13:09:39 2012 lois burg
 */
 
 #include <string.h>
@@ -18,7 +18,8 @@ static void	add_avg(double *avg, double *sum, const double val)
   *sum += 1;
 }
 
-double		avg_diamond(const int x, const int y, t_dmap *dmap, const int size)
+double		avg_diamond(const int x, const int y,
+			    t_dmap *dmap, const int size)
 {
   double	avg;
   double	sum;
@@ -48,9 +49,11 @@ static double	**alloc_map(const int size)
 
   i = 0;
   map = malloc(size * sizeof(*map));
-  while (i < size)
+  while (map != NULL && i < size)
     {
       map[i] = malloc(size * sizeof(**map));
+      if (map[i] == NULL)
+	return (NULL);
       memset(map[i], 0, size * sizeof(**map));
       ++i;
     }
@@ -61,11 +64,15 @@ t_dmap		*new_dmap(const int size)
 {
   t_dmap	*dmap;
 
-  dmap = malloc(sizeof(*dmap));
-  dmap->size = size;
-  dmap->max_val = 0;
-  dmap->step = dmap->size - 1;
-  dmap->map = alloc_map(dmap->size);
+  if ((dmap = malloc(sizeof(*dmap))) != NULL)
+    {
+      dmap->size = size;
+      dmap->max_val = 0;
+      dmap->step = dmap->size - 1;
+      dmap->map = alloc_map(dmap->size);
+      if (dmap->map == NULL)
+	return (NULL);
+    }
   return (dmap);
 }
 

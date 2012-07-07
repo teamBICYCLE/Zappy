@@ -12,8 +12,9 @@ var xsize_ = 0,
 	map_ = new (require("./objects/map.js")),
 	players_ = new Array(),
 	eggs_ = new Array(),
-	cmdMessages_ = new Array();
-	changeMap_ = new Array();
+	cmdMessages_ = new Array(),
+	changeMap_ = new Array(),
+	endGame_ = {state: false, name: ""};
 	
 var Case = require("./objects/mapCase.js");
 	
@@ -69,8 +70,8 @@ exports.addTeam = function(name) {
 exports.addTeamColor = function() {
 	for (var i = 0; i != teams_.length;  i++)
 		teamsColor_.push(random_color(((i + 1) / teams_.length), 0.55, 0.99));
-	teams_.reverse();
-	teamsColor_.reverse();
+	// teams_.reverse();
+	// teamsColor_.reverse();
 }
 
 exports.setCase = function(x, y, ressources) {
@@ -114,6 +115,18 @@ exports.removeEgg = function(argId) {
 
 exports.addMessage = function(msg) {
 	cmdMessages_.push(msg);
+}
+
+exports.setEndGame = function(v, name) {
+	endGame_.state = v;
+	endGame_.name = name;
+	
+	/* reset */
+	map_ = new (require("./objects/map.js"));
+	players_ = [];
+	eggs_ = [];
+	cmdMessages_ = ["Team " + name + " wins !"];
+	changeMap_ = [];
 }
 
 /* GET */
@@ -205,6 +218,10 @@ exports.getEggs = function() {
 
 exports.getCmdMessages = function() {
 	return cmdMessages_;
+}
+
+exports.getEndGame = function() {
+	return endGame_;
 }
 
 /* OTHER */

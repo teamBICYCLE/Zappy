@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jul  4 11:15:12 2012 lois burg
+** Last update Sat Jul  7 13:12:05 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -88,12 +88,17 @@ static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
   (void)orig_cmd;
   usr->type = TGHOST;
   usr->readring = new_ringbuffer(4096);
-  usr->dir = rand() % (WEST + 1);
-  if (usr->team)
-    ++usr->team->free_slots;
-  --g_info.map->cases[usr->y][usr->x].elements[EGG];
-  ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
-  lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
+  if (usr->readring == NULL)
+    remove_user(usr);
+  else
+    {
+      usr->dir = rand() % (WEST + 1);
+      if (usr->team)
+	++usr->team->free_slots;
+      --g_info.map->cases[usr->y][usr->x].elements[EGG];
+      ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
+      lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
+    }
   return (IGNORE);
 }
 
@@ -110,7 +115,7 @@ static void	init_egg(t_users *egg, t_users *father)
   egg->messages = new_list();
   egg->team = father->team;
   egg->inventory[FOOD] = 10;
-  egg->life = egg->inventory[FOOD] * 126 * 500;/* temporaire */
+  egg->life = egg->inventory[FOOD] * 126;
 }
 
 t_cmd_ret	fork_cmd(t_users *usr, char **args, char *orig_cmd)

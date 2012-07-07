@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Wed Jul  4 14:40:14 2012 lois burg
+** Last update Sat Jul  7 13:20:53 2012 lois burg
 */
 
 #include <string.h>
@@ -16,6 +16,21 @@
 #include "protocol.h"
 
 extern t_infos	g_info;
+
+void	check_end_game(t_users *p)
+{
+  p->lvl = MAX_LVL;
+  if (p->lvl == MAX_LVL)
+    {
+      ++p->team->nb_max_lvl;
+      p->team->nb_max_lvl = NB_PLYR_MAX_LVL;
+      if (p->team->nb_max_lvl == NB_PLYR_MAX_LVL)
+	{
+	  g_info.end_game = true;
+	  g_info.winner = p->team;
+	}
+    }
+}
 
 void		levelup_engaged(const int x, const int y, const int lvl)
 {
@@ -30,7 +45,9 @@ void		levelup_engaged(const int x, const int y, const int lvl)
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
 	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
-	    push_back(plyr->messages, new_link_by_param(LEVELUP_ENGAGED, sizeof(LEVELUP_ENGAGED) + 1));
+	    push_back(plyr->messages,
+		      new_link_by_param(LEVELUP_ENGAGED,
+					sizeof(LEVELUP_ENGAGED) + 1));
 	}
       ++i;
     }
@@ -70,7 +87,8 @@ static void	send_plyr_lvl(const int x, const int y, const int lvl)
 	  plyr = (t_users*)plyr_lnk->ptr;
 	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
 	    {
-	      push_back(plyr->messages, new_link_by_param(lvlup_msg, strlen(lvlup_msg) + 1));
+	      push_back(plyr->messages,
+			new_link_by_param(lvlup_msg, strlen(lvlup_msg) + 1));
 	      lookup(g_info.users, graphics_plv(plyr), &notify_graphic);
 	    }
 	}

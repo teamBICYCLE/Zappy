@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Sat May 12 14:35:44 2012 Jonathan Machado
-** Last update Thu Jul  5 12:51:13 2012 lois burg
+** Last update Sat Jul  7 13:43:07 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -30,7 +30,7 @@ static	void		server_quit(int i)
   exit(EXIT_SUCCESS);
 }
 
-static void		leave(const char *msg)
+void		leave(const char *msg)
 {
   perror(msg);
   free_all(&g_info);
@@ -45,10 +45,9 @@ static void		init_world(const uint x, const uint y, int const seed)
       signal(SIGQUIT, server_quit) == SIG_ERR ||
       signal(SIGTERM, server_quit) == SIG_ERR)
     perror("signal failed: ");
-  g_info.map = generate_map(x, y, seed);
+  if ((g_info.map = generate_map(x, y, seed)) == NULL)
+    leave("Failed to generate map");
   print_serv_conf(&g_info.world);
-  // printf("Minimum delay: %fs\n", g_info.world.smallest_t.tv_sec + (g_info.world.smallest_t.tv_usec / 1000000.f));
-  /* dump_map(map); */
 }
 
 static void		init_network(int const port)
@@ -78,7 +77,6 @@ static void		init_network(int const port)
 void			run(void)
 {
   int			sync;
-  int			diff;
   struct timeval	loop;
   struct timeval	start;
   struct timeval	end;
@@ -89,44 +87,14 @@ void			run(void)
   sync = 0;
   while (1)
     {
-      /* printf("Nb clients: %u\n", g_info.users->size); */
       reset_fd(&g_info);
-      //printf("delay: %ld %lds\n", loop.tv_sec, loop.tv_usec); //debug
       if (select(g_info.smax + 1, &g_info.readfds,
 		 &g_info.writefds, NULL, &loop) != -1)
 	{
-	  //printf("deblock at: %fs\n-------------\n", loop.tv_sec + (loop.tv_usec / 1000000.f));
-	  gettimeofday(&start, NULL); // start
-
-	  if (FD_ISSET(g_info.ss, &g_info.readfds))
-	    add_user();
-	  iterate(g_info.users, &read_user);
-	  if ((loop.tv_sec <= 0 && loop.tv_usec <= 0) || sync != 0)
-	    {
-	      if (loop.tv_sec <= 0 && loop.tv_usec <= 0)
-		++sync;
-	      //	      printf("Sync: %d\n", sync);
-	      update_map(sync);
-	      loop = g_info.world.smallest_t;
-	      sync = 0;
-	    }
-	  iterate(g_info.users, &write_user);
-
-	  // a metre dans fonction ?
+	  gettimeofday(&start, NULL);
+	  treat_clients(&loop, &sync);
 	  gettimeofday(&end, NULL);
-	  sync += (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) /
-		   (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	  diff = (((end.tv_sec * 1000000 + end.tv_usec) - (start.tv_sec * 1000000 + start.tv_usec)) %
-		  (g_info.world.smallest_t.tv_sec * 1000000 + g_info.world.smallest_t.tv_usec));
-	  diff = (loop.tv_usec + loop.tv_sec * 1000000) - diff;
-	  if (diff < 0)
-	    {
-	      ++sync;
-	      diff += (g_info.world.smallest_t.tv_usec +
-		       g_info.world.smallest_t.tv_sec * 1000000);
-	    }
-	  loop.tv_usec = diff % 1000000;
-	  loop.tv_sec = diff / 1000000;
+	  handle_time(&start, &end, &loop, &sync);
 	}
       if (g_info.end_game == true)
 	reset_game();

@@ -194,20 +194,22 @@ i.leaf-icon {
 }
 
 #connectionError {
-    position:fixed;
-    top:-2100px;
-    left:30%;
-    right:30%;
-    background-color:#fff;
-    color:#7F7F7F;
-    padding:20px 20px 30px;
-    border:2px solid #ccc;
-    -moz-border-radius: 20px;
-    -webkit-border-radius:20px;
-    -khtml-border-radius:20px;
-    -moz-box-shadow: 0 1px 5px #333;
-    -webkit-box-shadow: 0 1px 5px #333;
-    z-index:101;
+	position:fixed;
+   top:-2100px;
+   left:30%;
+   right:30%;
+   background-color:#222;
+	font-family: Helvetica, Helv, swiss, sans-serif;
+	color: #eee;
+	text-shadow: #222 1px 1px 1px;
+   padding:20px 20px 30px;
+   border:1px solid #000;
+   -moz-border-radius:10px;
+   -webkit-border-radius:10px;
+   -khtml-border-radius:10px;
+   -moz-box-shadow: 0 1px 5px #333;
+   -webkit-box-shadow: 0 1px 5px #333;
+   z-index:1001;
 }
 
 #connectionError p {
@@ -220,16 +222,14 @@ i.leaf-icon {
 }
 
 #connectionError h1{
-    border-bottom: 1px dashed #7F7F7F;
     margin:-20px -20px 0px -20px;
-    padding:10px;
-    background-color:#FFEFEF;
-    color:#EF7777;
-    -moz-border-radius:20px 20px 0px 0px;
-    -webkit-border-top-left-radius: 20px;
-    -webkit-border-top-right-radius: 20px;
-    -khtml-border-top-left-radius: 20px;
-    -khtml-border-top-right-radius: 20px;
+    padding: 8px 8px 8px 15px;
+    background-color:#151515;
+    -moz-border-radius:10px 10px 0px 0px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -khtml-border-top-left-radius: 10px;
+    -khtml-border-top-right-radius: 10px;
 }
 
 /* INVENTORY */

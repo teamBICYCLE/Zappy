@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Thu Jul  5 12:47:49 2012 lois burg
+** Last update Sat Jul  7 14:09:22 2012 lois burg
 */
 
 #ifndef __SERVER_H__
@@ -112,6 +112,12 @@ void	print_serv_conf(t_arg_infos *world_info);
 char	**parse(char *str, const char *delim);
 double	get_angle(int *x, int *y, t_direction dir);
 int	get_case(int *x, int *y, t_direction dir);
+size_t	carray_size(char const **a);
+void	leave(const char *msg);
+void	treat_clients(struct timeval *loop, int *sync);
+void   	handle_time(struct timeval *start, struct timeval *end,
+		    struct timeval *loop, int *sync);
+void	init_new_user(t_users *new);
 
 void   	free_users(void *ptr);
 void   	free_teams(void *ptr);

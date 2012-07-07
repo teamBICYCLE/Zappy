@@ -8,10 +8,10 @@ function update_inventory() {
 	if (inventoryOpenId != -1 && !cache.playerExist(inventoryOpenId))
 		closeInventory();
 	else if (inventoryOpenId != -1 && cache.getPlayer(inventoryOpenId).inventoryChange_)
-		updateInventoryContent(cache.getPlayer(inventoryOpenId).inventory_)
+		updateInventoryContent(cache.getPlayer(inventoryOpenId).inventory_, cache.getPlayer(inventoryOpenId).lastInventory_);
 }
 
-function setInventoryChange(players, v) {
+function setAllInventoryChange(players, v) {
 	
 	for (var i = 0; i != players.length; i++)
 		players[i].inventoryChange_ = v;
@@ -33,8 +33,9 @@ function detectInventoryChange(prev) {
 		if (cache.playerExist(prev[i].id_) && inventoryOpenId == prev[i].id_)
 			{
 				now = cache.getPlayer(prev[i].id_);
+				//console.log(prev[i].inventory_, now.inventory_);
 				if (!sameInventory(prev[i].inventory_, now.inventory_))
-					cache.setInventoryChange(prev[i].id_, true);
+					cache.setInventoryChange(prev[i].id_, true, prev[i].inventory_);
 			}
 	}
 }
