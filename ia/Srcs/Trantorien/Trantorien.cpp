@@ -637,7 +637,8 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
   for (std::vector<unsigned int>::iterator it = inventory.begin(),
 	 it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
     {
-      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1)));
+      lua_pushinteger(state,
+		      static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
       ++j;
     }
   return (j);
