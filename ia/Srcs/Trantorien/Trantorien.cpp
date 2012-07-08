@@ -647,8 +647,6 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
-  //  map_.seekClosest(position)
-
 }
 
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
@@ -659,7 +657,6 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
     {
       int x = 0, y = 0;
       UserGlobal::Direction dir;
-      // a changer
 
       x = lua_tonumber(state, 1);
       y = lua_tonumber(state, 2);

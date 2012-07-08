@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Sun Jul  8 15:08:22 2012 thibault carpentier
+// Last update Sun Jul  8 17:03:49 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -36,6 +36,8 @@ private:
   void remember(const std::string &caseContent, int distance, int incrStart);
   int updatePosition(int, int);
   void forgetPrevData(int, int);
+
+  // reflexion in progress
   // position calculateDistance(int distance, int partialPos) const;
 
   Map(Map const &);

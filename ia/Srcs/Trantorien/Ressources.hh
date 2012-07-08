@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Thu Jul  5 16:31:00 2012 thibault carpentier
-// Last update Sun Jul  8 15:27:05 2012 thibault carpentier
+// Last update Sun Jul  8 16:48:39 2012 thibault carpentier
 //
 
 #ifndef _RESSOURCES_H_
@@ -51,6 +51,7 @@ enum Orientation
   GAUCHE = 0,
   DROITE
 };
+
 }
 
 namespace GlobalToString {
