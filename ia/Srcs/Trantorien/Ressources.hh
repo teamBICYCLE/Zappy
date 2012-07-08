@@ -11,6 +11,8 @@
 #ifndef _RESSOURCES_H_
 # define _RESSOURCES_H_
 
+#include <string>
+
 namespace UserGlobal {
 
 enum SoundDirection

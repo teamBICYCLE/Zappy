@@ -11,22 +11,22 @@
 #ifndef _MAP_H_
 # define _MAP_H_
 
-#define ABS(x) ((x) < 0 ? (-x) : (x))
+#define ABS(x) ((x) < 0 ? -(x) : (x))
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
 #include <vector>
 #include <string>
 #include "Ressources.hh"
 
-typedef std::pair<int, int> position;
+typedef std::pair<int, int> Position;
 
 class Map
 {
 private:
-  position  mapsize_;
-  position  offset_;
+  Position  mapsize_;
+  Position  offset_;
   UserGlobal::Direction currentOrientation_;
-  position  currentPos_;
-  std::vector<position> items_[UserGlobal::JOUEUR + 1];
+  Position  currentPos_;
+  std::vector<Position> items_[UserGlobal::JOUEUR + 1];
 
 private:
 
@@ -43,25 +43,25 @@ private:
   static const std::string REGEX_VALUE;
 public:
   Map();
-  Map(position);
+  Map(Position);
   ~Map(void);
 
-  void  setSize(const position & mapsize);
+  void  setSize(const Position & mapsize);
   void  setSize(const std::string & mapsize);
 
   void test(void) const;
 
-  int	changeFrame(position p, UserGlobal::Direction d);
-  std::vector<unsigned int> caseContent(position coord);
+  int	changeFrame(Position p, UserGlobal::Direction d);
+  std::vector<unsigned int> caseContent(Position coord);
   void update(void);
   void changeDirection(const int &direction);
   void avancer(void);
   void voir(const std::string &);
   void prendre(const std::string &value);
   void poser(const std::string &value);
-  const position &  getCurrentPos(void) const;
-  const position &  getSize(void) const;
-  position          getClosestItem(position pos, int object) const;
+  const Position &  getCurrentPos(void) const;
+  const Position &  getSize(void) const;
+  Position          getClosestItem(Position pos, int object) const;
   UserGlobal::Direction getDirection(void) const;
   void  poser(int object);
   void  prendre(int object);

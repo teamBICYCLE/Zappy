@@ -73,7 +73,8 @@ function this.voit_obj(this)
    this:IAVoir()
    print (obj)
    gx, gy = this:IAGetCLosestItem(obj)
-   print (gx, gy)
+   print ("ETVOILA: ", gx, gy)
+   print ("Et la position:", this:IACurrentPosition())
    if gx == -1 or gy == -1
    then return KO
    else return OK
@@ -135,7 +136,6 @@ end
 
 function this.call_mates(this)
    this:IABroadcast("level " .. 2)
-   exit()
    this:IAAvance()
    this:IATourner(GAUCHE, GAUCHE)
    this:IAAvance()

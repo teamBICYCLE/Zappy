@@ -220,24 +220,22 @@ std::string Trantorien::getline()
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
       std::cout << "received broadcast: " << line << std::endl;
-      broadcastHistory_.push_back(line);
+      broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection()));
       line = this->getline();
     }
   return line;
 }
 
-std::string Trantorien::getBroadcastLine()
+Message Trantorien::getBroadcastLine()
 {
-  std::string line;
-
   if (!broadcastHistory_.empty())
     {
-      line = broadcastHistory_.front();
+      Message line = broadcastHistory_.front();
       broadcastHistory_.pop_front();
       return line;
     }
   else
-    return "";
+    return Message();
 }
 
 bool Trantorien::isValid() const
@@ -446,8 +444,8 @@ int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
 {
-  const position & from = map_.getCurrentPos();
-  position        to;
+  const Position & from = map_.getCurrentPos();
+  Position        to;
   UserGlobal::Direction dir = map_.getDirection();
   bool go[4] = {false, false, false, false};
 
@@ -516,7 +514,7 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
       int j = 0;
       for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
         {
-          lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+          lua_pushinteger(state,  static_cast<int>(levels[level_ - 1][j] - (*it)));
           ++j;
         }
       return (j);
@@ -530,8 +528,8 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
                                             int res = -1;
                                             std::pair<int, int> position = map_.getCurrentPos();
                                             std::vector<unsigned int> result = map_.caseContent(position);
-                                            if (object <= UserGlobal::JOUEUR + 1)
-                                              res = GlobalToString::inventaireObject[level_ - 1][object] -
+                                            if (object <= UserGlobal::JOUEUR)
+                                              res = levels[level_ - 1][object] -
                                                 result[object];
                                             return (res);
                                           }));
@@ -570,7 +568,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
       int j = 0;
       for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
         {
-          lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+          lua_pushinteger(state, static_cast<int>(levels[level_ - 1][j] - (*it)));
           ++j;
         }
       return (j);
@@ -583,8 +581,8 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
                                           int {
                                             int res = -1;
                                             std::vector<unsigned int> result = inventory_.getInventory();
-                                            if (object <= UserGlobal::JOUEUR + 1)
-                                              res = GlobalToString::inventaireObject[level_ - 1][object] -
+                                            if (object <= UserGlobal::JOUEUR)
+                                              res = levels[level_ - 1][object] -
                                                 result[object];
                                             return (res);
                                           }));
@@ -599,7 +597,7 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                       std::pair<int, int> {
                                                         std::pair<int, int>result (-1, -1);
                                                         std::pair<int, int> position = map_.getCurrentPos();
-                                                        if (object <= UserGlobal::JOUEUR + 1)
+                                                        if (object <= UserGlobal::JOUEUR)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
@@ -620,7 +618,7 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
       x = lua_tonumber(state, 1);
       y = lua_tonumber(state, 2);
       dir = static_cast<UserGlobal::Direction>(lua_tonumber(state, 3));
-      return (map_.changeFrame(position(x, y), dir));
+      return (map_.changeFrame(Position(x, y), dir));
     }
   return (-1);
 }
@@ -639,7 +637,7 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
              it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
         {
           lua_pushinteger(state,
-                          static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
+                          static_cast<int>(levels[level_ - 1][j] - ((*it) + (*it1))));
           ++j;
         }
       return (j);
@@ -654,8 +652,8 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
                                             std::vector<unsigned int> inventory = inventory_.getInventory();
                                             std::vector<unsigned int> map = map_.caseContent(position);
                                             int res = -1;
-                                            if (object <= UserGlobal::JOUEUR + 1)
-                                              res = GlobalToString::inventaireObject[level_ - 1][object] -
+                                            if (object <= UserGlobal::JOUEUR)
+                                              res = levels[level_ - 1][object] -
                                                 (inventory[object] + map[object]);
                                             return (res);
                                           }));
