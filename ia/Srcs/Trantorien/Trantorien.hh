@@ -64,7 +64,7 @@ private:
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
-  std::list<Message>      broadcastHistory_;
+  std::list<std::string> broadcastHistory_;
   unsigned int		  level_;
 };
 
