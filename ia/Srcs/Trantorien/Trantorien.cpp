@@ -306,7 +306,10 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
                                                    this->cmd("prend " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
                                                    if (result == "ok")
-                                                     inventory_.prendre(GlobalToString::inventaireObject[object]);
+						     {
+						       inventory_.prendre(GlobalToString::inventaireObject[object]);
+						       map_.prendre(object);
+						     }
                                                    return result;
                                                  }
                                                return ("ko");
@@ -349,8 +352,11 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
                                                    this->cmd("pose " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
                                                    if (result == "ok")
-                                                     inventory_.prendre(GlobalToString::inventaireObject[object]);
-                                                   return result;
+						     {
+						       inventory_.poser(GlobalToString::inventaireObject[object]);
+						       map_.poser(object);
+						     }
+						   return result;
                                                  }
                                                return ("ko");
                                              }));

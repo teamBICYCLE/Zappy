@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sat Jul  7 18:08:12 2012 lois burg
+// Last update Sun Jul  8 14:18:51 2012 thibault carpentier
 //
 
 #include <sstream>
@@ -322,7 +322,7 @@ void Map::poser(const std::string &value)
 
 std::vector<unsigned int> Map::caseContent(position coord)
 {
-  std::vector<unsigned int> result;// = new std::vector<unsigned int>();
+  std::vector<unsigned int> result;
   for (unsigned int i = 0; i <= UserGlobal::JOUEUR; ++i)
     {
       unsigned int nbRessources = 0;
@@ -339,6 +339,34 @@ position Map::getCurrentPos(void) const
   return (currentPos_);
 }
 
+// int	Map::calculateDistance(int distance, int partialPos) const
+// {
+//   int res;
+
+//   res = (ABS(partialPos, distance));
+//   switch currentOrientation_
+//     {
+//     case UserGlobal::NORD :
+//       {
+// 	if (distance
+// 	break;
+//       }
+//     case UserGlobal::EST :
+//       {
+// 	break;
+//       }
+//     case UserGlobal::SUD :
+//       {
+// 	break;
+//       }
+//     case UserGlobal::OUEST :
+//       {
+// 	break;
+//       }
+//     }
+//   return (res);
+// }
+
 position Map::getClosestItem(position pos, int object) const
 {
   position res(-1, -1);
@@ -346,10 +374,13 @@ position Map::getClosestItem(position pos, int object) const
 
   for (std::vector<position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
-      if ((ABS(pos.first, (*it).first) + ABS(pos.first, (*it).second)) > (tmp.first + tmp.second))
+      int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
+      int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
+
+      if (tmpX + tmpY > tmp.first + tmp.second)
 	{
-	  tmp.first = (ABS(pos.first, (*it).first));
-	  tmp.second = (ABS(pos.second, (*it).second));
+	  tmp.first = tmpX;
+	  tmp.second = tmpY;
 	  res.first = (*it).first;
 	  res.second = (*it).second;
 	}
@@ -360,6 +391,23 @@ position Map::getClosestItem(position pos, int object) const
 UserGlobal::Direction Map::getDirection() const
 {
   return currentOrientation_;
+}
+
+void Map::prendre(int object)
+{
+  for (std::vector<position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+    {
+      if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
+	{
+	  items_[object].erase(it);
+	  return;
+	}
+    }
+}
+
+void Map::poser(int object)
+{
+  items_[object].push_back(currentPos_);
 }
 
 //" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"
