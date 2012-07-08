@@ -47,6 +47,7 @@ private:
   int	       poser(LuaVirtualMachine::VirtualMachine &);
   int	       tourner(LuaVirtualMachine::VirtualMachine &);
   int          elevate(LuaVirtualMachine::VirtualMachine & vm);
+  int          broadcast(LuaVirtualMachine::VirtualMachine & vm);
   int	       caseContent(LuaVirtualMachine::VirtualMachine &);
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
@@ -54,6 +55,7 @@ private:
   int          goTo(LuaVirtualMachine::VirtualMachine &);
   int	       getLevel(LuaVirtualMachine::VirtualMachine &);
   int	       missingRockOnCase(LuaVirtualMachine::VirtualMachine &);
+  int           missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm);
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
@@ -62,7 +64,7 @@ private:
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
-  std::list<std::string>  broadcastHistory_;
+  std::list<Message>      broadcastHistory_;
   unsigned int		  level_;
 };
 

@@ -2,6 +2,7 @@
 
 #include "Trantorien.hh"
 
+#include <cmath>
 #include <iostream>
 #include <string>
 
@@ -27,6 +28,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IATourner", &Trantorien::tourner);
   addInteraction("IAElevate", &Trantorien::elevate);
   addInteraction("IAPoser", &Trantorien::poser);
+  addInteraction("IABroadcast", &Trantorien::broadcast);
   addInteraction("IACaseContent", &Trantorien::caseContent);
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
@@ -35,6 +37,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAGetLevel", &Trantorien::getLevel);
   addInteraction("IAMissingRockOnCase", &Trantorien::missingRockOnCase);
   addInteraction("IAMissingRockInInventory", &Trantorien::missingRockInInventory);
+  addInteraction("IAMissingRockInInventoryID", &Trantorien::missingRockInInventoryID);
   addInteraction("IAGetCLosestItem", &Trantorien::getClosestItem);
   addInteraction("IAChangeFrame", &Trantorien::changeFrame);
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
@@ -260,7 +263,6 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
 
-  std::cout << "in avance" << std::endl;
   this->cmd("avance");
   ret = this->getline();
   if (ret == "ok")
@@ -292,7 +294,7 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
   if (ret != "ko")
     inventory_.update(ret);
 
-  const std::vector<unsigned int> & inventory = inventory_.getIventory();
+  const std::vector<unsigned int> & inventory = inventory_.getInventory();
   for ( i = 0; i < inventory.size(); ++i)
     lua_pushinteger(state, inventory[i]);
   return (i);
@@ -339,6 +341,15 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
       ++level_;
   lua_pushstring(vm.getLua(), ret.c_str());
   return 1;
+}
+
+int Trantorien::broadcast(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string user = lua_tostring(vm.getLua(), 1);
+
+  this->cmd("broadcast " + user);
+  this->getline();
+  return 0;
 }
 
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
@@ -429,129 +440,174 @@ int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
 {
-  position  to;
+  const position & from = map_.getCurrentPos();
+  position        to;
+  UserGlobal::Direction dir = map_.getDirection();
 
   if (lua_gettop(vm.getLua()) == 2)
     {
       to.first = lua_tonumber(vm.getLua(), 1);
       to.second = lua_tonumber(vm.getLua(), 2);
     }
-  if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
-    return 0;
-  switch (map_.getDirection())
-    {
-    case UserGlobal::NORD:
-      if (to.second < map_.getCurrentPos().second)
-      {
-        avance(vm);
-        return 0;
-      }
-      break;
-    case UserGlobal::SUD:
-      if (to.second > map_.getCurrentPos().second)
-        {
-          avance(vm);
-          return 0;
-        }
-      break;
-    case UserGlobal::OUEST:
-      if (to.first < map_.getCurrentPos().first)
-        {
-          avance(vm);
-          return 0;
-        }
-      break;
-    case UserGlobal::EST:
-      if (to.first > map_.getCurrentPos().first)
-        {
-          avance(vm);
-          return 0;
-        }
-      break;
-    }
-  if (to.second < map_.getCurrentPos().second)
-    {
-      switch (map_.getDirection())
-        {
-        case UserGlobal::SUD:
-          droite();
-          droite();
-          return 0;
-          break;
-        case UserGlobal::OUEST:
-          droite();
-          return 0;
-          break;
-        case UserGlobal::EST:
-          gauche();
-          return 0;
-          break;
-        default:
-          break;
-        }
-    }
-  else if (to.second > map_.getCurrentPos().second)
-    {
-      switch (map_.getDirection())
-        {
-        case UserGlobal::NORD:
-          droite();
-          droite();
-          return 0;
-          break;
-        case UserGlobal::OUEST:
-          gauche();
-          return 0;
-          break;
-        case UserGlobal::EST:
-          droite();
-          return 0;
-          break;
-        default:
-          break;
-        }
-    }
-  if (to.first < map_.getCurrentPos().first)
-    {
-      switch (map_.getDirection())
-        {
-        case UserGlobal::NORD:
-          gauche();
-          return 0;
-        case UserGlobal::SUD:
-          droite();
-          return 0;
-          break;
-        case UserGlobal::EST:
-          gauche();
-          gauche();
-          return 0;
-          break;
-        default:
-          break;
-        }
-    }
-  else if (to.first > map_.getCurrentPos().first)
-    {
-      switch (map_.getDirection())
-        {
-        case UserGlobal::NORD:
-          droite();
-          return 0;
-        case UserGlobal::SUD:
-          gauche();
-          return 0;
-          break;
-        case UserGlobal::OUEST:
-          gauche();
-          gauche();
-          return 0;
-          break;
-        default:
-          break;
-        }
-    }
+ if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
   return 0;
+
+ // lets code.
+ bool go[4] = {false, false, false, false};
+ if (to.second != from.second)
+   {
+     go[UserGlobal::NORD - 1]  = (to.second < from.second
+                                  && from.second - to.second <= map_.getSize().second - (from.second - to.second))
+         || to.second - from.second >= map_.getSize().second - (to.second - from.second);
+     go[UserGlobal::SUD - 1]   = (to.second > from.second
+                                  && to.second - from.second <= map_.getSize().second - (to.second - from.second))
+         || from.second - to.second >= map_.getSize().second - (from.second - to.second);
+  }
+ if (to.first != from.first) // 13-15 -> 3-15
+   {
+     go[UserGlobal::OUEST - 1] = (to.first < from.first
+                                  && from.first - to.first <= map_.getSize().first - (from.first - to.first))
+         || to.first - from.first >= map_.getSize().first - (to.first - from.first);
+     go[UserGlobal::EST - 1]   = (to.first > from.first
+                                  && to.first - from.first <= map_.getSize().first - (to.first - from.first))
+         || from.first - to.first >= map_.getSize().first - (from.first - to.first);
+  }
+ std::cout << "from: " << from.first << "-" << from.second << " to: " << to.first << "-" << to.second << std::endl;
+ std::cout << "N: " << go[0] << " E: " << go[1] << " S: " << go[2] << " O:" << go[3] << std::endl;
+
+ if (go[dir - 1])
+   {
+     avance(vm);
+     return 0;
+   }
+ if (go[((dir - 1) + 1) % 4])
+   {
+     droite();
+     return 0;
+   }
+ else
+   {
+     gauche();
+     return 0;
+   }
+ return 0;
+ // ============= //
+ bool invx = fabs(from.first-to.first) < map_.getSize().first-fabs(from.first-to.first);
+ bool invy = fabs(from.second-to.second) < map_.getSize().second-fabs(from.second-to.second);
+
+// int dx = min(fabs(from.x-to.x), map_.getSize()-fabs(from.x-to.x));
+// int dy = min(fabs(from.y-to.y), map_.getSize()-fabs(from.y-to.y));
+
+ switch (map_.getDirection())
+   {
+   case UserGlobal::NORD:
+     if (to.second != map_.getCurrentPos().second)
+       {
+         avance(vm);
+         return 0;
+       }
+     break;
+   case UserGlobal::SUD:
+     if (to.second > map_.getCurrentPos().second)
+       {
+         avance(vm);
+         return 0;
+       }
+     break;
+   case UserGlobal::OUEST:
+     if (to.first < map_.getCurrentPos().first)
+       {
+         avance(vm);
+         return 0;
+       }
+     break;
+   case UserGlobal::EST:
+     if (to.first > map_.getCurrentPos().first)
+       {
+         avance(vm);
+         return 0;
+       }
+     break;
+   }
+ if (to.second < map_.getCurrentPos().second)
+   {
+     switch (map_.getDirection())
+       {
+       case UserGlobal::SUD:
+         droite();
+         return 0;
+         break;
+       case UserGlobal::OUEST:
+         droite();
+         return 0;
+         break;
+       case UserGlobal::EST:
+         gauche();
+         return 0;
+         break;
+       default:
+         break;
+       }
+   }
+ else if (to.second > map_.getCurrentPos().second)
+   {
+     switch (map_.getDirection())
+       {
+       case UserGlobal::NORD:
+         droite();
+         return 0;
+         break;
+       case UserGlobal::OUEST:
+         gauche();
+         return 0;
+         break;
+       case UserGlobal::EST:
+         droite();
+         return 0;
+         break;
+       default:
+         break;
+       }
+   }
+ if (to.first < map_.getCurrentPos().first)
+   {
+     switch (map_.getDirection())
+       {
+       case UserGlobal::NORD:
+         gauche();
+         return 0;
+       case UserGlobal::SUD:
+         droite();
+         return 0;
+         break;
+       case UserGlobal::EST:
+         gauche();
+         return 0;
+         break;
+       default:
+         break;
+       }
+   }
+ else if (to.first > map_.getCurrentPos().first)
+   {
+     switch (map_.getDirection())
+       {
+       case UserGlobal::NORD:
+         droite();
+         return 0;
+       case UserGlobal::SUD:
+         gauche();
+         return 0;
+         break;
+       case UserGlobal::OUEST:
+         gauche();
+         return 0;
+         break;
+       default:
+         break;
+       }
+   }
+ return 0;
 }
 
 int Trantorien::getLevel(LuaVirtualMachine::VirtualMachine &vm)
@@ -576,15 +632,37 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
   return (j);
 }
 
+int Trantorien::missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::vector<int> tmp;
+  std::vector<int>::const_iterator max;
+  int       result;
+
+  tmp.resize(inventory_.getInventory().size());
+  for (unsigned int i = 0; i < tmp.size(); ++i) {
+      tmp[i] = levels[level_ - 1][i] - inventory_.getInventory()[i];
+    }
+
+  max = std::max_element(tmp.begin(), tmp.end());
+  result = max - tmp.begin();
+
+  if (*max > 0)
+    lua_pushinteger(state, result);
+  else
+    lua_pushinteger(state, -1);
+  return (1);
+}
+
 int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
-  std::vector<unsigned int> result = inventory_.getIventory();
+  std::vector<unsigned int> result = inventory_.getInventory();
 
   int j = 0;
   for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
     {
-      lua_pushinteger(state,  static_cast<int>(levels[level_ - 1][j]) - (*it));
+      lua_pushinteger(state,  static_cast<int>(levels[level_ - 1][j] - (*it)));
       ++j;
     }
   return (j);
@@ -628,15 +706,15 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
   std::pair<int, int> position = map_.getCurrentPos();
-  std::vector<unsigned int> inventory = inventory_.getIventory();
+  std::vector<unsigned int> inventory = inventory_.getInventory();
   std::vector<unsigned int> map = map_.caseContent(position);
 
   int j = 0;
   for (std::vector<unsigned int>::iterator it = inventory.begin(),
-	 it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
+         it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
     {
       lua_pushinteger(state,
-		      static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
+                      static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
       ++j;
     }
   return (j);

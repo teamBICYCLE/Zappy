@@ -42,11 +42,11 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
   if (diff != 0)
     {
       if (diff == 1)
-	angle = -90;
+        angle = -90;
       else if (diff == -1)
-	angle = 90;
+        angle = 90;
       else
-	angle = 180;
+        angle = 180;
     }
 
   // std::cout << "Angle: " << angle << std::endl;
@@ -62,9 +62,9 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
   for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
     {
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
-	{
-	  double	d1;
-	  double	d2;
+        {
+          double	d1;
+          double	d2;
 
 	  it->first = updatePosition(it->first + (p.first - currentPos_.first), mapsize_.first);
 	  it->second = updatePosition(it->second + (p.second - currentPos_.second), mapsize_.second);
@@ -334,12 +334,17 @@ std::vector<unsigned int> Map::caseContent(position coord)
   return (result);
 }
 
-position Map::getCurrentPos(void) const
+const position &Map::getCurrentPos(void) const
 {
   return (currentPos_);
 }
 
-position Map::getClosestItem(position pos, int object) const
+const position &Map::getSize() const
+{
+  return mapsize_;
+}
+
+const position &Map::getClosestItem(position pos, int object) const
 {
   position res(-1, -1);
   position tmp(-1, -1);
@@ -347,12 +352,12 @@ position Map::getClosestItem(position pos, int object) const
   for (std::vector<position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
       if ((ABS(pos.first, (*it).first) + ABS(pos.first, (*it).second)) > (tmp.first + tmp.second))
-	{
-	  tmp.first = (ABS(pos.first, (*it).first));
-	  tmp.second = (ABS(pos.second, (*it).second));
-	  res.first = (*it).first;
-	  res.second = (*it).second;
-	}
+        {
+          tmp.first = (ABS(pos.first, (*it).first));
+          tmp.second = (ABS(pos.second, (*it).second));
+          res.first = (*it).first;
+          res.second = (*it).second;
+        }
     }
   return (res);
 }

@@ -7,11 +7,14 @@ state: prendre_obj ;
 state: voit_obj ;
 state: go_to ;
 state: parcours_map ;
+state: can_wait_mates;
+state: enought_mates;
+state: call_mates;
 
 transition:
 enought_food [OK]  -> can_elevate;
 enought_food [KO]  -> obj_sur_case;
-can_elevate [OK]  -> elevate;
+can_elevate [OK]  -> can_wait_mates;
 can_elevate [KO]  -> obj_sur_case;
 elevate [OK] -> enought_food;
 obj_sur_case [OK]  -> prendre_obj;
@@ -22,4 +25,12 @@ go_to [KO]  -> go_to;
 voit_obj [KO]  -> parcours_map;
 parcours_map [OK]  -> voit_obj;
 prendre_obj [OK] -> enought_food;
+can_wait_mates [OK] -> enought_mates;
+can_wait_mates [KO] -> obj_sur_case;
+enought_mates [KO] -> call_mates;
+enought_mates [OK]  -> elevate;
+call_mates [OK]  -> enought_mates;
+
+default:
+transit: [FOOD] -> obj_sur_case;
 end

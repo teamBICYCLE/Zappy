@@ -2,10 +2,9 @@
 
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
+MAP_SIZE = 20
 
 function this.enought_food(this)
-   this:IAVoir()
-   print("test: ", this:IAMissingRockOnCase())
    this:IAInventaire()
    if this:IAgetInventoyValue(NOURRITURE) > 8
    then return OK
@@ -16,19 +15,20 @@ function this.enought_food(this)
 end
 
 function this.can_elevate(this)
-   print("DANS CAN ELEVATE")
    this:IAInventaire()
-   if (this:IAgetInventoyValue(LINEMATE) > 0)
+   print(this:IAMissingRockInInventory())
+   if (compareTables({this:IAMissingRockInInventory()}, {0, 0, 0, 0, 0, 0, 0}, infeq))
    then return OK
    else
-      print ("search linemate")
-      obj = LINEMATE
+      obj = this:IAMissingRockInInventoryID()
+      if obj == -1
+      then obj = NOURRITURE
+      end
       return KO
    end
 end
 
 function AjustRock(count, type)
-   print ("AJUST: ", count, type)
    if (count < 0)
    then
       count = -count
@@ -107,4 +107,36 @@ function this.parcours_map(this)
    else this:IAAvance()
    end
    return OK
+end
+
+function this.can_wait_mates(this)
+   this:IAVoir()
+   local n, l, d, s, m, p, t, j = this:IAMissingRockOnCase()
+   if j <= 0
+   then return OK
+   end
+   this:IAInventaire()
+   if this:IAgetInventoyValue(NOURRITURE) > MAP_SIZE
+   then return OK
+   else
+      obj = NOURRITURE
+      return KO
+   end
+end
+
+function this.enought_mates(this)
+   this:IAVoir()
+   local n, l, d, s, m, p, t, j = this:IAMissingRockOnCase()
+   if j <= 0
+   then return OK
+   else return KO
+   end
+end
+
+function this.call_mates(this)
+   this:IABroadcast("level " .. 2)
+   exit()
+   this:IAAvance()
+   this:IATourner(GAUCHE, GAUCHE)
+   this:IAAvance()
 end

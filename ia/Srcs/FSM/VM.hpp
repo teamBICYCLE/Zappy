@@ -92,6 +92,7 @@ template <typename X>
 void FSM::VM<X>::createStates(std::istream &stream)
 {
   boost::regex    state("state: *([a-zA-Z][a-zA-Z0-9_-]*)");
+  boost::regex    transit("transit: *\\[([A-Z]+)] *-> *([a-zA-Z][a-zA-Z0-9_-]*)");
   boost::regex    link("([a-zA-Z][a-zA-Z0-9_-]*) *\\[([A-Z]+)] *-> *([a-zA-Z][a-zA-Z0-9_-]*)");
   std::string     line;
 
@@ -119,6 +120,11 @@ void FSM::VM<X>::createStates(std::istream &stream)
           std::cout << "Extracted: " << what[1] << " && " << what[2] << " && " << what[3] << std::endl;
 #endif
           addLink(what[1], what[2], what[3]);
+        }
+      else if (boost::regex_search(line.begin(), line.end(), what, transit,
+                                   boost::regex_constants::match_default))
+        {
+
         }
 #ifdef DEBUG
       else

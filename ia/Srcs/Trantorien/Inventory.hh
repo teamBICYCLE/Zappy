@@ -20,13 +20,13 @@
 class Inventory {
 
   enum itemType {NOURRITURE = 0,
-		 LINEMATE,
-		 DERAUMERE,
-		 SIBUR,
-		 MENDIANE,
-		 PHIRAS,
-		 THYSTAME,
-		 END};
+                 LINEMATE,
+                 DERAUMERE,
+                 SIBUR,
+                 MENDIANE,
+                 PHIRAS,
+                 THYSTAME,
+                 END};
 
 public:
   Inventory();
@@ -35,11 +35,10 @@ public:
   Inventory &   operator=(const Inventory & source);
   ~Inventory();
 
-  const std::vector<unsigned int> &getIventory(void) const;
+  const std::vector<unsigned int> &getInventory(void) const;
   void      update(const std::string & values);
   void	    prendre(const std::string &value);
   void	    poser(const std::string &value);
-  std::vector<unsigned int>	    getInventory(void) const;
 
 private:
   static std::string const REGEX_VALUE;
