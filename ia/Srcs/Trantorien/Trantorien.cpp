@@ -572,30 +572,67 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
 
-  std::pair<int, int> position = map_.getCurrentPos();
-  std::vector<unsigned int> result = map_.caseContent(position);
 
-  int j = 0;
-  for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+
+  if (lua_gettop(state) == 0)
     {
-      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
-      ++j;
+      std::pair<int, int> position = map_.getCurrentPos();
+      std::vector<unsigned int> result = map_.caseContent(position);
+      int j = 0;
+      for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+	{
+	  lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+	  ++j;
+	}
+      return (j);
     }
-  return (j);
+  else
+    {
+      return (
+	      variableArgsCall<int, int >(vm,
+					  [&](lua_State * state, int object) ->
+					  int {
+					    int res = -1;
+					    std::pair<int, int> position = map_.getCurrentPos();
+					    std::vector<unsigned int> result = map_.caseContent(position);
+					    if (object <= UserGlobal::JOUEUR + 1)
+					      res = GlobalToString::inventaireObject[level_ - 1][object] -
+						result[object];
+					    return (res);
+					  }));
+    }
 }
 
 int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
-  std::vector<unsigned int> result = inventory_.getIventory();
 
-  int j = 0;
-  for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+  if (lua_gettop(state) == 0)
     {
-      lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
-      ++j;
+      std::vector<unsigned int> result = inventory_.getIventory();
+      int j = 0;
+      for (std::vector<unsigned int>::iterator it = result.begin(); it != result.end(); ++it)
+	{
+	  lua_pushinteger(state, GlobalToString::inventaireObject[level_ - 1][j] - (*it));
+	  ++j;
+	}
+      return (j);
     }
-  return (j);
+  else
+    {
+      return (
+	      variableArgsCall<int, int >(vm,
+					  [&](lua_State * state, int object) ->
+					  int {
+					    int res = -1;
+					    std::vector<unsigned int> result = inventory_.getIventory();
+					    if (object <= UserGlobal::JOUEUR + 1)
+					      res = GlobalToString::inventaireObject[level_ - 1][object] -
+						result[object];
+					    return (res);
+					  }));
+
+    }
 }
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
@@ -611,7 +648,7 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                         return (result);
                                                       }));
   //  map_.seekClosest(position)
-  return (0);
+
 }
 
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
@@ -635,18 +672,36 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
-  std::pair<int, int> position = map_.getCurrentPos();
-  std::vector<unsigned int> inventory = inventory_.getIventory();
-  std::vector<unsigned int> map = map_.caseContent(position);
 
-  int j = 0;
-  for (std::vector<unsigned int>::iterator it = inventory.begin(),
-	 it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
+  if (lua_gettop(state))
     {
-      lua_pushinteger(state,
-		      static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
-      ++j;
+      std::pair<int, int> position = map_.getCurrentPos();
+      std::vector<unsigned int> inventory = inventory_.getIventory();
+      std::vector<unsigned int> map = map_.caseContent(position);
+      int j = 0;
+      for (std::vector<unsigned int>::iterator it = inventory.begin(),
+	     it1 = map.begin(); it1 != map.end() && it != inventory.end(); ++it, ++it1)
+	{
+	  lua_pushinteger(state,
+			  static_cast<int>(GlobalToString::inventaireObject[level_ - 1][j] - ((*it) + (*it1))));
+	  ++j;
+	}
+      return (j);
     }
-  return (j);
-
+  else
+    {
+      return (
+	      variableArgsCall<int, int >(vm,
+					  [&](lua_State * state, int object) ->
+					  int {
+					    std::pair<int, int> position = map_.getCurrentPos();
+					    std::vector<unsigned int> inventory = inventory_.getIventory();
+					    std::vector<unsigned int> map = map_.caseContent(position);
+					    int res = -1;
+					    if (object <= UserGlobal::JOUEUR + 1)
+					      res = GlobalToString::inventaireObject[level_ - 1][object] -
+						(inventory[object] + map[object]);
+					    return (res);
+					  }));
+    }
 }

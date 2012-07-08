@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sun Jul  8 14:18:51 2012 thibault carpentier
+// Last update Sun Jul  8 15:08:19 2012 thibault carpentier
 //
 
 #include <sstream>
@@ -339,29 +339,37 @@ position Map::getCurrentPos(void) const
   return (currentPos_);
 }
 
-// int	Map::calculateDistance(int distance, int partialPos) const
+// position	Map::calculateDistance(position item pos, position currentPos_) const
 // {
-//   int res;
+//   position res;
 
-//   res = (ABS(partialPos, distance));
+//   int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
+//   int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
+
+//   // int res;  // res = (ABS(partialPos, distance));
 //   switch currentOrientation_
 //     {
 //     case UserGlobal::NORD :
 //       {
-// 	if (distance
-// 	break;
+//   	if (pos.first != currentPos_.first)
+// 	  {
+// 	    ++tmpX;
+// 	    ++tmpY;
+// 	  }
+// 	else if (tmpX ==
+//   	break;
 //       }
 //     case UserGlobal::EST :
 //       {
-// 	break;
+//   	break;
 //       }
 //     case UserGlobal::SUD :
 //       {
-// 	break;
+//   	break;
 //       }
 //     case UserGlobal::OUEST :
 //       {
-// 	break;
+//   	break;
 //       }
 //     }
 //   return (res);

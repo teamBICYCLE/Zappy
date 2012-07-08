@@ -5,13 +5,27 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Thu Jul  5 16:31:00 2012 thibault carpentier
-// Last update Fri Jul  6 14:51:38 2012 thibault carpentier
+// Last update Sun Jul  8 15:27:05 2012 thibault carpentier
 //
 
 #ifndef _RESSOURCES_H_
 # define _RESSOURCES_H_
 
 namespace UserGlobal {
+
+enum SoundDirection
+  {
+    NODIR = 0,
+    FRONT = 1,
+    FRONTLEFT = 2,
+    LEFT = 3,
+    BEHINDLEFT = 4,
+    BEHIND = 5,
+    BEHINFRIGHT = 6,
+    RIGHT = 7,
+    FRONTRIGHT = 8
+  };
+
 enum Direction
   {
     NORD = 1,
