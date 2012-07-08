@@ -61,8 +61,9 @@ public:
   void voir(const std::string &);
   void prendre(const std::string &value);
   void poser(const std::string &value);
-  position getCurrentPos(void) const;
-  position getClosestItem(position pos, int object) const;
+  const position &  getCurrentPos(void) const;
+  const position &  getSize(void) const;
+  position          getClosestItem(position pos, int object) const;
   UserGlobal::Direction getDirection(void) const;
   void  poser(int object);
   void  prendre(int object);

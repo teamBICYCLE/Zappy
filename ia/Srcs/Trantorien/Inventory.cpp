@@ -32,7 +32,7 @@ Inventory::Inventory(const Inventory &source)
   this->inventory_ = source.inventory_;
 }
 
-const std::vector<unsigned int> &Inventory::getIventory(void) const
+const std::vector<unsigned int> &Inventory::getInventory(void) const
 {
   return (inventory_);
 }
@@ -101,9 +101,4 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
     throw TrantorienFailure("Inventory parse",
                             "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
   return ret;
-}
-
-std::vector<unsigned int> Inventory::getInventory(void) const
-{
-  return (inventory_);
 }

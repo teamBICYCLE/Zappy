@@ -39,19 +39,19 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
   if (diff != 0)
     {
       if (diff == 1)
-	angle = -90;
+        angle = -90;
       else if (diff == -1)
-	angle = 90;
+        angle = 90;
       else
-	angle = 180;
+        angle = 180;
     }
 
   for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
     {
       for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
-	{
-	  double	d1;
-	  double	d2;
+        {
+          double	d1;
+          double	d2;
 
 	  it->first = updatePosition(it->first + (p.first - currentPos_.first), mapsize_.first);
 	  it->second = updatePosition(it->second + (p.second - currentPos_.second), mapsize_.second);
@@ -310,46 +310,15 @@ std::vector<unsigned int> Map::caseContent(position coord)
   return (result);
 }
 
-position Map::getCurrentPos(void) const
+const position &Map::getCurrentPos(void) const
 {
   return (currentPos_);
 }
 
-// position	Map::calculateDistance(position item pos, position currentPos_) const
-// {
-//   position res;
-
-//   int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
-//   int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
-
-//   // int res;  // res = (ABS(partialPos, distance));
-//   switch currentOrientation_
-//     {
-//     case UserGlobal::NORD :
-//       {
-//   	if (pos.first != currentPos_.first)
-// 	  {
-// 	    ++tmpX;
-// 	    ++tmpY;
-// 	  }
-// 	else if (tmpX ==
-//   	break;
-//       }
-//     case UserGlobal::EST :
-//       {
-//   	break;
-//       }
-//     case UserGlobal::SUD :
-//       {
-//   	break;
-//       }
-//     case UserGlobal::OUEST :
-//       {
-//   	break;
-//       }
-//     }
-//   return (res);
-// }
+const position &Map::getSize() const
+{
+  return mapsize_;
+}
 
 position Map::getClosestItem(position pos, int object) const
 {
@@ -362,12 +331,12 @@ position Map::getClosestItem(position pos, int object) const
       int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
       if (tmpX + tmpY > tmp.first + tmp.second)
-	{
-	  tmp.first = tmpX;
-	  tmp.second = tmpY;
-	  res.first = (*it).first;
-	  res.second = (*it).second;
-	}
+        {
+          tmp.first = tmpX;
+          tmp.second = tmpY;
+          res.first = (*it).first;
+          res.second = (*it).second;
+        }
     }
   return (res);
 }
@@ -382,10 +351,10 @@ void Map::prendre(int object)
   for (std::vector<position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
       if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
-	{
-	  items_[object].erase(it);
-	  return;
-	}
+        {
+          items_[object].erase(it);
+          return;
+        }
     }
 }
 
