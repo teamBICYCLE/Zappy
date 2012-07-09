@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:39 2012 lois burg
-** Last update Thu Jun 14 18:22:41 2012 lois burg
+** Last update Mon Jul  9 15:56:34 2012 lois burg
 */
 
 #ifndef		__DIAMOND_GENERATION_H__
@@ -21,13 +21,13 @@
 # define	ODDIFY(x)	((x % 2) ? (x) : (x + 1))
 
 /* Percentage for each ressources */
-# define	FOOD_PCTG	60.f
-# define	LINEMATE_PCTG	25.f
-# define	DERAUMERE_PCTG	25.f
-# define	SIBUR_PCTG	25.f
-# define	MENDIANE_PCTG	25.f
-# define	PHIRAS_PCTG	25.f
-# define	THYSTAME_PCTG	25.f
+# define	FOOD_PCTG	40.f
+# define	LINEMATE_PCTG	10.f
+# define	DERAUMERE_PCTG	10.f
+# define	SIBUR_PCTG	10.f
+# define	MENDIANE_PCTG	10.f
+# define	PHIRAS_PCTG	10.f
+# define	THYSTAME_PCTG	10.f
 
 /* Useless structure to avoid more than 4 parameters */
 typedef	struct	s_dmap	t_dmap;

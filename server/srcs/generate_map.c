@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Fri Jul  6 15:48:11 2012 lois burg
+** Last update Mon Jul  9 15:56:42 2012 lois burg
 */
 
 #include <stdio.h>
@@ -43,6 +43,7 @@ t_map		*generate_map(const int x, const int y, int seed)
   puts("Generating map...");
   if ((map = new_map(x, y)))
     {
+      prefill(map);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
 	fill_map(map, dmap, FOOD, (FOOD_PCTG * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
