@@ -454,7 +454,7 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
       to.first = lua_tonumber(vm.getLua(), 1);
       to.second = lua_tonumber(vm.getLua(), 2);
     }
- if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
+  if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
   return 0;
  if (to.second != from.second)
    {
@@ -601,8 +601,6 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
-  //  map_.seekClosest(position)
-
 }
 
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
@@ -613,7 +611,6 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
     {
       int x = 0, y = 0;
       UserGlobal::Direction dir;
-      // a changer
 
       x = lua_tonumber(state, 1);
       y = lua_tonumber(state, 2);
