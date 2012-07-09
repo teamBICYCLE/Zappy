@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Sun Jul  8 17:43:27 2012 thibault carpentier
+// Last update Mon Jul  9 10:35:43 2012 thibault carpentier
 //
 
 #include <sstream>
@@ -20,14 +20,14 @@ Map::Map()
 {
 }
 
-Map::Map(position mapsize)
+Map::Map(Position mapsize)
   : mapsize_(mapsize), offset_(std::pair<int, int>(0, 0)), currentOrientation_(UserGlobal::EST), currentPos_(0, 0)
 {}
 
 Map::~Map(void)
 {}
 
-int		Map::changeFrame(position p, UserGlobal::Direction d)
+int		Map::changeFrame(Position p, UserGlobal::Direction d)
 {
   double	angle;
   int const	diff = d - currentOrientation_;
@@ -48,7 +48,7 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
 
   for (int i = UserGlobal::NOURRITURE; i <= UserGlobal::JOUEUR; ++i)
     {
-      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+      for (std::vector<Position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           double	d1;
           double	d2;
@@ -66,7 +66,7 @@ int		Map::changeFrame(position p, UserGlobal::Direction d)
   return (0);
 }
 
-void Map::setSize(const position &mapsize)
+void Map::setSize(const Position &mapsize)
 {
   mapsize_ = mapsize;
 }
@@ -74,7 +74,7 @@ void Map::setSize(const position &mapsize)
 void Map::setSize(const std::string &mapsize)
 {
   std::stringstream  st(mapsize);
-  position      size;
+  Position      size;
 
   st >> size.first;
   st >> size.second;
@@ -207,7 +207,7 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
       while(regex_search(s1, s2, what, extract, boost::match_default))
         {
           s1 = what[0].second;
-          items_[i].push_back(position(updatePosition(currentPos_.first + distance, mapsize_.first),
+          items_[i].push_back(Position(updatePosition(currentPos_.first + distance, mapsize_.first),
                                        updatePosition(currentPos_.second + incrStart, mapsize_.second)));
         }
     }
@@ -217,7 +217,7 @@ void Map::test(void) const
 {
   for (unsigned int i = 0;  i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     {
-      std::vector<position>::const_iterator it;
+      std::vector<Position>::const_iterator it;
 
       std::cout << "Item : " << GlobalToString::inventaireObject[i] << std::endl;
       for (it = items_[i].begin(); it != items_[i].end(); ++it)
@@ -276,7 +276,7 @@ void Map::prendre(const std::string &value)
 {
   for (unsigned int i = 0; i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
     if (GlobalToString::inventaireObject[i] == value)
-      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+      for (std::vector<Position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
         {
           if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
             {
@@ -296,13 +296,13 @@ void Map::poser(const std::string &value)
       }
 }
 
-std::vector<unsigned int> Map::caseContent(position coord)
+std::vector<unsigned int> Map::caseContent(Position coord)
 {
   std::vector<unsigned int> result;
   for (unsigned int i = 0; i <= UserGlobal::JOUEUR; ++i)
     {
       unsigned int nbRessources = 0;
-      for (std::vector<position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
+      for (std::vector<Position>::iterator it = items_[i].begin(); it != items_[i].end(); ++it)
         if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
           ++nbRessources;
       result.push_back(nbRessources);
@@ -310,27 +310,28 @@ std::vector<unsigned int> Map::caseContent(position coord)
   return (result);
 }
 
-const position &Map::getCurrentPos(void) const
+const Position &Map::getCurrentPos(void) const
 {
   return (currentPos_);
 }
 
-const position &Map::getSize() const
+const Position &Map::getSize() const
 {
   return mapsize_;
 }
 
-position Map::getClosestItem(position pos, int object) const
+Position Map::getClosestItem(Position pos, int object) const
 {
-  position res(-1, -1);
-  position tmp(-1, -1);
+  Position res(-1, -1);
+  Position tmp(-1, -1);
 
-  for (std::vector<position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+  for (std::vector<Position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
       int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
       int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
-      if (tmpX + tmpY > tmp.first + tmp.second)
+      if (tmpX + tmpY < tmp.first + tmp.second
+          || (tmp.first == -1 && tmp.second == -1))
         {
           tmp.first = tmpX;
           tmp.second = tmpY;
@@ -348,7 +349,7 @@ UserGlobal::Direction Map::getDirection() const
 
 void Map::prendre(int object)
 {
-  for (std::vector<position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+  for (std::vector<Position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
       if ((*it).first == currentPos_.first && (*it).second == currentPos_.second)
         {

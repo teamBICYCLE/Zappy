@@ -11,6 +11,7 @@
 #include "Network.hh"
 #include "Map.hh"
 #include "Ressources.hh"
+#include "Message.hh"
 
 class Trantorien : public FSM::VM<Trantorien> {
 
@@ -33,7 +34,7 @@ private: // server interactions
   void                  joinTeam(const std::string & teamName);
   void                  cmd(const std::string & command);
   std::string           getline();
-  std::string           getBroadcastLine();
+  Message              getBroadcastLine();
 
 private:
   bool                  isValid() const;
@@ -64,7 +65,7 @@ private:
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
-  std::list<std::string> broadcastHistory_;
+  std::list<Message>      broadcastHistory_;
   unsigned int		  level_;
 };
 
