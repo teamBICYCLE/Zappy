@@ -3,8 +3,10 @@
  */
 
 var allowInventoryUpdate = true,
-	godMode = false;
-
+	godMode = false,
+	enableMusic = false,
+	displayRessources = true;
+	
 $(function() {
 
 	/* events */
@@ -67,6 +69,7 @@ $(function() {
 		{
 	    	$(".cmd").addClass("cmd-god");
 	    	addMessage("You are now in gode mode ! Try commands : ...");
+	    	$(".topbar-menu-godmode").show();
 	    }
 	});
 	
@@ -84,7 +87,7 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
-			$(".settings").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
@@ -93,8 +96,7 @@ $(function() {
 	
 	Mousetrap.bind('t', function() {
 		if ($(".panel").css("margin-right") == "-500px") {
-			$(".player-list").fadeOut(300);
-			$(".settings").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -107,7 +109,7 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
-			$(".settings").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
@@ -118,7 +120,7 @@ $(function() {
 		if ($(".settings").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
-			$(".player-list").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".settings").fadeIn(300);
 		} else {
 			$(".settings").fadeOut(300);
@@ -127,6 +129,17 @@ $(function() {
 
 	$(".topbar-menu-centermap").click(function() {
 		layers.resetAndRedraw();
+	});
+	
+	$(".topbar-menu-godmode").click(function() {
+		if ($(".godmode").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".button-display").fadeOut(300);
+			$(".godmode").fadeIn(300);
+		} else {
+			$(".godmode").fadeOut(300);
+		}
 	});
 	  
 });
@@ -341,8 +354,7 @@ function initTeamPanel() {
 	
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
-			$(".player-list").fadeOut(300);
-			$(".settings").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -351,20 +363,6 @@ function initTeamPanel() {
 		}
 	});	
 	
-	/*
-	$(".btn-slide").toggle(function() {
-			$(".player-list").fadeOut(300);
-			if ($(".btn-slide").not(".active")) {
-				$(".panel").animate({marginRight: "0px"}, 200);
-				$(".btn-slide").toggleClass("active");
-			}
-		}, function() {
-			$(".player-list").fadeOut(300);			
-			$(".panel").animate({marginRight: "-500px"}, 200);
-			$(".btn-slide").toggleClass("active");
-	});
-    */
-    
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {
 			$(".chart").slideUp("slow");
@@ -445,17 +443,14 @@ function updatePlayerList() {
 
 /* SETTING */
 
-function initSettings() {
-	enableMusic = false;
-	showRessources = true;
-	
+function initSettings() {	
 	$(".setting-showres-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
-			showRessources = false;
+			displayRessources = false;
 		} else {
 			$(this).addClass("setting-enabled");
-			showRessources = true;
+			displayRessources = true;
 		}
 	});
 	$(".setting-music-button").click(function() {
