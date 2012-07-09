@@ -11,10 +11,11 @@ Message::Message()
 {
 }
 
-Message::Message(std::string init, const Position &position, UserGlobal::Direction dir)
+Message::Message(std::string init, const Position &position, UserGlobal::Direction dir,
+                 const Position & mapSize)
   : received_(position), from_(std::make_pair<int, int>(-1, -1))
 {
-  boost::regex  regex("message ([0-9]), (.*)");
+  boost::regex  regex("message ([0-9]), *(.*)");
   boost::match_results<std::string::iterator>  what;
 
   if (boost::regex_search(init.begin(), init.end(), what, regex,
@@ -38,6 +39,8 @@ Message::Message(std::string init, const Position &position, UserGlobal::Directi
             from_.second += 1;
           if (from == 5 || from == 6 || from == 7)
             from_.first += 1;
+          from_.first = from_.first < 0 ? mapSize.first - from_.first : from_.first;
+          from_.second = from_.second < 0 ? mapSize.second - from_.second : from_.second;
         }
     }
 }
