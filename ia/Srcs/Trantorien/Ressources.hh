@@ -5,16 +5,16 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Thu Jul  5 16:31:00 2012 thibault carpentier
-// Last update Mon Jul  9 10:36:23 2012 thibault carpentier
+// Last update Mon Jul  9 10:40:12 2012 thibault carpentier
 //
 
 #ifndef _RESSOURCES_H_
 # define _RESSOURCES_H_
 
-namespace UserGlobal
-{
 #include <string>
 
+namespace UserGlobal
+{
   enum SoundDirection
     {
       NODIR = 0,
