@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 11:43:52 2012 lois burg
-** Last update Wed Jul  4 17:19:03 2012 lois burg
+** Last update Mon Jul  9 11:26:50 2012 lois burg
 */
 
 #include <string.h>
@@ -83,5 +83,6 @@ char		*graphics_pic(t_users *usr)
       ++i;
     }
   snprintf(msg + idx, GRAPHICS_MSG_SZ - idx, "\n");
+  printf("Sending: %s\n", msg);
   return (msg);
 }
