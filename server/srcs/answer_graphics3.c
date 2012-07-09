@@ -5,13 +5,15 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul  5 17:39:56 2012 lois burg
-** Last update Fri Jul  6 13:59:17 2012 lois burg
+** Last update Mon Jul  9 11:01:11 2012 lois burg
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "graphics.h"
 #include "server.h"
+#include "cmds.h"
 
 extern t_infos	g_info;
 
@@ -80,6 +82,65 @@ void		answer_gsi(t_users *usr, char **args)
 	{
 	  p = (t_users*)l->ptr;
 	  set_plyr_inventory(p, &args[1], &msg);
+	}
+    }
+  if (msg)
+    push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+}
+
+void		answer_gsc(t_users *usr, char **args)
+{
+  int		i;
+  uint		x;
+  uint		y;
+  char		*msg;
+
+  msg = graphics_sbp();
+  if (carray_size((char const **)args) == NB_RESSOURCES + 2 &&
+      contains_only_digits(args[0]) && contains_only_digits(args[1]))
+    {
+      x = strtol(args[0], NULL, 10);
+      y = strtol(args[1], NULL, 10);
+      i = 2;
+      while (x < g_info.map->x && y < g_info.map->y &&
+	     args[i] && contains_only_digits(args[i]))
+	{
+	  g_info.map->cases[y][x].elements[i - 2] = strtol(args[i], NULL, 10);
+	  ++i;
+	}
+      if (i == NB_RESSOURCES + 2)
+	{
+	  msg = NULL;
+	  lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
+	}
+    }
+  if (msg)
+    push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+}
+
+void		answer_glp(t_users *usr, char **args)
+{
+  int		id;
+  char		*msg;
+  t_link	*l;
+  t_users	*p;
+  char		lvlup_msg[END_LEVELUP_MSG_SZ];
+
+  msg = graphics_sbp();
+  if (args && args[0] && contains_only_digits(args[0]))
+    {
+      id = strtol(args[0], NULL, 10);
+      if ((l = lookup(g_info.users, &id, &cmp_id)) && (p = (t_users*)l->ptr))
+	{
+	  if (p->lvl < MAX_LVL)
+	    {
+	      ++p->lvl;
+	      snprintf(lvlup_msg, sizeof(lvlup_msg), "niveau actuel : %d\n", p->lvl);
+	      push_back(p->messages,
+			new_link_by_param(lvlup_msg, strlen(lvlup_msg) + 1));
+	      lookup(g_info.users, graphics_plv(p), &notify_graphic);
+	      msg = NULL;
+	    }
 	}
     }
   if (msg)
