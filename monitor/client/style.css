@@ -673,3 +673,92 @@ i.leaf-icon {
 }
 
 /* END PLAYER LIST */
+
+/* SETTINGS */
+.settings {
+	font-size: 14px;
+	min-width: 300px;
+	height: 325px;
+	display: none;
+	position: absolute;
+	top:45px;
+	right:-20px;
+	z-index: 499;
+	overflow: hidden;
+	padding: 0;
+}
+
+.settings-topbar {
+	height: 25px;
+	background: transparent url("img/player-list-topbar.png") no-repeat top right;
+}
+
+.settings-container {
+	width: 300px;
+	min-height: 200px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	background: rgba(0,0,0,0.7);
+	padding: 10px 0 0 15px;
+}
+
+.settings-container h2 {
+	margin: -10px 0 10px -15px;
+	padding: 0;
+	display: block;
+	height: 30px;
+	background: transparent url("img/labels-topbar.png") no-repeat top left;
+	line-height: 30px;
+	font-weight: normal;
+	font-size: 14px;
+	text-indent: 40%;
+	color: #000;
+	text-shadow: 1px 1px 1px #DDD;
+}
+
+.setting-label {
+	vertical-align: middle;
+	display: inline-block;
+	margin-bottom: 5px;
+	line-height: 30px;
+	height: 30px;
+	width: 130px;
+}
+
+.setting-showres-button {
+	vertical-align: middle;
+	display: inline-block;
+	background: red;
+	line-height: 30px;
+	height: 30px;
+	width: 80px;
+	cursor: pointer;
+}
+
+.setting-music-button {
+	vertical-align: middle;
+	display: inline-block;
+	background: red;
+	line-height: 30px;
+	height: 30px;
+	width: 80px;
+	cursor: pointer;
+}
+
+.setting-enabled {
+	background:green;	
+}
+
+.setting-timer-value {
+	vertical-align: middle;
+	text-align: center;
+	display: inline-block;
+	line-height: 30px;
+	height: 30px;
+	width: 80px;
+}
+
+#setting-timer-slider {
+	width: 260px;
+}
+/* END SETTINGS */
