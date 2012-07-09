@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:13:05 2012 Jonathan Machado
-** Last update Mon Jul  9 10:10:15 2012 lois burg
+** Last update Mon Jul  9 15:36:12 2012 lois burg
 */
 
 #ifndef __MAP_H__
@@ -42,8 +42,9 @@ struct 		s_map
   t_case       	**cases;
 };
 
-t_map		*new_map(unsigned int, unsigned int);
-void		free_map(t_map *);
-void		dump_map(t_map *);
+t_map	*new_map(unsigned int, unsigned int);
+void	free_map(t_map *);
+void	dump_map(t_map *);
+void	prefill(t_map *map);
 
 #endif /* __MAP_H__ */
