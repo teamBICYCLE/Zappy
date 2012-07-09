@@ -5,13 +5,14 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Mon Jul  9 10:35:43 2012 thibault carpentier
+// Last update Mon Jul  9 15:11:53 2012 thibault carpentier
 //
 
 #include <sstream>
 #include <boost/regex.hpp>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
+#include "Ressources.hh"
 
 std::string const Map::REGEX_VALUE = " *\\{( *(joueur|linemate|deraumere|sibur|mendiane|phiras|thystame|nourriture) *([ ,]*|\\} *$){1} *)+ *\\} *";
 
@@ -324,20 +325,25 @@ Position Map::getClosestItem(Position pos, int object) const
 {
   Position res(-1, -1);
   Position tmp(-1, -1);
+  bool player = false;
 
+  if (object != UserGlobal::JOUEUR)
+    player = true;
   for (std::vector<Position>::const_iterator it = items_[object].begin(); it != items_[object].end(); ++it)
     {
       int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
       int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
-      if (tmpX + tmpY < tmp.first + tmp.second
-          || (tmp.first == -1 && tmp.second == -1))
+      if (player && (tmpX + tmpY < tmp.first + tmp.second
+		     || (tmp.first == -1 && tmp.second == -1)))
         {
           tmp.first = tmpX;
           tmp.second = tmpY;
           res.first = (*it).first;
           res.second = (*it).second;
         }
+      if (it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
+	player = true;
     }
   return (res);
 }
