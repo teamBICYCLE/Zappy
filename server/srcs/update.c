@@ -5,9 +5,10 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Fri Jul  6 16:27:18 2012 lois burg
+** Last update Mon Jul  9 16:39:55 2012 lois burg
 */
 
+#include <stdlib.h>
 #include <string.h>
 #include "server.h"
 #include "task.h"
@@ -78,6 +79,26 @@ static	void	decr_life(void *ptr)
 	decr_and_notify(u);
     }
 }
+#include <stdio.h>
+static void	create_food(void)
+{
+  int		i;
+  static int	loops = 500;
+  int const	nb_food = 5;
+
+  if (loops == 0)
+    {
+      i = 0;
+      while (i < nb_food)
+	{
+	  ++g_info.map->cases[rand() % g_info.map->y][rand() % g_info.map->x].elements[FOOD];
+	  ++i;
+	}
+      loops = 500;
+    }
+  else
+    --loops;
+}
 
 void	update_map(int const loop)
 {
@@ -88,7 +109,7 @@ void	update_map(int const loop)
     {
       iterate(g_info.users, &do_task);
       iterate(g_info.users, &decr_life);
-      /* regen map*/
+      create_food();
       ++i;
     }
 }
