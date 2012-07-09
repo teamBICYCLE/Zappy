@@ -2,7 +2,8 @@
  * @author sylvia_r
  */
 
-var allowInventoryUpdate = true;
+var allowInventoryUpdate = true,
+	godMode = false;
 
 $(function() {
 
@@ -62,7 +63,11 @@ $(function() {
 	});
 	
 	Mousetrap.bind('up up down down left right left right b a', function() {
-	    console.log("Konami Code !");
+		if (!godMode)
+		{
+	    	$(".cmd").addClass("cmd-god");
+	    	addMessage("You are now in gode mode ! Try commands : ...");
+	    }
 	});
 	
 	Mousetrap.bind('i', function() {

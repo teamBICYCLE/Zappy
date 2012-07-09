@@ -110,6 +110,10 @@ i.leaf-icon {
 	outline: none;
 }
 
+.cmd-god {
+	border: 2px solid yellow !important;
+}
+
 #cMap {
 	z-index: 1;
 }
