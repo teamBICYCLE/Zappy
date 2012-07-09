@@ -456,7 +456,7 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
       to.first = lua_tonumber(vm.getLua(), 1);
       to.second = lua_tonumber(vm.getLua(), 2);
     }
- if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
+  if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
   return 0;
  if (to.second != from.second)
    {
@@ -583,7 +583,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
                                           int {
                                             int res = -1;
                                             std::vector<unsigned int> result = inventory_.getInventory();
-                                            if (object <= UserGlobal::JOUEUR + 1)
+                                            if (object <= UserGlobal::JOUEUR)
                                               res = GlobalToString::inventaireObject[level_ - 1][object] -
                                                 result[object];
                                             return (res);
@@ -599,7 +599,7 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                       std::pair<int, int> {
                                                         std::pair<int, int>result (-1, -1);
                                                         std::pair<int, int> position = map_.getCurrentPos();
-                                                        if (object <= UserGlobal::JOUEUR + 1)
+                                                        if (object <= UserGlobal::JOUEUR)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
