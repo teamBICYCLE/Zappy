@@ -1,9 +1,10 @@
 // Message.cpp
 
 #include "Message.hh"
-
+#include <utility>
 #include <sstream>
 #include <boost/regex.hpp>
+
 
 Message::Message()
   : received_(std::make_pair<int, int>(-1, -1)), from_(std::make_pair<int, int>(-1, -1))

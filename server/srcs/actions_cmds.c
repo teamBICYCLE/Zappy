@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Sat Jul  7 13:12:05 2012 lois burg
+** Last update Mon Jul  9 11:27:01 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -76,7 +76,7 @@ t_cmd_ret	inventory_cmd(t_users *usr, char **args, char *orig_cmd)
       ++i;
     }
   strcat(msg, "}\n");
-  snprintf(log, sizeof(log), "Inventory of user #%lu: %s", usr->idx, msg);
+  snprintf(log, sizeof(log), "Inventory of user #%d: %s", usr->id, msg);
   log_msg(stdout, log);
   push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
   return (IGNORE);
