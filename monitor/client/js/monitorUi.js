@@ -213,7 +213,7 @@ function initInventory() {
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
 							.draggable(options)
 			);
-		/* if drop != case de depart */
+			
 			$(this).append(ui.draggable.remove().clone()
 							.removeClass().addClass("item")
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
