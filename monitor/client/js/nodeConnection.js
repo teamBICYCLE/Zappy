@@ -50,6 +50,7 @@ socket.on('firstConnection', function(data){
 		initInventory();
 		initTeamPanel();
 		initPlayersList();
+		initSettings();
 		
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(layers);

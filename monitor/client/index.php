@@ -100,8 +100,19 @@
 			<div class="player-list-container">
 			<div class="labels">
 				<span class="label">ID</span><span class="label">Level</span><span class="label">Team</span>
-			</div>		
+			</div>	
 			<ul></ul>
+			</div>
+		</div>
+		<div class="settings">
+			<div class="settings-topbar"></div>
+			<div class="settings-container">
+				<h2>Settings</h2>
+				<span class="setting-showres-label setting-label">Show ressources:</span><span class="setting-showres-button setting-enabled"></span><br />
+				<span class="setting-music-label setting-label">Enable music:</span><span class="setting-music-button"></span><br /><br />
+				<span class="setting-timer-label setting-label">Set timer:</span><span class="setting-timer-value">1000</span><br />
+				<input id="setting-timer-slider" type="range" min="1" max="10000" step="99" />
+			</div>
 		</div>
   	</body>
   	<script src="js/canvasHandler.js"></script>

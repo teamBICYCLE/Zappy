@@ -84,6 +84,7 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".settings").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
@@ -93,6 +94,7 @@ $(function() {
 	Mousetrap.bind('t', function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".player-list").fadeOut(300);
+			$(".settings").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -105,16 +107,28 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".settings").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
 		}
 	});
 
+	$(".topbar-menu-settings").click(function() {
+		if ($(".settings").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".player-list").fadeOut(300);
+			$(".settings").fadeIn(300);
+		} else {
+			$(".settings").fadeOut(300);
+		}
+	});
+
 	$(".topbar-menu-centermap").click(function() {
 		layers.resetAndRedraw();
 	});
-	
+	  
 });
 
 function displayError(msg) {
@@ -328,6 +342,7 @@ function initTeamPanel() {
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".player-list").fadeOut(300);
+			$(".settings").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -426,4 +441,37 @@ function initPlayersList() {
 function updatePlayerList() {
 	$(".player-list-container ul").children().remove();
 	initPlayersList();
+}
+
+/* SETTING */
+
+function initSettings() {
+	enableMusic = false;
+	showRessources = true;
+	
+	$(".setting-showres-button").click(function() {
+		if ($(this).hasClass("setting-enabled") == true) {
+			$(this).removeClass("setting-enabled");
+			showRessources = false;
+		} else {
+			$(this).addClass("setting-enabled");
+			showRessources = true;
+		}
+	});
+	$(".setting-music-button").click(function() {
+		if ($(this).hasClass("setting-enabled") == true) {
+			$(this).removeClass("setting-enabled");
+			enableMusic = false;
+		} else {
+			$(this).addClass("setting-enabled");
+			enableMusic = true;
+		}
+	});
+	$(".setting-timer-value").html(100); /*Remplacer par timer_ */
+	$("#setting-timer-slider").val(100); /*Remplacer par timer_ */
+	
+	$('#setting-timer-slider').change(function() {
+		$('.setting-timer-value').html(this.value);
+		/*Setter timer_ avec this.value*/
+	});
 }

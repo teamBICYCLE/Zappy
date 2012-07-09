@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Thu Jul  5 16:31:00 2012 thibault carpentier
-// Last update Mon Jul  9 10:40:12 2012 thibault carpentier
+// Last update Mon Jul  9 12:08:35 2012 thibault carpentier
 //
 
 #ifndef _RESSOURCES_H_
@@ -23,7 +23,7 @@ namespace UserGlobal
       LEFT = 3,
       BEHINDLEFT = 4,
       BEHIND = 5,
-      BEHINFRIGHT = 6,
+      BEHINDRIGHT = 6,
       RIGHT = 7,
       FRONTRIGHT = 8
     };
