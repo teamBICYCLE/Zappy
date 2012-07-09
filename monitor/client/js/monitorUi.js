@@ -447,8 +447,10 @@ function initSettings() {
 	$(".setting-showres-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
+			$(this).addClass("setting-disabled");
 			displayRessources = false;
 		} else {
+			$(this).removeClass("setting-disabled");
 			$(this).addClass("setting-enabled");
 			displayRessources = true;
 		}
@@ -456,8 +458,10 @@ function initSettings() {
 	$(".setting-music-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
+			$(this).addClass("setting-disabled");
 			enableMusic = false;
 		} else {
+			$(this).removeClass("setting-disabled");
 			$(this).addClass("setting-enabled");
 			enableMusic = true;
 		}
