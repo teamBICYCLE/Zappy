@@ -10,7 +10,6 @@ function MapCase() {
 	this.x_ = 0;
 	this.y_ = 0;
 	this.spell_ = -1;
-	this.spellAnimation = 5;
 }
 
 function MapCase(x, y, f, l, d, s, m, p, t) {
@@ -61,21 +60,5 @@ MapCase.prototype.setPhiras = function(v) {
 MapCase.prototype.setThystame = function(v) {
    this.ressources_[6] = v;
 };
-
-MapCase.prototype.setSpell = function(v) {
-	this.speel_ = v;
-	this.speelAnimation = 5;
-}
-
-MapCase.prototype.getSpell = function() {
-	if (this.speelAnimation_ != -1)
-		return this.speel_;
-	return -1;
-}
-
-MapCase.prototype.spellAnimation = function(v) {
-	if (this.speelAnimation_ != -1)
-		this.speelAnimation_--;
-}
 
 module.exports = MapCase;

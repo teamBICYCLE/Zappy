@@ -11,6 +11,7 @@
 var Player = function(arg, color) {
 	if (arg.length >= 7)
 	{
+		console.log("new player !!!!!!! ====> " + parseInt(arg[1].replace("#", "")));
 		this.id_ = parseInt(arg[1].replace("#", ""));
 	    this.posx_ = parseInt(arg[2]);
 	    this.posy_ = parseInt(arg[3]);
