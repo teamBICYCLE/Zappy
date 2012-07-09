@@ -41,6 +41,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAGetCLosestItem", &Trantorien::getClosestItem);
   addInteraction("IAChangeFrame", &Trantorien::changeFrame);
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
+  addInteraction("IALastMsg", &Trantorien::LastMsg);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -220,7 +221,7 @@ std::string Trantorien::getline()
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
       std::cout << "received broadcast: " << line << std::endl;
-      broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection()));
+      broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize()));
       line = this->getline();
     }
   return line;
@@ -304,7 +305,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::THYSTAME)
+                                               if (object < UserGlobal::JOUEUR)
                                                  {
                                                    this->cmd("prend " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
@@ -359,7 +360,7 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::THYSTAME)
+                                               if (object < UserGlobal::JOUEUR)
                                                  {
                                                    this->cmd("pose " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
@@ -654,5 +655,37 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
                                                 (inventory[object] + map[object]);
                                             return (res);
                                           }));
+}
+}
+
+// ox, oy, fx, fy, msg
+
+int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg)
+{
+  Position    orig(std::make_pair(-1, -1));
+  Position    from(std::make_pair(-1, -1));
+  std::string value = "";
+  lua_State   *state = vm.getLua();
+
+  orig = msg.getReceived();
+  from = msg.getFrom();
+  value = msg.getMessage();
+  lua_pushinteger(state, orig.first);
+  lua_pushinteger(state, orig.second);
+  lua_pushinteger(state, from.first);
+  lua_pushinteger(state, from.second);
+  lua_pushstring(state, value.c_str());
+  return 5;
+}
+
+int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
+{
+  Message msg;
+
+  if (!broadcastHistory_.empty())
+    {
+      msg = broadcastHistory_.back();
+      broadcastHistory_.pop_back();
     }
+  return listen(vm, msg);
 }
