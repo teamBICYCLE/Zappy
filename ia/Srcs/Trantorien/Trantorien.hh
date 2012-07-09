@@ -39,8 +39,8 @@ private: // server interactions
 private:
   bool                  isValid() const;
 
-  void          droite(void);
-  void          gauche(void);
+  void         droite(void);
+  void         gauche(void);
   int          avance(LuaVirtualMachine::VirtualMachine &);
   int          voir(LuaVirtualMachine::VirtualMachine &);
   int	       inventaire(LuaVirtualMachine::VirtualMachine&);
@@ -56,11 +56,11 @@ private:
   int          goTo(LuaVirtualMachine::VirtualMachine &);
   int	       getLevel(LuaVirtualMachine::VirtualMachine &);
   int	       missingRockOnCase(LuaVirtualMachine::VirtualMachine &);
-  int           missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm);
+  int          missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm);
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
-  int		missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
+  int	       missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
 private:
   Inventory               inventory_;
   Network                 network_;
