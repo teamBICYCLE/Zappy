@@ -35,6 +35,7 @@ private: // server interactions
   void                  cmd(const std::string & command);
   std::string           getline();
   Message              getBroadcastLine();
+  int           listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
 
 private:
   bool                  isValid() const;
@@ -60,7 +61,9 @@ private:
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
-  int	       missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
+  int           missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
+  int           LastMsg(LuaVirtualMachine::VirtualMachine &vm);
+
 private:
   Inventory               inventory_;
   Network                 network_;

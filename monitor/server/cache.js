@@ -84,9 +84,25 @@ exports.setCase = function(x, y, ressources) {
 	changeMap_.push(aCase);
 }
 
+exports.playerExist = function(id) {
+	
+	for (var i = 0; i != players_.length; i++)
+		if (players_[i].getId() == id)
+			return true;
+	return false;
+}
+
+
 exports.addPlayer = function(arg) {
     var Player = require("./objects/player.js");
-    players_.push(new Player(arg, this.getTeamColor(arg[6])));
+    if (!this.playerExist(parseInt(arg[1].replace("#", ""))))
+    	players_.push(new Player(arg, this.getTeamColor(arg[6])));
+    else
+    {
+    	this.removePlayer(arg[1].replace("#", ""));
+    	players_.push(new Player(arg, this.getTeamColor(arg[6])));
+    }
+    		
     this.addMessage("Team " + arg[6] + " welcomes a new player.");
 }
 
@@ -125,7 +141,7 @@ exports.setEndGame = function(v, name) {
 	map_ = new (require("./objects/map.js"));
 	players_ = [];
 	eggs_ = [];
-	cmdMessages_ = ["Team " + name + " wins !"];
+	cmdMessages_.push("Team " + name + " wins !");
 	changeMap_ = [];
 }
 
@@ -187,11 +203,15 @@ exports.getFormatedMap = function() {
 
 exports.getPlayer = function(id) {
 	
+	//console.log(id);
 	id = parseInt(id.replace("#", ""));
 	
 	for (var i = 0; i != players_.length; i++)
+	{
+		//console.log(players_[i].getId());
 		if (players_[i].getId() == id)
 			return players_[i];
+	}
 			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 }

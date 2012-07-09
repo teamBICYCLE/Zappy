@@ -9,7 +9,8 @@
 class Message {
 public:
   Message();
-  Message(std::string init, const Position & position, UserGlobal::Direction dir);
+  Message(std::string init, const Position & position, UserGlobal::Direction dir,
+          const Position & mapSize);
   ~Message();
   Message(const Message & orig);
   Message & operator=(const Message & orig);
