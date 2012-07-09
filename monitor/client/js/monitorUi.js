@@ -68,7 +68,7 @@ $(function() {
 		if (!godMode)
 		{
 	    	$(".cmd").addClass("cmd-god");
-	    	addMessage("You are now in gode mode ! Try commands : ...");
+	    	addMessage("You are now in God mode ! Try commands : gkp,gsi,gsc,glp");
 	    	$(".topbar-menu-godmode").show();
 	    }
 	});
