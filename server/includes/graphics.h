@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:27:05 2012 lois burg
-** Last update Mon Jul  9 10:03:02 2012 lois burg
+** Last update Mon Jul  9 10:52:24 2012 lois burg
 */
 
 #ifndef		__GRAPHICS_H__
@@ -65,6 +65,7 @@ char	*graphics_sbp(void);
 void	answer_gkp(t_users *u, char **args);
 void	answer_gsi(t_users *usr, char **args);
 void	answer_gsc(t_users *usr, char **args);
+void	answer_glp(t_users *usr, char **args);
 char	*graphics_gkp(t_users *u);
 
 #endif /* !__GRAPHICS_H__*/
