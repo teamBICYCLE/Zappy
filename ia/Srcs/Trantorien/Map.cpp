@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Mon Jul  9 15:11:53 2012 thibault carpentier
+// Last update Mon Jul  9 15:14:13 2012 thibault carpentier
 //
 
 #include <sstream>
@@ -334,7 +334,10 @@ Position Map::getClosestItem(Position pos, int object) const
       int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
       int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
-      if (player && (tmpX + tmpY < tmp.first + tmp.second
+      if (!player &&
+	  it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
+	player = true;
+      else if ((tmpX + tmpY < tmp.first + tmp.second
 		     || (tmp.first == -1 && tmp.second == -1)))
         {
           tmp.first = tmpX;
@@ -342,8 +345,6 @@ Position Map::getClosestItem(Position pos, int object) const
           res.first = (*it).first;
           res.second = (*it).second;
         }
-      if (it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
-	player = true;
     }
   return (res);
 }
