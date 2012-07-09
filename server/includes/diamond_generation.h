@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun  6 16:02:39 2012 lois burg
-** Last update Mon Jul  9 15:56:34 2012 lois burg
+** Last update Mon Jul  9 16:50:47 2012 lois burg
 */
 
 #ifndef		__DIAMOND_GENERATION_H__
@@ -17,7 +17,7 @@
 # define	NOISE		150
 # define	MAX_RES_CASE	3
 
-# define	MAX(x, y)	((x > y) ? (x) : (y))
+# define	MAX(x, y)	(((x) > (y)) ? (x) : (y))
 # define	ODDIFY(x)	((x % 2) ? (x) : (x + 1))
 
 /* Percentage for each ressources */

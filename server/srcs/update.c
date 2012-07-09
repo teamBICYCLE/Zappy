@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Mon Jul  9 16:39:55 2012 lois burg
+** Last update Mon Jul  9 17:36:13 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -15,6 +15,7 @@
 #include "protocol.h"
 #include "cmds.h"
 #include "graphics.h"
+#include "diamond_generation.h"
 
 extern t_infos		g_info;
 
@@ -79,19 +80,24 @@ static	void	decr_life(void *ptr)
 	decr_and_notify(u);
     }
 }
-#include <stdio.h>
+
 static void	create_food(void)
 {
   int		i;
+  int		x;
+  int		y;
   static int	loops = 500;
-  int const	nb_food = 5;
+  int const	nb_food = MAX(g_info.map->x, g_info.map->y) / 3;
 
   if (loops == 0)
     {
       i = 0;
       while (i < nb_food)
 	{
-	  ++g_info.map->cases[rand() % g_info.map->y][rand() % g_info.map->x].elements[FOOD];
+	  x = rand() % g_info.map->x;
+	  y = rand() % g_info.map->y;
+	  ++g_info.map->cases[y][x].elements[FOOD];
+	  lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
 	  ++i;
 	}
       loops = 500;

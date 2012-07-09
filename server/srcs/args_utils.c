@@ -5,15 +5,18 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun 18 14:08:35 2012 lois burg
-** Last update Thu Jul  5 11:19:19 2012 lois burg
+** Last update Mon Jul  9 18:08:35 2012 lois burg
 */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "args.h"
 
 void		push_team(t_arg_infos *infos, const char *name)
 {
   t_team	t;
+  t_link	*l;
 
   if (!strcmp(name, "GRAPHIC"))
     invalid_param(infos, "-n: Invalid team name.");
@@ -22,7 +25,14 @@ void		push_team(t_arg_infos *infos, const char *name)
       t.name = strdup(name);
       t.free_slots = infos->clients_per_team;
       t.nb_max_lvl = 0;
-      push_back(infos->teams_names, new_link_by_param(&t, sizeof(t)));
+      l = new_link_by_param(&t, sizeof(t));
+      if (l == NULL)
+	{
+	  fprintf(stderr, "Memory exhausted. Could not add team.\n");
+	  exit(EXIT_FAILURE);
+	}
+      else
+	push_back(infos->teams_names, l);
     }
 }
 

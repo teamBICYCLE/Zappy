@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun  6 16:54:05 2012 Jonathan Machado
-** Last update Fri Jul  6 15:27:33 2012 lois burg
+** Last update Mon Jul  9 18:07:13 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -41,12 +41,13 @@ void		free_map(t_map *map)
   unsigned int	i;
 
   i = 0;
-  while (i < map->y)
+  while (map && i < map->y)
     {
       free(map->cases[i]);
       ++i;
     }
-  free(map->cases);
+  if (map)
+    free(map->cases);
   free(map);
   map = NULL;
 }
