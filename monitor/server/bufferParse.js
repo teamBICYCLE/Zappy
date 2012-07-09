@@ -91,8 +91,12 @@ var pbcFct = function(arg, cache) {
 }
 
 var picFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPic();
-	cache.addMessage("Player " + arg[1] + " is starting a spell");
+	
+	for (var i = 4; i != arg.length; i++)
+	{
+		cache.getPlayer(arg[i]).setPic();
+		cache.addMessage("Player #" + arg[i] + " is starting a spell");
+	}
 }
 
 var pfkFct = function(arg, cache) {
@@ -138,12 +142,13 @@ var smgFct = function(arg, cache) {
 var pieFct = function(arg, cache) {
 	
 	var msg = "A spell has ";
-	cache.getMap().getRealCase(cache, arg[1], arg[2]).setSpell(arg[3]);
 	
 	if (arg[3] == "1")
 		msg += " succeeded";
 	else
 		msg += " failed";
+		
+	msg += " (" + arg[1] + ", " + arg[2] + ")";
 		
 	cache.addMessage(msg);
 }
