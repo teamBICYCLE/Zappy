@@ -187,11 +187,15 @@ exports.getFormatedMap = function() {
 
 exports.getPlayer = function(id) {
 	
+	//console.log(id);
 	id = parseInt(id.replace("#", ""));
 	
 	for (var i = 0; i != players_.length; i++)
+	{
+		//console.log(players_[i].getId());
 		if (players_[i].getId() == id)
 			return players_[i];
+	}
 			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 }
