@@ -2,8 +2,11 @@
  * @author sylvia_r
  */
 
-var allowInventoryUpdate = true;
-
+var allowInventoryUpdate = true,
+	godMode = false,
+	enableMusic = false,
+	displayRessources = true;
+	
 $(function() {
 
 	/* events */
@@ -62,7 +65,12 @@ $(function() {
 	});
 	
 	Mousetrap.bind('up up down down left right left right b a', function() {
-	    console.log("Konami Code !");
+		if (!godMode)
+		{
+	    	$(".cmd").addClass("cmd-god");
+	    	addMessage("You are now in gode mode ! Try commands : ...");
+	    	$(".topbar-menu-godmode").show();
+	    }
 	});
 	
 	Mousetrap.bind('i', function() {
@@ -79,6 +87,7 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
@@ -87,7 +96,7 @@ $(function() {
 	
 	Mousetrap.bind('t', function() {
 		if ($(".panel").css("margin-right") == "-500px") {
-			$(".player-list").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -100,9 +109,21 @@ $(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
 			$(".player-list").fadeOut(300);
+		}
+	});
+
+	$(".topbar-menu-settings").click(function() {
+		if ($(".settings").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".button-display").fadeOut(300);
+			$(".settings").fadeIn(300);
+		} else {
+			$(".settings").fadeOut(300);
 		}
 	});
 
@@ -110,6 +131,17 @@ $(function() {
 		layers.resetAndRedraw();
 	});
 	
+	$(".topbar-menu-godmode").click(function() {
+		if ($(".godmode").css("display") == "none") {
+			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").removeClass("active");
+			$(".button-display").fadeOut(300);
+			$(".godmode").fadeIn(300);
+		} else {
+			$(".godmode").fadeOut(300);
+		}
+	});
+	  
 });
 
 function displayError(msg) {
@@ -322,7 +354,7 @@ function initTeamPanel() {
 	
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
-			$(".player-list").fadeOut(300);
+			$(".button-display").fadeOut(300);
 			$(".panel").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
@@ -331,20 +363,6 @@ function initTeamPanel() {
 		}
 	});	
 	
-	/*
-	$(".btn-slide").toggle(function() {
-			$(".player-list").fadeOut(300);
-			if ($(".btn-slide").not(".active")) {
-				$(".panel").animate({marginRight: "0px"}, 200);
-				$(".btn-slide").toggleClass("active");
-			}
-		}, function() {
-			$(".player-list").fadeOut(300);			
-			$(".panel").animate({marginRight: "-500px"}, 200);
-			$(".btn-slide").toggleClass("active");
-	});
-    */
-    
    $(".teambox").click(function() {
 		if ($(".chart", this).is(':hidden')) {
 			$(".chart").slideUp("slow");
@@ -421,4 +439,34 @@ function initPlayersList() {
 function updatePlayerList() {
 	$(".player-list-container ul").children().remove();
 	initPlayersList();
+}
+
+/* SETTING */
+
+function initSettings() {	
+	$(".setting-showres-button").click(function() {
+		if ($(this).hasClass("setting-enabled") == true) {
+			$(this).removeClass("setting-enabled");
+			displayRessources = false;
+		} else {
+			$(this).addClass("setting-enabled");
+			displayRessources = true;
+		}
+	});
+	$(".setting-music-button").click(function() {
+		if ($(this).hasClass("setting-enabled") == true) {
+			$(this).removeClass("setting-enabled");
+			enableMusic = false;
+		} else {
+			$(this).addClass("setting-enabled");
+			enableMusic = true;
+		}
+	});
+	$(".setting-timer-value").html(100); /*Remplacer par timer_ */
+	$("#setting-timer-slider").val(100); /*Remplacer par timer_ */
+	
+	$('#setting-timer-slider').change(function() {
+		$('.setting-timer-value').html(this.value);
+		/*Setter timer_ avec this.value*/
+	});
 }

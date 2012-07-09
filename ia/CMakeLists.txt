@@ -28,4 +28,5 @@ target_link_libraries(
     boost_system
     boost_regex
     pthread
+    dl
 )

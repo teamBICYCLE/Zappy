@@ -5,8 +5,8 @@
 var socket = io.connect('http://localhost', {
 		port: $(".port").text(),
 		'reconnect': true,
-  		'reconnection delay': 500,
-  		'max reconnection attempts': 10
+  		'reconnection delay': 1000,
+  		'max reconnection attempts': 15
 	}),
 	lastTimestamp = 0,
 	layers,
@@ -50,6 +50,7 @@ socket.on('firstConnection', function(data){
 		initInventory();
 		initTeamPanel();
 		initPlayersList();
+		initSettings();
 		
 		map_draw(data.xsize, data.ysize, layers);
 		ressources_draw(layers);

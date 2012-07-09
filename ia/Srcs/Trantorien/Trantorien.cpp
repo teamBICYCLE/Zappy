@@ -305,7 +305,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::THYSTAME)
+                                               if (object < UserGlobal::JOUEUR)
                                                  {
                                                    this->cmd("prend " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
@@ -360,7 +360,7 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::THYSTAME)
+                                               if (object < UserGlobal::JOUEUR)
                                                  {
                                                    this->cmd("pose " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();

@@ -40,6 +40,7 @@
 				<li class="topbar-menu-settings"></li>
 				<li class="topbar-menu-players"></li>
 				<li class="topbar-menu-centermap"></li>
+				<li class="topbar-menu-godmode"></li>
 			</ul>
 		</div>
 	</div>
@@ -95,13 +96,34 @@
 				<li class="case-content-item tiny-thystame">Thystame: <span class="count">14</span></li>
 			</ul>
 		</div>
-		<div class="player-list">
+		<div class="player-list button-display">
 			<div class="player-list-topbar"></div>
 			<div class="player-list-container">
 			<div class="labels">
 				<span class="label">ID</span><span class="label">Level</span><span class="label">Team</span>
-			</div>		
+			</div>	
 			<ul></ul>
+			</div>
+		</div>
+		<div class="settings button-display">
+			<div class="settings-topbar"></div>
+			<div class="settings-container">
+				<h2>Settings</h2>
+				<span class="setting-showres-label setting-label">Display ressources:</span><span class="setting-showres-button setting-enabled"></span><br />
+				<span class="setting-music-label setting-label">Enable music:</span><span class="setting-music-button"></span><br /><br />
+				<span class="setting-timer-label setting-label">Set timer:</span><span class="setting-timer-value">1000</span><br />
+				<input id="setting-timer-slider" type="range" min="1" max="10000" step="99" />
+			</div>
+		</div>
+		<div class="godmode button-display">
+			<div class="godmode-topbar"></div>
+			<div class="godmode-container">
+				<h2>G0DM0D3!</h2>
+				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
+				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
+				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
+				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
+			</div>
 		</div>
   	</body>
   	<script src="js/canvasHandler.js"></script>
