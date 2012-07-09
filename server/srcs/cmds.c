@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 15:51:42 2012 Jonathan Machado
-** Last update Fri Jul  6 17:35:06 2012 lois burg
+** Last update Mon Jul  9 10:10:28 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -56,6 +56,7 @@ static t_graphicsmap	g_graphics_cmd[] =
     {"sst", &answer_sst},
     {"gkp", &answer_gkp},
     {"gsi", &answer_gsi},
+    {"gsc", &answer_gsc},
     {NULL, &answer_suc}
   };
 
