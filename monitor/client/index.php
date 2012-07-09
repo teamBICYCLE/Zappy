@@ -119,10 +119,10 @@
 			<div class="godmode-topbar"></div>
 			<div class="godmode-container">
 				<h2>G0DM0D3!</h2>
-				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
-				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
-				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
-				<p class="godmode-cmd"><b>gkp:</b> Kick a player.</p>
+				<p class="godmode-cmd"><b>gkp [player_id]:</b> Kick a player.</p>
+				<p class="godmode-cmd"><b>gsi [player_id] [ressources]:</b> Set player inventory.</p>
+				<p class="godmode-cmd"><b>gsc [x_pos] [y_pos] [ressources]:</b> Set case content.</p>
+				<p class="godmode-cmd"><b>glp [player_id]:</b> Level up a player.</p>
 			</div>
 		</div>
   	</body>
