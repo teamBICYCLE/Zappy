@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 10:24:55 2012 Jonathan Machado
-** Last update Sat Jul  7 14:09:22 2012 lois burg
+** Last update Mon Jul  9 16:50:40 2012 lois burg
 */
 
 #ifndef __SERVER_H__

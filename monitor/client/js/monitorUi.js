@@ -68,7 +68,7 @@ $(function() {
 		if (!godMode)
 		{
 	    	$(".cmd").addClass("cmd-god");
-	    	addMessage("You are now in gode mode ! Try commands : ...");
+	    	addMessage("You are now in God mode ! Try commands : gkp,gsi,gsc,glp");
 	    	$(".topbar-menu-godmode").show();
 	    }
 	});
@@ -213,7 +213,7 @@ function initInventory() {
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
 							.draggable(options)
 			);
-		/* if drop != case de depart */
+			
 			$(this).append(ui.draggable.remove().clone()
 							.removeClass().addClass("item")
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
@@ -448,8 +448,10 @@ function initSettings() {
 	$(".setting-showres-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
+			$(this).addClass("setting-disabled");
 			displayRessources = false;
 		} else {
+			$(this).removeClass("setting-disabled");
 			$(this).addClass("setting-enabled");
 			displayRessources = true;
 		}
@@ -458,8 +460,10 @@ function initSettings() {
 	$(".setting-music-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
+			$(this).addClass("setting-disabled");
 			enableMusic = false;
 		} else {
+			$(this).removeClass("setting-disabled");
 			$(this).addClass("setting-enabled");
 			enableMusic = true;
 		}
