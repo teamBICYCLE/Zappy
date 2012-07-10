@@ -59,7 +59,7 @@ function this.enought_food(this)
    this:IAInventaire()
    if this:IAgetInventoyValue(NOURRITURE) > 30
    then return OK
-   elseif this:IAMessageInQueue("2")
+   elseif this:IAMessageInQueue("level" .. this:IAGetLevel())
    then return FRIEND
    else
       obj = NOURRITURE
@@ -121,6 +121,6 @@ end
 
 function this.call_friends()
    this:IABroadcast(count)
-   print("pos dans broadcast", this:IACurrentPosition())
+   print("pos dans broadcast", this:tPosition())
    return OK
 end

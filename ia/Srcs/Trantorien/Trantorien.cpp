@@ -44,6 +44,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   addInteraction("IALastMsg", &Trantorien::LastMsg);
   addInteraction("IAMessageInQueue", &Trantorien::messageInQueue);
+  addInteraction("IAreadLine", &Trantorien::readline);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -717,4 +718,11 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
   });
   lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
   return 1;
-}
+  }
+
+  int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
+  {
+    lua_pushstring(vm.getLua(), this->getline());
+    return 1;
+  }
+

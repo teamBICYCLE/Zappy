@@ -67,6 +67,7 @@ private:
   int           missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
   int           LastMsg(LuaVirtualMachine::VirtualMachine &vm);
   int          messageInQueue(LuaVirtualMachine::VirtualMachine &vm);
+  int          readLine(LuaVirtualMachine::VirtualMachine &vm);
 
 private:
   Inventory               inventory_;
