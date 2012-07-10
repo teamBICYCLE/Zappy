@@ -44,6 +44,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   addInteraction("IALastMsg", &Trantorien::LastMsg);
   addInteraction("IAMessageInQueue", &Trantorien::messageInQueue);
+  addInteraction("IAreadLine", &Trantorien::readLine);
   addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
   addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   setValidityTest(&Trantorien::isValid);
@@ -719,7 +720,13 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
   });
   lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
   return 1;
-}
+  }
+
+  int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
+  {
+    lua_pushstring(vm.getLua(), this->getline().c_str());
+    return 1;
+  }
 
 int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
@@ -732,13 +739,13 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
   for (int i = 0; i < nb; ++i)
     {
       if ((pid = fork()) == -1)
-	abort();
+        abort();
       if (pid == 0)
-	{
-	  if (execvp(av_[0], av_) == -1)
-	    abort();
-	  exit(0);
-	}
+        {
+          if (execvp(av_[0], av_) == -1)
+            abort();
+          exit(0);
+        }
     }
   return (0);
 }
