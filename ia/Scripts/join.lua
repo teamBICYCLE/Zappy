@@ -1,14 +1,53 @@
 #!/usr/bin/lua
 
 function this.exit(this)
+   print (this:IAVoir())
+   print (this:IACurrentPosition())
+   print ("bye bye")
    exit()
+end
+
+function this.meet(this)
+   if this:IAMessageInQueue("2")
+   then
+      local dir, msg
+      ox, oy, dir, msg = this:IALastMsg()
+      local cx, cy = this:IACurrentPosition()
+      if ox ~= cx and oy ~= cy
+      then
+      	 this:IAVoir()
+      	 return LOOP
+      end
+      gdir = dir
+   else
+      this:IAVoir()
+      return LOOP
+   end
+   if gdir == NONE
+   then return OK
+   else
+      print("NEW DIRECTION RCV")
+      return KO
+   end
+end
+
+function this.go_dir(this)
+   if gdir == this:IACurrentDirection()
+   then this:IAAvance()
+   else
+      if gdir - 1 == ((this:IACurrentDirection() - 1) + 1) % 4
+      then this:IATourner(DROITE)
+      else this:IATourner(GAUCHE)
+      end
+      return KO
+   end
+   return OK
 end
 
 function this.enought_friends(this)
    this:IAVoir()
    local j = {this:IACaseContent(this:IACurrentPosition())}
    local j = j[8]
-   print ("test: ", j)
    count = 2
    if j >= count
    then return OK
@@ -18,8 +57,10 @@ end
 
 function this.enought_food(this)
    this:IAInventaire()
-   if this:IAgetInventoyValue(NOURRITURE) > 15
+   if this:IAgetInventoyValue(NOURRITURE) > 30
    then return OK
+   elseif this:IAMessageInQueue("2")
+   then return FRIEND
    else
       obj = NOURRITURE
       return KO
@@ -27,19 +68,6 @@ function this.enought_food(this)
 end
 
 function this.obj_sur_case(this)
-   local ox, oy, tx, ty, msg = this:IALastMsg()
-   if not (ox == -1)
-   then
-      this:IAVoir()
-      local x, y = this:IAGetCLosestItem(JOUEUR)
-      if not (x == -1 and y == -1)
-      then gx, gy = x, y
-      else
-	 print(ox, oy, tx, ty, msg)
-	 gx, gy = tx, ty
-      end
-      return GOTO
-   end
    this:IAVoir()
    local r = {this:IACaseContent(this:IACurrentPosition())}
    if r[obj + 1] > 0
@@ -93,5 +121,6 @@ end
 
 function this.call_friends()
    this:IABroadcast(count)
+   print("pos dans broadcast", this:IACurrentPosition())
    return OK
 end

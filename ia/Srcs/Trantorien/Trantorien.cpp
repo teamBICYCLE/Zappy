@@ -31,6 +31,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IABroadcast", &Trantorien::broadcast);
   addInteraction("IACaseContent", &Trantorien::caseContent);
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
+  addInteraction("IACurrentDirection", &Trantorien::currentDirection);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
   addInteraction("IAExpulse", &Trantorien::expulse);
   addInteraction("IAGoto", &Trantorien::goTo);
@@ -42,9 +43,12 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAChangeFrame", &Trantorien::changeFrame);
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   addInteraction("IALastMsg", &Trantorien::LastMsg);
+  addInteraction("IAMessageInQueue", &Trantorien::messageInQueue);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
+  lua_pushinteger(state, UserGlobal::NONE);
+  lua_setglobal(state, "NONE");
   lua_pushinteger(state, UserGlobal::NORD);
   lua_setglobal(state, "NORD");
   lua_pushinteger(state, UserGlobal::EST);
@@ -68,6 +72,8 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_setglobal(state, "PHIRAS");
   lua_pushinteger(state, UserGlobal::THYSTAME);
   lua_setglobal(state, "THYSTAME");
+  lua_pushinteger(state, UserGlobal::JOUEUR);
+  lua_setglobal(state, "JOUEUR");
 
   lua_pushinteger(state, UserGlobal::GAUCHE);
   lua_setglobal(state, "GAUCHE");
@@ -222,6 +228,8 @@ std::string Trantorien::getline()
     {
       std::cout << "received broadcast: " << line << std::endl;
       broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize()));
+      while (broadcastHistory_.size() > BROADCAST_MAX_SIZE)
+        broadcastHistory_.pop_front();
       line = this->getline();
     }
   return line;
@@ -402,6 +410,12 @@ int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
   lua_pushinteger(state, position.first);
   lua_pushinteger(state, position.second);
   return (2);
+}
+
+int Trantorien::currentDirection(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_pushinteger(vm.getLua(), map_.getDirection());
+  return 1;
 }
 
 int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
@@ -592,6 +606,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
+  std::cout << "CALLED !" << std::endl;
   return (
           variableArgsCall<int, std::pair<int, int> >(vm,
                                                       [&](lua_State * state, int object) ->
@@ -663,19 +678,22 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg)
 {
   Position    orig(std::make_pair(-1, -1));
-  Position    from(std::make_pair(-1, -1));
   std::string value = "";
   lua_State   *state = vm.getLua();
+  UserGlobal::Direction ret = UserGlobal::NONE;
 
   orig = msg.getReceived();
-  from = msg.getFrom();
+  ret = msg.getDir()[0] ?
+        UserGlobal::NORD : msg.getDir()[1] ?
+          UserGlobal::EST : msg.getDir()[2] ?
+            UserGlobal::SUD : msg.getDir()[3] ?
+            UserGlobal::OUEST : UserGlobal::NONE;
   value = msg.getMessage();
   lua_pushinteger(state, orig.first);
   lua_pushinteger(state, orig.second);
-  lua_pushinteger(state, from.first);
-  lua_pushinteger(state, from.second);
+  lua_pushinteger(state, ret);
   lua_pushstring(state, value.c_str());
-  return 5;
+  return 4;
 }
 
 int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
@@ -685,7 +703,18 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
   if (!broadcastHistory_.empty())
     {
       msg = broadcastHistory_.back();
-      broadcastHistory_.pop_back();
+      broadcastHistory_.clear();
     }
   return listen(vm, msg);
+}
+
+int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string   search = lua_tostring(vm.getLua(), 1);
+
+  std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+               return msg.getMessage() == search;
+  });
+  lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
+  return 1;
 }

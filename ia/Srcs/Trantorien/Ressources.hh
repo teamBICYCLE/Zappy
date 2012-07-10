@@ -30,10 +30,11 @@ namespace UserGlobal
 
   enum Direction
     {
-      NORD = 1,
-      EST = 2,
-      SUD = 3,
-      OUEST = 4
+    NONE = 0,
+    NORD = 1,
+    EST = 2,
+    SUD = 3,
+    OUEST = 4
     };
 
   enum Ressources

@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul  5 17:39:56 2012 lois burg
-** Last update Mon Jul  9 11:01:11 2012 lois burg
+** Last update Tue Jul 10 12:45:53 2012 lois burg
 */
 
 #include <stdio.h>
@@ -24,6 +24,7 @@ void		answer_gkp(t_users *usr, char **args)
   t_link	*l;
   t_users	*p;
 
+  msg = graphics_sbp();
   if (args && args[0] &&
       contains_only_digits(args[0]))
     {
@@ -33,16 +34,13 @@ void		answer_gkp(t_users *usr, char **args)
 	  p = (t_users*)l->ptr;
 	  if (p->type != TGRAPHICS && p->first_message == false)
 	    {
-	      msg = graphics_gkp(p);
+	      msg = NULL;
 	      remove_user(p);
 	    }
 	}
-      else
-	msg = graphics_sbp();
     }
-  else
-    msg = graphics_sbp();
-  push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
+  if (msg)
+    push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));
 }
 
 static void	set_plyr_inventory(t_users *p, char **args, char **msg)
