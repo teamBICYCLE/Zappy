@@ -4,14 +4,10 @@
 
 /* OBJECT */
 
-// var id_, posx_, posy_, orientation_,
-	// level_, team_, inventory_, animationLoop_,
-	// message_;
-
 var Player = function(arg, color) {
 	if (arg.length >= 7)
 	{
-		console.log("new player !!!!!!! ====> " + parseInt(arg[1].replace("#", "")));
+		//console.log("new player !!!!!!! ====> " + parseInt(arg[1].replace("#", "")));
 		this.id_ = parseInt(arg[1].replace("#", ""));
 	    this.posx_ = parseInt(arg[2]);
 	    this.posy_ = parseInt(arg[3]);
@@ -21,7 +17,6 @@ var Player = function(arg, color) {
 	    this.color_ = color;
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
 	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
-		this.message_ = "";
 		this.inventoryChange_ = false;
 		//piex pbc pic pfk pdr pgt
 	} 
@@ -138,28 +133,27 @@ Player.prototype.getBubbleAnimation = function() {
 /* animation set */
 
 Player.prototype.setPex = function() {
-	this.animationLoop_[0] = 10;
+	this.animationLoop_[0] += 10;
 }
 
-Player.prototype.setPbc = function(msg) {
-	this.animationLoop_[1] = 20;
-	this.message_ = msg;
+Player.prototype.setPbc = function() {
+	this.animationLoop_[1] += 40;
 }
 
 Player.prototype.setPic = function() {
-	this.animationLoop_[2] = 20;
+	this.animationLoop_[2] += 20;
 }
 
 Player.prototype.setPfk = function() {
-	this.animationLoop_[3] = 10;
+	this.animationLoop_[3] += 10;
 }
 
 Player.prototype.setPdr = function() {
-	this.animationLoop_[4] = 5;
+	this.animationLoop_[4] += 5;
 }
 
 Player.prototype.setPgt = function() {
-	this.animationLoop_[5] = 5;
+	this.animationLoop_[5] += 5;
 }
 
 /* other */

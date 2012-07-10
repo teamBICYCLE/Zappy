@@ -14,7 +14,7 @@ exports.feed = function(buffer, cache) {
 		if (arrayBuffer[i] != "")
 		{
 			current = arrayBuffer[i].split(" ");
-			if (typeof(ptr[current[0]]) != "undefined" && ptr[current[0]].nb >= current.length)
+			if (typeof(ptr[current[0]]) != "undefined" && current.length >= ptr[current[0]].nb)
 			    ptr[current[0]].ptr(current, cache);
 		}	
 	}
@@ -87,7 +87,8 @@ var pexFct = function(arg, cache) {
 }
 
 var pbcFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPbc(arg[2]);
+	cache.getPlayer(arg[1]).setPbc();
+	cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2]);
 }
 
 var picFct = function(arg, cache) {
@@ -108,6 +109,7 @@ var pdrFct = function(arg, cache) {
 }
 
 var pgtFct = function(arg, cache) {
+	
 	cache.getPlayer(arg[1]).setPgt();
 }
 
@@ -171,8 +173,8 @@ var ptr = {
   "pic": {nb: 5, ptr: picFct},
   "pie": {nb: 4, ptr: pieFct},
   "pfk": {nb: 2, ptr: pfkFct},
-  "pdr": {nb: 2, ptr: pdrFct},
-  "pgt": {nb: 2, ptr: pgtFct},
+  "pdr": {nb: 3, ptr: pdrFct},
+  "pgt": {nb: 3, ptr: pgtFct},
   "pdi": {nb: 2, ptr: pdiFct},
   "enw": {nb: 5, ptr: enwFct},
   "eht": {nb: 2, ptr: ehtFct},

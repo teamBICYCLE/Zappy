@@ -64,7 +64,8 @@ Layers.prototype.resetAndRedraw = function() {
 	
 	this.clear("cHighLight");
 	this.clear("cMap");
-	ressources_draw(this);
+	if (playerFollowed == -1)
+		ressources_draw(this);
 	players_draw(this);
 	map_draw(this.mapWidth, this.mapHeight, this);
 }
@@ -108,10 +109,10 @@ Layers.prototype.padding = function(canvas) {
 				zoom = 10;
 				this.tileWidth = 128;
 				this.tileHeight = 128;
-				console.log("draw");
 				center = this.centerAt(pPos.x, pPos.y);
 				this.clear("cHighLight");
 				ressources_draw(this);
+				console.log("ressources draw layers");
 				map_draw(this.mapWidth, this.mapHeight, this);
 			}
 	}

@@ -70,6 +70,7 @@ socket.on('cacheUpdate', function(data){
 
 	var latency = (parseInt(new Date().getTime()) - parseInt(data.timestamp)),
 		prevPlayers;
+		
 	$(".latency .lValue").text(latency);
 	
 	/* faudra seter eggs */
@@ -77,7 +78,6 @@ socket.on('cacheUpdate', function(data){
 		
 		if (data.endGame.state)
 			console.log("END GAME :) " + data.endGame.name);
-		cache.setMapSize(data.xsize, data.ysize);
 		
 		prevPlayers = cache.getPlayers();
 		prevInfo = cache.getAllTeamInfo();
@@ -92,13 +92,14 @@ socket.on('cacheUpdate', function(data){
 
 		nowInfo = cache.getAllTeamInfo();
 		
-		//console.log(zoom + " " + previousZoom);
 		if (data.changeMap.length > 0)
+		{
+			console.log("ressources draw ! node");
 			ressources_draw(layers);
+		}
 		players_draw(layers);
 		update_inventory();
 		updateTeamPanel(prevInfo, nowInfo);
-		//layers.zoom("cMap");
 		
 		lastTimestamp = data.timestamp;
 	}

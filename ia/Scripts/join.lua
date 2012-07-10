@@ -1,6 +1,8 @@
 #!/usr/bin/lua
 
 function this.exit(this)
+   print (this:IAVoir())
+   print (this:IACurrentPosition())
    print ("bye bye")
    exit()
 end
@@ -11,7 +13,7 @@ function this.meet(this)
       local dir, msg
       ox, oy, dir, msg = this:IALastMsg()
       local cx, cy = this:IACurrentPosition()
-      if not ox == cx and oy == cy
+      if ox ~= cx and oy ~= cy
       then
       	 this:IAVoir()
       	 return LOOP
@@ -23,14 +25,21 @@ function this.meet(this)
    end
    if gdir == NONE
    then return OK
-   else return KO
+   else
+      print("NEW DIRECTION RCV")
+      return KO
    end
 end
 
 function this.go_dir(this)
    if gdir == this:IACurrentDirection()
    then this:IAAvance()
-   else this:IATourner(GAUCHE)
+   else
+      if gdir - 1 == ((this:IACurrentDirection() - 1) + 1) % 4
+      then this:IATourner(DROITE)
+      else this:IATourner(GAUCHE)
+      end
+      return KO
    end
    return OK
 end

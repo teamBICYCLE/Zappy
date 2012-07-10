@@ -31,6 +31,7 @@ ImgLoader.prototype.load = function() {
 	    'thystame_medium',
 	    'food_small',
 	    'food_medium',
+	    'bubble_broadcast',
 	    'undefined'
 	].forEach(function (name) {
 	    var img = new Image;

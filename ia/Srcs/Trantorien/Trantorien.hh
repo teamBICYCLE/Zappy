@@ -35,8 +35,8 @@ private: // server interactions
   void                  joinTeam(const std::string & teamName);
   void                  cmd(const std::string & command);
   std::string           getline();
-  Message              getBroadcastLine();
-  int           listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
+  Message               getBroadcastLine();
+  int                   listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
 
 private:
   bool                  isValid() const;

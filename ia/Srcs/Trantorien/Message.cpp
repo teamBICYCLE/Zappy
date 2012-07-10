@@ -16,9 +16,7 @@ Message::Message(std::string init, const Position &position, UserGlobal::Directi
   : received_(position), dir_(4, false)
 {
   boost::regex  regex("message ([0-9]), *(.*)");
-  boost::match_results<std::string::iterator>  what;
-
-  if (boost::regex_search(init.begin(), init.end(), what, regex,
+  boost::match_results<std::string::iterator>  what; if (boost::regex_search(init.begin(), init.end(), what, regex,
                           boost::regex_constants::match_default))
     {
       std::stringstream  ss(what[1]);
@@ -29,18 +27,21 @@ Message::Message(std::string init, const Position &position, UserGlobal::Directi
       message_ = what[2];
       from_ = received_;
 
+// received: message 3,2 in 6-13 and looking est
+// tought msg comes from NORD:0 EST:0 SUD:1 OUEST:0
+
       if (from != 0)
         {
-          --from;
-          from = (from + (2 * (dir - 1))) % 8;
+          --from;//2
+          from = (from + (8 - (2 * (dir - 1)))) % 8;
           if (from == 7 || from == 0 || from == 1)
             dir_[UserGlobal::NORD - 1] = true;
           if (from == 1 || from == 2 || from == 3)
-            dir_[UserGlobal::EST - 1] = true;
+            dir_[UserGlobal::OUEST - 1] = true;
           if (from == 3 || from == 4 || from == 5)
             dir_[UserGlobal::SUD - 1] = true;
           if (from == 5 || from == 6 || from == 7)
-            dir_[UserGlobal::OUEST - 1] = true;
+            dir_[UserGlobal::EST - 1] = true;
         }
     }
 }
