@@ -113,7 +113,7 @@ exports.removePlayer = function(argId) {
 		if (id == players_[i].getId())
 			players_.splice(i, 1);
 			
-	this.addMessage("Player " + id + " died (not enough food)");
+	this.addMessage("Player " + id + " died");
 }
 
 exports.addEgg = function(id, x, y) {
@@ -164,7 +164,7 @@ exports.getCurrentTimeUnit = function() {
 }
 
 exports.getCurrentTimeUnitText = function() {
-	return "Server current time unit : " + currentTimeUnit_ + " ms";
+	return "Server current time unit : " + currentTimeUnit_;
 }
 
 exports.getTeams = function() {

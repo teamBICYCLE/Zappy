@@ -14,7 +14,7 @@ exports.feed = function(buffer, cache) {
 		if (arrayBuffer[i] != "")
 		{
 			current = arrayBuffer[i].split(" ");
-			if (typeof(ptr[current[0]]) != "undefined" && ptr[current[0]].nb >= current.length)
+			if (typeof(ptr[current[0]]) != "undefined" && current.length >= ptr[current[0]].nb)
 			    ptr[current[0]].ptr(current, cache);
 		}	
 	}

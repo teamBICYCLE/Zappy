@@ -67,8 +67,9 @@ $(function() {
 	Mousetrap.bind('up up down down left right left right b a', function() {
 		if (!godMode)
 		{
+			godMode = true;
 	    	$(".cmd").addClass("cmd-god");
-	    	addMessage("You are now in God mode ! Try commands : gkp,gsi,gsc,glp");
+	    	addMessage("You are now in God mode ! Try commands : gkp, gsi, gsc, glp");
 	    	$(".topbar-menu-godmode").show();
 	    }
 	});
