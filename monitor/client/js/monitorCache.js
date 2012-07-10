@@ -88,15 +88,15 @@ MonitorCache.prototype.updateMap = function(data) {
 	
 	for (var i = 0; i != data.length; i++)
 		{
-			console.log("UPDATE MAP !");
-			x = parseInt(data[i].x_);
-			y = parseInt(data[i].y_);
-			target = (y * this.ysize_) + x;
-			if (this.ysize_ != 0 && this.xsize_ != 0 &&
-				x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
-					this.map_[target] = data[i];
-			else
-				console.log("Something wrong in MonitorCache.updateMap()");
+		    console.log("UPDATE MAP !");
+		    x = parseInt(data[i].x_);
+		    y = parseInt(data[i].y_);
+		    target = (y * this.ysize_) + x;
+		    if (this.ysize_ != 0 && this.xsize_ != 0 &&
+			x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
+			this.map_[target] = data[i];
+		    else
+			console.log("Something wrong in MonitorCache.updateMap()");
 		}
 }
 

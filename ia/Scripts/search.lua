@@ -4,10 +4,48 @@ dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MAP_SIZE = 20
 
+function this.meet(this)
+   if this:IAMessageInQueue("level " .. this:IAGetLevel())
+   then
+      local dir, msg
+      ox, oy, dir, msg = this:IALastMsg()
+      local cx, cy = this:IACurrentPosition()
+      if ox ~= cx and oy ~= cy
+      then
+      	 this:IAVoir()
+      	 return LOOP
+      end
+      gdir = dir
+   else
+      this:IAVoir()
+      return LOOP
+   end
+   if gdir == NONE
+   then return OK
+   else
+      return KO
+   end
+end
+
+function this.go_dir(this)
+   if gdir == this:IACurrentDirection()
+   then this:IAAvance()
+   else
+      if gdir - 1 == ((this:IACurrentDirection() - 1) + 1) % 4
+      then this:IATourner(DROITE)
+      else this:IATourner(GAUCHE)
+      end
+      return KO
+   end
+   return OK
+end
+
 function this.enought_food(this)
    this:IAInventaire()
-   if this:IAgetInventoyValue(NOURRITURE) > 8
+   if this:IAgetInventoyValue(NOURRITURE) > 30
    then return OK
+   elseif this:IAMessageInQueue("level " .. this:IAGetLevel())
+   then return FRIEND
    else
       obj = NOURRITURE
       return KO
@@ -127,16 +165,18 @@ end
 
 function this.enought_mates(this)
    this:IAVoir()
-   local n, l, d, s, m, p, t, j = this:IAMissingRockOnCase()
-   if j <= 0
+   local r = {this:IAMissingRockOnCase()}
+   print (unpack(r))
+   if r[8] <= 0
    then return OK
    else return KO
    end
 end
 
 function this.call_mates(this)
-   this:IABroadcast("level " .. 2)
-   this:IAAvance()
-   this:IATourner(GAUCHE, GAUCHE)
-   this:IAAvance()
+   if this:IAMessageInQueue("level " .. this:IAGetLevel())
+   then return FRIEND
+   end
+   this:IABroadcast("level " .. this:IAGetLevel())
+   return OK
 end

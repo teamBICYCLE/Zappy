@@ -5,7 +5,7 @@
 function ressources_draw(layers) {
     
     layers.clear("cRessources");
-    
+
     if (displayRessources)
     {
 		for (var i = 0; i != cache.getMap().length; i++)

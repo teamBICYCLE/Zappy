@@ -66,6 +66,7 @@ private:
   int          missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
   int          LastMsg(LuaVirtualMachine::VirtualMachine &vm);
   int          messageInQueue(LuaVirtualMachine::VirtualMachine &vm);
+  int          readLine(LuaVirtualMachine::VirtualMachine &vm);
   int	       canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm);
   int	       connectPlayer(LuaVirtualMachine::VirtualMachine &vm);
 

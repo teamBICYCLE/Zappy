@@ -236,6 +236,9 @@ function initInventory() {
 		zIndex: 100,
 		start: function() {
 			src = $(this).parent();
+		},
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
 		}
 	};
 		
@@ -263,6 +266,8 @@ function initInventory() {
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
 							.draggable(options)
 			);
+			
+			allowInventoryUpdate = true;
 		}
 	});
 	
@@ -282,6 +287,10 @@ function initItem(item) {
 		zIndex: 100,
 		start: function() {
 			src = $(this).parent();
+		},
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
+			console.log("AAAAAAAAAAAAAAAA");
 		}
 	};
 	
@@ -329,6 +338,7 @@ function updateInventoryContent(inventory, lastInventory) {
 	
 	change = inventorySetChange(inventory, lastInventory);
 	
+	if (allowInventoryUpdate) {
 	/* delete */
 	for (var i = 0; i != change.deleted.length; i++)
 			$("#inventory-containers .container #" + ref[change.deleted[i].id] + "-item").remove();
@@ -354,8 +364,9 @@ function updateInventoryContent(inventory, lastInventory) {
 				break;
 			}
 	}
-			
+	
 	initItem();
+	}
 }
 
 /* TEAMSTATS PANEL*/
