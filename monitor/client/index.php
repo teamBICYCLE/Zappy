@@ -51,12 +51,10 @@
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
 		<div class="panel">
-			<div class="panel-container">
-				<div class="panel-topbar"></div>
-				<div class="panel-stats"></div>
-			</div>
-			<div class="btn-slide"></div>
+			<div class="panel-topbar"></div>
+			<div class="panel-stats"></div>
 		</div>
+		<div class="btn-slide"></div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>
@@ -98,10 +96,11 @@
 		</div>
 		<div class="player-list button-display">
 			<div class="player-list-topbar"></div>
-			<div class="player-list-container">
+			
 			<div class="labels">
 				<span class="label">ID</span><span class="label">Level</span><span class="label">Team</span>
 			</div>	
+			<div class="player-list-container">
 			<ul></ul>
 			</div>
 		</div>

@@ -11,15 +11,15 @@ static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
-                       const std::string & scriptConf, const std::string & scriptCode)
-  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1)
+                       char *av[])
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av)
 {
   if (!network_)
     {
       //std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init(scriptConf, scriptCode);
+  init(av[1], av[2]);
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -31,6 +31,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IABroadcast", &Trantorien::broadcast);
   addInteraction("IACaseContent", &Trantorien::caseContent);
   addInteraction("IACurrentPosition", &Trantorien::currentPosition);
+  addInteraction("IACurrentDirection", &Trantorien::currentDirection);
   addInteraction("IAgetInventoyValue", &Trantorien::getInventoryValue);
   addInteraction("IAExpulse", &Trantorien::expulse);
   addInteraction("IAGoto", &Trantorien::goTo);
@@ -42,9 +43,15 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAChangeFrame", &Trantorien::changeFrame);
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   addInteraction("IALastMsg", &Trantorien::LastMsg);
+  addInteraction("IAMessageInQueue", &Trantorien::messageInQueue);
+  addInteraction("IAreadLine", &Trantorien::readLine);
+  addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
+  addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
+  lua_pushinteger(state, UserGlobal::NONE);
+  lua_setglobal(state, "NONE");
   lua_pushinteger(state, UserGlobal::NORD);
   lua_setglobal(state, "NORD");
   lua_pushinteger(state, UserGlobal::EST);
@@ -68,6 +75,8 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_setglobal(state, "PHIRAS");
   lua_pushinteger(state, UserGlobal::THYSTAME);
   lua_setglobal(state, "THYSTAME");
+  lua_pushinteger(state, UserGlobal::JOUEUR);
+  lua_setglobal(state, "JOUEUR");
 
   lua_pushinteger(state, UserGlobal::GAUCHE);
   lua_setglobal(state, "GAUCHE");
@@ -222,6 +231,8 @@ std::string Trantorien::getline()
     {
       std::cout << "received broadcast: " << line << std::endl;
       broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize()));
+      while (broadcastHistory_.size() > BROADCAST_MAX_SIZE)
+        broadcastHistory_.pop_front();
       line = this->getline();
     }
   return line;
@@ -402,6 +413,12 @@ int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
   lua_pushinteger(state, position.first);
   lua_pushinteger(state, position.second);
   return (2);
+}
+
+int Trantorien::currentDirection(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_pushinteger(vm.getLua(), map_.getDirection());
+  return 1;
 }
 
 int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
@@ -592,6 +609,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
+  std::cout << "CALLED !" << std::endl;
   return (
           variableArgsCall<int, std::pair<int, int> >(vm,
                                                       [&](lua_State * state, int object) ->
@@ -663,19 +681,22 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg)
 {
   Position    orig(std::make_pair(-1, -1));
-  Position    from(std::make_pair(-1, -1));
   std::string value = "";
   lua_State   *state = vm.getLua();
+  UserGlobal::Direction ret = UserGlobal::NONE;
 
   orig = msg.getReceived();
-  from = msg.getFrom();
+  ret = msg.getDir()[0] ?
+        UserGlobal::NORD : msg.getDir()[1] ?
+          UserGlobal::EST : msg.getDir()[2] ?
+            UserGlobal::SUD : msg.getDir()[3] ?
+            UserGlobal::OUEST : UserGlobal::NONE;
   value = msg.getMessage();
   lua_pushinteger(state, orig.first);
   lua_pushinteger(state, orig.second);
-  lua_pushinteger(state, from.first);
-  lua_pushinteger(state, from.second);
+  lua_pushinteger(state, ret);
   lua_pushstring(state, value.c_str());
-  return 5;
+  return 4;
 }
 
 int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
@@ -685,7 +706,60 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
   if (!broadcastHistory_.empty())
     {
       msg = broadcastHistory_.back();
-      broadcastHistory_.pop_back();
+      broadcastHistory_.clear();
     }
   return listen(vm, msg);
+}
+
+int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string   search = lua_tostring(vm.getLua(), 1);
+
+  std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+               return msg.getMessage() == search;
+  });
+  lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
+  return 1;
+  }
+
+  int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
+  {
+    lua_pushstring(vm.getLua(), this->getline().c_str());
+    return 1;
+  }
+
+int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  pid_t pid;
+  int nb = 0;
+  lua_State *state = vm.getLua();
+
+  if (lua_gettop(state) == 1 && lua_isnumber(state, 1))
+    nb = lua_tointeger(state, 1);
+  for (int i = 0; i < nb; ++i)
+    {
+      if ((pid = fork()) == -1)
+        abort();
+      if (pid == 0)
+        {
+          if (execvp(av_[0], av_) == -1)
+            abort();
+          exit(0);
+        }
+    }
+  return (0);
+}
+
+int Trantorien::canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::stringstream convert;
+  std::string ret;
+  int nbr;
+
+  this->cmd("connect_nbr");
+  convert <<  this->getline();
+  convert >> nbr;
+  lua_pushinteger(state, nbr);
+  return (1);
 }

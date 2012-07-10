@@ -13,13 +13,14 @@
 #include "Ressources.hh"
 #include "Message.hh"
 
+const unsigned int BROADCAST_MAX_SIZE  = 10;
+
 class Trantorien : public FSM::VM<Trantorien> {
 
 public:
   Trantorien(const std::string & ip, const std::string & port,
-             const std::string & scriptConf, const std::string & scriptCode);
+             char *av[]);
   virtual ~Trantorien();
-
 
   void                  run();
 
@@ -34,8 +35,8 @@ private: // server interactions
   void                  joinTeam(const std::string & teamName);
   void                  cmd(const std::string & command);
   std::string           getline();
-  Message              getBroadcastLine();
-  int           listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
+  Message               getBroadcastLine();
+  int                   listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
 
 private:
   bool                  isValid() const;
@@ -52,6 +53,7 @@ private:
   int          broadcast(LuaVirtualMachine::VirtualMachine & vm);
   int	       caseContent(LuaVirtualMachine::VirtualMachine &);
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
+  int          currentDirection(LuaVirtualMachine::VirtualMachine &vm);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
   int          goTo(LuaVirtualMachine::VirtualMachine &);
@@ -61,8 +63,12 @@ private:
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
-  int           missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
-  int           LastMsg(LuaVirtualMachine::VirtualMachine &vm);
+  int          missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
+  int          LastMsg(LuaVirtualMachine::VirtualMachine &vm);
+  int          messageInQueue(LuaVirtualMachine::VirtualMachine &vm);
+  int          readLine(LuaVirtualMachine::VirtualMachine &vm);
+  int	       canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm);
+  int	       connectPlayer(LuaVirtualMachine::VirtualMachine &vm);
 
 private:
   Inventory               inventory_;
@@ -70,6 +76,7 @@ private:
   Map                     map_;
   std::list<Message>      broadcastHistory_;
   unsigned int		  level_;
+  char			  **av_;
 };
 
-#endif // _TRANDORIEN_HH_
+#endif // _TRANDORIEN_HH

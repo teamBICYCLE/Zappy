@@ -18,11 +18,15 @@
 
 int main(int argc, char *argv[])
 {
+  // Trantorien  joe("localhost", "4242", "Scripts/conf.le", "Scripts/script.lua",argv);
+  // LuaVirtualMachine::VirtualMachine *vm = LuaVirtualMachine::VirtualMachine::getVm();
+
+  // joe.connect_player(*vm);
   if (argc > 2)
     {
       try
       {
-        Trantorien  joe("localhost", "4242", argv[1], argv[2]);
+        Trantorien  joe("localhost", "4242", argv);
 
         joe.run();
       }
@@ -33,4 +37,5 @@ int main(int argc, char *argv[])
     }
   else
     std::cout << argv[0] << " conf.le script.lua" << std::endl;
+  return (EXIT_SUCCESS);
 }

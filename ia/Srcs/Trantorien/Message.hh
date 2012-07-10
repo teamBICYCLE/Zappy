@@ -3,6 +3,7 @@
 #ifndef MESSAGE_HH__
 #define MESSAGE_HH__
 
+#include <vector>
 #include "Ressources.hh"
 #include "Map.hh"
 
@@ -17,12 +18,12 @@ public:
 
   const std::string & getMessage() const;
   const Position    & getReceived() const;
-  const Position    & getFrom() const;
+  const std::vector<bool> & getDir() const;
 
 private:
-  Position    received_;
-  Position    from_;
-  std::string message_;
+  Position              received_;
+  std::vector<bool>     dir_;
+  std::string           message_;
 };
 
 #endif // MESSAGE_HH__
