@@ -11,6 +11,7 @@ function ImgLoader() {
 ImgLoader.prototype.load = function() {
 
 	[
+		'floor',
 	    'highlight',
 	    'player-north',
 	    'player-south',
@@ -30,8 +31,12 @@ ImgLoader.prototype.load = function() {
 	    'thystame_medium',
 	    'food_small',
 	    'food_medium',
-  	    'floor',
-	    'bubble_broadcast',
+  	    'bubble_fork',
+  	   	'bubble_broadcast',
+	    'bubble_drop',
+	    'bubble_get',
+	    'bubble_expulsion',
+	    'bubble_incantation',
 	    'undefined'
 	].forEach(function (name) {
 	    var img = new Image;

@@ -120,13 +120,16 @@ MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
 	var sprite = 0,
    		value = aCase.ressources_[0];
-   		
-   	for (var i = 0; i != aCase.ressources_.length; i++)
+   	   	
+   	for (var i = 1; i != aCase.ressources_.length; i++)
+   	{
    		if (aCase.ressources_[i] > value)
    		{
    			sprite = i;
    			value = aCase.ressources_[i];
    		}
+   	}
+   	
    	if (value != 0)
    		return ({name: this.ref[sprite], nb: value});
    	return ({name: null, nb: 0}); // empty !
