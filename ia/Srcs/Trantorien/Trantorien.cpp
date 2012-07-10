@@ -11,15 +11,15 @@ static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
-                       const std::string & scriptConf, const std::string & scriptCode)
-  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1)
+                       char *av[])
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av)
 {
   if (!network_)
     {
       //std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init(scriptConf, scriptCode);
+  init(av[1], av[2]);
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -44,7 +44,9 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAMissingToElevate", &Trantorien::missingToElevate);
   addInteraction("IALastMsg", &Trantorien::LastMsg);
   addInteraction("IAMessageInQueue", &Trantorien::messageInQueue);
-  addInteraction("IAreadLine", &Trantorien::readline);
+  addInteraction("IAreadLine", &Trantorien::readLine);
+  addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
+  addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -722,7 +724,42 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 
   int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
   {
-    lua_pushstring(vm.getLua(), this->getline());
+    lua_pushstring(vm.getLua(), this->getline().c_str());
     return 1;
   }
 
+int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  pid_t pid;
+  int nb = 0;
+  lua_State *state = vm.getLua();
+
+  if (lua_gettop(state) == 1 && lua_isnumber(state, 1))
+    nb = lua_tointeger(state, 1);
+  for (int i = 0; i < nb; ++i)
+    {
+      if ((pid = fork()) == -1)
+        abort();
+      if (pid == 0)
+        {
+          if (execvp(av_[0], av_) == -1)
+            abort();
+          exit(0);
+        }
+    }
+  return (0);
+}
+
+int Trantorien::canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  std::stringstream convert;
+  std::string ret;
+  int nbr;
+
+  this->cmd("connect_nbr");
+  convert <<  this->getline();
+  convert >> nbr;
+  lua_pushinteger(state, nbr);
+  return (1);
+}

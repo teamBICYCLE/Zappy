@@ -67,8 +67,9 @@ $(function() {
 	Mousetrap.bind('up up down down left right left right b a', function() {
 		if (!godMode)
 		{
+			godMode = true;
 	    	$(".cmd").addClass("cmd-god");
-	    	addMessage("You are now in God mode ! Try commands : gkp,gsi,gsc,glp");
+	    	addMessage("You are now in God mode ! Try commands : gkp, gsi, gsc, glp");
 	    	$(".topbar-menu-godmode").show();
 	    }
 	});
@@ -86,7 +87,9 @@ $(function() {
 	Mousetrap.bind('p', function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
@@ -97,18 +100,24 @@ $(function() {
 	Mousetrap.bind('t', function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".button-display").fadeOut(300);
+			$(".panel").show();
 			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").animate({marginRight: "500px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 		}
 	});
 	
 	$(".topbar-menu-players").click(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
@@ -119,7 +128,9 @@ $(function() {
 	$(".topbar-menu-settings").click(function() {
 		if ($(".settings").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".settings").fadeIn(300);
 		} else {
@@ -134,7 +145,9 @@ $(function() {
 	$(".topbar-menu-godmode").click(function() {
 		if ($(".godmode").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".godmode").fadeIn(300);
 		} else {
@@ -193,10 +206,14 @@ function initInventory() {
 		zIndex: 100,
 		start: function() {
 			src = $(this).parent();
+		},
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
 		}
 	};
 		
 	$("#inventory").draggable({
+		containment: "parent",
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
 		},
@@ -219,6 +236,8 @@ function initInventory() {
 							.css({"left": '',"opacity": '',"z-index": '',"top": ''})
 							.draggable(options)
 			);
+			
+			allowInventoryUpdate = true;
 		}
 	});
 	
@@ -238,6 +257,10 @@ function initItem(item) {
 		zIndex: 100,
 		start: function() {
 			src = $(this).parent();
+		},
+		drag: function(event, ui) {
+			allowInventoryUpdate = false;
+			console.log("AAAAAAAAAAAAAAAA");
 		}
 	};
 	
@@ -285,6 +308,7 @@ function updateInventoryContent(inventory, lastInventory) {
 	
 	change = inventorySetChange(inventory, lastInventory);
 	
+	if (allowInventoryUpdate) {
 	/* delete */
 	for (var i = 0; i != change.deleted.length; i++)
 			$("#inventory-containers .container #" + ref[change.deleted[i].id] + "-item").remove();
@@ -310,8 +334,9 @@ function updateInventoryContent(inventory, lastInventory) {
 				break;
 			}
 	}
-			
+	
 	initItem();
+	}
 }
 
 /* TEAMSTATS PANEL*/
@@ -355,11 +380,15 @@ function initTeamPanel() {
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".button-display").fadeOut(300);
+			$(".panel").show();
 			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").animate({marginRight: "500px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 		}
 	});	
 	
@@ -444,6 +473,7 @@ function updatePlayerList() {
 /* SETTING */
 
 function initSettings() {	
+	
 	$(".setting-showres-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
@@ -455,6 +485,7 @@ function initSettings() {
 			displayRessources = true;
 		}
 	});
+	
 	$(".setting-music-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
@@ -466,6 +497,7 @@ function initSettings() {
 			enableMusic = true;
 		}
 	});
+	
 	$(".setting-timer-value").html(100); /*Remplacer par timer_ */
 	$("#setting-timer-slider").val(100); /*Remplacer par timer_ */
 	

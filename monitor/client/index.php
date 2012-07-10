@@ -51,12 +51,10 @@
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
 		<div class="panel">
-			<div class="panel-container">
-				<div class="panel-topbar"></div>
-				<div class="panel-stats"></div>
-			</div>
-			<div class="btn-slide"></div>
+			<div class="panel-topbar"></div>
+			<div class="panel-stats"></div>
 		</div>
+		<div class="btn-slide"></div>
 		<div id="inventory">
 			<div id="inventory-header">
 				<div class="inventory-close"></div>

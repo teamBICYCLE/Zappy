@@ -1,12 +1,21 @@
 function checkCmd(cmd){
 	var explode = cmd.split(" ");
 	
-	if (explode[0] == "sst" && parseInt(explode[1]) < 1)
+	console.log(godMode);
+	if (!godMode && (explode[0] == "gkp" || explode[0] == "gsi" ||
+		explode[0] == "gsc" || explode[0] == "glp"))
+	{
+		console.log("yo");
+		displayError("Command not found");
+		return false;		
+	}
+	else if (explode[0] == "sst" && parseInt(explode[1]) < 1)
 	{
 		displayError("Error : sst second argument must be at least 1");
 		return false;
 	}
-	if (typeof(ref[explode[0]]) != "undefined" && explode.length == ref[explode[0]])
+	
+	if (typeof(ref[explode[0]]) != "undefined" && explode.length >= ref[explode[0]])
 		return true;
 	displayError("Command not found");
 	return false;
@@ -54,5 +63,8 @@ var ref = {
   "pin": 2,
   "sgt": 1,
   "sst": 2,
-  "help": 0
+  "gkp": 2,
+  "gsi": 9,
+  "gsc": 10,
+  "glp": 2
 };

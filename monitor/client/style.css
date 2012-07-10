@@ -330,17 +330,17 @@ i.leaf-icon {
 /* TEAM PANEL */
 
 .panel {
-	width: 520px;
+	display:none;
+	width: 500px;
 	margin-top: 80px;
 	margin-right:-500px;
-	/*float:right;*/
 	position: absolute;
 	right: 0;
 	z-index: 400;
 }
 
 .panel-container {
-	float:right;
+	/*float:right;*/
 }
 
 .panel-stats {
@@ -367,10 +367,11 @@ i.leaf-icon {
 	width: 20px;
 	height: 80px;
 	background: transparent url("img/panel-arrow.png") no-repeat top left;
-	margin-top: 290px;
-	float:left;
+	margin-top: 45%;
 	z-index: 410;
-	position: relative;
+	margin-right: 0px;
+	right: 0;
+	position: absolute;
 }
 
 .active {
