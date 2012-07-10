@@ -210,6 +210,7 @@ function initInventory() {
 	};
 		
 	$("#inventory").draggable({
+		containment: "parent",
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
 		},
