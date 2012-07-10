@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Mon Jul  9 17:36:13 2012 lois burg
+** Last update Tue Jul 10 12:44:36 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -86,8 +86,8 @@ static void	create_food(void)
   int		i;
   int		x;
   int		y;
-  static int	loops = 500;
-  int const	nb_food = MAX(g_info.map->x, g_info.map->y) / 3;
+  static int	loops = 1000;
+  int const	nb_food = MAX(g_info.map->x, g_info.map->y) / 4;
 
   if (loops == 0)
     {

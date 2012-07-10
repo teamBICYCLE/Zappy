@@ -31,6 +31,7 @@ ImgLoader.prototype.load = function() {
 	    'food_small',
 	    'food_medium',
   	    'floor',
+	    'bubble_broadcast',
 	    'undefined'
 	].forEach(function (name) {
 	    var img = new Image;

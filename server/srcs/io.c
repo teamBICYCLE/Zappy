@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Sat Jul  7 14:33:21 2012 lois burg
+** Last update Tue Jul 10 13:35:50 2012 lois burg
 */
 
 #include <stdio.h>
@@ -40,7 +40,7 @@ void		remove_user(t_users *u)
   t_link	*l;
   char		msg[LOG_MSG_SZ];
 
-  l = lookup_and_pop(g_info.users, &u->socket, &cmp_socket);
+  l = lookup_and_pop(g_info.users, &u->id, &cmp_id);
   if (u->first_message == false)
     {
       if (u->team && u->type == TPLAYER)
