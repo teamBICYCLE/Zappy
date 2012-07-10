@@ -213,6 +213,7 @@ void Trantorien::joinTeam(const std::string &teamName)
 
 void Trantorien::cmd(const std::string &command)
 {
+  network_.
   network_.cmd(command);
 }
 

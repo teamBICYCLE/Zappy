@@ -13,6 +13,8 @@
 #include "Ressources.hh"
 #include "Message.hh"
 
+const unsigned int BROADCAST_MAX_SIZE  = 10;
+
 class Trantorien : public FSM::VM<Trantorien> {
 
 public:
@@ -52,6 +54,7 @@ private:
   int          broadcast(LuaVirtualMachine::VirtualMachine & vm);
   int	       caseContent(LuaVirtualMachine::VirtualMachine &);
   int	       currentPosition(LuaVirtualMachine::VirtualMachine &);
+  int          currentDirection(LuaVirtualMachine::VirtualMachine &vm);
   int	       getInventoryValue(LuaVirtualMachine::VirtualMachine &);
   int	       expulse(LuaVirtualMachine::VirtualMachine &);
   int          goTo(LuaVirtualMachine::VirtualMachine &);
@@ -63,6 +66,7 @@ private:
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
   int           missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
   int           LastMsg(LuaVirtualMachine::VirtualMachine &vm);
+  int          messageInQueue(LuaVirtualMachine::VirtualMachine &vm);
 
 private:
   Inventory               inventory_;

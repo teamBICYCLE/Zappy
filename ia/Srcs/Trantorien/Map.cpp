@@ -126,6 +126,8 @@ void Map::avancer(void)
     case UserGlobal::OUEST :
       currentPos_.first =  updatePosition(currentPos_.first - 1, mapsize_.first);
       break;
+    default:
+      break;
     }
 }
 
@@ -172,6 +174,8 @@ void Map::formatValues(int &distance, int &incrStart)
     case UserGlobal::OUEST :
       distance = -savDistance;
       incrStart = savIncrStart;
+      break;
+    default:
       break;
     }
 }
@@ -335,10 +339,10 @@ Position Map::getClosestItem(Position pos, int object) const
       int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
       if (!player &&
-	  it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
-	player = true;
+          it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
+        player = true;
       else if ((tmpX + tmpY < tmp.first + tmp.second
-		     || (tmp.first == -1 && tmp.second == -1)))
+                     || (tmp.first == -1 && tmp.second == -1)))
         {
           tmp.first = tmpX;
           tmp.second = tmpY;
@@ -346,6 +350,7 @@ Position Map::getClosestItem(Position pos, int object) const
           res.second = (*it).second;
         }
     }
+  std::cout << "res: " << res.first << " " << res.second << std::endl;
   return (res);
 }
 
