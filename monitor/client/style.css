@@ -138,6 +138,12 @@ i.leaf-icon {
 	z-index: 5;	
 }
 
+#canvasContainer {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
 #caseContent {
 	height: 200px;
 	width: 150px;

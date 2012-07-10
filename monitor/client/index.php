@@ -28,11 +28,13 @@
 			<p>Your connection to the node server has been lost.</p>
 			<p>Don't panic, I try a reconnection :)</p>
 		</div>
-		<canvas id="cEvents"></canvas>
-		<canvas id="cPlayers"></canvas>
-		<canvas id="cRessources"></canvas>
-		<canvas id="cHighLight"></canvas>
-  		<canvas id="cMap"></canvas>
+		<div id="canvasContainer">
+			<canvas id="cEvents"></canvas>
+			<canvas id="cPlayers"></canvas>
+			<canvas id="cRessources"></canvas>
+			<canvas id="cHighLight"></canvas>
+	  		<canvas id="cMap"></canvas>
+	  	</div>
 		<div id="header">
 			<i class="zappy-logo"></i>
 			<i class="leaf-icon"></i>
