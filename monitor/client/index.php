@@ -96,10 +96,11 @@
 		</div>
 		<div class="player-list button-display">
 			<div class="player-list-topbar"></div>
-			<div class="player-list-container">
+			
 			<div class="labels">
 				<span class="label">ID</span><span class="label">Level</span><span class="label">Team</span>
 			</div>	
+			<div class="player-list-container">
 			<ul></ul>
 			</div>
 		</div>
