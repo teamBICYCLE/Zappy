@@ -74,8 +74,6 @@ function update() {
 		players = cache.getPlayers();
 		
 	client.getClientSocket().emit('cacheUpdate', {
-		xsize: cache.getXSize(), // WTF ??????????????????????????????????????? <-----
-		ysize: cache.getYSize(), // WTF ???????????????????????????????????????  <-----
 		changeMap: cache.getChangeMap(),
 		players: cache.getPlayers(),
 		eggs: cache.getEggs(),
@@ -91,7 +89,7 @@ function update() {
 		}
 	cache.cmdMessagesEmpty();
 	cache.changeMapEmpty();
-	//console.log("update at " + calcTimeOut(cache.getCurrentTimeUnit()) + " ms");
+	cache.updateBubbleAnimation();
 	setTimeout(update, calcTimeOut(cache.getCurrentTimeUnit()));
 }
 
@@ -141,5 +139,7 @@ function getCmd(cmd) {
 		zappy.getCache().setCurrentTimeUnit(explode[1]);
 		return "Server current time unit is now set at " + explode[1];
 	}
+	
+	// god cmd
 	return explode[0] + " : Command Error";
 }

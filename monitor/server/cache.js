@@ -268,3 +268,8 @@ exports.cmdMessagesEmpty = function() {
 exports.changeMapEmpty = function() {
 	changeMap_ = [];
 }
+
+exports.updateBubbleAnimation = function() {
+	for (var i = 0; i != players_.length; i++)
+		players_[i].bubbleAnimation();
+}

@@ -444,6 +444,7 @@ function updatePlayerList() {
 /* SETTING */
 
 function initSettings() {	
+	
 	$(".setting-showres-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
@@ -453,6 +454,7 @@ function initSettings() {
 			displayRessources = true;
 		}
 	});
+	
 	$(".setting-music-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
@@ -462,6 +464,7 @@ function initSettings() {
 			enableMusic = true;
 		}
 	});
+	
 	$(".setting-timer-value").html(100); /*Remplacer par timer_ */
 	$("#setting-timer-slider").val(100); /*Remplacer par timer_ */
 	
