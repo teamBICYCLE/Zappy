@@ -86,7 +86,9 @@ $(function() {
 	Mousetrap.bind('p', function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
@@ -97,18 +99,24 @@ $(function() {
 	Mousetrap.bind('t', function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".button-display").fadeOut(300);
+			$(".panel").show();
 			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").animate({marginRight: "500px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 		}
 	});
 	
 	$(".topbar-menu-players").click(function() {
 		if ($(".player-list").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".player-list").fadeIn(300);
 		} else {
@@ -119,7 +127,9 @@ $(function() {
 	$(".topbar-menu-settings").click(function() {
 		if ($(".settings").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".settings").fadeIn(300);
 		} else {
@@ -134,7 +144,9 @@ $(function() {
 	$(".topbar-menu-godmode").click(function() {
 		if ($(".godmode").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 			$(".button-display").fadeOut(300);
 			$(".godmode").fadeIn(300);
 		} else {
@@ -355,11 +367,15 @@ function initTeamPanel() {
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
 			$(".button-display").fadeOut(300);
+			$(".panel").show();
 			$(".panel").animate({marginRight: "0px"}, 200);
+			$(".btn-slide").animate({marginRight: "500px"}, 200);
 			$(".btn-slide").addClass("active");
 		} else {
 			$(".panel").animate({marginRight: "-500px"}, 200);
+			$(".btn-slide").animate({marginRight: "0px"}, 200);
 			$(".btn-slide").removeClass("active");
+			$(".panel").fadeOut(500);
 		}
 	});	
 	
