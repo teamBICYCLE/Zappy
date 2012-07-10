@@ -3,6 +3,21 @@
 var ZappyConnection = require('./zappyConnection.js');
 var ClientConnection = require('./clientConnection.js');
 
+var cmdPtr = {
+  "msz": {nb: 1, ptr: mszCmd},
+  "tna": {nb: 1, ptr: tnaCmd},
+  "bct": {nb: 3, ptr: bctCmd},
+  "ppo": {nb: 2, ptr: ppoCmd},
+  "plv": {nb: 2, ptr: plvCmd},
+  "pin": {nb: 2, ptr: pinCmd},
+  "sgt": {nb: 1, ptr: sgtCmd},
+  "sst": {nb: 2, ptr: sstCmd},
+  "gkp": {nb: 2, ptr: gkpCmd},
+  "gsi": {nb: 9, ptr: gsiCmd},
+  "gsc": {nb: 10, ptr: gscCmd},
+  "glp": {nb: 2, ptr: glpCmd}
+};
+
 if (process.argv.length >= 3)
 {
 	var ip = process.argv[2],
@@ -220,23 +235,8 @@ function getCmd(cmd) {
 	
 	var arg = cmd.split(" ");
 	
-	var ptr = {
-	  "msz": {nb: 1, ptr: mszCmd},
-	  "tna": {nb: 1, ptr: tnaCmd},
-	  "bct": {nb: 3, ptr: bctCmd},
-	  "ppo": {nb: 2, ptr: ppoCmd},
-	  "plv": {nb: 2, ptr: plvCmd},
-	  "pin": {nb: 2, ptr: pinCmd},
-	  "sgt": {nb: 1, ptr: sgtCmd},
-	  "sst": {nb: 2, ptr: sstCmd},
-	  "gkp": {nb: 2, ptr: gkpCmd},
-	  "gsi": {nb: 9, ptr: gsiCmd},
-	  "gsc": {nb: 10, ptr: gscCmd},
-	  "glp": {nb: 2, ptr: glpCmd}
-	};
-	
-	if (typeof(ptr[arg[0]]) != "undefined" && arg.length >= ptr[arg[0]].nb)
-		return ptr[arg[0]].ptr(arg);
+	if (typeof(cmdPtr[arg[0]]) != "undefined" && arg.length >= cmdPtr[arg[0]].nb)
+		return cmdPtr[arg[0]].ptr(arg);
 	else
 		return ("Undefined reference to command : " + arg[0] + " with " + (arg.length - 1) + " parameters");
 }
