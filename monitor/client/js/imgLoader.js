@@ -11,7 +11,6 @@ function ImgLoader() {
 ImgLoader.prototype.load = function() {
 
 	[
-	    'floor',
 	    'highlight',
 	    'player-north',
 	    'player-south',
@@ -31,18 +30,13 @@ ImgLoader.prototype.load = function() {
 	    'thystame_medium',
 	    'food_small',
 	    'food_medium',
+  	    'floor',
 	    'undefined'
 	].forEach(function (name) {
 	    var img = new Image;
 	    img.src = 'img/' + name + '.png';
 	    imgs_[name] = img;
 	});
-	
-	// for (var i = 0; typeof(this.imgs_[i]) != "undefined"; i++)
-		// $('<img/>')[0].src = "img/" + this.imgs_[i].name + ".png";
-		// //this.imgs_[i].img.src = "img/" + this.imgs_[i].name + ".png";
-	
-	//this.imgs_[999].img.src = "img/" + this.imgs_[999].name + ".png";
 }
 
 ImgLoader.prototype.get = function(name) {
