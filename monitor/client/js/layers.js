@@ -35,6 +35,11 @@ Layers.prototype.getTileSize = function() {
     return ({width: parseInt(this.tileWidth), height: parseInt(this.tileHeight)});	
 }
 
+Layers.prototype.getCenter = function() {
+	
+	return ({x: this.centerX, y: this.centerY});
+}
+
 /* SET */
 
 Layers.prototype.setMapSize = function(x, y) {
@@ -61,7 +66,17 @@ Layers.prototype.resetAndRedraw = function() {
 	zoom = 10;
 	this.tileWidth = 128;
 	this.tileHeight = 128;
-	$("#canvasContainer").offset({top: 0, left: 0});
+	//$("#canvasContainer").offset({top: 0, left: 0});
+	
+	this.clear("cHighLight");
+	this.clear("cMap");
+	if (playerFollowed == -1)
+		ressources_draw(this);
+	players_draw(this);
+	map_draw(this.mapWidth, this.mapHeight, this);
+}
+
+Layers.prototype.redraw = function() {
 	
 	this.clear("cHighLight");
 	this.clear("cMap");

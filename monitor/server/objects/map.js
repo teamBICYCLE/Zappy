@@ -56,7 +56,7 @@ Map.prototype.setCase = function(cache, x, y, ressources) {
 	
 	x = parseInt(x);
 	y = parseInt(y);
-	var target = parseInt(y * cache.getXSize()) + parseInt(x);
+	var target = y * cache.getXSize() + x;
 	
 	if (cache.getYSize() != 0 && cache.getXSize() != 0 &&
 		x < cache.getXSize() && y < cache.getYSize() && x >= 0 && y >= 0)

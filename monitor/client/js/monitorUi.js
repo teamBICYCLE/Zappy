@@ -112,35 +112,52 @@ $(function() {
 		}
 	});
 	
-	Mousetrap.bind('d', function() {
-		
-		var now = $("#canvasContainer").offset();
-		
-		$("#canvasContainer").offset({top: now.top, left: now.left - 20});
-	});
-	
 	Mousetrap.bind('a', function() {
 		
-		console.log("eeee");
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
+			size = layers.getMapSize();
 		
-		$("#canvasContainer").offset({top: now.top, left: now.left + 20});
+		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1)
+		{
+			layers.setCenter(now.x - 1, now.y + 1);
+			layers.redraw();
+		}
+	});
+	
+	Mousetrap.bind('d', function() {
+		
+		var now = layers.getCenter();
+			size = layers.getMapSize();
+		
+		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0)
+		{
+			layers.setCenter(now.x + 1, now.y - 1);
+			layers.redraw();
+		}
 	});
 	
 	Mousetrap.bind('w', function() {
 		
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
 		
-		$("#canvasContainer").offset({top: now.top + 20, left: now.left});
+		if (now.x - 1 >= 0 && now.y - 1 >= 0)
+		{
+			layers.setCenter(now.x - 1, now.y - 1);
+			layers.redraw();
+		}
 	});
 	
 	Mousetrap.bind('s', function() {
 		
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
+			size = layers.getMapSize();
 		
-		$("#canvasContainer").offset({top: now.top - 20, left: now.left});
+		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1)
+		{
+			layers.setCenter(now.x + 1, now.y + 1);
+			layers.redraw();
+		}
 	});
-	
 	
 	$(".topbar-menu-players").click(function() {
 		if ($(".player-list").css("display") == "none") {
