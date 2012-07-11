@@ -63,7 +63,7 @@ var ppoFct = function(arg, cache){
 
 var plvFct = function(arg, cache){
 	cache.getPlayer(arg[1]).setLevel(arg[2]);
-	cache.addMessage("Player " + arg[1] + " level'd up");
+	cache.addMessage("Player " + arg[1] + " level'd up.");
 }
 
 var pinFct = function(arg, cache){
@@ -88,7 +88,7 @@ var pexFct = function(arg, cache) {
 
 var pbcFct = function(arg, cache) {
 	cache.getPlayer(arg[1]).setPbc();
-	cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2]);
+	cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2] + ".");
 }
 
 var picFct = function(arg, cache) {
@@ -96,7 +96,7 @@ var picFct = function(arg, cache) {
 	for (var i = 4; i != arg.length; i++)
 	{
 		cache.getPlayer(arg[i]).setPic();
-		cache.addMessage("Player #" + arg[i] + " is starting a spell");
+		cache.addMessage("Player #" + arg[i] + " is starting an incantation.");
 	}
 }
 
@@ -123,13 +123,13 @@ var enwFct = function(arg, cache) {
 
 var ehtFct = function(arg, cache) {
 	cache.getEgg(arg[1]).setHatches(true);
-	cache.addMessage("An Egg has hatched");
+	cache.addMessage("An egg has hatched.");
 }
 
 var ediFct = function(arg, cache) {
 	cache.getEgg(arg[1]).setDead(true);
 	cache.removeEgg(arg[1]);
-	cache.addMessage("An Egg is died");
+	cache.addMessage("An egg has died.");
 }
 
 var smgFct = function(arg, cache) {
@@ -143,12 +143,12 @@ var smgFct = function(arg, cache) {
 
 var pieFct = function(arg, cache) {
 	
-	var msg = "A spell has ";
+	var msg = "An incantation has ";
 	
 	if (arg[3] == "1")
-		msg += " succeeded";
+		msg += " succeeded.";
 	else
-		msg += " failed";
+		msg += " failed.";
 		
 	msg += " (" + arg[1] + ", " + arg[2] + ")";
 		

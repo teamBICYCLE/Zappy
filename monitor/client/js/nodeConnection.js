@@ -18,13 +18,14 @@ var socket = io.connect('http://localhost', {
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
+		$('.case-content').fadeOut('fast');
 		$('#connectionError').animate({'top':'250px'}, 500);
 	});
 });
 
 socket.on("reconnect", function(){
 	$('#connectionError').animate({'top':'-210px'}, 500, function(){
-        $('#overlay').fadeOut('fast');
+			$('#overlay').fadeOut('fast');
     });
 });
 
