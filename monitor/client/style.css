@@ -235,6 +235,7 @@ i.leaf-icon {
 }
 
 #connectionError h1{
+	width: 570px;
 	font-size: 24px;
 	color: #111;
 	margin:-15px -20px 0px -20px;
