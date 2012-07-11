@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Mon Jul  9 17:53:53 2012 lois burg
+** Last update Wed Jul 11 15:25:05 2012 lois burg
 */
 
 #include <stdio.h>
@@ -13,6 +13,10 @@
 #include <sys/types.h>
 #include "diamond_generation.h"
 #include "map.h"
+
+double		g_max_res_case = 3;
+double		g_food_pctg = 40;
+double		g_stones_pctg = 10;
 
 static void	fill_map(t_map *map, t_dmap *dmap,
 			 const int elem, const int pctg)
@@ -27,7 +31,7 @@ static void	fill_map(t_map *map, t_dmap *dmap,
       while (x < map->x)
 	{
 	  if (dmap->map[y][x] <= pctg)
-	    map->cases[y][x].elements[elem] += (rand() % MAX_RES_CASE) + 1;
+	    map->cases[y][x].elements[elem] += (rand() % (int)g_max_res_case) + 1;
 	  ++x;
 	}
       ++y;
@@ -45,19 +49,19 @@ t_map		*generate_map(const int x, const int y, int seed)
     {
       prefill(map);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, FOOD, (FOOD_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, FOOD, (g_food_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, LINEMATE, (LINEMATE_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, LINEMATE, (g_stones_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, DERAUMERE, (DERAUMERE_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, DERAUMERE, (g_stones_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, SIBUR, (SIBUR_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, SIBUR, (g_stones_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, MENDIANE, (MENDIANE_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, MENDIANE, (g_stones_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, PHIRAS, (PHIRAS_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, PHIRAS, (g_stones_pctg * dmap->max_val) / 100.f);
       if ((dmap = compute_dmap(x, y, seed++)) != NULL)
-      	fill_map(map, dmap, THYSTAME, (THYSTAME_PCTG * dmap->max_val) / 100.f);
+      	fill_map(map, dmap, THYSTAME, (g_stones_pctg * dmap->max_val) / 100.f);
     }
   puts("Done!");
   return (map);

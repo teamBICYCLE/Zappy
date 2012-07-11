@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Wed Jul 11 11:02:12 2012 lois burg
+** Last update Wed Jul 11 16:14:53 2012 lois burg
 */
 
 #include <string.h>
@@ -99,6 +99,7 @@ static void	send_plyr_lvl(const int x, const int y, const int lvl)
 void	send_graphic_result(t_users *usr, const int success)
 {
   lookup(g_info.users, graphics_pie(usr->x, usr->y, success), &notify_graphic);
-  send_plyr_lvl(usr->x, usr->y, usr->lvl);
+  if (success == 1)
+    send_plyr_lvl(usr->x, usr->y, usr->lvl);
   send_world();
 }

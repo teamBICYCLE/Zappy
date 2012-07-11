@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:57:46 2012 lois burg
-** Last update Mon Jun 18 14:32:26 2012 lois burg
+** Last update Wed Jul 11 14:12:32 2012 lois burg
 */
 
 #include <string.h>
@@ -28,10 +28,14 @@ void		get_world_x(t_arg_infos *infos, char *argv[])
   long int	nb;
 
   (void)argv;
-  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) >= 4)
+  if (contains_only_digits(optarg))
+    nb = strtol(optarg, NULL, 10);
+  else
+    nb = 0;
+  if (nb >= 4 && nb <= 1000)
     infos->x = nb;
   else
-    invalid_param(infos, "-x: Invalid width. Must be >= 4.");
+    invalid_param(infos, "-x: Invalid width. Must be >= 4 and <= 1,000.");
 }
 
 void		get_world_y(t_arg_infos *infos, char *argv[])
@@ -39,10 +43,14 @@ void		get_world_y(t_arg_infos *infos, char *argv[])
   long int	nb;
 
   (void)argv;
-  if (contains_only_digits(optarg) && (nb = strtol(optarg, NULL, 10)) >= 4)
+  if (contains_only_digits(optarg))
+    nb = strtol(optarg, NULL, 10);
+  else
+    nb = 0;
+  if (nb >= 4 && nb <= 1000)
     infos->y = nb;
   else
-    invalid_param(infos, "-y: Invalid height. Must be >= 4.");
+    invalid_param(infos, "-y: Invalid height. Must be >= 4 and <= 1,000.");
 }
 
 void	get_teams_names(t_arg_infos *infos, char *argv[])

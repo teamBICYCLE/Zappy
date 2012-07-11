@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun  7 17:28:25 2012 lois burg
-** Last update Fri Jul  6 16:18:09 2012 lois burg
+** Last update Wed Jul 11 14:52:22 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -38,9 +38,12 @@ static void	set_fd(void *ptr)
   t_users	*user;
 
   user = ptr;
-  if (user->messages != NULL && user->messages->size > 0)
-    FD_SET(user->socket, &g_info.writefds);
-  FD_SET(user->socket, &g_info.readfds);
+  if (user->type != TEGG && user->type != TGHOST)
+    {
+      if (user->messages != NULL && user->messages->size > 0)
+	FD_SET(user->socket, &g_info.writefds);
+      FD_SET(user->socket, &g_info.readfds);
+    }
 }
 
 void	reset_fd(t_infos *info)
