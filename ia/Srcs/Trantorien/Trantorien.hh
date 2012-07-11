@@ -69,6 +69,7 @@ private:
   int          readLine(LuaVirtualMachine::VirtualMachine &vm);
   int	       canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm);
   int	       connectPlayer(LuaVirtualMachine::VirtualMachine &vm);
+  int	       lay(LuaVirtualMachine::VirtualMachine &vm);
 
 private:
   Inventory               inventory_;

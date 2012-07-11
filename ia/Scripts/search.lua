@@ -3,6 +3,8 @@
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MAP_SIZE = 20
+HAS_LAYED = false
+HAS_TO_CALL_PLAYER = false
 
 function this.meet(this)
    if this:IAMessageInQueue("level " .. this:IAGetLevel())
@@ -41,6 +43,17 @@ function this.go_dir(this)
 end
 
 function this.enought_food(this)
+   if (HAS_TO_CALL_PLAYER == true)
+   then
+      local nbslots = this:IACanConnectPlayer()
+      this:IAConnectPlayer(nbslots)
+   end
+   if (HAS_LAYED == false)
+   then
+      this:IALay()
+      HAS_LAYED = true
+      HAS_TO_CALL_PLAYER = true
+   end
    this:IAInventaire()
    if this:IAgetInventoyValue(NOURRITURE) > 30
    then return OK

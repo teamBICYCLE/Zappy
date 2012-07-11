@@ -47,6 +47,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAreadLine", &Trantorien::readLine);
   addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
   addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
+  addInteraction("IALay", &Trantorien::lay);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -86,9 +87,6 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   joinTeam("toto");
   this->getline();
   map_.setSize(this->getline());
-
-  this->cmd("fork");
-  this->getline();
 }
 
 Trantorien::~Trantorien()
@@ -743,7 +741,10 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
       if (pid == 0)
         {
           if (execvp(av_[0], av_) == -1)
-            abort();
+            {
+	      std::cout << "FAAAIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIL" << std::endl;
+	      abort();
+	    }
           exit(0);
         }
     }
@@ -761,5 +762,15 @@ int Trantorien::canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm)
   convert <<  this->getline();
   convert >> nbr;
   lua_pushinteger(state, nbr);
+  return (1);
+}
+
+int Trantorien::lay(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string ret;
+
+  this->cmd("fork");
+  ret = this->getline();
+  lua_pushstring(vm.getLua(), ret.c_str());
   return (1);
 }
