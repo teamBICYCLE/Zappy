@@ -469,14 +469,17 @@ function updateTeamPanel(prev, now) {
 
 function initPlayersList() {
 	var players = cache.getPlayers();
+	var txt = "Follow";
 
 	for (var i = 0; i < players.length; i++) {
+		txt = ((players[i].id_ == playerFollowed) ? "Unfollow" : "Follow");
 		$(".player-list-container ul").append("<li>" +
 								"<span class='player-id'>" + players[i].id_ + "</span>" +
 								"<span class='player-lvl'>" + players[i].level_ + "</span>" +
 								"<span class='player-team'>" + players[i].team_ + "</span>" +
-								"<span class='player-follow-button' style='margin-left:0;'>Follow</span>" +
-								"</li>");
+								"<span class='player-follow-button' style='margin-left:0;'>" + 
+								txt +	"</span></li>"
+								);
 	}
 	
 	$(".player-follow-button").click(function() {
