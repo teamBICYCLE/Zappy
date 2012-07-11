@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Mon Jul  9 14:31:19 2012 lois burg
+** Last update Wed Jul 11 11:02:12 2012 lois burg
 */
 
 #include <string.h>
@@ -19,11 +19,11 @@ extern t_infos	g_info;
 
 void	check_end_game(t_users *p)
 {
-  p->lvl = MAX_LVL;
+  /* p->lvl = MAX_LVL; */
   if (p->lvl == MAX_LVL)
     {
       ++p->team->nb_max_lvl;
-      p->team->nb_max_lvl = NB_PLYR_MAX_LVL;
+      /* p->team->nb_max_lvl = NB_PLYR_MAX_LVL; */
       if (p->team->nb_max_lvl == NB_PLYR_MAX_LVL)
 	{
 	  g_info.end_game = true;
