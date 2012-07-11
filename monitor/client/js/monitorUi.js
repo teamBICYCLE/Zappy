@@ -207,20 +207,18 @@ function displayCaseContent(mapPos, layer, canvas) {
 		$(".case-content").fadeIn(300);    
 }
 
-function fadeAndRemove() {
+function removeLine() {
 	
-	$("#cmdResult span:first-child").fadeOut(1000, function(){
-		$("#cmdResult span:first-child").remove();
-		if ($("#cmdResult .entry").length > 5)
-			fadeAndRemove();
-	})
+	$("#cmdResult span:first-child").remove();
+	if ($("#cmdResult .entry").length > 6)
+		removeLine();
 }
 
 function addMessage(msg) {
 	
 	$("#cmdResult").fadeIn(200);
-	if ($("#cmdResult .entry").length >= 5)
-		fadeAndRemove();
+	if ($("#cmdResult .entry").length >= 6)
+		removeLine();
 		
 	$("#cmdResult").append("<span class='entry'>"+ msg + "</span>");
 }

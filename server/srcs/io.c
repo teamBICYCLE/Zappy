@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jul 11 14:51:04 2012 lois burg
+** Last update Wed Jul 11 14:55:58 2012 Jonathan Machado
 */
 
 #include <stdio.h>
@@ -94,7 +94,7 @@ void		write_user(void *ptr)
 
   l = 0;
   user = ptr;
-  if (l != -1 && user->messages->size > 0 &&
+  if (user->type != TEGG && user->type != TGHOST && user->messages->size > 0 &&
       FD_ISSET(user->socket, &g_info.writefds))
     {
       str = user->messages->head->ptr;

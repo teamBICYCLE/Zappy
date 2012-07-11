@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Wed Jul 11 14:49:45 2012 lois burg
+** Last update Wed Jul 11 14:55:08 2012 Jonathan Machado
 */
 
 #include <stdlib.h>
@@ -106,7 +106,7 @@ static void	init_egg(t_users *egg, t_users *father)
   egg->x = father->x;
   egg->y = father->y;
   egg->tasks = new_list();
-  egg->messages = new_list();
+  egg->messages = NULL;
   egg->team = father->team;
   egg->inventory[FOOD] = 10;
   egg->life = egg->inventory[FOOD] * 126;
