@@ -95,6 +95,7 @@ function update() {
 		eggs: cache.getEggs(),
 		messages: cache.getCmdMessages(),
 		timestamp: new Date().getTime(),
+		currentTimeUnit: cache.getCurrentTimeUnit(),
 		endGame: cache.getEndGame()
 	});
 	
