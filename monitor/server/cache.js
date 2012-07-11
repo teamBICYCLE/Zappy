@@ -113,7 +113,7 @@ exports.removePlayer = function(argId) {
 		if (id == players_[i].getId())
 			players_.splice(i, 1);
 			
-	this.addMessage("Player " + id + " died");
+	this.addMessage("Player " + id + " died.");
 }
 
 exports.addEgg = function(id, x, y) {
