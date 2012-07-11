@@ -5,7 +5,8 @@
 var allowInventoryUpdate = true,
 	godMode = false,
 	displayRessources = true,
-	audio;
+	audio,
+	allowMousewheel = true;
 		
 $(function() {
 
@@ -41,7 +42,7 @@ $(function() {
 		
 		previousZoom = zoom;
 		
-		if (playerFollowed == -1)
+		if (playerFollowed == -1 && allowMousewheel)
 		{
 			if (delta > 0)
 			{
@@ -200,6 +201,22 @@ $(function() {
 		} else {
 			$(".godmode").fadeOut(300);
 		}
+	});
+	
+	$(".player-list-container").mouseenter(function(){
+		allowMousewheel = false;
+	});
+	
+	$(".player-list-container").mouseout(function(){
+		allowMousewheel = true;
+	});
+	
+	$(".panel").mouseenter(function(){
+		allowMousewheel = false;
+	});
+	
+	$(".panel").mouseout(function(){
+		allowMousewheel = true;
 	});
 	  
 });
