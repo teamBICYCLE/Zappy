@@ -61,6 +61,7 @@ Layers.prototype.resetAndRedraw = function() {
 	zoom = 10;
 	this.tileWidth = 128;
 	this.tileHeight = 128;
+	$("#canvasContainer").offset({top: 0, left: 0});
 	
 	this.clear("cHighLight");
 	this.clear("cMap");

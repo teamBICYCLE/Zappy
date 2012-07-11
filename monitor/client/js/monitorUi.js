@@ -4,8 +4,8 @@
 
 var allowInventoryUpdate = true,
 	godMode = false,
-	enableMusic = false,
-	displayRessources = true;
+	displayRessources = true,
+	audio; //= new Audio('http://vacances.partyfunbackstage.fr/Party_Fun_Vacances-Mico-DJ_Antoine-02-07-2012-21H_6H.mp3');
 	
 $(function() {
 
@@ -111,6 +111,36 @@ $(function() {
 			$(".panel").fadeOut(500);
 		}
 	});
+	
+	Mousetrap.bind('d', function() {
+		
+		var now = $("#canvasContainer").offset();
+		
+		$("#canvasContainer").offset({top: now.top, left: now.left - 20});
+	});
+	
+	Mousetrap.bind('a', function() {
+		
+		console.log("eeee");
+		var now = $("#canvasContainer").offset();
+		
+		$("#canvasContainer").offset({top: now.top, left: now.left + 20});
+	});
+	
+	Mousetrap.bind('w', function() {
+		
+		var now = $("#canvasContainer").offset();
+		
+		$("#canvasContainer").offset({top: now.top + 20, left: now.left});
+	});
+	
+	Mousetrap.bind('s', function() {
+		
+		var now = $("#canvasContainer").offset();
+		
+		$("#canvasContainer").offset({top: now.top - 20, left: now.left});
+	});
+	
 	
 	$(".topbar-menu-players").click(function() {
 		if ($(".player-list").css("display") == "none") {
@@ -484,17 +514,18 @@ function initSettings() {
 			$(this).addClass("setting-enabled");
 			displayRessources = true;
 		}
+		ressources_draw(layers);
 	});
 	
 	$(".setting-music-button").click(function() {
 		if ($(this).hasClass("setting-enabled") == true) {
 			$(this).removeClass("setting-enabled");
 			$(this).addClass("setting-disabled");
-			enableMusic = false;
+			audio.pause();
 		} else {
 			$(this).removeClass("setting-disabled");
 			$(this).addClass("setting-enabled");
-			enableMusic = true;
+			audio.play();
 		}
 	});
 	
