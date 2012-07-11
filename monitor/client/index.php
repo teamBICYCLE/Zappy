@@ -111,9 +111,9 @@
 			<div class="settings-container">
 				<h2>Settings</h2>
 				<span class="setting-showres-label setting-label">Display ressources:</span><span class="setting-showres-button setting-enabled"></span><br />
-				<span class="setting-music-label setting-label">Enable music:</span><span class="setting-music-button setting-disabled"></span><br /><br />
-				<span class="setting-timer-label setting-label">Set timer:</span><span class="setting-timer-value">1000</span><br />
-				<input id="setting-timer-slider" type="range" min="1" max="10000" step="99" />
+				<span class="setting-music-label setting-label">Turn up the music:</span><span class="setting-music-button setting-disabled"></span><br /><br />
+				<span class="setting-timer-label setting-label">Set time unit:</span><span class="setting-timer-value">1000</span><br />
+				<input id="setting-timer-slider" type="range" min="1" max="200" step="1" />
 			</div>
 		</div>
 		<div class="godmode button-display">
