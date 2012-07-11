@@ -8,6 +8,7 @@ function MonitorCache () {
 	this.teamsColor_ = new Array();
 	this.map_ = new Array();
 	this.players_ = new Array();
+	this.currentTimeUnit_ = 0;
 	//this.eggs_ = new Array();
 	
 	this.ref = {
@@ -62,6 +63,10 @@ MonitorCache.prototype.setPlayers = function(players) {
 				layers.resetAndRedraw();
 		}
 	}
+}
+
+MonitorCache.prototype.setCurrentTimeUnit = function(v) {
+	this.currentTimeUnit_ = parseInt(v);
 }
 
 /* GET */
@@ -233,4 +238,8 @@ MonitorCache.prototype.setInventoryChange = function(id, v, lastInventory) {
 		
 	this.getPlayer(id).inventoryChange_ = v;
 	this.getPlayer(id).lastInventory_ = lastInventory;
+}
+
+MonitorCache.prototype.getCurrentTimeUnit = function() {
+	return this.currentTimeUnit_;
 }

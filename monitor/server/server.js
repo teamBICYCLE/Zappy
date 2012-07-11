@@ -66,6 +66,7 @@ if (process.argv.length >= 3)
 				eggs: cache.getEggs(),
 				messages: cache.getCmdMessages(),
 				timestamp: new Date().getTime(),
+				currentTimeUnit: cache.getCurrentTimeUnit(),
 				endGame: cache.getEndGame()
 			});
 		});
