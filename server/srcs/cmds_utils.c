@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Mon Jul  9 13:38:05 2012 lois burg
+** Last update Wed Jul 11 16:10:28 2012 Jonathan Machado
 */
 
 #include <string.h>
@@ -67,7 +67,9 @@ bool	pretask_check(const char *cmd, t_users *u)
     {
       if (check_levelup(u))
 	{
-	  levelup_engaged(u->x, u->y, u->lvl);
+	  push_back(u->messages,
+		    new_link_by_param(LEVELUP_ENGAGED,
+				      sizeof(LEVELUP_ENGAGED) + 1));
 	  lookup(g_info.users, graphics_pic(u), &notify_graphic);
 	}
       else
