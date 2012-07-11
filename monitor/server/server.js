@@ -41,6 +41,7 @@ if (process.argv.length >= 3)
 	
 	zappy.on('cacheWhole', function(){
 		
+		//process.exit(0);
 		client = new ClientConnection(portClient);
 		
 		zappy.getCache().dump();
@@ -98,6 +99,8 @@ function update() {
 		currentTimeUnit: cache.getCurrentTimeUnit(),
 		endGame: cache.getEndGame()
 	});
+	
+	console.log(cache.getEggs());
 	
 	if (cache.getEndGame().state)
 		{

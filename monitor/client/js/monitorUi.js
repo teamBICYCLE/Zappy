@@ -212,13 +212,14 @@ $(function() {
 	});
 	
 	$(".panel").mouseenter(function(){
+		
 		allowMousewheel = false;
 	});
 	
 	$(".panel").mouseout(function(){
 		allowMousewheel = true;
 	});
-	  
+	
 });
 
 function displayError(msg) {

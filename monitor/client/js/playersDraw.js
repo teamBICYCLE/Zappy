@@ -34,6 +34,7 @@ function players_draw(layers) {
 	
     layers.clear("cPlayers");
 
+	eggs_draw(layers);
 	for (var i = 0; i != cache.getPlayers().length; i++)
 	{
 		var player = cache.getPlayers()[i];

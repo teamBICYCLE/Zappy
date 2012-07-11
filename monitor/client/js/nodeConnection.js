@@ -55,6 +55,7 @@ socket.on('firstConnection', function(data){
 		cache.setTeamsColor(data.teamsColor);
 		cache.setMap(data.map);
 		cache.setPlayers(setAllInventoryChange(data.players, true));
+		cache.setEggs(data.eggs);
 		cache.setCurrentTimeUnit(data.currentTimeUnit);
 		
 		for (var i = 0; i != data.messages.length; i++)
@@ -90,7 +91,6 @@ socket.on('cacheUpdate', function(data){
 		
 	$(".latency .lValue").text(latency);
 	
-	/* faudra seter eggs */
 	if (lastTimestamp != data.timestamp) {
 		
 		if (data.endGame.state)
@@ -101,6 +101,8 @@ socket.on('cacheUpdate', function(data){
 		
 		cache.updateMap(data.changeMap);
 		cache.setPlayers(data.players);
+		//console.log(data.eggs);
+		cache.setEggs(data.eggs);
 		cache.setCurrentTimeUnit(data.currentTimeUnit);
 
 		detectInventoryChange(prevPlayers);		
@@ -111,10 +113,8 @@ socket.on('cacheUpdate', function(data){
 		nowInfo = cache.getAllTeamInfo();
 		
 		if (data.changeMap.length > 0)
-		{
-			console.log("ressources draw ! node");
 			ressources_draw(layers);
-		}
+			
 		players_draw(layers);
 		update_inventory();
 		updateTeamPanel(prevInfo, nowInfo);

@@ -131,6 +131,7 @@
   	<script src="js/layers.js"></script>
 	<script src="js/mapDraw.js"></script>
 	<script src="js/ressourcesDraw.js"></script>
+	<script src="js/eggsDraw.js"></script>
 	<script src="js/playersDraw.js"></script>
 	<script src="js/highlightDraw.js"></script>
 	<script src="js/eventsHandler.js"></script>

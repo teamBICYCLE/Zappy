@@ -9,7 +9,7 @@ function MonitorCache () {
 	this.map_ = new Array();
 	this.players_ = new Array();
 	this.currentTimeUnit_ = 0;
-	//this.eggs_ = new Array();
+	this.eggs_ = new Array();
 	
 	this.ref = {
 		0: "food",
@@ -69,6 +69,10 @@ MonitorCache.prototype.setCurrentTimeUnit = function(v) {
 	this.currentTimeUnit_ = parseInt(v);
 }
 
+MonitorCache.prototype.setEggs = function(v) {
+	this.eggs_ = v;
+}
+
 /* GET */
 
 MonitorCache.prototype.getWidth = function() {
@@ -93,15 +97,15 @@ MonitorCache.prototype.updateMap = function(data) {
 	
 	for (var i = 0; i != data.length; i++)
 		{
-		    console.log("UPDATE MAP !");
+		    //console.log("UPDATE MAP !");
 		    x = parseInt(data[i].x_);
 		    y = parseInt(data[i].y_);
 		    target = (y * this.ysize_) + x;
 		    if (this.ysize_ != 0 && this.xsize_ != 0 &&
 			x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
-			this.map_[target] = data[i];
+				this.map_[target] = data[i];
 		    else
-			console.log("Something wrong in MonitorCache.updateMap()");
+				console.log("Something wrong in MonitorCache.updateMap()");
 		}
 }
 
@@ -242,4 +246,8 @@ MonitorCache.prototype.setInventoryChange = function(id, v, lastInventory) {
 
 MonitorCache.prototype.getCurrentTimeUnit = function() {
 	return this.currentTimeUnit_;
+}
+
+MonitorCache.prototype.getEggs = function() {
+	return this.eggs_;
 }
