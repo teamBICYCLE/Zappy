@@ -25,8 +25,8 @@
 		<div id="overlay" style="display:none;"></div>
 		<div id="connectionError">
 			<h1>Connection error<img src="img/ajax-loader.gif"/></h1>
-			<p>Your connection to the node server has been lost.</p>
-			<p>Don't panic, I try a reconnection :)</p>
+			<p class="error-line1">Your connection to the node server has been lost.</p>
+			<p class="error-line2">We're trying a reconnection, please wait.</p>
 		</div>
 		<div id="canvasContainer">
 			<canvas id="cEvents"></canvas>
