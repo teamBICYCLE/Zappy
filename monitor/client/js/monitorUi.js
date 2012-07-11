@@ -237,6 +237,9 @@ function initInventory() {
 		},
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
 		}
 	};
 		
@@ -288,7 +291,9 @@ function initItem(item) {
 		},
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
-			console.log("AAAAAAAAAAAAAAAA");
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
 		}
 	};
 	
