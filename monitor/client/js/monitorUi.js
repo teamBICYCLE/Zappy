@@ -391,7 +391,7 @@ function updateInventoryContent(inventory, lastInventory) {
 
 /* TEAMSTATS PANEL*/
 
-function addTeamsToPanel() {
+function addTeamsToPanel(open) {
 	var nbTeams = cache.getTeams().length;
 
 	for (var i = 1; i <= nbTeams; i++) {
@@ -418,14 +418,17 @@ function addTeamsToPanel() {
 			});
 		else
 			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									
+			
+		if (i == open)
+			$(".chart:last").show();
 	}
 }
 
-function initTeamPanel() {	
+function initTeamPanel(open) {	
 	
 	$(".panel-stats").children().remove();
 	
-	addTeamsToPanel();
+	addTeamsToPanel(open);
 	
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
@@ -476,8 +479,17 @@ function updateTeamPanel(prev, now) {
 	
 	if (detectTeamPanelChange(prev, now))
 		{
-			$(".panel-stats").children().remove();
-			initTeamPanel();
+			var open = -1;
+				i = 0;
+
+			$(".chart").each(function(index){
+			    if ($(this).css('display') != "none")
+					open = i + 1;
+					
+				i++;
+			});
+			
+			initTeamPanel(open);
 			updatePlayerList();
 		}	
 }
