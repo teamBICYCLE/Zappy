@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Fri Jul  6 14:49:36 2012 lois burg
+** Last update Wed Jul 11 15:10:49 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -15,11 +15,14 @@
 # include	<stdbool.h>
 # include	"libdatac_list.h"
 
+# define	CONF_FILE_LINES	3
 # define	MAX_FREQUENCY	100000
 
 typedef	struct	s_arg_func	t_arg_func;
 typedef	struct	s_arg_infos	t_arg_infos;
 typedef	struct	s_team		t_team;
+
+typedef	bool	(*confParamFct_t)(double val);
 
 struct	s_team
 {
@@ -61,6 +64,11 @@ void	get_action_delay(t_arg_infos *infos, char *argv[]);
 void	unknown_options(t_arg_infos *infos, char *argv[]);
 void	print_help(t_arg_infos *infos, char *argv[]);
 void	set_seed(t_arg_infos *infos, char *argv[]);
+void	read_conf(t_arg_infos *infos, char *argv[]);
+bool	set_max_res_case(double val);
+bool	set_food_pctg(double val);
+bool	set_stones_pctg(double val);
+
 
 /* TOOLS */
 bool	contains_only_digits(char *str);
