@@ -47,7 +47,7 @@
 		</div>
 	</div>
 		<div id="cmdResult"></div>
-		<div id="errorBox"><span class="errorText"></span></div>
+		<div id="errorBox"><img src="img/warning_icon.png" alt="error icon" style="float:left;"><span class="errorText"></span></div>
 		<div id="caseContent"><span class="contentText"></span></div>
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>

@@ -189,12 +189,14 @@ i.leaf-icon {
 }
 
 #errorBox {
-	height: 20px;
+	width: 250px;
+	height: 64px;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 	background-color: rgba(0, 0, 0, 0.7);
-	z-index: 6;
+	border: #000 solid 1px;
+	z-index: 999;
 	top: 50px;
 	position: relative;
 	float: right;
@@ -206,7 +208,6 @@ i.leaf-icon {
 #errorBox .errorText {
 	text-align: center;
 	color: #FFFFFF;
-	font-size: 18px;
 }
 
 .latency {
