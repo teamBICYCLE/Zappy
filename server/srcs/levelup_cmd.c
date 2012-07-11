@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Sat Jul  7 13:15:09 2012 lois burg
+** Last update Wed Jul 11 18:53:39 2012 lois burg
 */
 
 #include "log.h"
@@ -39,8 +39,11 @@ static bool	check_plyr_lvl(const int x, const int y, const int lvl)
       if ((plyr_lnk = get_link(g_info.users, i)))
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
-	  if (plyr->x == x && plyr->y == y && plyr->lvl != lvl)
-	    valid = false;
+	  if (plyr->type == TPLAYER || plyr->type == TFORMER_GHOST)
+	    {
+	      if (plyr->x == x && plyr->y == y && plyr->lvl != lvl)
+		valid = false;
+	    }
 	}
       ++i;
     }
@@ -60,7 +63,8 @@ static void	lvlup_plyr(const int x, const int y, const int lvl)
       if ((plyr_lnk = get_link(g_info.users, i)))
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
-	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
+	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl &&
+	      (plyr->type == TPLAYER || plyr->type == TFORMER_GHOST))
 	    {
 	      ++plyr->lvl;
 	      check_end_game(plyr);

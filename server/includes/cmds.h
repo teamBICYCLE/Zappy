@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 17:04:55 2012 lois burg
-** Last update Sat Jul  7 13:15:47 2012 lois burg
+** Last update Wed Jul 11 18:56:15 2012 lois burg
 */
 
 #ifndef		__CMDS_H__
@@ -57,7 +57,6 @@ void		greet_clnt(const t_users *usr, const int wx, const int wy);
 void		assign_pos(t_users *u, t_team *team);
 bool		check_levelup(t_users *summoner);
 bool		pretask_check(const char *cmd, t_users *u);
-void		levelup_engaged(const int x, const int y, const int lvl);
 void		check_end_game(t_users *p);
 
 /* SEE TOOLS */

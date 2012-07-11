@@ -5,8 +5,8 @@
 var socket = io.connect('http://localhost', {
 		port: $(".port").text(),
 		'reconnect': true,
-  		'reconnection delay': 1000,
-  		'max reconnection attempts': 15
+  		'reconnection delay': 100,
+  		'max reconnection attempts': 5
 	}),
 	lastTimestamp = 0,
 	layers,
@@ -18,10 +18,24 @@ var socket = io.connect('http://localhost', {
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
+		$(".error-line1").html("Your connection to the node server has been lost.");
+		$(".error-line2").html("We're trying a reconnection, please wait.");
 		$('.case-content').fadeOut('fast');
 		$('#connectionError').animate({'top':'250px'}, 500);
 	});
 });
+
+/*
+socket.on("connect_failed", function(){
+	
+	$('#overlay').fadeIn('fast', function(){
+		$(".error-line1").html("Cannot reach the node server.");
+		$(".error-line2").html("Please check the server's status.");
+		$('.case-content').fadeOut('fast');
+		$('#connectionError').animate({'top':'250px'}, 500);
+	});
+});
+*/
 
 socket.on("reconnect", function(){
 	$('#connectionError').animate({'top':'-210px'}, 500, function(){
@@ -30,7 +44,8 @@ socket.on("reconnect", function(){
 });
 
 socket.on("reconnect_failed", function(){
-	console.log("GROS FAIL DE RECONNECTION !!!");
+	$(".error-line1").html("Connection failure: Maximum attempts exceeded.");
+	$(".error-line2").html("Please try to restart the node server then refresh this page.");
 });
 
 socket.on('firstConnection', function(data){
