@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Mon Jul  9 11:27:01 2012 lois burg
+** Last update Wed Jul 11 14:49:45 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -87,18 +87,12 @@ static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
   (void)args;
   (void)orig_cmd;
   usr->type = TGHOST;
-  usr->readring = new_ringbuffer(4096);
-  if (usr->readring == NULL)
-    remove_user(usr);
-  else
-    {
-      usr->dir = rand() % (WEST + 1);
-      if (usr->team)
-	++usr->team->free_slots;
-      --g_info.map->cases[usr->y][usr->x].elements[EGG];
-      ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
-      lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
-    }
+  usr->dir = rand() % (WEST + 1);
+  if (usr->team)
+    ++usr->team->free_slots;
+  --g_info.map->cases[usr->y][usr->x].elements[EGG];
+  ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
+  lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
   return (IGNORE);
 }
 

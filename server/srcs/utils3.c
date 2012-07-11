@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 12:22:39 2012 lois burg
-** Last update Wed Jul  4 15:06:42 2012 lois burg
+** Last update Wed Jul 11 11:16:18 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -14,6 +14,7 @@
 #include "server.h"
 #include "protocol.h"
 #include "cmds.h"
+#include "graphics.h"
 
 extern t_infos	g_info;
 
@@ -73,9 +74,9 @@ void	loot_plyr(t_users *u)
 	  x = ((u->x + dx) + g_info.map->x) % g_info.map->x;
 	  y = ((u->y + dy) + g_info.map->y) % g_info.map->y;
 	  ++g_info.map->cases[y][x].elements[i];
+	  lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
 	  --u->inventory[i];
 	}
       ++i;
     }
-  send_world();
 }
