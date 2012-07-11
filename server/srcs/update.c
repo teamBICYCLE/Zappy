@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Tue Jul 10 12:44:36 2012 lois burg
+** Last update Wed Jul 11 11:01:51 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -17,6 +17,7 @@
 #include "graphics.h"
 #include "diamond_generation.h"
 
+int			g_food_to_restore = 0;
 extern t_infos		g_info;
 
 static	void	do_task(void *ptr)
@@ -83,27 +84,17 @@ static	void	decr_life(void *ptr)
 
 static void	create_food(void)
 {
-  int		i;
   int		x;
   int		y;
-  static int	loops = 1000;
-  int const	nb_food = MAX(g_info.map->x, g_info.map->y) / 4;
 
-  if (loops == 0)
+  while (g_food_to_restore > 0)
     {
-      i = 0;
-      while (i < nb_food)
-	{
-	  x = rand() % g_info.map->x;
-	  y = rand() % g_info.map->y;
-	  ++g_info.map->cases[y][x].elements[FOOD];
-	  lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
-	  ++i;
-	}
-      loops = 500;
+      x = rand() % g_info.map->x;
+      y = rand() % g_info.map->y;
+      ++g_info.map->cases[y][x].elements[FOOD];
+      lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
+      --g_food_to_restore;;
     }
-  else
-    --loops;
 }
 
 void	update_map(int const loop)

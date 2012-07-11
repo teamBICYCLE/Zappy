@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Wed Jul  4 17:20:16 2012 lois burg
+** Last update Wed Jul 11 10:57:41 2012 lois burg
 */
 
 #include <stdio.h>
@@ -14,6 +14,7 @@
 #include "server.h"
 #include "cmds.h"
 
+extern int		g_food_to_restore;
 extern char		*g_res_names[LAST];
 extern t_infos		g_info;
 static	t_dir_mov	g_dir_tab[4] =
@@ -100,7 +101,10 @@ t_cmd_ret	take_cmd(t_users *u, char **args, char *orig_cmd)
 	  ++u->inventory[i];
 	  --g_info.map->cases[u->y][u->x].elements[i];
 	  if (i == FOOD)
-	    u->life += 126;
+	    {
+	      u->life += 126;
+	      g_food_to_restore += 1;
+	    }
 	  lookup(g_info.users, graphics_pgt(u, i), &notify_graphic);
 	  lookup(g_info.users, graphics_pin(u), &notify_graphic);
 	  lookup(g_info.users, graphics_bct(u->x, u->y), &notify_graphic);

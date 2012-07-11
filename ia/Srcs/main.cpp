@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
   // LuaVirtualMachine::VirtualMachine *vm = LuaVirtualMachine::VirtualMachine::getVm();
 
   // joe.connect_player(*vm);
+std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LANCEMENT DU TRANTORIEN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
   if (argc > 2)
     {
       try
