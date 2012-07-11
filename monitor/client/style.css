@@ -201,7 +201,7 @@ i.leaf-icon {
 	position: relative;
 	float: right;
 	margin: 7px;
-	padding: 15px;
+	padding: 12px 0 12px 12px;
 	display: none;
 }
 
