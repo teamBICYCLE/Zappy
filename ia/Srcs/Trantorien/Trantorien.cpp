@@ -827,3 +827,17 @@ int Trantorien::lay(LuaVirtualMachine::VirtualMachine &vm)
   lua_pushstring(vm.getLua(), ret.c_str());
   return (1);
 }
+
+int Trantorien::countPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+
+  this->cmd("broadcast " + COUNT_PLAYER);
+  this->getline();
+  this->cmd(voir);
+  this->getline();
+  this->cmd(voir);
+  this->getline();
+  lua_pushinteger(state, nbMessageInQueue(COUNT_ME));
+  return (1);
+}
