@@ -739,16 +739,26 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 
   std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
                return msg.getMessage() == search;
-  });
+    });
   lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
   return 1;
-  }
+}
 
-  int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
-  {
-    lua_pushstring(vm.getLua(), this->getline().c_str());
+int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string search = lua_tostring(vm.getLua(), 1);
+  int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+      return msg.getMessage() == search;
+    });
+  lua_pushinteger(vm.getLua(), res);
+  return (1);
+}
+
+int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_pushstring(vm.getLua(), this->getline().c_str());
     return 1;
-  }
+}
 
 int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
