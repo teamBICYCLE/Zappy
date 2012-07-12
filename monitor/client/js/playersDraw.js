@@ -7,10 +7,11 @@ function draw_bubble(player, opacity) {
 	
 	var idx = 0,
 		min = player.animationLoop_[idx],
-		sprite = ['bubble_expulsion', 'bubble_broadcast', 'bubble_incantation', 'bubble_fork', 'bubble_drop', 'bubble_get'];
+		sprite = ['bubble_expulsion', 'bubble_broadcast', 'bubble_incantation', 'bubble_fork'];
 		
+	console.log(player.animationLoop_);
 	for (var i = 0; i != player.animationLoop_.length; i++)
-		if (player.animationLoop_[i] > min)
+		if (player.animationLoop_[i] < min)
 			{
 				min = player.animationLoop_[i];
 				idx = i;
@@ -35,6 +36,8 @@ function players_draw(layers) {
     }
 
 	var opacity;
+	
+	/* animation drop et get */
 	
     layers.clear("cPlayers");
 

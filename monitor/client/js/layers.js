@@ -128,7 +128,6 @@ Layers.prototype.padding = function(canvas) {
 				center = this.centerAt(pPos.x, pPos.y);
 				this.clear("cHighLight");
 				ressources_draw(this);
-				console.log("ressources draw layers");
 				map_draw(this.mapWidth, this.mapHeight, this);
 			}
 	}

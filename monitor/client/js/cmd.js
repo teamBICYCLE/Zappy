@@ -1,7 +1,6 @@
 function checkCmd(cmd){
 	var explode = cmd.split(" ");
 	
-	console.log(godMode);
 	if (!godMode && (explode[0] == "gkp" || explode[0] == "gsi" ||
 		explode[0] == "gsc" || explode[0] == "glp"))
 	{

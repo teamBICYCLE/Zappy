@@ -33,8 +33,6 @@ ImgLoader.prototype.load = function() {
 	    'food_medium',
   	    'bubble_fork',
   	   	'bubble_broadcast',
-	    'bubble_drop',
-	    'bubble_get',
 	    'bubble_expulsion',
 	    'bubble_incantation',
 	    'egg',

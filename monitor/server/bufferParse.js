@@ -116,7 +116,6 @@ var pbcFct = function(arg, cache) {
 			msg += arg[i] + " ";
 			
 		player.setPbc(msg);
-		cache.addMessage("Broadcast from player #" + arg[1] + " : " + msg);
 	}
 }
 

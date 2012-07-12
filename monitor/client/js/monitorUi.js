@@ -42,7 +42,6 @@ $(function() {
 		
 		previousZoom = zoom;
 		
-		console.log(allowMousewheel);
 		if (playerFollowed == -1 && allowMousewheel)
 		{
 			if (delta > 0)
@@ -223,7 +222,7 @@ $(function() {
 	);
 	
 	$(window).resize(function() {
-		console.log("wwwww");
+		layers.canvasHandler.resize();
 		layers.redraw();
 	});
 	

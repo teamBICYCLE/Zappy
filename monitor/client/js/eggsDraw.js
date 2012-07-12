@@ -5,7 +5,6 @@ function eggs_draw(layers) {
     	
 	for (var i = 0; i != eggs.length; i++)
 	{
-		console.log(eggs[i].hatches_, eggs[i].dead_);
 		if (eggs[i].hatches_)
 			sprite = "hatched_";
 		else if (eggs[i].dead_)

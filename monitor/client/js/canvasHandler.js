@@ -34,3 +34,16 @@ CanvasHandler.prototype.get = function(name) {
 	console.log(name);
 	displayError("Something wrong in CanvasHandler.get()");
 }
+
+CanvasHandler.prototype.resize = function() {
+	
+	for (var i = 0; typeof(this.list_[i]) != "undefined"; i++)
+	{
+		var node = document.getElementById(this.list_[i].name);
+		
+		node.width = window.innerWidth;
+		node.height = window.innerHeight;
+		this.list_[i].width = window.innerWidth;
+		this.list_[i].height = window.innerHeight;
+	}
+}
