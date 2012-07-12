@@ -21,6 +21,7 @@ function CanvasHandler() {
 		var node = document.getElementById(this.list_[i].name);
 		
 		this.list_[i].ctx = node.getContext("2d");
+		this.list_[i].ctx.font = "bold 28px Arial";
 		node.width = this.list_[i].width;
 		node.height = this.list_[i].height;
 	}

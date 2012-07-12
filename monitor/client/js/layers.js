@@ -173,3 +173,27 @@ Layers.prototype.clear = function(canvas) {
 	
 	c.ctx.clearRect(0, 0, c.width, c.height);
 }
+
+Layers.prototype.drawText = function(canvas, text, x, y, alpha)
+{
+	x = parseInt(x);
+	y = parseInt(y);
+	if (text.length > 10)
+		text = text.slice(0, 6) + " [...]";
+	var c = this.canvasHandler.get(canvas),
+		leftD = ((x - y) * this.tileWidth / 2),
+		topD = ((x + y) * this.tileHeight / 4);
+		
+	c.ctx.save();
+	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
+	if (alpha)
+		c.ctx.globalAlpha = 0.6;
+	
+	if (zoom != 10)
+		c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));
+
+	leftD += 96;
+	leftD += (((10 - text.length) * 3 > 0) ? ((10 - text.length) * 3) : (0));
+	c.ctx.fillText(text, leftD, topD + 24);
+	c.ctx.restore();
+}

@@ -1,12 +1,16 @@
 function eggs_draw(layers) {
     
-    var eggs = cache.getEggs();
+    var eggs = cache.getEggs(),
+    	sprite = "normal_";
+    	
 	for (var i = 0; i != eggs.length; i++)
 	{
 		console.log(eggs[i].hatches_, eggs[i].dead_);
-		// var player = cache.getPlayers()[i];
-// 			
-		// layers.draw("cPlayers", orientation[player.orientation_], player.posx_, player.posy_, opacity);
-		// draw_bubble(player, opacity);
+		if (eggs[i].hatches_)
+			sprite = "hatches_";
+		else if (eggs[i].dead_)
+			sprite = "dead_";
+			
+		layers.draw("cPlayers", (sprite + "egg"), eggs[i].posx_, eggs[i].posy_, false);
 	}
 }

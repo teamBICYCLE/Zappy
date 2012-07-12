@@ -18,6 +18,7 @@ var Player = function(arg, color) {
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
 	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
 		this.inventoryChange_ = false;
+		this.broadcast_ = "";
 		//piex pbc pic pfk pdr pgt
 	} 
 };
@@ -136,8 +137,9 @@ Player.prototype.setPex = function() {
 	this.animationLoop_[0] += 10;
 }
 
-Player.prototype.setPbc = function() {
+Player.prototype.setPbc = function(msg) {
 	this.animationLoop_[1] += 40;
+	this.broadcast_ = msg;
 }
 
 Player.prototype.setPic = function() {

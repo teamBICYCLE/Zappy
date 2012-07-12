@@ -101,11 +101,10 @@ socket.on('cacheUpdate', function(data){
 		
 		cache.updateMap(data.changeMap);
 		cache.setPlayers(data.players);
-		//console.log(data.eggs);
 		cache.setEggs(data.eggs);
 		cache.setCurrentTimeUnit(data.currentTimeUnit);
 
-		detectInventoryChange(prevPlayers);		
+		detectInventoryChange(prevPlayers);
 		
 		for (var i = 0; i != data.messages.length; i++)
 			addMessage(data.messages[i]);
