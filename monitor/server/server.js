@@ -99,9 +99,7 @@ function update() {
 		currentTimeUnit: cache.getCurrentTimeUnit(),
 		endGame: cache.getEndGame()
 	});
-	
-	console.log(cache.getEggs());
-	
+
 	if (cache.getEndGame().state)
 		{
 			zappy.getSocket().write("mct\n");
