@@ -5,7 +5,7 @@
 ** Login   <sylvia_r@epitech.net>
 **
 ** Started on  Tue Apr 17 17:22:39 2012 romain sylvian
-** Last update Fri Jul  6 16:03:33 2012 lois burg
+** Last update Thu Jul 12 15:59:41 2012 lois burg
 */
 
 #include <string.h>
@@ -53,8 +53,11 @@ int		read_data(int fd, t_ringbuffer *ring)
 	return (l);
     }
   else
-    if ((l = read(fd, garbage, sizeof(garbage))) <= 0)
-      return (l);
+    {
+      ring->data[ring->size - 2] = '\n';
+      if ((l = read(fd, garbage, sizeof(garbage))) <= 0)
+	return (l);
+    }
   offset = strchr(&ring->data[ring->end], '\0') - &ring->data[ring->end];
   if (offset + 1 > l)
     offset = l;

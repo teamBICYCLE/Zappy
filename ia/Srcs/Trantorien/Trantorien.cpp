@@ -52,6 +52,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
   addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   addInteraction("IALay", &Trantorien::lay);
+  addInteraction("IANbMsgInQueue", &Trantorien::nbMessageInQueue);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -757,7 +758,7 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
   return 1;
 }
 
-int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+int Trantorien::nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string search = lua_tostring(vm.getLua(), 1);
   int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
@@ -765,6 +766,14 @@ int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
     });
   lua_pushinteger(vm.getLua(), res);
   return (1);
+}
+
+int Trantorien::nbMessageInQueue(const std::string &search)
+{
+  int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+      return msg.getMessage() == search;
+    });
+  return (res);
 }
 
 int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
