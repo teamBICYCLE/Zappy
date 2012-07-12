@@ -741,10 +741,7 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
       if (pid == 0)
         {
           if (execvp(av_[0], av_) == -1)
-            {
-	      std::cout << "FAAAIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIL" << std::endl;
 	      abort();
-	    }
           exit(0);
         }
     }
