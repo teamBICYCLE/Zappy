@@ -3,22 +3,30 @@
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MAP_SIZE = 20
-HAS_LAYED = false
+MIN_FOOD = 5
+HAS_LAYED = true
 HAS_TO_CALL_PLAYER = false
 
+asdf = 0
 function this.meet(this)
    if this:IAMessageInQueue("level " .. this:IAGetLevel())
    then
       local dir, msg
-      ox, oy, dir, msg = this:IALastMsg()
+      ox, oy, dir, msg = this:IALastMsg("level " .. this:IAGetLevel())
       local cx, cy = this:IACurrentPosition()
-      if ox ~= cx and oy ~= cy
+      if ox ~= cx or oy ~= cy
       then
       	 this:IAVoir()
       	 return LOOP
       end
       gdir = dir
    else
+      asdf = asdf + 1
+      if (asdf % 15 == 0)
+      then
+	 asdf = 0
+	 return SEEK_FOOD
+      end
       this:IAVoir()
       return LOOP
    end
@@ -95,14 +103,8 @@ function AjustRock(count, type)
 end
 
 function this.elevate(this)
+   print("IN ELEVATE")
    this:IAVoir()
-   local n, l, d, s, m, p, t = this:IAMissingRockOnCase()
-   AjustRock(l, LINEMATE)
-   AjustRock(d, DERAUMERE)
-   AjustRock(s, SIBUR)
-   AjustRock(m, MENDIANE)
-   AjustRock(p, PHIRAS)
-   AjustRock(t, THYSTAME)
    this:IAElevate()
    return OK
 end
@@ -110,6 +112,8 @@ end
 function this.obj_sur_case(this)
    this:IAVoir()
    local r = {this:IACaseContent(this:IACurrentPosition())}
+   print ("UNPACKED:", unpack(r))
+   print (r[JOUEUR + 1])
    if r[obj + 1] > 0
    then return OK
    else return KO
@@ -178,10 +182,19 @@ end
 
 function this.enought_mates(this)
    this:IAVoir()
-   local r = {this:IAMissingRockOnCase()}
-   print (unpack(r))
-   if r[8] <= 0
-   then return OK
+   local n, l, d, s, m, p, t, j = this:IAMissingRockOnCase()
+   print ("ici que ca bug ?!", l,d,s,m,p,t)
+   AjustRock(l, LINEMATE)
+   AjustRock(d, DERAUMERE)
+   AjustRock(s, SIBUR)
+   AjustRock(m, MENDIANE)
+   AjustRock(p, PHIRAS)
+   AjustRock(t, THYSTAME)
+   if j <= 0
+   then
+      if (this:IAGetLevel() > 1) then
+      this:IABroadcast("level " .. this:IAGetLevel()) end
+      return OK
    else return KO
    end
 end
@@ -189,6 +202,9 @@ end
 function this.call_mates(this)
    if this:IAMessageInQueue("level " .. this:IAGetLevel())
    then return FRIEND
+   end
+   if this:IAgetInventoyValue(NOURRITURE) < MIN_FOOD
+   then return SEEK_FOOD
    end
    this:IABroadcast("level " .. this:IAGetLevel())
    return OK
