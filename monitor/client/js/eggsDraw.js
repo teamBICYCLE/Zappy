@@ -1,13 +1,13 @@
 function eggs_draw(layers) {
     
     var eggs = cache.getEggs(),
-    	sprite = "normal_";
+    	sprite = "";
     	
 	for (var i = 0; i != eggs.length; i++)
 	{
 		console.log(eggs[i].hatches_, eggs[i].dead_);
 		if (eggs[i].hatches_)
-			sprite = "hatches_";
+			sprite = "hatched_";
 		else if (eggs[i].dead_)
 			sprite = "dead_";
 			

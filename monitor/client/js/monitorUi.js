@@ -223,6 +223,7 @@ $(function() {
 	);
 	
 	$(window).resize(function() {
+		console.log("wwwww");
 		layers.redraw();
 	});
 	
