@@ -15,7 +15,8 @@ var cmdPtr = {
   "gkp": {nb: 2, ptr: gkpCmd},
   "gsi": {nb: 9, ptr: gsiCmd},
   "gsc": {nb: 10, ptr: gscCmd},
-  "glp": {nb: 2, ptr: glpCmd}
+  "glp": {nb: 2, ptr: glpCmd},
+  "msg": {nb: 2, ptr: msgCmd}
 };
 
 if (process.argv.length >= 3)
@@ -48,8 +49,17 @@ if (process.argv.length >= 3)
 	    console.log("=================");
 	  
 	  	client.on('requestData', function(obj){
+	  		
 	  		var data = getCmd(obj.cmd);
-			obj.socket.emit('requestDataDone', {data_: data, timestamp: new Date().getTime()});
+	  		
+	  		if (obj.cmd.split(" ")[0] == "msg")
+	  		{
+	  			obj.socket.broadcast.emit('requestDataDone', {data_: ("monitor #" + obj.socket.id.slice(0, 3)  + " : " + data), timestamp: new Date().getTime()});
+	  			obj.socket.emit('requestDataDone', {data_: ("[You] : " + data), timestamp: new Date().getTime()});
+	  		}	  
+	  		else
+				obj.socket.emit('requestDataDone', {data_: data, timestamp: new Date().getTime()});
+				
 		});
 		
 		client.on('firstConnection', function(obj){
@@ -232,6 +242,15 @@ function glpCmd(arg) {
 	}
 	else
 		return ("Glp Error : player doesn't exist !");
+}
+
+function msgCmd(arg) {
+	
+	arg = arg.reverse();
+	arg.pop();
+	arg.reverse();
+	arg = arg.join(" ");
+	return arg;	
 }
 
 function getCmd(cmd) {

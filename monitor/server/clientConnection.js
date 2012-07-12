@@ -28,13 +28,13 @@ var ClientConnection = function(port) {
 			self.emit('requestData', {socket: socket, cmd: obj.cmd});
 		});
 		
-		socket.on('requestDataBroadcast', function(obj) {
-			if (lastTimestamp != obj.timestamp)
-			{
-				self.emit('requestDataBroadcast', {socket: socket, cmd: obj.data});
-				lastTimestamp = obj.timestamp;
-			}
-		});
+		// socket.on('requestDataBroadcast', function(obj) {
+			// if (lastTimestamp != obj.timestamp)
+			// {
+				// self.emit('requestDataBroadcast', {socket: socket, cmd: obj.data});
+				// lastTimestamp = obj.timestamp;
+			// }
+		// });
 	        
 	  });
 	  
