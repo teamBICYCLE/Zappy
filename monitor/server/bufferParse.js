@@ -183,11 +183,19 @@ var ediFct = function(arg, cache) {
 	
 	if (egg != -1)
 	{
-		egg.getEgg(arg[1]).setDead(true);
-		egg.removeEgg(arg[1]);
+		egg.setDead(true);
+		cache.removeEgg(arg[1]);
 		cache.addMessage("An egg has died.");
 		console.log("An egg has died.");
 	}
+}
+
+var eboFct = function(arg, cache) {
+	
+	var egg = cache.getEgg(arg[1]);
+	
+	if (egg != -1)
+		cache.removeEgg(arg[1]);
 }
 
 var smgFct = function(arg, cache) {
@@ -237,6 +245,7 @@ var ptr = {
   "enw": {nb: 5, ptr: enwFct},
   "eht": {nb: 2, ptr: ehtFct},
   "edi": {nb: 2, ptr: ediFct},
+  "ebo": {nb: 2, ptr: eboFct},
   "sgt": {nb: 2, ptr: sgtFct},
   "smg": {nb: 2, ptr: smgFct},
   "seg": {nb: 2, ptr: segFct}
