@@ -42,6 +42,7 @@ $(function() {
 		
 		previousZoom = zoom;
 		
+		console.log(allowMousewheel);
 		if (playerFollowed == -1 && allowMousewheel)
 		{
 			if (delta > 0)
@@ -203,21 +204,26 @@ $(function() {
 		}
 	});
 	
-	$(".player-list-container").mouseenter(function(){
-		allowMousewheel = false;
-	});
+	$(".player-list-container").hover(
+		function () {
+			allowMousewheel = false;
+		}, 
+		function () {
+			allowMousewheel = true;
+		}
+	);
 	
-	$(".player-list-container").mouseout(function(){
-		allowMousewheel = true;
-	});
+	$(".panel").hover(
+		function () {
+			allowMousewheel = false;
+		}, 
+		function () {
+			allowMousewheel = true;
+		}
+	);
 	
-	$(".panel").mouseenter(function(){
-		
-		allowMousewheel = false;
-	});
-	
-	$(".panel").mouseout(function(){
-		allowMousewheel = true;
+	$(window).resize(function() {
+		layers.redraw();
 	});
 	
 });
