@@ -25,7 +25,7 @@ function this.meet(this)
       if (asdf % 15 == 0)
       then
 	 asdf = 0
-	 return SEEK_FOOD
+	 return SEEKFOOD
       end
       this:IAVoir()
       return LOOP
@@ -51,6 +51,7 @@ function this.go_dir(this)
 end
 
 function this.enought_food(this)
+   print("IN ENOUGHT FOOD")
    if (HAS_TO_CALL_PLAYER == true)
    then
       local nbslots = this:IACanConnectPlayer()
@@ -75,7 +76,6 @@ end
 
 function this.can_elevate(this)
    this:IAInventaire()
-   print(this:IAMissingRockInInventory())
    if (compareTables({this:IAMissingRockInInventory()}, {0, 0, 0, 0, 0, 0, 0}, infeq))
    then return OK
    else
@@ -203,8 +203,12 @@ function this.call_mates(this)
    if this:IAMessageInQueue("level " .. this:IAGetLevel())
    then return FRIEND
    end
+   this:IAInventaire()
+   print ("It should work, with ", MIN_FOOD)
    if this:IAgetInventoyValue(NOURRITURE) < MIN_FOOD
-   then return SEEK_FOOD
+   then
+      print ("he needs food", SEEKFOOD)
+      return SEEKFOOD
    end
    this:IABroadcast("level " .. this:IAGetLevel())
    return OK

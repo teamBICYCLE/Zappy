@@ -13,7 +13,7 @@
 #include "Ressources.hh"
 #include "Message.hh"
 
-const unsigned int BROADCAST_MAX_SIZE  = 10;
+const unsigned int BROADCAST_MAX_SIZE  = 1000;
 
 class Trantorien : public FSM::VM<Trantorien> {
 
@@ -70,7 +70,8 @@ private:
   int	       canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm);
   int	       connectPlayer(LuaVirtualMachine::VirtualMachine &vm);
   int	       lay(LuaVirtualMachine::VirtualMachine &vm);
-
+  int	       nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm);
+  int	       nbMessageInQueue(const std::string &);
 private:
   Inventory               inventory_;
   Network                 network_;

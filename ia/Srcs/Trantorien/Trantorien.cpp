@@ -5,11 +5,14 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include "Message.hh"
 
 static const std::string PLAYER_DEAD_STRING = "mort";
 static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 static const std::string NEW_LEVEL = "niveau actuel :";
+static const std::string COUNT_PLAYER = "Avengers, assembly !";
+static const std::string COUNT_ME = "Im spidey";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
                        char *av[])
@@ -49,6 +52,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IACanConnectPlayer", &Trantorien::canConnectPlayer);
   addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   addInteraction("IALay", &Trantorien::lay);
+  addInteraction("IANbMsgInQueue", &Trantorien::nbMessageInQueue);
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -218,7 +222,6 @@ void Trantorien::joinTeam(const std::string &teamName)
 
 void Trantorien::cmd(const std::string &command)
 {
-  std::cout << "CURRENT LVL: " << level_ << std::endl;
   network_.cmd(command);
 }
 
@@ -232,11 +235,22 @@ std::string Trantorien::getline()
     }
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
-      std::cout << "received broadcast: " << line << std::endl;
-      broadcastHistory_.push_back(Message(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize()));
-      while (broadcastHistory_.size() > BROADCAST_MAX_SIZE)
-        broadcastHistory_.pop_front();
-      line = this->getline();
+      Message   msg(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize());
+
+      std::cout << "received broadcast: " << msg.getMessage() << std::endl;
+      if (msg.getMessage() == COUNT_PLAYER)
+        {
+          line = this->getline();
+          this->cmd("broadcast " + COUNT_ME);
+          this->getline();
+        }
+      else
+        {
+          broadcastHistory_.push_back(msg);
+          while (broadcastHistory_.size() > BROADCAST_MAX_SIZE)
+            broadcastHistory_.pop_front();
+          line = this->getline();
+        }
     }
   else if (!line.compare(0, NEW_LEVEL.length(), NEW_LEVEL))
     {
@@ -744,7 +758,7 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
   return 1;
 }
 
-int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+int Trantorien::nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string search = lua_tostring(vm.getLua(), 1);
   int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
@@ -752,6 +766,14 @@ int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
     });
   lua_pushinteger(vm.getLua(), res);
   return (1);
+}
+
+int Trantorien::nbMessageInQueue(const std::string &search)
+{
+  int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+      return msg.getMessage() == search;
+    });
+  return (res);
 }
 
 int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
