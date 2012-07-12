@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Wed Jul 11 11:02:12 2012 lois burg
+** Last update Wed Jul 11 18:56:02 2012 lois burg
 */
 
 #include <string.h>
@@ -29,27 +29,6 @@ void	check_end_game(t_users *p)
 	  g_info.end_game = true;
 	  g_info.winner = p->team;
 	}
-    }
-}
-
-void		levelup_engaged(const int x, const int y, const int lvl)
-{
-  uint		i;
-  t_users	*plyr;
-  t_link	*plyr_lnk;
-
-  i = 0;
-  while (i < g_info.users->size)
-    {
-      if ((plyr_lnk = get_link(g_info.users, i)))
-	{
-	  plyr = (t_users*)plyr_lnk->ptr;
-	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
-	    push_back(plyr->messages,
-		      new_link_by_param(LEVELUP_ENGAGED,
-					sizeof(LEVELUP_ENGAGED) + 1));
-	}
-      ++i;
     }
 }
 
@@ -85,7 +64,8 @@ static void	send_plyr_lvl(const int x, const int y, const int lvl)
       if ((plyr_lnk = get_link(g_info.users, i)))
 	{
 	  plyr = (t_users*)plyr_lnk->ptr;
-	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl)
+	  if (plyr->x == x && plyr->y == y && plyr->lvl == lvl &&
+	      (plyr->type == TPLAYER || plyr->type == TFORMER_GHOST))
 	    {
 	      push_back(plyr->messages,
 			new_link_by_param(lvlup_msg, strlen(lvlup_msg) + 1));
@@ -99,6 +79,7 @@ static void	send_plyr_lvl(const int x, const int y, const int lvl)
 void	send_graphic_result(t_users *usr, const int success)
 {
   lookup(g_info.users, graphics_pie(usr->x, usr->y, success), &notify_graphic);
-  send_plyr_lvl(usr->x, usr->y, usr->lvl);
+  if (success == 1)
+    send_plyr_lvl(usr->x, usr->y, usr->lvl);
   send_world();
 }

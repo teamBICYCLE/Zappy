@@ -5,9 +5,10 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Fri Jun 29 16:11:47 2012 lois burg
+** Last update Wed Jul 11 15:20:07 2012 lois burg
 */
 
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -23,6 +24,7 @@ static	t_arg_func	g_arg_func_tab[] =
     {'t', &get_action_delay},
     {'h', &print_help},
     {'s', &set_seed},
+    {'f', &read_conf},
     {'?', &unknown_options},
     {-1, NULL}
   };
@@ -53,7 +55,7 @@ void	parse_args(int argc, char *argv[], t_arg_infos *infos)
   int	opt;
 
   init_args_infos(infos);
-  while ((opt = getopt(argc, argv, "p:x:y:n:c:t:s:h")) != -1)
+  while ((opt = getopt(argc, argv, "p:x:y:n:c:t:s:f:h")) != -1)
     {
       i = 0;
       while (g_arg_func_tab[i].arg != -1 && g_arg_func_tab[i].arg != opt)
@@ -61,4 +63,7 @@ void	parse_args(int argc, char *argv[], t_arg_infos *infos)
       if (g_arg_func_tab[i].fun)
 	(g_arg_func_tab[i].fun)(infos, argv);
     }
+  if (infos->x >= 300 || infos->y >= 300)
+    printf("\033[1;31m[WARNING] Our web based monitor doesn't support size "
+	   "superior to 300. It may be laggy (or very laggy).\033[0m\n");
 }

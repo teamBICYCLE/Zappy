@@ -24,9 +24,9 @@
 	<body>
 		<div id="overlay" style="display:none;"></div>
 		<div id="connectionError">
-			<h1>Connection error</h1>
-			<p>Your connection to the node server has been lost.</p>
-			<p>Don't panic, I try a reconnection :)</p>
+			<h1>Connection error<img src="img/ajax-loader.gif"/></h1>
+			<p class="error-line1">Your connection to the node server has been lost.</p>
+			<p class="error-line2">We're trying a reconnection, please wait.</p>
 		</div>
 		<div id="canvasContainer">
 			<canvas id="cEvents"></canvas>
@@ -48,7 +48,6 @@
 	</div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><img src="img/warning_icon.png" alt="error icon" style="float:left;"><span class="errorText"></span></div>
-		<div id="caseContent"><span class="contentText"></span></div>
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
@@ -111,9 +110,9 @@
 			<div class="settings-container">
 				<h2>Settings</h2>
 				<span class="setting-showres-label setting-label">Display ressources:</span><span class="setting-showres-button setting-enabled"></span><br />
-				<span class="setting-music-label setting-label">Enable music:</span><span class="setting-music-button setting-disabled"></span><br /><br />
-				<span class="setting-timer-label setting-label">Set timer:</span><span class="setting-timer-value">1000</span><br />
-				<input id="setting-timer-slider" type="range" min="1" max="10000" step="99" />
+				<span class="setting-music-label setting-label">Turn up the music:</span><span class="setting-music-button setting-disabled"></span><br /><br />
+				<span class="setting-timer-label setting-label">Set time unit:</span><span class="setting-timer-value">1000</span><br />
+				<input id="setting-timer-slider" type="range" min="1" max="200" step="1" />
 			</div>
 		</div>
 		<div class="godmode button-display">
@@ -132,6 +131,7 @@
   	<script src="js/layers.js"></script>
 	<script src="js/mapDraw.js"></script>
 	<script src="js/ressourcesDraw.js"></script>
+	<script src="js/eggsDraw.js"></script>
 	<script src="js/playersDraw.js"></script>
 	<script src="js/highlightDraw.js"></script>
 	<script src="js/eventsHandler.js"></script>

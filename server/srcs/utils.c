@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 20:10:30 2012 Jonathan Machado
-** Last update Wed Jul  4 17:34:59 2012 lois burg
+** Last update Thu Jul 12 11:31:26 2012 lois burg
 */
 
 #include <ctype.h>
@@ -37,6 +37,8 @@ bool	contains_only_digits(char *str)
 	good = false;
       ++i;
     }
+  if (!str || strlen(str) == 0)
+    good = false;
   return (good);
 }
 

@@ -17,7 +17,11 @@ function draw_bubble(player, opacity) {
 			}
 			
 	if (min > -1)
+	{
 		layers.draw("cPlayers", sprite[idx], player.posx_, player.posy_, opacity);
+		if (idx == 1) /* broadcast */
+			layers.drawText("cPlayers", player.broadcast_, player.posx_, player.posy_, opacity);
+	}
 }
 
 function players_draw(layers) {
@@ -34,6 +38,7 @@ function players_draw(layers) {
 	
     layers.clear("cPlayers");
 
+	eggs_draw(layers);
 	for (var i = 0; i != cache.getPlayers().length; i++)
 	{
 		var player = cache.getPlayers()[i];

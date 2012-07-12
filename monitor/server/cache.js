@@ -113,7 +113,7 @@ exports.removePlayer = function(argId) {
 		if (id == players_[i].getId())
 			players_.splice(i, 1);
 			
-	this.addMessage("Player " + id + " died");
+	this.addMessage("Player " + id + " died.");
 }
 
 exports.addEgg = function(id, x, y) {
@@ -203,17 +203,21 @@ exports.getFormatedMap = function() {
 
 exports.getPlayer = function(id) {
 	
-	//console.log(id);
 	id = parseInt(id.replace("#", ""));
 	
 	for (var i = 0; i != players_.length; i++)
 	{
-		//console.log(players_[i].getId());
 		if (players_[i].getId() == id)
 			return players_[i];
 	}
-			
+	
+	// for (var i = 0; i != players_.length; i++)
+		// console.log(players_[i].getId());
+		
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
+	return (-1);
+			
+	
 }
 
 exports.getEgg = function(id) {
@@ -225,6 +229,7 @@ exports.getEgg = function(id) {
 			return eggs_[i];
 			
 	console.log("Something wrong in Cache.getEgg() : undefined reference to id #" + id);
+	return (-1);
 }
 
 exports.getPlayers = function() {

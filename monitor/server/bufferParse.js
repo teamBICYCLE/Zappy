@@ -56,61 +56,105 @@ var enwFct = function(arg, cache){
 }
 
 var ppoFct = function(arg, cache){
-	cache.getPlayer(arg[1]).setPosX(arg[2]);
-	cache.getPlayer(arg[1]).setPosY(arg[3]);
-	cache.getPlayer(arg[1]).setOrientation(arg[4]);
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+	{
+		player.setPosX(arg[2]);
+		player.setPosY(arg[3]);
+		player.setOrientation(arg[4]);
+	}
 }
 
 var plvFct = function(arg, cache){
-	cache.getPlayer(arg[1]).setLevel(arg[2]);
-	cache.addMessage("Player " + arg[1] + " level'd up");
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+	{
+		player.setLevel(arg[2]);
+		cache.addMessage("Player " + arg[1] + " level'd up.");
+	}
 }
 
 var pinFct = function(arg, cache){
 	
 	var player = cache.getPlayer(arg[1]);
 	
-	player.setPosX(arg[2]);
-	player.setPosY(arg[3]);
-	
-	arg = arg.reverse();
-	arg.pop();
-	arg.pop();
-	arg.pop();
-	arg.pop();
-	arg = arg.reverse();
-	player.setInventory(arg);
+	if (player != -1)
+	{
+		player.setPosX(arg[2]);
+		player.setPosY(arg[3]);
+		
+		arg = arg.reverse();
+		arg.pop();
+		arg.pop();
+		arg.pop();
+		arg.pop();
+		arg = arg.reverse();
+		player.setInventory(arg);
+	}
 }
 
 var pexFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPex();
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+		player.setPex();
 }
 
 var pbcFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPbc();
-	cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2]);
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+	{
+		player.setPbc(arg[2]);
+		cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2] + ".");
+	}
 }
 
 var picFct = function(arg, cache) {
 	
 	for (var i = 4; i != arg.length; i++)
 	{
-		cache.getPlayer(arg[i]).setPic();
-		cache.addMessage("Player #" + arg[i] + " is starting a spell");
+		var player = cache.getPlayer(arg[i]);
+		
+		if (player != -1)
+		{
+			player.setPic();
+			cache.addMessage("Player #" + arg[i] + " is starting an incantation.");
+		}
 	}
 }
 
 var pfkFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPfk();
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+	{
+		player.setPfk();
+		cache.addMessage("Player #" + arg[1] + " has fork.");
+	}
 }
 
 var pdrFct = function(arg, cache) {
-	cache.getPlayer(arg[1]).setPdr();
+	
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+		player.setPdr();
 }
 
 var pgtFct = function(arg, cache) {
 	
-	cache.getPlayer(arg[1]).setPgt();
+	var player = cache.getPlayer(arg[1]);
+	
+	if (player != -1)
+		player.setPgt();
 }
 
 var pdiFct = function(arg, cache) {
@@ -122,14 +166,28 @@ var enwFct = function(arg, cache) {
 }
 
 var ehtFct = function(arg, cache) {
-	cache.getEgg(arg[1]).setHatches(true);
-	cache.addMessage("An Egg has hatched");
+	
+	var egg = cache.getEgg(arg[1]);
+	
+	if (egg != -1)
+	{
+		egg.setHatches(true);
+		cache.addMessage("An egg has hatched.");
+		console.log("An egg has hatched.");
+	}
 }
 
 var ediFct = function(arg, cache) {
-	cache.getEgg(arg[1]).setDead(true);
-	cache.removeEgg(arg[1]);
-	cache.addMessage("An Egg is died");
+	
+	var egg = cache.getEgg(arg[1]);
+	
+	if (egg != -1)
+	{
+		egg.getEgg(arg[1]).setDead(true);
+		egg.removeEgg(arg[1]);
+		cache.addMessage("An egg has died.");
+		console.log("An egg has died.");
+	}
 }
 
 var smgFct = function(arg, cache) {
@@ -143,12 +201,12 @@ var smgFct = function(arg, cache) {
 
 var pieFct = function(arg, cache) {
 	
-	var msg = "A spell has ";
+	var msg = "An incantation has ";
 	
 	if (arg[3] == "1")
-		msg += " succeeded";
+		msg += " succeeded.";
 	else
-		msg += " failed";
+		msg += " failed.";
 		
 	msg += " (" + arg[1] + ", " + arg[2] + ")";
 		

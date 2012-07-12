@@ -36,11 +36,11 @@ Egg.prototype.setPosY = function(v) {
 }
 
 Egg.prototype.setHatches = function(v) {
-	this.hatches = v;
+	this.hatches_ = v;
 }
 
 Egg.prototype.setDead = function(v) {
-	this.hatches = v;
+	this.dead_ = v;
 }
 
 Egg.prototype.getId = function() {
@@ -60,7 +60,7 @@ Egg.prototype.isHatches = function() {
 }
 
 Egg.prototype.isDead = function() {
-	return this.dead_;	
+	return this.dead_;
 }
 
 module.exports = Egg;

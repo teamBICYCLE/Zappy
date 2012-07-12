@@ -5,7 +5,8 @@
 var allowInventoryUpdate = true,
 	godMode = false,
 	displayRessources = true,
-	audio;
+	audio,
+	allowMousewheel = true;
 		
 $(function() {
 
@@ -41,7 +42,8 @@ $(function() {
 		
 		previousZoom = zoom;
 		
-		if (playerFollowed == -1)
+		console.log(allowMousewheel);
+		if (playerFollowed == -1 && allowMousewheel)
 		{
 			if (delta > 0)
 			{
@@ -112,35 +114,52 @@ $(function() {
 		}
 	});
 	
-	Mousetrap.bind('d', function() {
-		
-		var now = $("#canvasContainer").offset();
-		
-		$("#canvasContainer").offset({top: now.top, left: now.left - 20});
-	});
-	
 	Mousetrap.bind('a', function() {
 		
-		console.log("eeee");
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
+			size = layers.getMapSize();
 		
-		$("#canvasContainer").offset({top: now.top, left: now.left + 20});
+		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1)
+		{
+			layers.setCenter(now.x - 1, now.y + 1);
+			layers.redraw();
+		}
+	});
+	
+	Mousetrap.bind('d', function() {
+		
+		var now = layers.getCenter();
+			size = layers.getMapSize();
+		
+		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0)
+		{
+			layers.setCenter(now.x + 1, now.y - 1);
+			layers.redraw();
+		}
 	});
 	
 	Mousetrap.bind('w', function() {
 		
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
 		
-		$("#canvasContainer").offset({top: now.top + 20, left: now.left});
+		if (now.x - 1 >= 0 && now.y - 1 >= 0)
+		{
+			layers.setCenter(now.x - 1, now.y - 1);
+			layers.redraw();
+		}
 	});
 	
 	Mousetrap.bind('s', function() {
 		
-		var now = $("#canvasContainer").offset();
+		var now = layers.getCenter();
+			size = layers.getMapSize();
 		
-		$("#canvasContainer").offset({top: now.top - 20, left: now.left});
+		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1)
+		{
+			layers.setCenter(now.x + 1, now.y + 1);
+			layers.redraw();
+		}
 	});
-	
 	
 	$(".topbar-menu-players").click(function() {
 		if ($(".player-list").css("display") == "none") {
@@ -184,7 +203,29 @@ $(function() {
 			$(".godmode").fadeOut(300);
 		}
 	});
-	  
+	
+	$(".player-list-container").hover(
+		function () {
+			allowMousewheel = false;
+		}, 
+		function () {
+			allowMousewheel = true;
+		}
+	);
+	
+	$(".panel").hover(
+		function () {
+			allowMousewheel = false;
+		}, 
+		function () {
+			allowMousewheel = true;
+		}
+	);
+	
+	$(window).resize(function() {
+		layers.redraw();
+	});
+	
 });
 
 function displayError(msg) {
@@ -237,6 +278,9 @@ function initInventory() {
 		},
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
 		}
 	};
 		
@@ -288,7 +332,9 @@ function initItem(item) {
 		},
 		drag: function(event, ui) {
 			allowInventoryUpdate = false;
-			console.log("AAAAAAAAAAAAAAAA");
+		},
+		stop: function(event, ui) {
+			allowInventoryUpdate = true;
 		}
 	};
 	
@@ -369,7 +415,7 @@ function updateInventoryContent(inventory, lastInventory) {
 
 /* TEAMSTATS PANEL*/
 
-function addTeamsToPanel() {
+function addTeamsToPanel(open) {
 	var nbTeams = cache.getTeams().length;
 
 	for (var i = 1; i <= nbTeams; i++) {
@@ -396,14 +442,17 @@ function addTeamsToPanel() {
 			});
 		else
 			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									
+			
+		if (i == open)
+			$(".chart:last").show();
 	}
 }
 
-function initTeamPanel() {	
+function initTeamPanel(open) {	
 	
 	$(".panel-stats").children().remove();
 	
-	addTeamsToPanel();
+	addTeamsToPanel(open);
 	
 	$(".btn-slide").click(function() {
 		if ($(".panel").css("margin-right") == "-500px") {
@@ -454,8 +503,17 @@ function updateTeamPanel(prev, now) {
 	
 	if (detectTeamPanelChange(prev, now))
 		{
-			$(".panel-stats").children().remove();
-			initTeamPanel();
+			var open = -1;
+				i = 0;
+
+			$(".chart").each(function(index){
+			    if ($(this).css('display') != "none")
+					open = i + 1;
+					
+				i++;
+			});
+			
+			initTeamPanel(open);
 			updatePlayerList();
 		}	
 }
@@ -464,14 +522,17 @@ function updateTeamPanel(prev, now) {
 
 function initPlayersList() {
 	var players = cache.getPlayers();
+	var txt = "Follow";
 
 	for (var i = 0; i < players.length; i++) {
+		txt = ((players[i].id_ == playerFollowed) ? "Unfollow" : "Follow");
 		$(".player-list-container ul").append("<li>" +
 								"<span class='player-id'>" + players[i].id_ + "</span>" +
 								"<span class='player-lvl'>" + players[i].level_ + "</span>" +
 								"<span class='player-team'>" + players[i].team_ + "</span>" +
-								"<span class='player-follow-button' style='margin-left:0;'>Follow</span>" +
-								"</li>");
+								"<span class='player-follow-button' style='margin-left:0;'>" + 
+								txt +	"</span></li>"
+								);
 	}
 	
 	$(".player-follow-button").click(function() {
