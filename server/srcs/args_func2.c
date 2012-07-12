@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Wed Jul 11 16:12:44 2012 lois burg
+** Last update Thu Jul 12 14:49:38 2012 lois burg
 */
 
 #include <string.h>
@@ -13,11 +13,6 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "args.h"
-
-static confParamFct_t	g_set_conf_param[3] =
-  {
-    &set_max_res_case, &set_food_pctg, &set_stones_pctg
-  };
 
 void		get_action_delay(t_arg_infos *infos, char *argv[])
 {
@@ -75,40 +70,4 @@ void	set_seed(t_arg_infos *infos, char *argv[])
     }
   else
     invalid_param(infos, "-s: Invalid seed. Must be a numeric value.");
-}
-
-void		read_conf(t_arg_infos *infos, char *argv[])
-{
-  int		i;
-  FILE		*stream;
-  char		*line;
-  size_t	useless;
-  bool		ret;
-
-  (void)argv;
-  i = 0;
-  line = NULL;
-  if ((stream = fopen(optarg, "r")) != NULL)
-    while (infos->error == false && i < CONF_FILE_LINES &&
-	   getline(&line, &useless, stream) != -1)
-      {
-	ret = false;
-	if (line)
-	  line[strlen(line) - 1] = 0;
-	if (contains_only_digits(line))
-	  ret = (g_set_conf_param[i])(strtol(line, NULL, 10));
-	if (ret == false)
-	  {
-	    fprintf(stderr, "-f: Bad conf file (line %i).\n", i + 1);
-	    infos->error = true;
-	  }
-	free(line);
-	line = NULL;
-	++i;
-      }
-  else
-    {
-      fprintf(stderr, "-f: Failed to open %s.\n", optarg);
-      infos->error = true;
-    }
 }
