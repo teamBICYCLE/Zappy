@@ -233,6 +233,7 @@ std::string Trantorien::getline()
 
   if (line == PLAYER_DEAD_STRING)
     {
+      std::cerr << "MORT" << std::endl;
       abort();
     }
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
@@ -243,12 +244,12 @@ std::string Trantorien::getline()
 
       std::cout << "received broadcast: " << msg.getMessage() << std::endl;
       if (regex_search(msg.getMessage().begin(), msg.getMessage().end(),
-		       what, rgx, boost::match_default))
-	{
-	  line = this->getline();
-	  this->cmd("broadcast " + COUNT_ME + " " + what[1]);
-	  this->getline();
-	}
+                       what, rgx, boost::match_default))
+        {
+          line = this->getline();
+          this->cmd("broadcast " + COUNT_ME + " " + what[1]);
+          this->getline();
+        }
       else
         {
           broadcastHistory_.push_back(msg);
@@ -845,10 +846,11 @@ int Trantorien::countPlayer(LuaVirtualMachine::VirtualMachine &vm)
   broadcastHistory_.clear();
   this->cmd("broadcast " + COUNT_PLAYER + " " + pidstr);
   this->getline();
-  this->cmd("voir");
-  this->getline();
-  this->cmd("voir");
-  this->getline();
-  lua_pushinteger(state, nbMessageInQueue(COUNT_ME + " " + pidstr));
+  for (int i = 0; i < 2; ++i) {
+
+      this->cmd("voir");
+      this->getline();
+    }
+  lua_pushinteger(state, nbMessageInQueue(COUNT_ME + " " + pidstr) + 1);
   return (1);
 }
