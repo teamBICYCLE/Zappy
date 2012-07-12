@@ -37,6 +37,9 @@ ImgLoader.prototype.load = function() {
 	    'bubble_get',
 	    'bubble_expulsion',
 	    'bubble_incantation',
+	    'egg',
+	    'hatched_egg',
+	    'dead_egg',
 	    'undefined'
 	].forEach(function (name) {
 	    var img = new Image;

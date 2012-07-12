@@ -9,6 +9,7 @@
 static const std::string PLAYER_DEAD_STRING = "mort";
 static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
+static const std::string NEW_LEVEL = "niveau actuel :";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
                        char *av[])
@@ -87,6 +88,9 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   joinTeam("toto");
   this->getline();
   map_.setSize(this->getline());
+
+  this->cmd("fork");
+  this->getline();
 }
 
 Trantorien::~Trantorien()
@@ -214,6 +218,7 @@ void Trantorien::joinTeam(const std::string &teamName)
 
 void Trantorien::cmd(const std::string &command)
 {
+  std::cout << "CURRENT LVL: " << level_ << std::endl;
   network_.cmd(command);
 }
 
@@ -232,6 +237,11 @@ std::string Trantorien::getline()
       while (broadcastHistory_.size() > BROADCAST_MAX_SIZE)
         broadcastHistory_.pop_front();
       line = this->getline();
+    }
+  else if (!line.compare(0, NEW_LEVEL.length(), NEW_LEVEL))
+    {
+      std::cout << "level up" << std::endl;
+      ++level_;
     }
   return line;
 }
@@ -349,8 +359,14 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
     if ((ret = this->getline()) != "ko")
-      ++level_;
+      std::cout << "level up" << std::endl;
   lua_pushstring(vm.getLua(), ret.c_str());
+  this->cmd("voir");
+  ret = this->getline();
+  if (ret == "ko")
+    ret = this->getline();
+  if (ret != "ko")
+    map_.voir(ret);
   return 1;
 }
 
@@ -700,11 +716,19 @@ int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & ms
 int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
 {
   Message msg;
+  std::string str;
 
+  str = lua_tostring(vm.getLua(), 1);
   if (!broadcastHistory_.empty())
     {
-      msg = broadcastHistory_.back();
-      broadcastHistory_.clear();
+      std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(),
+                                                     broadcastHistory_.end(),
+                                                     [&str](const Message & item) -> bool {
+                                                     return item.getMessage() == str;
+    });
+  if (it != broadcastHistory_.end())
+    msg = *it;
+  broadcastHistory_.clear();
     }
   return listen(vm, msg);
 }
@@ -715,16 +739,26 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 
   std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
                return msg.getMessage() == search;
-  });
+    });
   lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
   return 1;
-  }
+}
 
-  int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
-  {
-    lua_pushstring(vm.getLua(), this->getline().c_str());
+int Trantorien::NbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
+{
+  std::string search = lua_tostring(vm.getLua(), 1);
+  int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+      return msg.getMessage() == search;
+    });
+  lua_pushinteger(vm.getLua(), res);
+  return (1);
+}
+
+int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_pushstring(vm.getLua(), this->getline().c_str());
     return 1;
-  }
+}
 
 int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
@@ -741,10 +775,7 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
       if (pid == 0)
         {
           if (execvp(av_[0], av_) == -1)
-            {
-	      std::cout << "FAAAIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIL" << std::endl;
-	      abort();
-	    }
+            abort();
           exit(0);
         }
     }
