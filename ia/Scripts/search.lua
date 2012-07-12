@@ -2,13 +2,17 @@
 
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
-MAP_SIZE = 20
-MIN_FOOD = 5
-HAS_LAYED = true
+MIN_FOOD = 8
+MAX_FOOD = 35
+HAS_LAYED = false
 HAS_TO_CALL_PLAYER = false
+NB_PLAYER_TO_CONNECT = 8
 
 asdf = 0
 function this.meet(this)
+   this:IAInventaire()
+   if (this:IAgetInventoyValue(NOURRITURE) < MIN_FOOD)
+   then return SEEKFOOD end
    if this:IAMessageInQueue("level " .. this:IAGetLevel())
    then
       local dir, msg
@@ -22,7 +26,7 @@ function this.meet(this)
       gdir = dir
    else
       asdf = asdf + 1
-      if (asdf % 15 == 0)
+      if (asdf % 5 == 0)
       then
 	 asdf = 0
 	 return SEEKFOOD
@@ -55,18 +59,26 @@ function this.enought_food(this)
    if (HAS_TO_CALL_PLAYER == true)
    then
       local nbslots = this:IACanConnectPlayer()
-      this:IAConnectPlayer(nbslots)
+      if nbslots > 0 then
+	 this:IAConnectPlayer(1)
+	 HAS_TO_CALL_PLAYER = false
+      end
    end
    if (HAS_LAYED == false)
    then
-      this:IALay()
+      local a = this:IACountPlayer()
+      print("THIS IS RESUUUUuLLLT ", a)
+      if (a + 1 < NB_PLAYER_TO_CONNECT)
+      then
+	 this:IALay()
+	 HAS_TO_CALL_PLAYER = true
+      end
       HAS_LAYED = true
-      HAS_TO_CALL_PLAYER = true
    end
    this:IAInventaire()
-   if this:IAgetInventoyValue(NOURRITURE) > 30
+   if this:IAgetInventoyValue(NOURRITURE) > MAX_FOOD
    then return OK
-   elseif this:IAMessageInQueue("level " .. this:IAGetLevel())
+   elseif this:IAMessageInQueue("level " .. this:IAGetLevel()) and this:IAgetInventoyValue(NOURRITURE) >= MIN_FOOD
    then return FRIEND
    else
       obj = NOURRITURE
@@ -150,17 +162,19 @@ function this.parcours_map(this)
    if not just_turned
    then
       local r = math.random(100)
-      if r < 13
+      if r < 20
       then
 	 this:IATourner(GAUCHE)
 	 just_turned = true
-      elseif r < 26
+      elseif r < 40
       then
 	 this:IATourner(DROITE)
 	 just_turned = true
       else this:IAAvance()
       end
-   else this:IAAvance()
+   else
+      this:IAAvance()
+      just_turned = false
    end
    return OK
 end
@@ -172,7 +186,7 @@ function this.can_wait_mates(this)
    then return OK
    end
    this:IAInventaire()
-   if this:IAgetInventoyValue(NOURRITURE) > MAP_SIZE
+   if this:IAgetInventoyValue(NOURRITURE) > MAX_FOOD
    then return OK
    else
       obj = NOURRITURE

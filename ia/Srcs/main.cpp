@@ -33,7 +33,7 @@ std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       }
       catch (std::exception &e)
       {
-        std::cout << "FATAL ERROR: " << e.what() << std::endl;
+        std::cerr << "FATAL ERROR: " << e.what() << std::endl;
       }
     }
   else

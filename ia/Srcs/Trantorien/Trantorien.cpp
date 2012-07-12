@@ -53,6 +53,8 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IAConnectPlayer", &Trantorien::connectPlayer);
   addInteraction("IALay", &Trantorien::lay);
   addInteraction("IANbMsgInQueue", &Trantorien::nbMessageInQueue);
+  addInteraction("IACountPlayer", &Trantorien::countPlayer);
+
   setValidityTest(&Trantorien::isValid);
 
   lua_State *state = getVM().getLua();
@@ -231,17 +233,21 @@ std::string Trantorien::getline()
 
   if (line == PLAYER_DEAD_STRING)
     {
+      std::cerr << "MORT" << std::endl;
       abort();
     }
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
       Message   msg(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize());
+      boost::regex	rgx(COUNT_PLAYER + " *([0-9]+)");
+      boost::match_results<std::string::const_iterator> what;
 
       std::cout << "received broadcast: " << msg.getMessage() << std::endl;
-      if (msg.getMessage() == COUNT_PLAYER)
+      if (regex_search(msg.getMessage().begin(), msg.getMessage().end(),
+                       what, rgx, boost::match_default))
         {
           line = this->getline();
-          this->cmd("broadcast " + COUNT_ME);
+          this->cmd("broadcast " + COUNT_ME + " " + what[1]);
           this->getline();
         }
       else
@@ -825,5 +831,26 @@ int Trantorien::lay(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("fork");
   ret = this->getline();
   lua_pushstring(vm.getLua(), ret.c_str());
+  return (1);
+}
+
+int Trantorien::countPlayer(LuaVirtualMachine::VirtualMachine &vm)
+{
+  lua_State *state = vm.getLua();
+  pid_t		pid = getpid();
+  std::stringstream	ss;
+  std::string		pidstr;
+
+  ss << pid;
+  ss >> pidstr;
+  broadcastHistory_.clear();
+  this->cmd("broadcast " + COUNT_PLAYER + " " + pidstr);
+  this->getline();
+  for (int i = 0; i < 2; ++i) {
+
+      this->cmd("voir");
+      this->getline();
+    }
+  lua_pushinteger(state, nbMessageInQueue(COUNT_ME + " " + pidstr) + 1);
   return (1);
 }

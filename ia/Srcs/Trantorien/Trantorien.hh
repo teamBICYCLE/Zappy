@@ -72,6 +72,7 @@ private:
   int	       lay(LuaVirtualMachine::VirtualMachine &vm);
   int	       nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm);
   int	       nbMessageInQueue(const std::string &);
+  int	       countPlayer(LuaVirtualMachine::VirtualMachine &vm);
 private:
   Inventory               inventory_;
   Network                 network_;
