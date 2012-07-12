@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:02:40 2012 lois burg
-** Last update Wed Jul  4 14:40:03 2012 lois burg
+** Last update Thu Jul 12 15:23:55 2012 lois burg
 */
 
 #include <string.h>
@@ -67,6 +67,8 @@ static void	send_players(t_users *usr)
 	    {
 	      if (plyr->type == TEGG)
 		msg = graphics_enw(plyr);
+	      else if (plyr->type == TGHOST)
+		msg = graphics_eht(plyr->id);
 	      else
 		msg = graphics_pnw(plyr);
 	      push_back(usr->messages, new_link_by_param(msg, strlen(msg) + 1));

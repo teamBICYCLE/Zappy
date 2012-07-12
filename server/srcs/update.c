@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Wed Jul 11 11:15:48 2012 lois burg
+** Last update Thu Jul 12 14:46:10 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -93,7 +93,7 @@ static void	create_food(void)
       y = rand() % g_info.map->y;
       ++g_info.map->cases[y][x].elements[FOOD];
       lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
-      --g_food_to_restore;;
+      --g_food_to_restore;
     }
 }
 
