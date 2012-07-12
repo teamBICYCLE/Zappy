@@ -45,10 +45,12 @@ enought_mates [OK]  -> elevate;
 
 call_mates [OK]  -> enought_mates;
 call_mates [FRIEND]  -> meet;
+call_mates [SEEK_FOOD]  -> enought_food;
 
 meet [OK] -> elevate;
 meet [KO] -> go_dir;
 meet [LOOP] -> meet;
+meet [SEEK_FOOD] -> enought_food;
 
 go_dir [OK] -> meet;
 
