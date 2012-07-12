@@ -23,19 +23,23 @@ if (process.argv.length >= 3)
 {
 	var ip = process.argv[2],
 		port = "4242",
-		buffer = '',
-		portClient = "24542";
+		buffer = '';
+		//portClient = "24542";
+		
+		ret = parseArg(portClient);
+		port = ret.ip;
+		portClient = ret.portClient;
 	
-	if (typeof(process.argv[4]) != "undefined")
-		portClient = process.argv[4];
-	
-	if (process.argv[3] == portClient)
-	{
-		console.log("This port is reserved for browser <-> node server connection.");
-		process.exit(0);
-	}
-	if (process.argv.length >= 4)
-		port = process.argv[3];
+	// if (typeof(process.argv[4]) != "undefined")
+		// portClient = process.argv[4];
+// 	
+	// if (process.argv[3] == portClient)
+	// {
+		// console.log("This port is reserved for browser <-> node server connection.");
+		// process.exit(0);
+	// }
+	// if (process.argv.length >= 4)
+		// port = process.argv[3];
 
 	var zappy = new ZappyConnection(ip, port),
 		client;
@@ -82,16 +86,12 @@ if (process.argv.length >= 3)
 			});
 		});
 		
-		// client.on('requestDataBroadcast', function(obj){
-			// obj.socket.emit('requestDataBroadcast', {data_: data, timestamp: new Date().getTime()});
-		// });
-		
 		update();
 	});
 }
 else
 {
-	console.log("Usage : ./node server.js ip [port]");
+	console.log("Usage : ./node server.js ip [port] [port]");
 	process.exit(0);
 }
 
@@ -125,6 +125,27 @@ function calcTimeOut(t) {
 	if ((1000 / t) > 50)
 		return (1000 / t);
 	return 50;
+}
+
+function parseArg(portClient) {
+	
+	var ret,
+		portClient = "24542";
+	
+	if (typeof(process.argv[4]) != "undefined")
+		portClient = process.argv[4];
+	
+	if (process.argv[3] == portClient)
+	{
+		console.log("This port is reserved for browser <-> node server connection.");
+		process.exit(0);
+	}
+	if (process.argv.length >= 4)
+		ret.port = process.argv[3];
+		
+	ret.portClient = portClient;
+	
+	return ret;
 }
 
 /* CMD */
