@@ -4,8 +4,9 @@ dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MAP_SIZE = 20
 MIN_FOOD = 5
-HAS_LAYED = true
+HAS_LAYED = false
 HAS_TO_CALL_PLAYER = false
+NB_PLAYER_TO_CONNECT = 8
 
 asdf = 0
 function this.meet(this)
@@ -55,13 +56,21 @@ function this.enought_food(this)
    if (HAS_TO_CALL_PLAYER == true)
    then
       local nbslots = this:IACanConnectPlayer()
-      this:IAConnectPlayer(nbslots)
+      if nbslots > 0 then
+	 this:IAConnectPlayer(1)
+	 HAS_TO_CALL_PLAYER = false
+      end
    end
    if (HAS_LAYED == false)
    then
-      this:IALay()
+      local a = this:IACountPlayer()
+      print("THIS IS RESUUUUuLLLT ", a)
+      if (a + 1 < NB_PLAYER_TO_CONNECT)
+      then
+	 this:IALay()
+	 HAS_TO_CALL_PLAYER = true
+      end
       HAS_LAYED = true
-      HAS_TO_CALL_PLAYER = true
    end
    this:IAInventaire()
    if this:IAgetInventoyValue(NOURRITURE) > 30
