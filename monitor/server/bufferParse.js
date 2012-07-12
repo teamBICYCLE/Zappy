@@ -108,11 +108,15 @@ var pexFct = function(arg, cache) {
 var pbcFct = function(arg, cache) {
 	
 	var player = cache.getPlayer(arg[1]);
+		msg = "";
 	
 	if (player != -1)
 	{
-		player.setPbc(arg[2]);
-		cache.addMessage("Broadcast from player #" + arg[1] + " : " + arg[2] + ".");
+		for (var i = 2; i != arg.length; i++)
+			msg += arg[i] + " ";
+			
+		player.setPbc(msg);
+		cache.addMessage("Broadcast from player #" + arg[1] + " : " + msg);
 	}
 }
 

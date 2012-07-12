@@ -193,7 +193,7 @@ Layers.prototype.drawText = function(canvas, text, x, y, alpha)
 		c.ctx.scale(zoom / (this.tilesSizeLevel.length - 1), zoom / (this.tilesSizeLevel.length - 1));
 
 	leftD += 96;
-	leftD += (((10 - text.length) * 3 > 0) ? ((10 - text.length) * 3) : (0));
+	leftD += (((10 - text.length) * 7 > 0) ? ((10 - text.length) * 7) : (0));
 	c.ctx.fillText(text, leftD, topD + 24);
 	c.ctx.restore();
 }
