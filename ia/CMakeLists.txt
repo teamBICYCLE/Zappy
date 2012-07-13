@@ -27,6 +27,7 @@ target_link_libraries(
     lua
     boost_system
     boost_regex
+    boost_program_options
     pthread
     dl
 )
