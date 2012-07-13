@@ -60,32 +60,6 @@ Layers.prototype.setCenter = function(x, y) {
 	this.centerY = y;
 }
 
-Layers.prototype.resetAndRedraw = function() {
-	this.centerX = (this.mapWidth / 2);
-	this.centerY = (this.mapHeight / 2);
-	zoom = 10;
-	this.tileWidth = 128;
-	this.tileHeight = 128;
-	//$("#canvasContainer").offset({top: 0, left: 0});
-	
-	this.clear("cHighLight");
-	this.clear("cMap");
-	if (playerFollowed == -1)
-		ressources_draw(this);
-	players_draw(this);
-	map_draw(this.mapWidth, this.mapHeight, this);
-}
-
-Layers.prototype.redraw = function() {
-	
-	this.clear("cHighLight");
-	this.clear("cMap");
-	if (playerFollowed == -1)
-		ressources_draw(this);
-	players_draw(this);
-	map_draw(this.mapWidth, this.mapHeight, this);
-}
-
 /* DRAWING */
 
 Layers.prototype.centerAt = function(x, y) {
@@ -131,8 +105,10 @@ Layers.prototype.padding = function(canvas) {
 				map_draw(this.mapWidth, this.mapHeight, this);
 			}
 	}
+	
+	off = (128 - this.tilesSizeLevel[zoom]) * (this.mapHeight / 4);
 		
-	return ({left: leftOffset + center.left , top: topOffset + center.top});
+	return ({left: leftOffset + center.left , top: topOffset + center.top + off});
 }
 
 Layers.prototype.draw = function(canvas, img, x, y, alpha) {
@@ -140,13 +116,10 @@ Layers.prototype.draw = function(canvas, img, x, y, alpha) {
 	x = parseInt(x);
 	y = parseInt(y);
 	var c = this.canvasHandler.get(canvas),
-		//leftD = this.padding(canvas).left + ((x - y) * this.tileWidth / 2),
-		//topD = this.padding(canvas).top + ((x + y) * this.tileHeight / 4);
 		leftD = ((x - y) * this.tileWidth / 2),
 		topD = ((x + y) * this.tileHeight / 4);
 
 	c.ctx.save();
-	//c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	c.ctx.translate(this.padding(canvas).left, this.padding(canvas).top);
 	if (alpha)
 		c.ctx.globalAlpha = 0.6;
@@ -164,6 +137,31 @@ Layers.prototype.drawFromPixel = function(canvas, img, x , y) {
 	var c = this.canvasHandler.get(canvas);
 	
 	c.ctx.drawImage(this.imgs.get(img), x, y);
+}
+
+Layers.prototype.resetAndRedraw = function() {
+	this.centerX = (this.mapWidth / 2);
+	this.centerY = (this.mapHeight / 2);
+	zoom = 10;
+	this.tileWidth = 128;
+	this.tileHeight = 128;
+	
+	this.clear("cHighLight");
+	this.clear("cMap");
+	if (playerFollowed == -1)
+		ressources_draw(this);
+	players_draw(this);
+	map_draw(this.mapWidth, this.mapHeight, this);
+}
+
+Layers.prototype.redraw = function() {
+	
+	this.clear("cHighLight");
+	this.clear("cMap");
+	if (playerFollowed == -1)
+		ressources_draw(this);
+	players_draw(this);
+	map_draw(this.mapWidth, this.mapHeight, this);
 }
 
 Layers.prototype.clear = function(canvas) {

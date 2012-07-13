@@ -13,14 +13,7 @@ function events_handler(layers) {
     		mapPos = realToMap(pos, layers, "cHighLight"),
     		players = cache.getPlayers();
     	$("#cHighLight").trigger('click', [mapPos]);
-    	
-    	// for (var i = 0; i != players.length; i++)
-    		// if (players[i].posx_ == mapPos.x && players[i].posy_ == mapPos.y)
-    		// {
-    			// showInventory(players[i].id_);
-    			// inventoryOpenId = players[i].id_;
-    			// updateInventoryContent(players[i].inventory_);
-    		// }	
+
 	});
 
     $("#cEvents").mousemove(function(e) {
@@ -35,11 +28,17 @@ function events_handler(layers) {
 function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
-	pos.y += (128 - layers.getTileSize().width); // pos max - pos.y
+	//pos.y += (128 - layers.getTileSize().width); // pos max - pos.y
+    // pos.x -= layers.padding(canvas).left;
+    // pos.y -= layers.padding(canvas).top;
+    // x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);
+    // y = (pos.y / (layers.getTileSize().height / 2)) - (pos.x / layers.getTileSize().width);
+    // return ({x: parseInt(x - 1), y: parseInt(y)});
+//     
     pos.x -= layers.padding(canvas).left;
     pos.y -= layers.padding(canvas).top;
-    x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);
-    y = (pos.y / (layers.getTileSize().height / 2)) - (pos.x / layers.getTileSize().width);
+    x = (pos.y / (layers.tilesSizeLevel[zoom] / 2)) + (pos.x / layers.tilesSizeLevel[zoom]);
+    y = (pos.y / (layers.tilesSizeLevel[zoom] / 2)) - (pos.x / layers.tilesSizeLevel[zoom]);
     return ({x: parseInt(x - 1), y: parseInt(y)});
 };
 	

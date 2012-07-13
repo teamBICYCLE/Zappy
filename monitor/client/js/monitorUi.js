@@ -44,12 +44,12 @@ $(function() {
 		
 		if (playerFollowed == -1 && allowMousewheel)
 		{
-			if (delta > 0)
+			if (delta > 0 && zoom != 10)
 			{
 				zoom = ((zoom == 10) ? (10) : (zoom + 1));
 				layers.setCenter(lastMapPos.x, lastMapPos.y);
 			}
-			else
+			else if (delta < 0)
 				zoom = ((zoom == 1) ? (1) : (zoom - 1));
 	
 			var tileSize = layers.getTileSize();
