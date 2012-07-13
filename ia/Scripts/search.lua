@@ -28,6 +28,8 @@ function this.meet(this)
       asdf = asdf + 1
       if (asdf % 5 == 0)
       then
+	 this:IATourner(GAUCHE, GAUCHE)
+	 this:IAAvance()
 	 asdf = 0
 	 return SEEKFOOD
       end
@@ -68,7 +70,7 @@ function this.enought_food(this)
    then
       local a = this:IACountPlayer()
       print("THIS IS RESUUUUuLLLT ", a)
-      if (a + 1 < NB_PLAYER_TO_CONNECT)
+      if (a < NB_PLAYER_TO_CONNECT)
       then
 	 this:IALay()
 	 HAS_TO_CALL_PLAYER = true
