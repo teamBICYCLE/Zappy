@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Fri Jul 13 15:18:37 2012 thibault carpentier
+// Last update Fri Jul 13 16:34:10 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -59,6 +59,7 @@ public:
   const Position &  getCurrentPos(void) const;
   const Position &  getSize(void) const;
   Position          getClosestItem(Position pos, int object) const;
+  std::vector<Position> getItemOnRange(Position pos, int object, int range);
   UserGlobal::Direction getDirection(void) const;
   void  poser(int object);
   void  prendre(int object);

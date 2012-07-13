@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jul 13 11:39:41 2012 thibault carpentier
-// Last update Fri Jul 13 15:20:39 2012 thibault carpentier
+// Last update Fri Jul 13 17:00:46 2012 thibault carpentier
 //
 
 #include "Trantorien.hh"
@@ -62,6 +62,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IALay", &Trantorien::lay);
   addInteraction("IANbMsgInQueue", &Trantorien::nbMessageInQueue);
   addInteraction("IACountPlayer", &Trantorien::countPlayer);
+  addInteraction("IAGetItemWithLength", &Trantorien::getItemWithLength);
 
   setValidityTest(&Trantorien::isValid);
 
@@ -671,6 +672,38 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                         return (result);
                                                       }));
 }
+
+
+int Trantorien::getItemWithLength(LuaVirtualMachine::VirtualMachine &vm)
+{
+  if (lua_gettop(vm.getLua()) == 2 && lua_isnumber(vm.getLua(), 1) && lua_isnumber(vm.getLua(), 2))
+    {
+      int object = lua_tonumber(vm.getLua(), 1);
+      int range =  lua_tonumber(vm.getLua(), 2);
+      std::pair<int, int> position = map_.getCurrentPos();
+      std::vector<std::pair<int, int> >res = map_.getItemOnRange(position, object, range);
+
+      std::default_random_engine generator;
+      std::uniform_int_distribution<int> distribution(0, res.size());
+      int pos = distribution(generator);
+
+      if (res.size() != 0)
+	{
+	  lua_pushnumber(vm.getLua(), res[pos].first);
+	  lua_pushnumber(vm.getLua(), res[pos].second);
+	}
+      else
+	{
+	  lua_pushnumber(vm.getLua(), -1);
+	  lua_pushnumber(vm.getLua(), -1);
+	}
+      return (2);
+    }
+  else
+    throw TrantorienFailure("Tratorien getItemWitchLength",
+			    "Invalid parameter : (int, int getItemWithLength(int object, int range))");
+}
+
 
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
 {

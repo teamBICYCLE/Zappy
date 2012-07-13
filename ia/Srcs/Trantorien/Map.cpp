@@ -5,11 +5,12 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Fri Jul 13 15:18:28 2012 thibault carpentier
+// Last update Fri Jul 13 16:53:28 2012 thibault carpentier
 //
 
 #include <sstream>
 #include <boost/regex.hpp>
+#include <utility>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
 #include "Ressources.hh"
@@ -355,4 +356,25 @@ void Map::prendre(int object)
 void Map::poser(int object)
 {
   items_[object].push_back(currentPos_);
+}
+
+std::vector<Position> Map::getItemOnRange(Position pos, int object, int range)
+{
+  std::vector<Position> result;
+  bool player = false;
+
+  if (object != UserGlobal::JOUEUR)
+    player = true;
+  for (std::vector<Position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+    {
+      int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
+      int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
+
+      if (!player &&
+          it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
+        player = true;
+      else if (tmpX + tmpY == range)
+	  result.push_back(std::make_pair((*it).first, (*it).second));
+    }
+  return (result);
 }
