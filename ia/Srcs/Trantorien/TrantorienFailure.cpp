@@ -5,14 +5,15 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat Jun 23 14:35:32 2012 thibault carpentier
-// Last update Sat Jun 23 15:38:38 2012 thibault carpentier
+// Last update Fri Jul 13 12:28:09 2012 thibault carpentier
 //
 
 #include "TrantorienFailure.hh"
 
 TrantorienFailure::TrantorienFailure(const std::string& func, const std::string& msg) throw()
-  : std::runtime_error(msg), mFunc_(func), mMsg_(msg)
-{}
+  : std::runtime_error(msg), mFunc_(func), mMsg_(msg), what_("Trantorien : " + mFunc_ + " failed - " + mMsg_)
+{
+}
 
 TrantorienFailure::~TrantorienFailure() throw()
 {}
@@ -43,5 +44,5 @@ std::string     TrantorienFailure::getMsg(void) const throw()
 
 const char      *TrantorienFailure::what(void) const throw()
 {
-  return (("Trantorien : " + mFunc_ + " failed - " + mMsg_).c_str());
+  return (what_.c_str());
 }

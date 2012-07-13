@@ -1,4 +1,12 @@
-// Trantorien.hh
+//
+// Trantorien.hh for  in /home/carpen_t/projets/syst_Unix/Zappy/ia
+//
+// Made by thibault carpentier
+// Login   <carpen_t@epitech.net>
+//
+// Started on  Fri Jul 13 11:39:37 2012 thibault carpentier
+// Last update Fri Jul 13 16:31:14 2012 thibault carpentier
+//
 
 #ifndef _TRANTORIEN_HH_
 #define _TRANTORIEN_HH_
@@ -12,6 +20,29 @@
 #include "Map.hh"
 #include "Ressources.hh"
 #include "Message.hh"
+
+
+/*! \mainpage Classe API Lua-C++ Documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * This documentation will help non-developpers or developpers to implements new Artificial Intelligence
+ * on the Zappy.
+ *
+ * \section install_sec Mini tutorial :
+ * Launch galaxy and draw your finite State Machine with the soft. Once done, generate the conf file and export it on light Esterel format (.le) <br/> Done forget that the first state drawed is the first state called.
+<br/> Once done, open a lua file and develop function for each state in lua. this:nodename(this). Once done, launch and Enjoy !
+ *
+ * \subsection running Running the program
+ *
+ * \section copyright Copyright and License
+ *
+ *  Copyright 2012, all rights reserved, TeamBicycle.
+ *
+ * <BR><BR>
+ *
+ */
+
 
 const unsigned int BROADCAST_MAX_SIZE  = 1000;
 
@@ -63,6 +94,7 @@ private:
   int          missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm);
   int	       missingRockInInventory(LuaVirtualMachine::VirtualMachine &);
   int	       getClosestItem(LuaVirtualMachine::VirtualMachine &);
+  int	       getItemWithLength(LuaVirtualMachine::VirtualMachine &vm);
   int	       changeFrame(LuaVirtualMachine::VirtualMachine &vm);
   int          missingToElevate(LuaVirtualMachine::VirtualMachine &vm);
   int          LastMsg(LuaVirtualMachine::VirtualMachine &vm);

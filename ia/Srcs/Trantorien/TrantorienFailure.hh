@@ -5,11 +5,11 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat Jun 23 14:35:31 2012 thibault carpentier
-// Last update Sat Jun 23 14:38:27 2012 thibault carpentier
+// Last update Fri Jul 13 12:37:17 2012 thibault carpentier
 //
 
-#ifndef _FAILLURE_H_
-# define _FAILLURE_H_
+#ifndef _TRANDORIEN_FAILURE_H_
+# define _TRATORIEN_FAILURE_H_
 
 # include       <ostream>
 # include       <stdexcept>
@@ -32,6 +32,7 @@ public:
 private:
   std::string               mFunc_;
   std::string               mMsg_;
+  std::string		    what_;
 };
 
 

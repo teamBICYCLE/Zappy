@@ -13,8 +13,6 @@
 #include <fstream>
 #include <boost/program_options.hpp>
 #include "Trantorien/Trantorien.hh"
-#include "Trantorien/Map.hh"
-#include "FSM/Lexeme.hh"
 
 namespace po = boost::program_options;
 

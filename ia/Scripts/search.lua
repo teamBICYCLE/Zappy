@@ -141,9 +141,10 @@ end
 function this.voit_obj(this)
    this:IAVoir()
    print (obj)
-   gx, gy = this:IAGetCLosestItem(obj)
-   print ("ETVOILA: ", gx, gy)
-   print ("Et la position:", this:IACurrentPosition())
+   gx, gy = this:IAGetItemWithLength(obj, 3)
+   if gx == -1 or gy == -1
+   then gx, gy = this:IAGetCLosestItem(obj)
+   end
    if gx == -1 or gy == -1
    then return KO
    else return OK

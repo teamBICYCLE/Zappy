@@ -5,11 +5,12 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:12 2012 thibault carpentier
-// Last update Mon Jul  9 15:14:13 2012 thibault carpentier
+// Last update Fri Jul 13 16:53:28 2012 thibault carpentier
 //
 
 #include <sstream>
 #include <boost/regex.hpp>
+#include <utility>
 #include "Map.hh"
 #include "TrantorienFailure.hh"
 #include "Ressources.hh"
@@ -35,7 +36,7 @@ int		Map::changeFrame(Position p, UserGlobal::Direction d)
 
   if (p.first > mapsize_.first || p.second > mapsize_.second ||
       d > UserGlobal::OUEST || d < UserGlobal::NORD)
-    return (-1);
+    return (0);
   angle = 0;
   if (diff != 0)
     {
@@ -218,26 +219,8 @@ void Map::remember(const std::string &caseContent, int distance, int incrStart)
     }
 }
 
-void Map::test(void) const
-{
-  for (unsigned int i = 0;  i < (sizeof(GlobalToString::inventaireObject) / sizeof(std::string)); ++i)
-    {
-      std::vector<Position>::const_iterator it;
-
-      std::cout << "Item : " << GlobalToString::inventaireObject[i] << std::endl;
-      for (it = items_[i].begin(); it != items_[i].end(); ++it)
-        {
-          std::cout << "X : " << (*it).first << " Y : " << (*it).second << std::endl;
-        }
-      std::cout << "end item" << std::endl;
-    }
-}
-
 void Map::analyse(const std::string &values)
 {
-  // TEST
-  //  currentOrientation_ = EST;
-
   size_t beginCaseParse = 0, endCaseParse = 0;
   unsigned int nbCaseStair = 1, savNbCaseStair = 0;
   int distance, incrStart, incrEnd;
@@ -273,8 +256,8 @@ void Map::voir(const std::string &values)
 
   if (boost::regex_match(values, regex))
       analyse(values);
- // else
- //   throw TrantorienFailure("Map voir", "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
+  else
+  throw TrantorienFailure("Map voir", "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
 }
 
 void Map::prendre(const std::string &value)
@@ -350,7 +333,6 @@ Position Map::getClosestItem(Position pos, int object) const
           res.second = (*it).second;
         }
     }
-  std::cout << "res: " << res.first << " " << res.second << std::endl;
   return (res);
 }
 
@@ -376,59 +358,23 @@ void Map::poser(int object)
   items_[object].push_back(currentPos_);
 }
 
-//" *{( *(joueur|linemate|nourriture) *([ ,]*|} *$){1} *)+ *} *"
+std::vector<Position> Map::getItemOnRange(Position pos, int object, int range)
+{
+  std::vector<Position> result;
+  bool player = false;
 
-//         _____ _____ _____ _____ _____
-//        |     |     |     |     |     |
-//        |-2 -2|-1 -2|-0 -2|+1 -2|+2 -2|
-//        |_____|_____|_____|_____|_____|
-//              |     |     |     |
-//              |-1 -1|-0 -1|+1 -1|
-//              |_____|_____|_____|
-//                    |     |
-//                    |+0 -0|
-//                    |_____|
-//  _____                                _____
-// |     |                              |     |
-// |-2 -2|                              |+2 -2|
-// |_____|_____                    _____|_____|
-// |     |     |                  |     |     |
-// |-2 -1|-1 -1|                  |+1 -1|+2 -1|
-// |_____|_____|_____        _____| ____|_____|
-// |     |     |     |      |     |     |     |
-// |-2 -0|-1 -0|+0 +0|      |+0 +0|+1 -0|+2 +0|
-// |_____|_____|_____|      |_____|_____|_____|
-// |     |     |                  |     |     |
-// |-2 +1|-1 +1|                  |+1 +1|+2 +1|
-// |_____|_____|                  |_____|_____|
-// |     |                              |     |
-// |-2 +2|                              |+2 +2|
-// |_____|                              |_____|
-//                     _____
-//                    |     |
-//                    |+0 +0|
-//               _____|_____|_____
-//              |     |     |     |
-//              |-1 +1|+0 +1|+1 +1|
-//         _____|_____|_____|_____|_____
-//        |     |     |     |     |     |
-//        |-2 +2|-1 +2|-0 +2|+1 +2|+2 +2|
-//        |_____|_____|_____|_____|_____|
+  if (object != UserGlobal::JOUEUR)
+    player = true;
+  for (std::vector<Position>::iterator it = items_[object].begin(); it != items_[object].end(); ++it)
+    {
+      int tmpX = MIN(ABS(pos.first-(*it).first), mapsize_.first-ABS(pos.first-(*it).first));
+      int tmpY = MIN(ABS(pos.second-(*it).second), mapsize_.second-ABS(pos.second-(*it).second));
 
-// nbcase = 1;
-// distance = +?- 0
-// incrstart = 1 - 1 / 2
-// nbcase += 2
-//
-
-
-//  __ __ __ __ __
-// |  |  |  |  |  |
-// | 4| 5| 6| 7| 8|
-// |__|__|__|__|__|
-//    |  |  |  |
-//    | 1| 2| 3|
-//    |__|__|__|
-//       |  |
-//       | 0|
-//       |__|
+      if (!player &&
+          it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
+        player = true;
+      else if (tmpX + tmpY == range)
+	  result.push_back(std::make_pair((*it).first, (*it).second));
+    }
+  return (result);
+}

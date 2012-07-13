@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jun 22 10:46:29 2012 thibault carpentier
-// Last update Thu Jul  5 18:51:10 2012 thibault carpentier
+// Last update Fri Jul 13 15:12:11 2012 thibault carpentier
 //
 
 #include <iostream>
@@ -52,9 +52,6 @@ Inventory::~Inventory()
 void Inventory::update(const std::string &values)
 {
   this->inventory_ = this->parse(values);
-  // std::vector<unsigned int>::iterator toto;
-  // for (toto = inventory_.begin(); toto != inventory_.end(); ++toto)
-  //   std::cout << *toto << std::endl;
 }
 
 
