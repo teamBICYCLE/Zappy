@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:04 2012 lois burg
-** Last update Wed Jul 11 15:20:07 2012 lois burg
+** Last update Fri Jul 13 12:09:58 2012 lois burg
 */
 
 #include <stdio.h>
@@ -31,19 +31,13 @@ static	t_arg_func	g_arg_func_tab[] =
 
 static void	init_args_infos(t_arg_infos *infos)
 {
-  int		integer;
-  double	decimal;
-
   infos->port = 4242;
   infos->x = 20;
   infos->y = 20;
   infos->teams_names = new_list();
   infos->clients_per_team = 1;
   infos->action_delay = 100;
-  integer = 1 / infos->action_delay;
-  decimal = (1.f / infos->action_delay) - integer;
-  infos->smallest_t.tv_sec = integer;
-  infos->smallest_t.tv_usec = decimal * 1000000.f;
+  compute_smallest_time(infos);
   infos->help_showed = false;
   infos->seed = time(NULL);
   infos->error = false;
