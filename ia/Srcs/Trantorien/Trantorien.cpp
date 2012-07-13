@@ -15,6 +15,8 @@ static const std::string COUNT_PLAYER = "Avengers, assembly !";
 static const std::string COUNT_ME = "Im spidey";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
+                       const std::string & lefile, const std::string & luafile,
+                       const std::string & team,
                        char *av[])
   : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av)
 {
@@ -23,7 +25,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
       //std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init(av[1], av[2]);
+  init(lefile, luafile);
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -91,7 +93,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_pushinteger(state, UserGlobal::DROITE);
   lua_setglobal(state, "DROITE");
 
-  joinTeam("toto");
+  joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
 

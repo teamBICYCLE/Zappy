@@ -19,7 +19,8 @@ class Trantorien : public FSM::VM<Trantorien> {
 
 public:
   Trantorien(const std::string & ip, const std::string & port,
-             char *av[]);
+             const std::string & lefile, const std::string & luafile,
+             const std::string & team, char *av[]);
   virtual ~Trantorien();
 
   void                  run();
