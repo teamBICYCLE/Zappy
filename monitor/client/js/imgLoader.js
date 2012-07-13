@@ -4,11 +4,11 @@
 
 var imgs_ = new Object();
 
-function ImgLoader() {
+function ImgLoader(callback) {
 	this.load();	
 }
 
-ImgLoader.prototype.load = function() {
+ImgLoader.prototype.load = function(callback) {
 
 	[
 		'floor',
@@ -33,8 +33,6 @@ ImgLoader.prototype.load = function() {
 	    'food_medium',
   	    'bubble_fork',
   	   	'bubble_broadcast',
-	    'bubble_drop',
-	    'bubble_get',
 	    'bubble_expulsion',
 	    'bubble_incantation',
 	    'egg',
@@ -45,12 +43,6 @@ ImgLoader.prototype.load = function() {
 	    var img = new Image;
 	    img.src = 'img/' + name + '.png';
 	    imgs_[name] = img;
-	    // while (img.complete == false)
-	    // {
-	    	// console.log("eeee");
-	    	// //img.src = 'img/' + name + '.png';
-	    	// //imgs_[name] = img;
-	    // }
 	});
 }
 

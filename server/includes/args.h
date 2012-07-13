@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 15:29:23 2012 lois burg
-** Last update Wed Jul 11 15:10:49 2012 lois burg
+** Last update Fri Jul 13 12:10:15 2012 lois burg
 */
 
 #ifndef		__ARGS_H__
@@ -76,5 +76,6 @@ void	invalid_param(t_arg_infos *infos, const char *msg);
 int	cmp_team(void *t1, void *t2);
 void	push_team(t_arg_infos *infos, const char *name);
 int	update_teams_slots(void *t, void *val);
+void	compute_smallest_time(t_arg_infos *infos);
 
 #endif /* !__ARGS_H__*/

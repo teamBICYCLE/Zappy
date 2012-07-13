@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Mon Jun  4 16:07:36 2012 lois burg
-** Last update Thu Jul 12 14:49:38 2012 lois burg
+** Last update Fri Jul 13 12:09:26 2012 lois burg
 */
 
 #include <string.h>
@@ -16,8 +16,6 @@
 
 void		get_action_delay(t_arg_infos *infos, char *argv[])
 {
-  int		integer;
-  double	decimal;
   long int	nb;
 
   (void)argv;
@@ -25,10 +23,7 @@ void		get_action_delay(t_arg_infos *infos, char *argv[])
       nb <= MAX_FREQUENCY)
     {
       infos->action_delay = nb;
-      integer = 1 / infos->action_delay;
-      decimal = (1.f / infos->action_delay) - integer;
-      infos->smallest_t.tv_sec = integer;
-      infos->smallest_t.tv_usec = (decimal + 0.0000001) * 1000000.f;
+      compute_smallest_time(infos);
     }
   else
     invalid_param(infos, "-t: Invalid time. "

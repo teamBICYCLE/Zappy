@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul 12 14:49:29 2012 lois burg
-** Last update Thu Jul 12 14:53:08 2012 lois burg
+** Last update Fri Jul 13 12:10:08 2012 lois burg
 */
 
 #include <string.h>
@@ -60,4 +60,15 @@ void		read_conf(t_arg_infos *infos, char *argv[])
       fprintf(stderr, "-f: Failed to open %s.\n", optarg);
       infos->error = true;
     }
+}
+
+void		compute_smallest_time(t_arg_infos *infos)
+{
+  int		integer;
+  double	decimal;
+
+  integer = 1 / infos->action_delay;
+  decimal = (1.f / infos->action_delay) - integer;
+  infos->smallest_t.tv_sec = integer;
+  infos->smallest_t.tv_usec = (decimal + 0.0000001) * 1000000.f;
 }

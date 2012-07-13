@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jul 11 14:39:17 2012 lois burg
-** Last update Wed Jul 11 15:23:38 2012 lois burg
+** Last update Fri Jul 13 12:02:09 2012 lois burg
 */
 
 #include <stdio.h>
@@ -25,7 +25,7 @@ bool	set_max_res_case(double val)
   else
     {
       fprintf(stderr, "Max ressources per cases invalid "
-	      "(should be > 0, value is %f).\n", val);
+	      "(should be >= 0, value is %d).\n", (int)val);
       ret = false;
     }
   return (ret);
@@ -41,7 +41,7 @@ bool	set_food_pctg(double val)
   else
     {
       fprintf(stderr, "Food percentage invalid (should be between "
-	      "0 and 100, value is %f).\n", val);
+	      "0 and 100, value is %d).\n", (int)val);
       ret = false;
     }
   return (ret);
@@ -57,7 +57,7 @@ bool	set_stones_pctg(double val)
   else
     {
       fprintf(stderr, "Stones percentage invalid (should be between "
-	      "0 and 100, value is %f).\n", val);
+	      "0 and 100, value is %d).\n", (int)val);
       ret = false;
     }
   return (ret);

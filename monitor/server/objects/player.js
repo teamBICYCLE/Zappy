@@ -16,9 +16,11 @@ var Player = function(arg, color) {
 	    this.team_ = arg[6];
 	    this.color_ = color;
 	    this.inventory_ = [0, 0, 0, 0, 0, 0, 0];
-	    this.animationLoop_ = [-1, -1, -1, -1, -1, -1];
+	    this.animationLoop_ = [-1, -1, -1, -1];
 		this.inventoryChange_ = false;
 		this.broadcast_ = "";
+		this.animationDrop_ = -1;
+		this.animationGet_ = -1;
 		//piex pbc pic pfk pdr pgt
 	} 
 };
@@ -124,9 +126,7 @@ Player.prototype.getBubbleAnimation = function() {
 		pex: this.animationLoop_[0],
 		pbc: this.animationLoop_[1],
 		pic: this.animationLoop_[2],
-		pfk: this.animationLoop_[3],
-		pdr: this.animationLoop_[4],
-		pgt: this.animationLoop_[5]
+		pfk: this.animationLoop_[3]
 	}
 	return ret;
 }
@@ -134,7 +134,7 @@ Player.prototype.getBubbleAnimation = function() {
 /* animation set */
 
 Player.prototype.setPex = function() {
-	this.animationLoop_[0] += 10;
+	this.animationLoop_[0] += 20;
 }
 
 Player.prototype.setPbc = function(msg) {
@@ -147,15 +147,15 @@ Player.prototype.setPic = function() {
 }
 
 Player.prototype.setPfk = function() {
-	this.animationLoop_[3] += 10;
+	this.animationLoop_[3] += 20;
 }
 
 Player.prototype.setPdr = function() {
-	this.animationLoop_[4] += 5;
+	/* to do */
 }
 
 Player.prototype.setPgt = function() {
-	this.animationLoop_[5] += 5;
+	/* to do */
 }
 
 /* other */

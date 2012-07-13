@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Wed Jul 11 18:53:39 2012 lois burg
+** Last update Fri Jul 13 11:59:07 2012 lois burg
 */
 
 #include "log.h"
@@ -13,7 +13,7 @@
 #include "graphics.h"
 
 extern t_infos	g_info;
-
+extern int	g_res_to_restore[NB_RESSOURCES];
 static uint	g_lvl_req[7][LAST] =
   {
     {0, 1, 0, 0, 0, 0, 0, 1, 0},
@@ -85,6 +85,7 @@ static void	decr_res(const int x, const int y, const int lvl)
   while (res < PLAYER)
     {
       g_info.map->cases[y][x].elements[res] -= g_lvl_req[lvl - 1][res];
+      g_res_to_restore[res] += g_lvl_req[lvl - 1][res];
       ++res;
     }
 }

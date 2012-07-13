@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Wed Jun 27 16:46:56 2012 Jonathan Machado
-** Last update Sat Jul  7 13:22:10 2012 lois burg
+** Last update Thu Jul 12 19:08:29 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -60,7 +60,8 @@ t_cmd_ret	expulse_cmd(t_users *usr, char **args, char *orig_cmd)
       if ((rcvr_lnk = get_link(g_info.users, i)))
 	{
 	  rcvr = (t_users*)rcvr_lnk->ptr;
-	  if (rcvr != usr && rcvr->type != TGRAPHICS &&
+	  if (rcvr != usr &&
+	      (rcvr->type == TPLAYER || rcvr->type == TFORMER_GHOST) &&
 	      rcvr->x == usr->x && rcvr->y == usr->y)
 	    nb += expulse(usr, rcvr);
 	}
