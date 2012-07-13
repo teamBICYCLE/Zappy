@@ -1,4 +1,12 @@
-// Trantorien.hh
+//
+// Trantorien.hh for  in /home/carpen_t/projets/syst_Unix/Zappy/ia
+//
+// Made by thibault carpentier
+// Login   <carpen_t@epitech.net>
+//
+// Started on  Fri Jul 13 11:39:37 2012 thibault carpentier
+// Last update Fri Jul 13 15:43:27 2012 thibault carpentier
+//
 
 #ifndef _TRANTORIEN_HH_
 #define _TRANTORIEN_HH_
@@ -12,6 +20,27 @@
 #include "Map.hh"
 #include "Ressources.hh"
 #include "Message.hh"
+
+
+/*! \mainpage Classe API Lua-C++ Documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * This documentation will help non-developpers or developpers to implements new Artificial Intelligence
+ * on the Zappy.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection running Running the program
+ *
+ * \section copyright Copyright and License
+ *
+ *  Copyright 2012, all rights reserved, TeamBicycle.
+ *
+ * <BR><BR>
+ *
+ */
+
 
 const unsigned int BROADCAST_MAX_SIZE  = 1000;
 

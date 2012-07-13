@@ -13,16 +13,9 @@
 #include <fstream>
 #include <boost/program_options.hpp>
 #include "Trantorien/Trantorien.hh"
-#include "Trantorien/Map.hh"
-#include "FSM/Lexeme.hh"
 
 int main(int argc, char *argv[])
 {
-  // Trantorien  joe("localhost", "4242", "Scripts/conf.le", "Scripts/script.lua",argv);
-  // LuaVirtualMachine::VirtualMachine *vm = LuaVirtualMachine::VirtualMachine::getVm();
-
-  // joe.connect_player(*vm);
-std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< LANCEMENT DU TRANTORIEN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
   if (argc > 2)
     {
       try
@@ -32,8 +25,8 @@ std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         joe.run();
       }
       catch (std::exception &e)
-      {
-        std::cerr << "FATAL ERROR: " << e.what() << std::endl;
+	{
+	  std::cerr << "FATAL ERROR: " << e.what() << std::endl;
       }
     }
   else

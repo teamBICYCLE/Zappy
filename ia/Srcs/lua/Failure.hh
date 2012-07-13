@@ -5,11 +5,11 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Sat May 12 09:41:03 2012 thibault carpentier
-// Last update Wed Jul  4 15:20:15 2012 thibault carpentier
+// Last update Fri Jul 13 12:37:29 2012 thibault carpentier
 //
 
-#ifndef _FAILLURE_H_
-# define _FAILLURE_H_
+#ifndef _FAILURE_H_
+# define _FAILURE_H_
 
 # include       <ostream>
 # include       <stdexcept>

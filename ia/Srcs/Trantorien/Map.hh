@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Mon Jun 25 13:50:09 2012 thibault carpentier
-// Last update Sun Jul  8 17:03:49 2012 thibault carpentier
+// Last update Fri Jul 13 15:18:37 2012 thibault carpentier
 //
 
 #ifndef _MAP_H_
@@ -37,9 +37,6 @@ private:
   int updatePosition(int, int);
   void forgetPrevData(int, int);
 
-  // reflexion in progress
-  // position calculateDistance(int distance, int partialPos) const;
-
   Map(Map const &);
   Map& operator=(Map const &);
   static const std::string REGEX_VALUE;
@@ -50,8 +47,6 @@ public:
 
   void  setSize(const Position & mapsize);
   void  setSize(const std::string & mapsize);
-
-  void test(void) const;
 
   int	changeFrame(Position p, UserGlobal::Direction d);
   std::vector<unsigned int> caseContent(Position coord);
