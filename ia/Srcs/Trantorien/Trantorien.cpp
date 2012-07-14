@@ -5,8 +5,57 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jul 13 11:39:41 2012 thibault carpentier
-// Last update Fri Jul 13 17:00:46 2012 thibault carpentier
+// Last update Sat Jul 14 16:42:04 2012 thibault carpentier
 //
+
+
+/*! \mainpage Classe API Lua-C++ Documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * This documentation will help non-developpers or developpers to implements new Artificial Intelligence
+ * on the Zappy.
+ *
+ * \section install_sec Mini tutorial :
+ * Launch galaxy and draw your finite State Machine with the soft. Once done, generate the conf file and export it on light Esterel format (.le) <br/> Done forget that the first state drawed is the first state called.
+ * <br/> Once done, open a lua file and develop function for each state in lua. this:nodename(this). Once done, launch and Enjoy !
+ *
+ * \subsection Warning
+ * Warning, this documentation does not details the c++class but how to call the api functions from the lua.
+ *
+ *
+ * \section Global
+ * Here is the Global List pused on the lua stack to use game variables easily
+ *
+ * <ul>
+ * <li> functions: </li> <br/>
+ * printDebug([int|string], ...) <br/><br/>
+ * <li> Direction global </li> <br/>
+ * NONE <br/>
+ * NORD  <br/>
+ * EST  <br/>
+ * SUD  <br/>
+ * OUEST  <br/>
+ * GAUCHE   <br/>
+ * DROITE <br/><br/>
+ * <li>Items Global</li>
+ * <br/>
+ * NOURRITURE  <br/>
+ * LINEMATE   <br/>
+ * DERAUMERE  <br/>
+ * SIBUR  <br/>
+ * MENDIANE  <br/>
+ * THIPRAS  <br/>
+ * THYSTAME   <br/>
+ * JOUEUR  <br/>
+ * <br/>
+ * \section copyright Copyright and License
+ *
+ *  Copyright 2012, all rights reserved, TeamBicycle.
+ *
+ * <BR><BR>
+ *
+ */
 
 #include "Trantorien.hh"
 
@@ -19,8 +68,8 @@ static const std::string PLAYER_DEAD_STRING = "mort";
 static const std::string BROADCAST_TEXT_RCV = "message ";
 static const std::string CURRENTLY_ELEVATE_STR = "elevation en cours";
 static const std::string NEW_LEVEL = "niveau actuel :";
-static const std::string COUNT_PLAYER = "Avengers, assembly !";
-static const std::string COUNT_ME = "Im spidey";
+static const std::string COUNT_PLAYER = "Census !";
+static const std::string COUNT_ME = "I'm alive!";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
                        const std::string & lefile, const std::string & luafile,
@@ -105,9 +154,6 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
-
-  this->cmd("fork");
-  this->getline();
 }
 
 Trantorien::~Trantorien()
@@ -304,6 +350,12 @@ void Trantorien::gauche()
   map_.changeDirection(UserGlobal::GAUCHE);
 }
 
+/*!
+ *  \brief Makes tratoriens move.
+ *  Makes the trantorien move forward.
+ *  \param (void)
+ *  \return (string) the server response, "ok" on success "ko" on failure.
+ */
 int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
@@ -316,6 +368,12 @@ int Trantorien::avance(LuaVirtualMachine::VirtualMachine &vm)
  return 1;
 }
 
+/*!
+ *  \brief Makes tratoriens see.
+ *  Makes the trantorien move forward. This function update the content of the map in the API.
+ *  \param (void)
+ *  \return (string) the server response, map content on success "ko" on failure.
+ */
 int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
@@ -328,6 +386,13 @@ int Trantorien::voir(LuaVirtualMachine::VirtualMachine &vm)
   return 1;
 }
 
+
+/*!
+ *  \brief Return a recently updated inventory
+ *   Return for each value of the inventory an integer according to his recently updated value.
+ *  \param (void)
+ *  \return (int, int, int, int ...) the values of the inventory.
+ */
 int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
@@ -345,6 +410,12 @@ int Trantorien::inventaire(LuaVirtualMachine::VirtualMachine &vm)
   return (i);
 }
 
+/*!
+ *  \brief Take one or more item(s) on the map.
+ *   Take one or more item(s) on the map and return the server answer.
+ *  \param (Items Global(exept JOUEUR), ...)
+ *  \return (string, ...) the server's answer(s).
+ */
 int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
@@ -366,6 +437,12 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
                                              }));
 }
 
+/*!
+ *  \brief turn the trantorien
+ *  Turn the trantorien and update in the map's API the current direction of the trantorien
+ *  \param (Direction global (GAUCHE DROITE), ...)
+ *  \return (string, ...) the server's answer(s).
+ */
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
@@ -384,6 +461,12 @@ int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
 					     }));
 }
 
+/*!
+ *  \brief elevate the trantorien
+ *  The trantorien will start an incantation. On succeed, the level on the API is updated
+ *  \param (void)
+ *  \return (string) the server's answer(s).
+ */
 int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
 {
   this->cmd("incantation");
@@ -400,6 +483,12 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   return 1;
 }
 
+/*!
+ *  \brief Make the trantorien talk
+ *  The trantorien will yell the message to the others.
+ *  \param (string) msg
+ *  \return (void).
+ */
 int Trantorien::broadcast(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -415,6 +504,12 @@ int Trantorien::broadcast(LuaVirtualMachine::VirtualMachine &vm)
     throw TrantorienFailure("Trantorien broadcast", "Invalid parameter: (void broadcast(string msg))");
 }
 
+/*!
+ *  \brief Makes the trantorien drop one or more items on the map.
+ *  This function update the API's maps
+ *  \param (Items Global (Exept JOUEUR), ...)
+ *  \return (string) the server's answer.
+ */
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
@@ -436,11 +531,16 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
                                              }));
 }
 
+/*!
+ *  \brief Makes the trantorien drop one or more items on the map.
+ *  This function update the API's maps
+ *  \param (Items Global (Exept JOUEUR), ...)
+ *  \return (string) the server's answer.
+ */
 int Trantorien::caseContent(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
   unsigned int nbRet = 0;
-
 
   if (lua_gettop(state) >= 2 && lua_isnumber(state, 1) && lua_isnumber(state, 2))
     {
@@ -456,6 +556,12 @@ int Trantorien::caseContent(LuaVirtualMachine::VirtualMachine &vm)
   throw TrantorienFailure("Tratorien caseContent", "Invalid parameter : (int x8 caseContent(int x, int y))");
 }
 
+/*!
+ *  \brief Return the current position of the trantorien
+ * return the current position according t the API's map of the trantorien
+ *  \param (void)
+ *  \return (int posX, int posY)
+ */
 int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -466,16 +572,26 @@ int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
   return (2);
 }
 
+/*!
+ *  \brief Return the current position of the trantorien
+ * return the current position according t the API's map of the trantorien
+ *  \param (void)
+ *  \return (int posX, int posY)
+ */
 int Trantorien::currentDirection(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_pushinteger(vm.getLua(), map_.getDirection());
   return (1);
 }
 
+/*!
+ * \brief return one or more value of the inventory
+ * Take the integer value of a non updated inventory.
+ *  \param (void) or (ItemsGlobal (Exept JOUEUR), ...)
+ *  \return if (void) all the values: int else one int for each value
+ */
 int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
 {
-
-
   lua_State *state = vm.getLua();
   std::vector<unsigned int> inventory = inventory_.getInventory();
 
@@ -501,6 +617,12 @@ int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
   return (0);
 }
 
+/*!
+ * \brief expulse a trantorien
+ *  Expule all others players on the case.
+ *  \param (void)
+ *  \return (string) the server's answer.
+ */
 int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
@@ -511,6 +633,13 @@ int Trantorien::expulse(LuaVirtualMachine::VirtualMachine &vm)
   return 1;
 }
 
+
+/*!
+ * \brief Makes one iteration to a direction
+ *  Iter to a direction
+ *  \param (int x, int y)
+ *  \return (void)
+ */
 int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
 {
   const Position & from = map_.getCurrentPos();
@@ -536,7 +665,7 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
                                   && to.second - from.second <= map_.getSize().second - (to.second - from.second))
          || from.second - to.second >= map_.getSize().second - (from.second - to.second);
   }
- if (to.first != from.first) // 13-15 -> 3-15
+ if (to.first != from.first)
    {
      go[UserGlobal::OUEST - 1] = (to.first < from.first
                                   && from.first - to.first <= map_.getSize().first - (from.first - to.first))
@@ -545,9 +674,6 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
                                   && to.first - from.first <= map_.getSize().first - (to.first - from.first))
          || from.first - to.first >= map_.getSize().first - (from.first - to.first);
   }
- // std::cout << "from: " << from.first << "-" << from.second << " to: " << to.first << "-" << to.second << std::endl;
- // std::cout << "N: " << go[0] << " E: " << go[1] << " S: " << go[2] << " O:" << go[3] << std::endl;
-
  if (go[dir - 1])
    {
      avance(vm);
@@ -566,17 +692,27 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
  return 0;
 }
 
+/*!
+ * \brief return the current level of the trantorien
+ *  Return the API's level of the trantorien
+ *  \param (void)
+ *  \return (int)
+ */
 int Trantorien::getLevel(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_pushnumber(vm.getLua(), level_);
   return (1);
 }
 
+/*!
+ * \brief return the missing rock on the current position to elevate.
+ *  Return the missing rock on the case to elevate the trantorien
+ *  \param (void) or (ItemsGlobal, ...)
+ *  \return (int, ...) in order : food, linemate, deraumere, sibur, mendiane, phiras, thystame, player.
+ */
 int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
-
-
 
   if (lua_gettop(state) == 0)
     {
@@ -607,6 +743,12 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
     }
 }
 
+/*!
+ * \brief return the most missing rock in the inventory
+ *  Return the most missing rock in the inventory to elevate the trantorien
+ *  \param (void)
+ *  \return (Items global except JOUEUR)
+ */
 int Trantorien::missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -629,6 +771,12 @@ int Trantorien::missingRockInInventoryID(LuaVirtualMachine::VirtualMachine &vm)
   return (1);
 }
 
+/*!
+ * \brief return the missing rock on the inventory
+ *  Return the missing rock on the inventory to elevate the trantorien
+ *  \param (void) or (ItemsGlobal, ...)
+ *  \return (int, ...) in order : food, linemate, deraumere, sibur, mendiane, phiras, thystame.
+ */
 int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -660,6 +808,12 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
     }
 }
 
+/*!
+ * \brief return the closest remembered item
+ *  Returns the closest item that the trantorien have seen
+ *  \param (void) or (ItemsGlobal, ...)
+ *  \return (int x, int y)
+ */
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
@@ -675,7 +829,12 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                       }));
 }
 
-
+/*!
+ * \brief return an item coordinates
+ *  Returns a random item wich is in the specified range
+ *  \param (Item global, int range)
+ *  \return (int x, int y)
+ */
 int Trantorien::getItemWithLength(LuaVirtualMachine::VirtualMachine &vm)
 {
   if (lua_gettop(vm.getLua()) == 2 && lua_isnumber(vm.getLua(), 1) && lua_isnumber(vm.getLua(), 2))
@@ -706,7 +865,12 @@ int Trantorien::getItemWithLength(LuaVirtualMachine::VirtualMachine &vm)
 			    "Invalid parameter : (int, int getItemWithLength(int object, int range))");
 }
 
-
+/*!
+ * \brief change the map referential
+ *  Change the map referencial with x, y the new 0, 0 and direction global the new "normal" direction
+ *  \param (int x, int y, Direction global)
+ *  \return (void)
+ */
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -725,6 +889,12 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
     throw TrantorienFailure("Tratorien changeFrame", "Invalid parameter : (int x8 caseContent(int x, int y))");
 }
 
+/*!
+ * \brief get the rocks missing to elevate from inventory and the current case content
+ *   get the rocks missing to elevate from inventory and the current case content
+ *  \param (void)
+ *  \return (nourriture, linemate, deraumere, sibur, mendiane, phiras, thystame)
+ */
 int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -783,6 +953,12 @@ int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & ms
   return 4;
 }
 
+/*!
+ * \brief return the last message received
+ *   returns the coordinates where message was received, the direction where i came from and the message content
+ *  \param (string message_content)
+ *  \return (nourriture, linemate, deraumere, sibur, mendiane, phiras, thystame)
+ */
 int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
 {
   Message msg;
@@ -806,6 +982,12 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
   return listen(vm, msg);
 }
 
+/*!
+ * \brief test if a message was received
+ *   test if a message with specific content was received
+ *  \param (string message_content)
+ *  \return (boolean)
+ */
 int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
@@ -822,6 +1004,12 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
     throw TrantorienFailure("Tratorien messageinqueue", "Invalid parameter : (string messageinqueue(string msg))");
 }
 
+/*!
+ * \brief count the number of te given message
+ *   count the messages with specific content.
+ *  \param (string message_content)
+ *  \return (int) numbers of contents.
+ */
 int Trantorien::nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
@@ -845,12 +1033,25 @@ int Trantorien::nbMessageInQueue(const std::string &search)
   return (res);
 }
 
+
+/*!
+ * \brief Return the current return of the server
+ *  Return the current return of the server
+ *  \param (void)
+ *  \return (string) the last answer of the server
+ */
 int Trantorien::readLine(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_pushstring(vm.getLua(), this->getline().c_str());
     return 1;
 }
 
+/*!
+ * \brief connect nb player on the map
+ *  connect nb new trantorien on the map with the same arguments
+ *  \param (int) nb
+ *  \return (void)
+ */
 int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
   pid_t pid;
@@ -875,6 +1076,12 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
   return (0);
 }
 
+/*!
+ * \brief check how many trantorien can be connected
+ *  Return the numbers of available slots on the team
+ *  \param (void)
+ *  \return (int) nbslots
+ */
 int Trantorien::canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
@@ -889,6 +1096,13 @@ int Trantorien::canConnectPlayer(LuaVirtualMachine::VirtualMachine &vm)
   return (1);
 }
 
+
+/*!
+ * \brief Make the trantorien lay
+ *  Make the trantorien lay and return the serveur answers
+ *  \param (void)
+ *  \return (string) answer
+ */
 int Trantorien::lay(LuaVirtualMachine::VirtualMachine &vm)
 {
   std::string ret;
@@ -899,6 +1113,12 @@ int Trantorien::lay(LuaVirtualMachine::VirtualMachine &vm)
   return (1);
 }
 
+/*!
+ * \brief a function tu count how any trantorien there is one the team
+ *  Return an aproximate result of the number of player (some can be busy and can't answer to the call)
+ *  \param (void)
+ *  \return (int) nbplayer.
+ */
 int Trantorien::countPlayer(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
