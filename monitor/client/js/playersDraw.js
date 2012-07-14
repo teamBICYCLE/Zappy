@@ -9,7 +9,6 @@ function draw_bubble(player, opacity) {
 		min = player.animationLoop_[idx],
 		sprite = ['bubble_expulsion', 'bubble_broadcast', 'bubble_incantation', 'bubble_fork'];
 		
-	console.log(player.animationLoop_);
 	for (var i = 0; i != player.animationLoop_.length; i++)
 		if (player.animationLoop_[i] < min)
 			{

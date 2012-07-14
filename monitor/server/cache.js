@@ -70,8 +70,6 @@ exports.addTeam = function(name) {
 exports.addTeamColor = function() {
 	for (var i = 0; i != teams_.length;  i++)
 		teamsColor_.push(random_color(((i + 1) / teams_.length), 0.55, 0.99));
-	// teams_.reverse();
-	// teamsColor_.reverse();
 }
 
 exports.setCase = function(x, y, ressources) {
@@ -210,14 +208,9 @@ exports.getPlayer = function(id) {
 		if (players_[i].getId() == id)
 			return players_[i];
 	}
-	
-	// for (var i = 0; i != players_.length; i++)
-		// console.log(players_[i].getId());
-		
+			
 	console.log("Something wrong in Cache.getPlayer() : undefined reference to id #" + id);
 	return (-1);
-			
-	
 }
 
 exports.getEgg = function(id) {

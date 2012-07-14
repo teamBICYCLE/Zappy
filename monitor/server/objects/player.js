@@ -7,7 +7,6 @@
 var Player = function(arg, color) {
 	if (arg.length >= 7)
 	{
-		//console.log("new player !!!!!!! ====> " + parseInt(arg[1].replace("#", "")));
 		this.id_ = parseInt(arg[1].replace("#", ""));
 	    this.posx_ = parseInt(arg[2]);
 	    this.posy_ = parseInt(arg[3]);
@@ -21,28 +20,8 @@ var Player = function(arg, color) {
 		this.broadcast_ = "";
 		this.animationDrop_ = -1;
 		this.animationGet_ = -1;
-		//piex pbc pic pfk pdr pgt
 	} 
 };
-
-/* METHODS */
-
-Player.prototype.dump = function() {
-    console.log("====Player====");
-    console.log("id: " + this.id_);
-    console.log("posx: " + this.posx_);
-    console.log("posy: " + this.posy_);
-    console.log("ori: " + this.orientation_);
-    console.log("level: " + this.level_);
-    console.log("team: " + this.team_);
-    console.log("Food: " + this.inventory_[0]);
-    console.log("Linemate: " + this.inventory_[1]);
-    console.log("Deraumere: " + this.inventory_[2]);
-    console.log("Sibur: " + this.inventory_[3]);
-    console.log("Mendiane: " + this.inventory_[4]);
-    console.log("Phiras: " + this.inventory_[5]);
-    console.log("Thystame: " + this.inventory_[6]);
-}
 
 /* SET */
 

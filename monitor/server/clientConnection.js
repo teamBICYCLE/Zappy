@@ -19,26 +19,17 @@ var ClientConnection = function(port) {
 	
 	var client = io.sockets;
 	
-	//console.log(client);
-	  client.on('connection', function(socket) {
-	  	
-	  	self.emit('firstConnection', {socket: socket});
+	client.on('connection', function(socket) {
+		
+		self.emit('firstConnection', {socket: socket});
 	  	
 		socket.on('requestData', function(obj) {
 			self.emit('requestData', {socket: socket, cmd: obj.cmd});
 		});
 		
-		// socket.on('requestDataBroadcast', function(obj) {
-			// if (lastTimestamp != obj.timestamp)
-			// {
-				// self.emit('requestDataBroadcast', {socket: socket, cmd: obj.data});
-				// lastTimestamp = obj.timestamp;
-			// }
-		// });
-	        
-	  });
+	});
 	  
-	  ClientConnection.prototype.getClientSocket = function() {
+	ClientConnection.prototype.getClientSocket = function() {
 		return client;
 	}
 }

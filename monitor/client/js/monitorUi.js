@@ -391,8 +391,9 @@ function updateInventoryContent(inventory, lastInventory) {
 		/* update */
 		for (var i = 0; i != change.updated.length; i++)
 		{
-			//if ($("#inventory-containers .container) #" + ref[change.updated[i].id] + "-item span").length)
-			if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item"))
+			//if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item"))
+			//console.log($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1);
+			if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1)
 				$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
 			else
 				change.added.push(change.updated[i]);

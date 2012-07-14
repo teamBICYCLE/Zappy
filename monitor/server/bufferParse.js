@@ -176,7 +176,6 @@ var ehtFct = function(arg, cache) {
 	{
 		egg.setHatches(true);
 		cache.addMessage("An egg has hatched.");
-		console.log("An egg has hatched.");
 	}
 }
 
@@ -189,7 +188,6 @@ var ediFct = function(arg, cache) {
 		egg.setDead(true);
 		cache.removeEgg(arg[1]);
 		cache.addMessage("An egg has died.");
-		console.log("An egg has died.");
 	}
 }
 
