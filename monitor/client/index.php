@@ -45,7 +45,6 @@
 				<li class="topbar-menu-godmode"></li>
 			</ul>
 		</div>
-	</div>
 		<div id="cmdResult"></div>
 		<div id="errorBox"><img src="img/warning_icon.png" alt="error icon" style="float:left;"><span class="errorText"></span></div>
 		<input type="text" class="cmd" />
@@ -54,6 +53,10 @@
 		<div class="panel">
 			<div class="panel-topbar"></div>
 			<div class="panel-stats"></div>
+		</div>
+		<div class="endGame">
+				<span class="winner"></span>
+				<span class="newGame">New Game in <span class="timer">5</span> seconds</span>
 		</div>
 		<div class="btn-slide"></div>
 		<div id="inventory">

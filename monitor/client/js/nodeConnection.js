@@ -4,6 +4,7 @@
 
 var socket = io.connect('http://localhost', {
 		port: $(".port").text(),
+		'connect timeout' : 200,
 		'reconnect': true,
   		'reconnection delay': 100,
   		'max reconnection attempts': 5
@@ -15,6 +16,16 @@ var socket = io.connect('http://localhost', {
 	zoom = 10,
 	playerFollowed = -1;
 
+socket.on("connect_failed", function(){
+	console.log("CONNECTION FAILED");
+	$('#overlay').fadeIn('fast', function(){
+		$(".error-line1").html("Cannot reach the node server.");
+		$(".error-line2").html("Please check the server's status.");
+		$('.case-content').fadeOut('fast');
+		$('#connectionError').animate({'top':'250px'}, 500);
+	});
+});
+
 socket.on("disconnect", function(){
 	
 	$('#overlay').fadeIn('fast', function(){
@@ -24,18 +35,6 @@ socket.on("disconnect", function(){
 		$('#connectionError').animate({'top':'250px'}, 500);
 	});
 });
-
-/*
-socket.on("connect_failed", function(){
-	
-	$('#overlay').fadeIn('fast', function(){
-		$(".error-line1").html("Cannot reach the node server.");
-		$(".error-line2").html("Please check the server's status.");
-		$('.case-content').fadeOut('fast');
-		$('#connectionError').animate({'top':'250px'}, 500);
-	});
-});
-*/
 
 socket.on("reconnect", function(){
 	$('#connectionError').animate({'top':'-210px'}, 500, function(){
@@ -94,7 +93,7 @@ socket.on('cacheUpdate', function(data){
 	if (lastTimestamp != data.timestamp) {
 		
 		if (data.endGame.state)
-			console.log("END GAME :) " + data.endGame.name);
+			display_endGame(data.endGame.name);
 		
 		prevPlayers = cache.getPlayers();
 		prevInfo = cache.getAllTeamInfo();

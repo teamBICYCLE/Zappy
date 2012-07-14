@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:55:25 2012 lois burg
-** Last update Sat Jul  7 17:01:19 2012 lois burg
+** Last update Sat Jul 14 12:35:07 2012 lois burg
 */
 
 #include <string.h>
@@ -32,7 +32,7 @@ size_t	case_content_sz(const t_case *c)
   size_t	sz;
 
   sz = 0;
-  i = 0;
+  i = FOOD;
   while (i < EGG)
     {
       j = 0;
