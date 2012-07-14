@@ -2,7 +2,7 @@
  * @author sylvia_r
  */
 
-var socket = io.connect('http://localhost', {
+var socket = io.connect('http://'+$(".ip").text(), {
 		port: $(".port").text(),
 		'connect timeout' : 200,
 		'reconnect': true,

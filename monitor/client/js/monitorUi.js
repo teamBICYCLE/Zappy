@@ -118,7 +118,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1)
+		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x - 1, now.y + 1);
 			layers.redraw();
@@ -130,7 +130,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0)
+		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x + 1, now.y - 1);
 			layers.redraw();
@@ -141,7 +141,7 @@ $(function() {
 		
 		var now = layers.getCenter();
 		
-		if (now.x - 1 >= 0 && now.y - 1 >= 0)
+		if (now.x - 1 >= 0 && now.y - 1 >= 0 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x - 1, now.y - 1);
 			layers.redraw();
@@ -153,7 +153,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1)
+		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x + 1, now.y + 1);
 			layers.redraw();
@@ -391,8 +391,6 @@ function updateInventoryContent(inventory, lastInventory) {
 		/* update */
 		for (var i = 0; i != change.updated.length; i++)
 		{
-			//if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item"))
-			//console.log($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1);
 			if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1)
 				$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
 			else
@@ -403,13 +401,15 @@ function updateInventoryContent(inventory, lastInventory) {
 		for (var i = 0; i != change.added.length; i++)
 		{
 			var container = $("#inventory-containers .container");
-			
-			for (var j = 0; j != container.length; j++)
-				if ($(container[j]).children().length == 0)
-				{
-					$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
-					break;
-				}
+			if ($("#inventory-containers .container").has("#" + ref[change.added[i].id] + "-item").length == 0)
+			{
+				for (var j = 0; j != container.length; j++)
+					if ($(container[j]).children().length == 0)
+					{
+						$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
+						break;
+					}
+			}
 		}
 		
 		initItem();
@@ -603,7 +603,7 @@ function initSettings() {
 
 function display_endGame(team) {
 	
-	$(".endGame .winner").html("Team " + team + " wins !");
+	$(".endGame .winner").html("Team " + team + " won !");
 	$("#overlay").fadeIn(300);
 	$(".endGame").show();
 	
