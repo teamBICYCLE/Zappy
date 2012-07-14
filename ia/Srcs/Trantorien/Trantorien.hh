@@ -89,6 +89,7 @@ private:
   std::list<Message>      broadcastHistory_;
   unsigned int		  level_;
   char			  **av_;
+  std::string             teamname;
 };
 
 #endif // _TRANDORIEN_HH

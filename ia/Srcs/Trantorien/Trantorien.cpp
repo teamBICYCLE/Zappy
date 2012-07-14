@@ -75,7 +75,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
                        const std::string & lefile, const std::string & luafile,
                        const std::string & team,
                        char *av[])
-  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av)
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av), teamname(team)
 {
   if (!network_)
     {
@@ -151,6 +151,8 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_pushinteger(state, UserGlobal::DROITE);
   lua_setglobal(state, "DROITE");
 
+  lua_pushstring(state, team.c_str());
+  lua_setglobal(state, "TEAMNAME");
   joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
@@ -296,14 +298,14 @@ std::string Trantorien::getline()
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
       Message   msg(line, map_.getCurrentPos(), map_.getDirection(), map_.getSize());
-      boost::regex	rgx(COUNT_PLAYER + " *([0-9]+)");
+      boost::regex	rgx(teamname + " " + COUNT_PLAYER + " *([0-9]+)");
       boost::match_results<std::string::const_iterator> what;
 
       if (regex_search(msg.getMessage().begin(), msg.getMessage().end(),
                        what, rgx, boost::match_default))
         {
           line = this->getline();
-          this->cmd("broadcast " + COUNT_ME + " " + what[1]);
+          this->cmd("broadcast " + teamname + " " + COUNT_ME + " " + what[1]);
           this->getline();
         }
       else
@@ -446,19 +448,19 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-	  variableArgsCall<int, std::string>(vm,
-					     [&](lua_State * state, const int & direction) ->
-					     std::string {
-					       std::string result;
-					       if (direction >= UserGlobal::GAUCHE && direction <= UserGlobal::DROITE)
-						 {
-						   this->cmd(GlobalToString::orientation[direction]);
-						   result = this->getline();
-						   if (result == "ok")
-						     map_.changeDirection(direction);
-						 }
-					       return result;
-					     }));
+          variableArgsCall<int, std::string>(vm,
+                                             [&](lua_State * state, const int & direction) ->
+                                             std::string {
+                                               std::string result;
+                                               if (direction >= UserGlobal::GAUCHE && direction <= UserGlobal::DROITE)
+                                                 {
+                                                   this->cmd(GlobalToString::orientation[direction]);
+                                                   result = this->getline();
+                                                   if (result == "ok")
+                                                     map_.changeDirection(direction);
+                                                 }
+                                               return result;
+                                             }));
 }
 
 /*!
@@ -496,7 +498,7 @@ int Trantorien::broadcast(LuaVirtualMachine::VirtualMachine &vm)
   if (lua_gettop(state) >= 1 && lua_isstring(state, 1))
     {
       std::string user = lua_tostring(vm.getLua(), 1);
-      this->cmd("broadcast " + user);
+      this->cmd("broadcast " + teamname + " " + user);
       this->getline();
       return 0;
     }
@@ -823,7 +825,7 @@ int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
                                                         std::pair<int, int>result (-1, -1);
                                                         std::pair<int, int> position = map_.getCurrentPos();
                                                         if (object <= UserGlobal::JOUEUR &&
-							    object >= UserGlobal::NOURRITURE)
+                                                            object >= UserGlobal::NOURRITURE)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
@@ -849,20 +851,20 @@ int Trantorien::getItemWithLength(LuaVirtualMachine::VirtualMachine &vm)
       int pos = distribution(generator);
 
       if (res.size() != 0)
-	{
-	  lua_pushnumber(vm.getLua(), res[pos].first);
-	  lua_pushnumber(vm.getLua(), res[pos].second);
-	}
+        {
+          lua_pushnumber(vm.getLua(), res[pos].first);
+          lua_pushnumber(vm.getLua(), res[pos].second);
+        }
       else
-	{
-	  lua_pushnumber(vm.getLua(), -1);
-	  lua_pushnumber(vm.getLua(), -1);
-	}
+        {
+          lua_pushnumber(vm.getLua(), -1);
+          lua_pushnumber(vm.getLua(), -1);
+        }
       return (2);
     }
   else
     throw TrantorienFailure("Tratorien getItemWitchLength",
-			    "Invalid parameter : (int, int getItemWithLength(int object, int range))");
+                            "Invalid parameter : (int, int getItemWithLength(int object, int range))");
 }
 
 /*!
@@ -965,7 +967,7 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
   std::string str;
 
   if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
-    str = lua_tostring(vm.getLua(), 1);
+    str = teamname + " " + lua_tostring(vm.getLua(), 1);
   else
     throw TrantorienFailure("Tratorien LastMSG", "Invalid parameter : (string caseContent(string msg)");
   if (!broadcastHistory_.empty())
@@ -992,11 +994,11 @@ int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
     {
-      std::string   search = lua_tostring(vm.getLua(), 1);
+      std::string   search = teamname + " " + lua_tostring(vm.getLua(), 1);
 
       std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
-	  return msg.getMessage() == search;
-	});
+          return msg.getMessage() == search;
+        });
       lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
       return 1;
     }
@@ -1014,10 +1016,10 @@ int Trantorien::nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
   if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
     {
-      std::string search = lua_tostring(vm.getLua(), 1);
+      std::string search = teamname + " " + lua_tostring(vm.getLua(), 1);
       int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
-	  return msg.getMessage() == search;
-	});
+          return msg.getMessage() == search;
+        });
       lua_pushinteger(vm.getLua(), res);
       return (1);
     }
@@ -1129,13 +1131,13 @@ int Trantorien::countPlayer(LuaVirtualMachine::VirtualMachine &vm)
   ss << pid;
   ss >> pidstr;
   broadcastHistory_.clear();
-  this->cmd("broadcast " + COUNT_PLAYER + " " + pidstr);
+  this->cmd("broadcast " + teamname + " " + COUNT_PLAYER + " " + pidstr);
   this->getline();
   for (int i = 0; i < 2; ++i) {
 
       this->cmd("voir");
       this->getline();
     }
-  lua_pushinteger(state, nbMessageInQueue(COUNT_ME + " " + pidstr) + 1);
+  lua_pushinteger(state, nbMessageInQueue(teamname + " " + COUNT_ME + " " + pidstr) + 1);
   return (1);
 }
