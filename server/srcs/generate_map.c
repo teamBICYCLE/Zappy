@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Fri Jul 13 12:01:13 2012 lois burg
+** Last update Sat Jul 14 18:50:11 2012 lois burg
 */
 
 #include <stdio.h>
@@ -15,7 +15,7 @@
 #include "map.h"
 
 double		g_max_res_case = 3;
-double		g_food_pctg = 40;
+double		g_food_pctg = 70;
 double		g_stones_pctg = 10;
 
 static void	fill_map(t_map *map, t_dmap *dmap,
