@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun  8 11:28:02 2012 lois burg
-** Last update Wed Jul 11 15:25:05 2012 lois burg
+** Last update Fri Jul 13 12:01:13 2012 lois burg
 */
 
 #include <stdio.h>
@@ -31,7 +31,7 @@ static void	fill_map(t_map *map, t_dmap *dmap,
       while (x < map->x)
 	{
 	  if (dmap->map[y][x] <= pctg)
-	    map->cases[y][x].elements[elem] += (rand() % (int)g_max_res_case) + 1;
+	    map->cases[y][x].elements[elem] += (rand() % (int)(g_max_res_case + 1));
 	  ++x;
 	}
       ++y;

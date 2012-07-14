@@ -28,6 +28,8 @@ function this.meet(this)
       asdf = asdf + 1
       if (asdf % 5 == 0)
       then
+	 this:IATourner(GAUCHE, GAUCHE)
+	 this:IAAvance()
 	 asdf = 0
 	 return SEEKFOOD
       end
@@ -68,7 +70,7 @@ function this.enought_food(this)
    then
       local a = this:IACountPlayer()
       print("THIS IS RESUUUUuLLLT ", a)
-      if (a + 1 < NB_PLAYER_TO_CONNECT)
+      if (a < NB_PLAYER_TO_CONNECT)
       then
 	 this:IALay()
 	 HAS_TO_CALL_PLAYER = true
@@ -139,9 +141,10 @@ end
 function this.voit_obj(this)
    this:IAVoir()
    print (obj)
-   gx, gy = this:IAGetCLosestItem(obj)
-   print ("ETVOILA: ", gx, gy)
-   print ("Et la position:", this:IACurrentPosition())
+   gx, gy = this:IAGetItemWithLength(obj, 3)
+   if gx == -1 or gy == -1
+   then gx, gy = this:IAGetCLosestItem(obj)
+   end
    if gx == -1 or gy == -1
    then return KO
    else return OK

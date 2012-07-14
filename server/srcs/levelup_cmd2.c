@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 18:10:06 2012 lois burg
-** Last update Thu Jul 12 14:43:58 2012 lois burg
+** Last update Fri Jul 13 12:16:15 2012 lois burg
 */
 
 #include <string.h>
@@ -79,5 +79,5 @@ void	send_graphic_result(t_users *usr, const int success)
   lookup(g_info.users, graphics_pie(usr->x, usr->y, success), &notify_graphic);
   if (success == 1)
     send_plyr_lvl(usr->x, usr->y, usr->lvl);
-  send_world();
+  lookup(g_info.users, graphics_bct(usr->x, usr->y), &notify_graphic);
 }

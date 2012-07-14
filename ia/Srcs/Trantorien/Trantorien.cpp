@@ -1,11 +1,19 @@
-// Trantorien.cpp
+//
+// Trantorien.cpp for  in /home/carpen_t/projets/syst_Unix/Zappy/ia
+//
+// Made by thibault carpentier
+// Login   <carpen_t@epitech.net>
+//
+// Started on  Fri Jul 13 11:39:41 2012 thibault carpentier
+// Last update Fri Jul 13 17:00:46 2012 thibault carpentier
+//
 
 #include "Trantorien.hh"
 
 #include <cmath>
 #include <iostream>
 #include <string>
-#include "Message.hh"
+#include "TrantorienFailure.hh"
 
 static const std::string PLAYER_DEAD_STRING = "mort";
 static const std::string BROADCAST_TEXT_RCV = "message ";
@@ -15,6 +23,8 @@ static const std::string COUNT_PLAYER = "Avengers, assembly !";
 static const std::string COUNT_ME = "Im spidey";
 
 Trantorien::Trantorien(const std::string & ip, const std::string & port,
+                       const std::string & lefile, const std::string & luafile,
+                       const std::string & team,
                        char *av[])
   : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av)
 {
@@ -23,7 +33,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
       //std::cout << network_.error().message() << std::endl;
       abort();
     }
-  init(av[1], av[2]);
+  init(lefile, luafile);
 
   addInteraction("IAAvance", &Trantorien::avance);
   addInteraction("IAVoir", &Trantorien::voir);
@@ -54,6 +64,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   addInteraction("IALay", &Trantorien::lay);
   addInteraction("IANbMsgInQueue", &Trantorien::nbMessageInQueue);
   addInteraction("IACountPlayer", &Trantorien::countPlayer);
+  addInteraction("IAGetItemWithLength", &Trantorien::getItemWithLength);
 
   setValidityTest(&Trantorien::isValid);
 
@@ -91,7 +102,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_pushinteger(state, UserGlobal::DROITE);
   lua_setglobal(state, "DROITE");
 
-  joinTeam("toto");
+  joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
 
@@ -242,7 +253,6 @@ std::string Trantorien::getline()
       boost::regex	rgx(COUNT_PLAYER + " *([0-9]+)");
       boost::match_results<std::string::const_iterator> what;
 
-      std::cout << "received broadcast: " << msg.getMessage() << std::endl;
       if (regex_search(msg.getMessage().begin(), msg.getMessage().end(),
                        what, rgx, boost::match_default))
         {
@@ -259,10 +269,7 @@ std::string Trantorien::getline()
         }
     }
   else if (!line.compare(0, NEW_LEVEL.length(), NEW_LEVEL))
-    {
-      std::cout << "level up" << std::endl;
-      ++level_;
-    }
+    ++level_;
   return line;
 }
 
@@ -344,7 +351,7 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::JOUEUR)
+                                               if (object < UserGlobal::JOUEUR && object >= 0)
                                                  {
                                                    this->cmd("prend " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
@@ -362,15 +369,19 @@ int Trantorien::prendre(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
 {
   return (
-        variableArgsCall<int, std::string>(vm,
-                         [&](lua_State * state, const int & direction) ->
-        std::string {
-           this->cmd(GlobalToString::orientation[direction]);
-           std::string result = this->getline();
-           if (result == "ok")
-              map_.changeDirection(direction);
-           return result;
-}));
+	  variableArgsCall<int, std::string>(vm,
+					     [&](lua_State * state, const int & direction) ->
+					     std::string {
+					       std::string result;
+					       if (direction >= UserGlobal::GAUCHE && direction <= UserGlobal::DROITE)
+						 {
+						   this->cmd(GlobalToString::orientation[direction]);
+						   result = this->getline();
+						   if (result == "ok")
+						     map_.changeDirection(direction);
+						 }
+					       return result;
+					     }));
 }
 
 int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
@@ -378,8 +389,7 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) != "ko")
-      std::cout << "level up" << std::endl;
+    if ((ret = this->getline()) != "ko");
   lua_pushstring(vm.getLua(), ret.c_str());
   this->cmd("voir");
   ret = this->getline();
@@ -392,11 +402,17 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::broadcast(LuaVirtualMachine::VirtualMachine &vm)
 {
-  std::string user = lua_tostring(vm.getLua(), 1);
+  lua_State *state = vm.getLua();
 
-  this->cmd("broadcast " + user);
-  this->getline();
-  return 0;
+  if (lua_gettop(state) >= 1 && lua_isstring(state, 1))
+    {
+      std::string user = lua_tostring(vm.getLua(), 1);
+      this->cmd("broadcast " + user);
+      this->getline();
+      return 0;
+    }
+  else
+    throw TrantorienFailure("Trantorien broadcast", "Invalid parameter: (void broadcast(string msg))");
 }
 
 int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
@@ -405,7 +421,7 @@ int Trantorien::poser(LuaVirtualMachine::VirtualMachine &vm)
           variableArgsCall<int ,std::string>(vm,
                                              [&](lua_State * state, const int & object) ->
                                              std::string {
-                                               if (object < UserGlobal::JOUEUR)
+                                               if (object < UserGlobal::JOUEUR && object >= 0)
                                                  {
                                                    this->cmd("pose " + GlobalToString::inventaireObject[object]);
                                                    std::string result = this->getline();
@@ -435,8 +451,9 @@ int Trantorien::caseContent(LuaVirtualMachine::VirtualMachine &vm)
           lua_pushinteger(state, (*it));
           ++nbRet;
         }
+      return (nbRet);
     }
-  return (nbRet);
+  throw TrantorienFailure("Tratorien caseContent", "Invalid parameter : (int x8 caseContent(int x, int y))");
 }
 
 int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
@@ -452,7 +469,7 @@ int Trantorien::currentPosition(LuaVirtualMachine::VirtualMachine &vm)
 int Trantorien::currentDirection(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_pushinteger(vm.getLua(), map_.getDirection());
-  return 1;
+  return (1);
 }
 
 int Trantorien::getInventoryValue(LuaVirtualMachine::VirtualMachine &vm)
@@ -501,11 +518,13 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
   UserGlobal::Direction dir = map_.getDirection();
   bool go[4] = {false, false, false, false};
 
-  if (lua_gettop(vm.getLua()) == 2)
+  if (lua_gettop(vm.getLua()) == 2 && lua_isnumber(vm.getLua(), 1) && lua_isnumber(vm.getLua(), 2))
     {
       to.first = lua_tonumber(vm.getLua(), 1);
       to.second = lua_tonumber(vm.getLua(), 2);
     }
+  else
+    throw TrantorienFailure("Tratorien goTo", "Invalid parameter : (void (int x, int y))");
   if (to.first == map_.getCurrentPos().first && to.second == map_.getCurrentPos().second)
   return 0;
  if (to.second != from.second)
@@ -526,8 +545,8 @@ int Trantorien::goTo(LuaVirtualMachine::VirtualMachine & vm)
                                   && to.first - from.first <= map_.getSize().first - (to.first - from.first))
          || from.first - to.first >= map_.getSize().first - (from.first - to.first);
   }
- std::cout << "from: " << from.first << "-" << from.second << " to: " << to.first << "-" << to.second << std::endl;
- std::cout << "N: " << go[0] << " E: " << go[1] << " S: " << go[2] << " O:" << go[3] << std::endl;
+ // std::cout << "from: " << from.first << "-" << from.second << " to: " << to.first << "-" << to.second << std::endl;
+ // std::cout << "N: " << go[0] << " E: " << go[1] << " S: " << go[2] << " O:" << go[3] << std::endl;
 
  if (go[dir - 1])
    {
@@ -580,7 +599,7 @@ int Trantorien::missingRockOnCase(LuaVirtualMachine::VirtualMachine &vm)
                                             int res = -1;
                                             std::pair<int, int> position = map_.getCurrentPos();
                                             std::vector<unsigned int> result = map_.caseContent(position);
-                                            if (object <= UserGlobal::JOUEUR)
+                                            if (object <= UserGlobal::JOUEUR && object >= UserGlobal::NOURRITURE)
                                               res = levels[level_ - 1][object] -
                                                 result[object];
                                             return (res);
@@ -633,7 +652,7 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
                                           int {
                                             int res = -1;
                                             std::vector<unsigned int> result = inventory_.getInventory();
-                                            if (object <= UserGlobal::JOUEUR)
+                                            if (object <= UserGlobal::JOUEUR && object >= UserGlobal::NOURRITURE)
                                               res = levels[level_ - 1][object] -
                                                 result[object];
                                             return (res);
@@ -643,24 +662,56 @@ int Trantorien::missingRockInInventory(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::getClosestItem(LuaVirtualMachine::VirtualMachine &vm)
 {
-  std::cout << "CALLED !" << std::endl;
   return (
           variableArgsCall<int, std::pair<int, int> >(vm,
                                                       [&](lua_State * state, int object) ->
                                                       std::pair<int, int> {
                                                         std::pair<int, int>result (-1, -1);
                                                         std::pair<int, int> position = map_.getCurrentPos();
-                                                        if (object <= UserGlobal::JOUEUR)
+                                                        if (object <= UserGlobal::JOUEUR &&
+							    object >= UserGlobal::NOURRITURE)
                                                           result = map_.getClosestItem(position, object);
                                                         return (result);
                                                       }));
 }
 
+
+int Trantorien::getItemWithLength(LuaVirtualMachine::VirtualMachine &vm)
+{
+  if (lua_gettop(vm.getLua()) == 2 && lua_isnumber(vm.getLua(), 1) && lua_isnumber(vm.getLua(), 2))
+    {
+      int object = lua_tonumber(vm.getLua(), 1);
+      int range =  lua_tonumber(vm.getLua(), 2);
+      std::pair<int, int> position = map_.getCurrentPos();
+      std::vector<std::pair<int, int> >res = map_.getItemOnRange(position, object, range);
+
+      std::default_random_engine generator;
+      std::uniform_int_distribution<int> distribution(0, res.size());
+      int pos = distribution(generator);
+
+      if (res.size() != 0)
+	{
+	  lua_pushnumber(vm.getLua(), res[pos].first);
+	  lua_pushnumber(vm.getLua(), res[pos].second);
+	}
+      else
+	{
+	  lua_pushnumber(vm.getLua(), -1);
+	  lua_pushnumber(vm.getLua(), -1);
+	}
+      return (2);
+    }
+  else
+    throw TrantorienFailure("Tratorien getItemWitchLength",
+			    "Invalid parameter : (int, int getItemWithLength(int object, int range))");
+}
+
+
 int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
 
-  if (lua_gettop(state) >= 3)
+  if (lua_gettop(state) >= 3 && lua_isnumber(state, 1) && lua_isnumber(state, 1) && lua_isnumber(state, 3))
     {
       int x = 0, y = 0;
       UserGlobal::Direction dir;
@@ -670,14 +721,15 @@ int Trantorien::changeFrame(LuaVirtualMachine::VirtualMachine &vm)
       dir = static_cast<UserGlobal::Direction>(lua_tonumber(state, 3));
       return (map_.changeFrame(Position(x, y), dir));
     }
-  return (-1);
+  else
+    throw TrantorienFailure("Tratorien changeFrame", "Invalid parameter : (int x8 caseContent(int x, int y))");
 }
 
 int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
 {
   lua_State *state = vm.getLua();
 
-  if (lua_gettop(state))
+  if (!lua_gettop(state))
     {
       std::pair<int, int> position = map_.getCurrentPos();
       std::vector<unsigned int> inventory = inventory_.getInventory();
@@ -707,10 +759,8 @@ int Trantorien::missingToElevate(LuaVirtualMachine::VirtualMachine &vm)
                                                 (inventory[object] + map[object]);
                                             return (res);
                                           }));
+    }
 }
-}
-
-// ox, oy, fx, fy, msg
 
 int Trantorien::listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg)
 {
@@ -738,7 +788,10 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
   Message msg;
   std::string str;
 
-  str = lua_tostring(vm.getLua(), 1);
+  if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
+    str = lua_tostring(vm.getLua(), 1);
+  else
+    throw TrantorienFailure("Tratorien LastMSG", "Invalid parameter : (string caseContent(string msg)");
   if (!broadcastHistory_.empty())
     {
       std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(),
@@ -755,23 +808,33 @@ int Trantorien::LastMsg(LuaVirtualMachine::VirtualMachine &vm)
 
 int Trantorien::messageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
-  std::string   search = lua_tostring(vm.getLua(), 1);
+  if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
+    {
+      std::string   search = lua_tostring(vm.getLua(), 1);
 
-  std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
-               return msg.getMessage() == search;
-    });
-  lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
-  return 1;
+      std::list<Message>::const_iterator it = std::find_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+	  return msg.getMessage() == search;
+	});
+      lua_pushboolean(vm.getLua(), it != broadcastHistory_.end());
+      return 1;
+    }
+  else
+    throw TrantorienFailure("Tratorien messageinqueue", "Invalid parameter : (string messageinqueue(string msg))");
 }
 
 int Trantorien::nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm)
 {
-  std::string search = lua_tostring(vm.getLua(), 1);
-  int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
-      return msg.getMessage() == search;
-    });
-  lua_pushinteger(vm.getLua(), res);
-  return (1);
+  if (lua_gettop(vm.getLua()) == 1 && lua_isstring(vm.getLua(), 1))
+    {
+      std::string search = lua_tostring(vm.getLua(), 1);
+      int res = std::count_if(broadcastHistory_.begin(), broadcastHistory_.end(), [&search](const Message & msg) -> bool {
+	  return msg.getMessage() == search;
+	});
+      lua_pushinteger(vm.getLua(), res);
+      return (1);
+    }
+  else
+    throw TrantorienFailure("Tratorien nbMessageInQueue", "Invalid parameter : (string caseContent(string msg))");
 }
 
 int Trantorien::nbMessageInQueue(const std::string &search)
@@ -796,6 +859,8 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
 
   if (lua_gettop(state) == 1 && lua_isnumber(state, 1))
     nb = lua_tointeger(state, 1);
+  else
+    throw TrantorienFailure("Tratorien connectplayer", "Invalid parameter : (void connectplayer(int nb))");
   for (int i = 0; i < nb; ++i)
     {
       if ((pid = fork()) == -1)

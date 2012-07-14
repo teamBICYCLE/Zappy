@@ -73,7 +73,6 @@ void FSM::VM<X>::init(const std::string &conf, const std::string &luaFile)
 {
   readConfFile(conf, luaFile);
   compileFile(luaFile);
-  std::cout << "Finite State Machine: init OK" << std::endl;
 }
 
 template <typename X>
@@ -162,7 +161,6 @@ void FSM::VM<X>::addLink(const std::string &startState, const std::string &answe
   StateVector::iterator               toEdit, toPoint;
   std::vector<std::string>::iterator  answerPos;
 
-  // create answer in retCode array
   answerPos = std::find(retCode_.begin(), retCode_.end(), answer);
   if (answerPos == retCode_.end())
     {
@@ -172,7 +170,6 @@ void FSM::VM<X>::addLink(const std::string &startState, const std::string &answe
           states_[i].second.resize(retCode_.size(), i);
         }
     }
-  // find position in states array of start and pointed state
 
   if ((toEdit = std::find_if(states_.begin(), states_.end(),
                [startState](const std::pair<std::string, std::vector<int> > & pair)

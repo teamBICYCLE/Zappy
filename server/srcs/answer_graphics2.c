@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Sat Jun 16 17:59:16 2012 lois burg
-** Last update Wed Jun 20 17:14:26 2012 lois burg
+** Last update Fri Jul 13 12:10:38 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -78,6 +78,7 @@ void	answer_sst(t_users *usr, char **args)
       if (delay != 0)
 	{
 	  g_info.world.action_delay = delay;
+	  compute_smallest_time(&g_info.world);
 	  msg = graphics_sgt();
 	}
       else

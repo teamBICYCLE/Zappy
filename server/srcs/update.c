@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Tue Jun 12 17:39:39 2012 Jonathan Machado
-** Last update Thu Jul 12 14:46:10 2012 lois burg
+** Last update Fri Jul 13 12:16:13 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -17,7 +17,10 @@
 #include "graphics.h"
 #include "diamond_generation.h"
 
-int			g_food_to_restore = 0;
+int			g_res_to_restore[NB_RESSOURCES] =
+  {
+    0, 0, 0, 0, 0, 0, 0
+  };
 extern t_infos		g_info;
 
 static	void	do_task(void *ptr)
@@ -82,18 +85,24 @@ static	void	decr_life(void *ptr)
     }
 }
 
-static void	create_food(void)
+static void	restore_res(void)
 {
   int		x;
   int		y;
+  int		res;
 
-  while (g_food_to_restore > 0)
+  res = FOOD;
+  while (res < NB_RESSOURCES)
     {
-      x = rand() % g_info.map->x;
-      y = rand() % g_info.map->y;
-      ++g_info.map->cases[y][x].elements[FOOD];
-      lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
-      --g_food_to_restore;
+      while (g_res_to_restore[res] > 0)
+	{
+	  x = rand() % g_info.map->x;
+	  y = rand() % g_info.map->y;
+	  ++g_info.map->cases[y][x].elements[res];
+	  lookup(g_info.users, graphics_bct(x, y), &notify_graphic);
+	  --g_res_to_restore[res];
+	}
+      ++res;
     }
 }
 
@@ -106,7 +115,7 @@ void	update_map(int const loop)
     {
       iterate(g_info.users, &do_task);
       iterate(g_info.users, &decr_life);
-      create_food();
+      restore_res();
       ++i;
     }
 }
