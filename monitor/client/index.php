@@ -12,9 +12,15 @@
 		<script src="js/libs/jquery.mousewheel.js"></script>
   		<?php
   			$port = "24542";
+			$ip = "localhost";
+  			
   			if (isset($_GET['port']) && is_numeric($_GET['port']))
   				$port = $_GET['port'];
-  			echo "<script src='http://localhost:".$port."/socket.io/socket.io.js'></script>";
+			
+			if (isset($_GET['ip']))
+				$ip = $_GET['ip'];
+			
+  			echo "<script src='http://".$ip.":".$port."/socket.io/socket.io.js'></script>";
   		?>
   		<script src="js/libs/mousetrap.min.js"></script>
   		<script src="js/monitorUi.js"></script>	
@@ -50,6 +56,7 @@
 		<input type="text" class="cmd" />
 		<div class="latency">latency : <span class="lValue">-</span> ms</div>
 		<span class="port" style="display:none;"><? echo $port; ?></span>
+		<span class="ip" style="display:none;"><? echo $ip; ?></span>
 		<div class="panel">
 			<div class="panel-topbar"></div>
 			<div class="panel-stats"></div>

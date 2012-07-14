@@ -118,7 +118,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1)
+		if (now.x - 1 >= 0 && now.y + 1 <= size.height - 1 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x - 1, now.y + 1);
 			layers.redraw();
@@ -130,7 +130,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0)
+		if (now.x + 1 <= size.width - 1 && now.y - 1 >= 0 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x + 1, now.y - 1);
 			layers.redraw();
@@ -141,7 +141,7 @@ $(function() {
 		
 		var now = layers.getCenter();
 		
-		if (now.x - 1 >= 0 && now.y - 1 >= 0)
+		if (now.x - 1 >= 0 && now.y - 1 >= 0 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x - 1, now.y - 1);
 			layers.redraw();
@@ -153,7 +153,7 @@ $(function() {
 		var now = layers.getCenter();
 			size = layers.getMapSize();
 		
-		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1)
+		if (now.x + 1 <= size.width - 1 && now.y + 1 <= size.height - 1 && playerFollowed == -1)
 		{
 			layers.setCenter(now.x + 1, now.y + 1);
 			layers.redraw();

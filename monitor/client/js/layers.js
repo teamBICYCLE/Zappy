@@ -158,8 +158,7 @@ Layers.prototype.redraw = function() {
 	
 	this.clear("cHighLight");
 	this.clear("cMap");
-	if (playerFollowed == -1)
-		ressources_draw(this);
+	ressources_draw(this);
 	players_draw(this);
 	map_draw(this.mapWidth, this.mapHeight, this);
 }
