@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jul 13 11:39:37 2012 thibault carpentier
-// Last update Fri Jul 13 16:31:14 2012 thibault carpentier
+// Last update Sat Jul 14 15:01:14 2012 thibault carpentier
 //
 
 #ifndef _TRANTORIEN_HH_
@@ -21,29 +21,6 @@
 #include "Ressources.hh"
 #include "Message.hh"
 
-
-/*! \mainpage Classe API Lua-C++ Documentation
- *
- * \section intro_sec Introduction
- *
- * This documentation will help non-developpers or developpers to implements new Artificial Intelligence
- * on the Zappy.
- *
- * \section install_sec Mini tutorial :
- * Launch galaxy and draw your finite State Machine with the soft. Once done, generate the conf file and export it on light Esterel format (.le) <br/> Done forget that the first state drawed is the first state called.
-<br/> Once done, open a lua file and develop function for each state in lua. this:nodename(this). Once done, launch and Enjoy !
- *
- * \subsection running Running the program
- *
- * \section copyright Copyright and License
- *
- *  Copyright 2012, all rights reserved, TeamBicycle.
- *
- * <BR><BR>
- *
- */
-
-
 const unsigned int BROADCAST_MAX_SIZE  = 1000;
 
 class Trantorien : public FSM::VM<Trantorien> {
@@ -56,25 +33,24 @@ public:
 
   void                  run();
 
-private: // print infos
+private:
   template <typename X, typename Y>
   int          variableArgsCall(LuaVirtualMachine::VirtualMachine & vm,
                                 std::function<Y(lua_State *,
                                                           const X &)> fct);
   void                  dump() const;
 
-private: // server interactions
   void                  joinTeam(const std::string & teamName);
   void                  cmd(const std::string & command);
   std::string           getline();
   Message               getBroadcastLine();
   int                   listen(LuaVirtualMachine::VirtualMachine &vm, const Message & msg);
 
-private:
   bool                  isValid() const;
 
   void         droite(void);
   void         gauche(void);
+
   int          avance(LuaVirtualMachine::VirtualMachine &);
   int          voir(LuaVirtualMachine::VirtualMachine &);
   int	       inventaire(LuaVirtualMachine::VirtualMachine&);
@@ -106,7 +82,7 @@ private:
   int	       nbMessageInQueue(LuaVirtualMachine::VirtualMachine &vm);
   int	       nbMessageInQueue(const std::string &);
   int	       countPlayer(LuaVirtualMachine::VirtualMachine &vm);
-private:
+
   Inventory               inventory_;
   Network                 network_;
   Map                     map_;
