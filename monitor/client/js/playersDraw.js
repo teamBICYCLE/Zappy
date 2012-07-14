@@ -5,18 +5,18 @@
 
 function draw_bubble(player, opacity) {
 	
-	var idx = 0,
-		min = player.animationLoop_[idx],
+	var idx = -1,
+		min = -1,
 		sprite = ['bubble_expulsion', 'bubble_broadcast', 'bubble_incantation', 'bubble_fork'];
 		
 	for (var i = 0; i != player.animationLoop_.length; i++)
-		if (player.animationLoop_[i] < min)
+		if (min == -1 || (player.animationLoop_[i] < min && player.animationLoop_[i] != -1))
 			{
 				min = player.animationLoop_[i];
 				idx = i;
 			}
 			
-	if (min > -1)
+	if (idx != -1 && min != -1)
 	{
 		layers.draw("cPlayers", sprite[idx], player.posx_, player.posy_, opacity);
 		if (idx == 1) /* broadcast */

@@ -623,6 +623,11 @@ function close_endGame() {
 	}
 	else
 	{
+		$(".panel").animate({marginRight: "-500px"}, 200);
+		$(".btn-slide").animate({marginRight: "0px"}, 200);
+		$(".btn-slide").removeClass("active");
+		$(".panel").fadeOut(500);
+		$(".player-list").fadeOut(300);
 		$("#overlay").fadeOut(300);
 		$(".endGame").hide();
 	}

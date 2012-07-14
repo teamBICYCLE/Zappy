@@ -99,7 +99,7 @@ MonitorCache.prototype.updateMap = function(data) {
 		{
 		    x = parseInt(data[i].x_);
 		    y = parseInt(data[i].y_);
-		    target = (y * this.ysize_) + x;
+		    target = (y * this.xsize_) + x;
 		    if (this.ysize_ != 0 && this.xsize_ != 0 &&
 			x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
 				this.map_[target] = data[i];
@@ -109,7 +109,7 @@ MonitorCache.prototype.updateMap = function(data) {
 }
 
 MonitorCache.prototype.getCaseFromPos = function(x, y) {
-    var target = (parseInt(y) * this.ysize_) + parseInt(x);
+    var target = (parseInt(y) * this.xsize_) + parseInt(x);
     
 	if (this.ysize_ != 0 && this.xsize_ != 0 &&
 		x < this.xsize_ && y < this.ysize_ && x >= 0 && y >= 0)
@@ -119,6 +119,8 @@ MonitorCache.prototype.getCaseFromPos = function(x, y) {
 
 MonitorCache.prototype.getCase = function(target) {
 	
+	//console.log("size : " + this.map_.length);
+
 	if (target >= 0 && target < this.map_.length)
 		return this.map_[target];
 	displayError("Something wrong in MonitorCache.getCase()");
@@ -126,6 +128,7 @@ MonitorCache.prototype.getCase = function(target) {
 
 MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
+	//console.log(aCase);
 	var sprite = 0,
    		value = aCase.ressources_[0];
    	   	

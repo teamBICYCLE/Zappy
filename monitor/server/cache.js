@@ -257,6 +257,7 @@ exports.dump = function() {
     console.log("currentTimeUnit : " + currentTimeUnit_);
     console.log("teams : " + teams_);
     console.log("player : " + players_);
+    //console.log("map : " + map_.dump());
 };
 
 exports.cmdMessagesEmpty = function() {

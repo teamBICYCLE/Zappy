@@ -117,7 +117,7 @@ Player.prototype.setPex = function() {
 }
 
 Player.prototype.setPbc = function(msg) {
-	this.animationLoop_[1] += 40;
+	this.animationLoop_[1] = 40;
 	this.broadcast_ = msg;
 }
 
@@ -126,7 +126,7 @@ Player.prototype.setPic = function() {
 }
 
 Player.prototype.setPfk = function() {
-	this.animationLoop_[3] += 20;
+	this.animationLoop_[3] = 40;
 }
 
 Player.prototype.setPdr = function() {
