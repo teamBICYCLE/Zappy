@@ -31,7 +31,7 @@ CanvasHandler.prototype.get = function(name) {
 	for (var i = 0; typeof(this.list_[i]) != "undefined"; i++)
 		if (this.list_[i].name == name)
 			return this.list_[i];
-	console.log(name);
+
 	displayError("Something wrong in CanvasHandler.get()");
 }
 

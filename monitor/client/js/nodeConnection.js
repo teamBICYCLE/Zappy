@@ -93,7 +93,7 @@ socket.on('cacheUpdate', function(data){
 	if (lastTimestamp != data.timestamp) {
 		
 		if (data.endGame.state)
-			console.log("END GAME :) " + data.endGame.name);
+			display_endGame(data.endGame.name);
 		
 		prevPlayers = cache.getPlayers();
 		prevInfo = cache.getAllTeamInfo();

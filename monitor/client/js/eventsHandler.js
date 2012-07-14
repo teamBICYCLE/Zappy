@@ -28,13 +28,6 @@ function events_handler(layers) {
 function realToMap(pos, layers, canvas) {
     var x = 0, y = 0;
 
-	//pos.y += (128 - layers.getTileSize().width); // pos max - pos.y
-    // pos.x -= layers.padding(canvas).left;
-    // pos.y -= layers.padding(canvas).top;
-    // x = (pos.y / (layers.getTileSize().height / 2)) + (pos.x / layers.getTileSize().width);
-    // y = (pos.y / (layers.getTileSize().height / 2)) - (pos.x / layers.getTileSize().width);
-    // return ({x: parseInt(x - 1), y: parseInt(y)});
-//     
     pos.x -= layers.padding(canvas).left;
     pos.y -= layers.padding(canvas).top;
     x = (pos.y / (layers.tilesSizeLevel[zoom] / 2)) + (pos.x / layers.tilesSizeLevel[zoom]);
@@ -42,7 +35,7 @@ function realToMap(pos, layers, canvas) {
     return ({x: parseInt(x - 1), y: parseInt(y)});
 };
 	
-function getMousePosition(e) {
+function getMousePosition(e) {	
 
 	var targ;
     if (!e)
