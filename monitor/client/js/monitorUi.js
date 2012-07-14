@@ -603,7 +603,7 @@ function initSettings() {
 
 function display_endGame(team) {
 	
-	$(".endGame .winner").html("Team " + team + " wins !");
+	$(".endGame .winner").html("Team " + team + " won !");
 	$("#overlay").fadeIn(300);
 	$(".endGame").show();
 	

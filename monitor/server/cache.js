@@ -106,12 +106,17 @@ exports.addPlayer = function(arg) {
 
 exports.removePlayer = function(argId) {
 	
-	var id = argId.replace("#", "")
+	var id = argId.replace("#", "");
+		team = "";
+		
 	for (var i = 0; i < players_.length; i++)
 		if (id == players_[i].getId())
+		{
+			team = players_[i].getTeam();
 			players_.splice(i, 1);
+		}
 			
-	this.addMessage("Player " + id + " died.");
+	this.addMessage("[Team " + team + "] Player " + id + " died.");
 }
 
 exports.addEgg = function(id, x, y) {
