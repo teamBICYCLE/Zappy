@@ -818,3 +818,27 @@ i.leaf-icon {
 }
 
 /* END GODMODE */
+
+/* END GAME */
+
+.endGame {
+	display: none;
+}
+
+.endGame .winner {	
+	z-index: 998;
+	font-size: 78px;
+	display: block;
+	position: relative;
+	text-align: center;
+	margin-top: 15%;
+}
+
+.endGame .newGame {	
+	z-index: 998;
+	font-size: 35px;
+	/*position: absolute;*/
+	display: block;
+	position: relative;
+	text-align: center;
+}

@@ -383,33 +383,36 @@ function updateInventoryContent(inventory, lastInventory) {
 	change = inventorySetChange(inventory, lastInventory);
 	
 	if (allowInventoryUpdate) {
-	/* delete */
-	for (var i = 0; i != change.deleted.length; i++)
-			$("#inventory-containers .container #" + ref[change.deleted[i].id] + "-item").remove();
-	
-	/* update */
-	for (var i = 0; i != change.updated.length; i++)
-	{
-		if ($("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").length)
-			$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
-		else
-			change.added.push(change.updated[i]);
-	}
-			
-	/* add */		
-	for (var i = 0; i != change.added.length; i++)
-	{
-		var container = $("#inventory-containers .container");
 		
-		for (var j = 0; j != container.length; j++)
-			if ($(container[j]).children().length == 0)
-			{
-				$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
-				break;
-			}
-	}
-	
-	initItem();
+		/* delete */
+		for (var i = 0; i != change.deleted.length; i++)
+				$("#inventory-containers .container #" + ref[change.deleted[i].id] + "-item").remove();
+		
+		/* update */
+		for (var i = 0; i != change.updated.length; i++)
+		{
+			//if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item"))
+			//console.log($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1);
+			if ($("#inventory-containers .container").has("#" + ref[change.updated[i].id] + "-item").length == 1)
+				$("#inventory-containers .container #" + ref[change.updated[i].id] + "-item span").text(change.updated[i].q);
+			else
+				change.added.push(change.updated[i]);
+		}
+				
+		/* add */		
+		for (var i = 0; i != change.added.length; i++)
+		{
+			var container = $("#inventory-containers .container");
+			
+			for (var j = 0; j != container.length; j++)
+				if ($(container[j]).children().length == 0)
+				{
+					$(container[j]).append("<div id='"+ref[change.added[i].id]+"-item' class='item'><span class='"+ref[change.added[i].id]+"-count item-count'>"+change.added[i].q+"</span></div>");	
+					break;
+				}
+		}
+		
+		initItem();
 	}
 }
 
@@ -596,4 +599,36 @@ function initSettings() {
 		$('.setting-timer-value').html(this.value);
 		socket.emit('requestData', {cmd : "sst " + this.value});
 	});
+}
+
+function display_endGame(team) {
+	
+	$(".endGame .winner").html("Team " + team + " wins !");
+	$("#overlay").fadeIn(300);
+	$(".endGame").show();
+	
+	setTimeout('close_endGame()', 1000);
+}
+
+function close_endGame() {
+	
+	var timer = $(".endGame .newGame .timer").html();
+	if (timer > 0)
+	{
+		if (timer - 1 == 1)
+			$(".endGame .newGame").html("New game in 1 second");
+		else
+			$(".endGame .newGame .timer").html(timer - 1);
+		setTimeout('close_endGame()', 1000);
+	}
+	else
+	{
+		$(".panel").animate({marginRight: "-500px"}, 200);
+		$(".btn-slide").animate({marginRight: "0px"}, 200);
+		$(".btn-slide").removeClass("active");
+		$(".panel").fadeOut(500);
+		$(".player-list").fadeOut(300);
+		$("#overlay").fadeOut(300);
+		$(".endGame").hide();
+	}
 }

@@ -4,7 +4,6 @@ function checkCmd(cmd){
 	if (!godMode && (explode[0] == "gkp" || explode[0] == "gsi" ||
 		explode[0] == "gsc" || explode[0] == "glp"))
 	{
-		console.log("yo");
 		displayError("Command not found");
 		return false;		
 	}

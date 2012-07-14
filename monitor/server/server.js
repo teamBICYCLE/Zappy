@@ -127,6 +127,7 @@ function parseArg() {
 	if (process.argv.length >= 4)
 		ret.port = process.argv[3];
 		
+	console.log("If you want to connect to this node server use port : " + ret.portClient + "\n");
 	return ret;
 }
 

@@ -18,7 +18,6 @@ var ZappyConnection = function (ip, port) {
 	var self = this;
 	
 	socket.on('connect', function(){
-		console.log("CONNECTED !!");
 		socket.write("GRAPHIC\n");
 	});
 	
@@ -38,11 +37,7 @@ var ZappyConnection = function (ip, port) {
 				cache.addTeamColor();
 				first = false;
 			}
-			// else
-			// {
-				// //self.emit('cacheUpdate');
-				// console.log("event cache Update");
-			// }
+		
 			buffer = '';
 		}
 	});
