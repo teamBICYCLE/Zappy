@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 18:27:05 2012 lois burg
-** Last update Thu Jul 12 15:43:52 2012 lois burg
+** Last update Sun Jul 15 12:17:30 2012 lois burg
 */
 
 #ifndef		__GRAPHICS_H__
@@ -23,6 +23,7 @@ char		*send_ghost(t_users *plyr, t_users *monitor);
 /* TOOLS */
 int	cmp_id(void *usr, void *id);
 void	send_graphic_result(t_users *usr, const int success);
+int	set_case_content(const uint x, const uint y, char **args);
 
 /* ANSWER FUNC */
 void	answer_msz(t_users *u, char **args);

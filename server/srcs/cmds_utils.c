@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Wed Jul 11 16:10:28 2012 Jonathan Machado
+** Last update Sun Jul 15 12:07:38 2012 lois burg
 */
 
 #include <string.h>
@@ -31,6 +31,8 @@ void		assign_pos(t_users *u, t_team *team)
   t_link	*ghost_lnk;
   t_users	*ghost;
 
+  u->x = rand() % g_info.map->x;
+  u->y = rand() % g_info.map->y;
   if ((ghost_lnk = lookup_and_pop(g_info.users, team, &find_team_egg)))
     {
       ghost = (t_users*)ghost_lnk->ptr;
@@ -43,11 +45,7 @@ void		assign_pos(t_users *u, t_team *team)
       lookup(g_info.users, graphics_ebo(u->id), &notify_graphic);
     }
   else
-    {
-      u->x = rand() % g_info.map->x;
-      u->y = rand() % g_info.map->y;
-      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
-    }
+    ++g_info.map->cases[u->y][u->x].elements[PLAYER];
   u->inventory[FOOD] = 10;
   u->life = (u->inventory[FOOD] * 126);
   u->team = team;

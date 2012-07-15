@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 19 16:39:50 2012 lois burg
-** Last update Sat Jul  7 13:17:26 2012 lois burg
+** Last update Sun Jul 15 11:19:02 2012 lois burg
 */
 
 #include <string.h>
@@ -45,7 +45,6 @@ t_cmd_ret	broadcast_cmd(t_users *usr, char **args, char *orig_cmd)
   msg = strtok(NULL, "");
   if (msg == NULL)
     return (FAILURE);
-  printf("Message to broadcast: %s\n", msg);
   i = 0;
   while (i < g_info.users->size)
     {
