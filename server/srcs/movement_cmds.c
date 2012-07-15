@@ -5,10 +5,9 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Thu Jun 14 13:38:06 2012 Jonathan Machado
-** Last update Fri Jul 13 11:59:22 2012 lois burg
+** Last update Sun Jul 15 11:17:31 2012 lois burg
 */
 
-#include <stdio.h>
 #include <string.h>
 #include "graphics.h"
 #include "server.h"
@@ -55,7 +54,6 @@ t_cmd_ret	forward_cmd(t_users *u, char **args, char *orig_cmd)
   u->y = ((u->y + g_dir_tab[u->dir].dy) + g_info.map->y) % g_info.map->y;
   ++g_info.map->cases[u->y][u->x].elements[PLAYER];
   lookup(g_info.users, graphics_ppo(u), &notify_graphic);
-  printf("%d-%d\n", u->x, u->y);
   return (SUCCESS);
 }
 
