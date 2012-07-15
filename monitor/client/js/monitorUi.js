@@ -229,7 +229,7 @@ $(function() {
 		layers.canvasHandler.resize();
 		layers.redraw();
 	});
-	
+
 });
 
 function displayError(msg) {
@@ -446,12 +446,27 @@ function addTeamsToPanel(open) {
 		                }
 		            }
 		        },
+		        grid: {
+            		hoverable: true
+            	}
 			});
 		else
 			$(".chart-content:last").append("<p style='text-align: center; font-size: 18px; margin-top: 100px;'>Statistics are currently unavailable for this team.</p>");									
 			
 		if (i == open)
 			$(".chart:last").show();
+			
+		$(".chart-content:last").bind("plothover", piehover);
+	}
+}
+
+function piehover(e, pos, obj) {
+	
+	if (obj && typeof(obj.series.data[0][1]) != "undefined")
+	{
+		$(".pieNumber").show();
+		$(".pieNumber").offset({top: pos.pageY, left: pos.pageX + 15});
+		$(".pieNumber").html(obj.series.data[0][1]);
 	}
 }
 
@@ -490,6 +505,10 @@ function initTeamPanel(open) {
 	
 	$(".teambox").mouseout(function(e) {
 			currentTeam = "";
+	});
+	
+	$(".chart").bind("mouseout", function(){
+		$(".pieNumber").hide();
 	});
 }
 
