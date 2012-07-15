@@ -256,8 +256,10 @@ void Map::voir(const std::string &values)
 
   if (boost::regex_match(values, regex))
       analyse(values);
-  else
-  throw TrantorienFailure("Map voir", "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
+//  else
+//    {
+//      throw TrantorienFailure("Map voir", "Received \"" + values + "\" witch does not match with the regex " + REGEX_VALUE);
+//    }
 }
 
 void Map::prendre(const std::string &value)
@@ -374,7 +376,7 @@ std::vector<Position> Map::getItemOnRange(Position pos, int object, int range)
           it->first == currentPos_.first && it->second == currentPos_.second && object == UserGlobal::JOUEUR)
         player = true;
       else if (tmpX + tmpY == range)
-	  result.push_back(std::make_pair((*it).first, (*it).second));
+          result.push_back(std::make_pair((*it).first, (*it).second));
     }
   return (result);
 }

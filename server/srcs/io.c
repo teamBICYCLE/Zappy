@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Wed Jul 11 14:55:58 2012 Jonathan Machado
+** Last update Sun Jul 15 18:50:46 2012 lois burg
 */
 
 #include <stdio.h>
@@ -129,6 +129,6 @@ void		read_user(void *ptr)
 	}
     }
   if (user != NULL && user->readring != NULL && user->readring->end != 0 &&
-      (str = get_data(user->readring)) != NULL)
+      user->is_dead == false && (str = get_data(user->readring)) != NULL)
     handle_cmd(user, str);
 }

@@ -3,7 +3,7 @@
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MIN_FOOD = 8
-MAX_FOOD = 35
+MAX_FOOD = 40
 HAS_LAYED = false
 HAS_TO_CALL_PLAYER = false
 NB_PLAYER_TO_CONNECT = 8
@@ -57,7 +57,6 @@ function this.go_dir(this)
 end
 
 function this.enought_food(this)
-   print("IN ENOUGHT FOOD")
    if (HAS_TO_CALL_PLAYER == true)
    then
       local nbslots = this:IACanConnectPlayer()
@@ -69,7 +68,6 @@ function this.enought_food(this)
    if (HAS_LAYED == false)
    then
       local a = this:IACountPlayer()
-      print("THIS IS RESUUUUuLLLT ", a)
       if (a < NB_PLAYER_TO_CONNECT)
       then
 	 this:IALay()
@@ -117,7 +115,6 @@ function AjustRock(count, type)
 end
 
 function this.elevate(this)
-   print("IN ELEVATE")
    this:IAVoir()
    this:IAElevate()
    return OK
@@ -126,8 +123,6 @@ end
 function this.obj_sur_case(this)
    this:IAVoir()
    local r = {this:IACaseContent(this:IACurrentPosition())}
-   print ("UNPACKED:", unpack(r))
-   print (r[JOUEUR + 1])
    if r[obj + 1] > 0
    then return OK
    else return KO
@@ -140,8 +135,7 @@ end
 
 function this.voit_obj(this)
    this:IAVoir()
-   print (obj)
-   gx, gy = this:IAGetItemWithLength(obj, 3)
+   gx, gy = this:IAGetItemWithLength(obj, 2)
    if gx == -1 or gy == -1
    then gx, gy = this:IAGetCLosestItem(obj)
    end
@@ -200,7 +194,6 @@ end
 function this.enought_mates(this)
    this:IAVoir()
    local n, l, d, s, m, p, t, j = this:IAMissingRockOnCase()
-   print ("ici que ca bug ?!", l,d,s,m,p,t)
    AjustRock(l, LINEMATE)
    AjustRock(d, DERAUMERE)
    AjustRock(s, SIBUR)
@@ -221,10 +214,8 @@ function this.call_mates(this)
    then return FRIEND
    end
    this:IAInventaire()
-   print ("It should work, with ", MIN_FOOD)
    if this:IAgetInventoyValue(NOURRITURE) < MIN_FOOD
    then
-      print ("he needs food", SEEKFOOD)
       return SEEKFOOD
    end
    this:IABroadcast("level " .. this:IAGetLevel())

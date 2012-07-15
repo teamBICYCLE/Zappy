@@ -3,8 +3,7 @@
 #include "Network.hh"
 
 #define WELCOME_MSG "BIENVENUE"
-#define DEBUG
-
+//#define DEBUG
 #include <iostream>
 
 Network::Network(const std::string &ip, const std::string &port)
@@ -25,6 +24,8 @@ Network::~Network()
 
 void Network::cmd(const std::string &command)
 {
+  if (!*this)
+    throw std::runtime_error("Network disconnected");
 #ifdef DEBUG
   std::cout << "network out:" << command << std::endl;
 #endif
@@ -40,5 +41,7 @@ std::string Network::getline()
 #ifdef DEBUG
   std::cout << "network in: " << str << std::endl;
 #endif
+  if (!*this)
+    throw std::runtime_error("Network disconnected");
   return str;
 }

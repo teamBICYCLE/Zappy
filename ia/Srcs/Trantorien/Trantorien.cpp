@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jul 13 11:39:41 2012 thibault carpentier
-// Last update Sat Jul 14 16:42:04 2012 thibault carpentier
+// Last update Sun Jul 15 15:40:18 2012 thibault carpentier
 //
 
 
@@ -21,7 +21,7 @@
  * <br/> Once done, open a lua file and develop function for each state in lua. this:nodename(this). Once done, launch and Enjoy !
  *
  * \subsection Warning
- * Warning, this documentation does not details the c++class but how to call the api functions from the lua.
+ * Warning, this documentation does not details the c++class but how to call the api functions from the lua. All the function named here have to have prefix "this:IA" when called in lua.
  *
  *
  * \section Global
@@ -49,6 +49,10 @@
  * THYSTAME   <br/>
  * JOUEUR  <br/>
  * <br/>
+ <li>Misc Globals</li><br/>
+ * TEAMNAME <br/>
+ * MAPX <br/>
+ * MAPY <br/>
  * \section copyright Copyright and License
  *
  *  Copyright 2012, all rights reserved, TeamBicycle.
@@ -79,8 +83,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
 {
   if (!network_)
     {
-      //std::cout << network_.error().message() << std::endl;
-      abort();
+      throw std::runtime_error(network_.error().message());
     }
   init(lefile, luafile);
 
@@ -153,9 +156,15 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
 
   lua_pushstring(state, team.c_str());
   lua_setglobal(state, "TEAMNAME");
+
   joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
+
+  lua_pushnumber(state, map_.getSize().first);
+  lua_setglobal(state, "MAPX");
+  lua_pushnumber(state, map_.getSize().second);
+  lua_setglobal(state, "MAPY");
 }
 
 Trantorien::~Trantorien()
@@ -474,14 +483,12 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) != "ko");
-  lua_pushstring(vm.getLua(), ret.c_str());
+    if ((ret = this->getline()) != "ko")
+      lua_pushstring(vm.getLua(), ret.c_str());
   this->cmd("voir");
   ret = this->getline();
   if (ret == "ko")
     ret = this->getline();
-  if (ret != "ko")
-    map_.voir(ret);
   return 1;
 }
 
