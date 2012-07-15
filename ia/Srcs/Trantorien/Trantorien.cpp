@@ -504,7 +504,6 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
       ret = this->getline();
       if (ret == "ko")
         ret = this->getline();
-      std::cout << "before PARSING TROLOLOO >>><<<<<<<<<<" << std::endl;
       map_.voir(ret);
     }
   return 1;
