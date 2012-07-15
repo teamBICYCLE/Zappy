@@ -23,16 +23,6 @@ MapCase.prototype.getRessources = function() {
 	return this.ressources_;
 };
 
-MapCase.prototype.dump = function(obj) {
-	console.log(obj.ressources_[0]);
-	console.log(obj.ressources_[1]);
-	console.log(obj.ressources_[2]);
-	console.log(obj.ressources_[3]);
-	console.log(obj.ressources_[4]);
-	console.log(obj.ressources_[5]);
-	console.log(obj.ressources_[6]);
-}
-
 MapCase.prototype.setFood = function(v) {
    this.ressources_[0] = parseInt(v);
 };

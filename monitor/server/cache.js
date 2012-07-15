@@ -256,15 +256,6 @@ exports.isWhole = function() {
 		return false;
 }
 
-exports.dump = function() {
-    console.log("x : " + xsize_);
-    console.log("y : " + ysize_);
-    console.log("currentTimeUnit : " + currentTimeUnit_);
-    console.log("teams : " + teams_);
-    console.log("player : " + players_);
-    //console.log("map : " + map_.dump());
-};
-
 exports.cmdMessagesEmpty = function() {
 	cmdMessages_ = [];
 }

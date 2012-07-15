@@ -10,7 +10,7 @@ var express = require('express'),
 	util = require('util'),
 	ee = require('events').EventEmitter;
 
-	io = io.listen(app).set('log level', 1);
+	io = io.listen(app).set('log level', 0);
 	
 var ClientConnection = function(port) {
 	

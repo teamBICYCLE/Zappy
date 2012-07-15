@@ -33,9 +33,6 @@ if (process.argv.length >= 3)
 	zappy.on('cacheWhole', function(){
 		
 		client = new ClientConnection(portClient);
-		
-		zappy.getCache().dump();
-	    console.log("=================");
 	  
 	  	client.on('requestData', function(obj){
 	  		
@@ -52,8 +49,7 @@ if (process.argv.length >= 3)
 		});
 		
 		client.on('firstConnection', function(obj){
-			
-			console.log("send firstConnection !");
+
 			var cache = zappy.getCache();
 			
 			obj.socket.emit('firstConnection', {
@@ -114,20 +110,28 @@ function calcTimeOut(t) {
 
 function parseArg() {
 	
-	var ret = {port: "4242", portClient: "24542"};
+	var ret = {port: "4242", portClient: "24542"},
+		msg = "";
+		sep = "";
 	
 	if (typeof(process.argv[4]) != "undefined")
 		ret.portClient = process.argv[4];
 	
 	if (process.argv[3] == ret.portClient)
 	{
-		console.log("This port is reserved for browser <-> node server connection.");
+		console.log("\nError : This port is reserved for browser <-> node server connection.\n");
 		process.exit(0);
 	}
 	if (process.argv.length >= 4)
 		ret.port = process.argv[3];
 		
-	console.log("If you want to connect to this node server use port : " + ret.portClient + "\n");
+	msg = "== If you want to connect to this node server use port : " + ret.portClient + " ==";
+	for (var i = 0; i != msg.length; i++)
+		sep += "=";
+		
+	console.log("\n" + sep);
+	console.log(msg);
+	console.log(sep + "\n");
 	return ret;
 }
 

@@ -607,6 +607,12 @@ function initSettings() {
 
 function display_endGame(team) {
 	
+	if (typeof(audio) != "undefined")
+	{
+		$(".setting-music-button").click();
+		$(".topbar-menu-settings").click();	
+	}
+	
 	audio = new Audio("music/2.mp3");
 	audio.play();
 	$(".panel").animate({marginRight: "-500px"}, 200);
@@ -636,5 +642,6 @@ function close_endGame() {
 	{
 		$(".endGame").hide();
 		audio.pause();
+		$("#overlay").fadeOut(300);
 	}
 }

@@ -16,13 +16,6 @@ var Egg = function(id, x, y) {
 
 /* METHODS */
 
-Egg.prototype.dump = function() {
-    console.log("=====Egg=====");
-    console.log("id: " + this.id_);
-    console.log("posx: " + this.posx_);
-    console.log("posy: " + this.posy_);
-}
-
 Egg.prototype.setId = function(v) {
     this.id_ = v;
 }
