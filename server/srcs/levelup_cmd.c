@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Fri Jul 13 11:59:07 2012 lois burg
+** Last update Sun Jul 15 18:12:03 2012 lois burg
 */
 
 #include "log.h"
@@ -68,8 +68,9 @@ static void	lvlup_plyr(const int x, const int y, const int lvl)
 	    {
 	      ++plyr->lvl;
 	      check_end_game(plyr);
-	      snprintf(msg, sizeof(msg), "Level up! Player #%d is level %d!\n",
-		       plyr->id, plyr->lvl);
+	      snprintf(msg, sizeof(msg), "Level up! Player #%d (%d-%d)"
+		       " is level %d!\n",
+		       plyr->id, plyr->x, plyr->y, plyr->lvl);
 	      log_msg(stdout, msg);
 	    }
 	}
