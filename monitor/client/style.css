@@ -9,11 +9,8 @@ html, body {
 	overflow: hidden;
 }
 
-/*div, input {
-	position: absolute;
-}*/
-
 /* SCROLLBAR DESIGN */
+
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -342,7 +339,7 @@ i.leaf-icon {
 }
 
 .panel-container {
-	/*float:right;*/
+
 }
 
 .panel-stats {
@@ -461,8 +458,6 @@ i.leaf-icon {
 	height: 309px;
 	background: rgba(0,0,0,0.4);
 	margin: 10% auto 0;
-/*	margin: 0 auto;
-	margin-top: 200px;*/
 	color: #eee;
 	font-family: Helvetica, sans-serif;
 	font-size: 14px;
@@ -773,9 +768,11 @@ i.leaf-icon {
 #setting-timer-slider {
 	width: 260px;
 }
+
 /* END SETTINGS */
 
 /* GODMODE */
+
 .godmode {
 	font-size: 14px;
 	min-width: 300px;
