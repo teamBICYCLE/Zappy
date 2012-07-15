@@ -831,14 +831,23 @@ i.leaf-icon {
 	display: block;
 	position: relative;
 	text-align: center;
-	margin-top: 15%;
+	margin-top: 6%;
+	margin-bottom: 25px;
 }
 
 .endGame .newGame {	
 	z-index: 998;
 	font-size: 35px;
-	/*position: absolute;*/
 	display: block;
 	position: relative;
 	text-align: center;
+}
+
+.endGame img {
+	z-index: 998;
+	position: relative;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 15px;
 }

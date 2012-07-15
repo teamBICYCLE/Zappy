@@ -190,6 +190,10 @@ $(function() {
 		layers.resetAndRedraw();
 	});
 	
+	Mousetrap.bind("r", function() {
+		layers.resetAndRedraw();
+	});
+	
 	$(".topbar-menu-godmode").click(function() {
 		if ($(".godmode").css("display") == "none") {
 			$(".panel").animate({marginRight: "-500px"}, 200);
@@ -603,6 +607,13 @@ function initSettings() {
 
 function display_endGame(team) {
 	
+	audio = new Audio("music/2.mp3");
+	audio.play();
+	$(".panel").animate({marginRight: "-500px"}, 200);
+	$(".btn-slide").animate({marginRight: "0px"}, 200);
+	$(".btn-slide").removeClass("active");
+	$(".panel").fadeOut(500);
+	$(".player-list").fadeOut(300);
 	$(".endGame .winner").html("Team " + team + " won !");
 	$("#overlay").fadeIn(300);
 	$(".endGame").show();
@@ -623,12 +634,7 @@ function close_endGame() {
 	}
 	else
 	{
-		$(".panel").animate({marginRight: "-500px"}, 200);
-		$(".btn-slide").animate({marginRight: "0px"}, 200);
-		$(".btn-slide").removeClass("active");
-		$(".panel").fadeOut(500);
-		$(".player-list").fadeOut(300);
-		$("#overlay").fadeOut(300);
 		$(".endGame").hide();
+		audio.pause();
 	}
 }
