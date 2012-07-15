@@ -157,14 +157,14 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_pushstring(state, team.c_str());
   lua_setglobal(state, "TEAMNAME");
 
-  lua_pushnumber(state, map_.first);
-  lua_setglobal(state, "MAPX");
-lua_pushnumber(state, map_.second);
-  lua_setglobal(state, "MAPY");
-
   joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
+
+  lua_pushnumber(state, map_.getSize().first);
+  lua_setglobal(state, "MAPX");
+  lua_pushnumber(state, map_.getSize().second);
+  lua_setglobal(state, "MAPY");
 }
 
 Trantorien::~Trantorien()
