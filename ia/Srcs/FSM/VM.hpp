@@ -140,7 +140,9 @@ void FSM::VM<X>::setRetValueGlobals()
   for (unsigned int i = 0; i < retCode_.size(); ++i) {
       lua_pushinteger(state, i);
       lua_setglobal(state, retCode_[i].c_str());
+#ifdef DEBUG
       std::cout << retCode_[i] << " pushed." << std::endl;
+#endif
     }
 }
 

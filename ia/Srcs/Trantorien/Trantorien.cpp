@@ -83,8 +83,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
 {
   if (!network_)
     {
-      //std::cout << network_.error().message() << std::endl;
-      abort();
+      throw std::runtime_error(network_.error().message());
     }
   init(lefile, luafile);
 
@@ -158,14 +157,14 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_pushstring(state, team.c_str());
   lua_setglobal(state, "TEAMNAME");
 
-  lua_pushnumber(state, map_.first);
-  lua_setglobal(state, "MAPX");
-lua_pushnumber(state, map_.second);
-  lua_setglobal(state, "MAPY");
-
   joinTeam(team);
   this->getline();
   map_.setSize(this->getline());
+
+  lua_pushnumber(state, map_.getSize().first);
+  lua_setglobal(state, "MAPX");
+  lua_pushnumber(state, map_.getSize().second);
+  lua_setglobal(state, "MAPY");
 }
 
 Trantorien::~Trantorien()
@@ -484,14 +483,12 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) != "ko");
-  lua_pushstring(vm.getLua(), ret.c_str());
+    if ((ret = this->getline()) != "ko")
+      lua_pushstring(vm.getLua(), ret.c_str());
   this->cmd("voir");
   ret = this->getline();
   if (ret == "ko")
     ret = this->getline();
-  if (ret != "ko")
-    map_.voir(ret);
   return 1;
 }
 
