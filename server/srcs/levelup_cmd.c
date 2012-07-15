@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jun 21 11:44:28 2012 lois burg
-** Last update Sun Jul 15 18:50:55 2012 lois burg
+** Last update Sun Jul 15 19:20:29 2012 lois burg
 */
 
 #include "log.h"
@@ -84,7 +84,7 @@ static void	decr_res(const int x, const int y, const int lvl)
   int		res;
 
   res = LINEMATE;
-  while (res < PLAYER)
+  while (res < NB_RESSOURCES)
     {
       g_info.map->cases[y][x].elements[res] -= g_lvl_req[lvl - 1][res];
       g_res_to_restore[res] += g_lvl_req[lvl - 1][res];

@@ -5,7 +5,7 @@
 ** Login   <jonathan.machado@epitech.net>
 **
 ** Started on  Mon May 14 19:49:07 2012 Jonathan Machado
-** Last update Sun Jul 15 18:50:46 2012 lois burg
+** Last update Sun Jul 15 19:25:44 2012 lois burg
 */
 
 #include <stdio.h>
@@ -52,6 +52,7 @@ void		remove_user(t_users *u)
       else
 	snprintf(msg, sizeof(msg), "User %d died a horrible death!\n", u->id);
       loot_plyr(u);
+      --g_info.map->cases[u->y][u->x].elements[PLAYER];
     }
   else
     snprintf(msg, sizeof(msg), "User %d left!\n", u->id);
