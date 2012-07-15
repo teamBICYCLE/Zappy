@@ -91,7 +91,6 @@ socket.on('cacheUpdate', function(data){
 	
 	if (lastTimestamp != data.timestamp) {
 		
-		console.log(data.endGame.state);
 		if (data.endGame.state)
 			display_endGame(data.endGame.name);
 		
@@ -120,4 +119,3 @@ socket.on('cacheUpdate', function(data){
 		lastTimestamp = data.timestamp;
 	}
 });
-
