@@ -79,8 +79,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
 {
   if (!network_)
     {
-      //std::cout << network_.error().message() << std::endl;
-      abort();
+      throw std::runtime_error(network_.error().message());
     }
   init(lefile, luafile);
 
@@ -474,14 +473,12 @@ int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) != "ko");
-  lua_pushstring(vm.getLua(), ret.c_str());
+    if ((ret = this->getline()) != "ko")
+      lua_pushstring(vm.getLua(), ret.c_str());
   this->cmd("voir");
   ret = this->getline();
   if (ret == "ko")
     ret = this->getline();
-  if (ret != "ko")
-    map_.voir(ret);
   return 1;
 }
 
