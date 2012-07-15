@@ -79,11 +79,12 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
                        const std::string & lefile, const std::string & luafile,
                        const std::string & team,
                        char *av[])
-  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av), teamname(team)
+  : FSM::VM<Trantorien>(*this, &Trantorien::isValid), network_(ip, port), map_(std::pair<int, int>(20, 20)), level_(1), av_(av), teamname(team),
+    playerNumber(-1)
 {
   if (!network_)
     {
-      throw std::runtime_error(network_.error().message());
+      throw std::runtime_error("could not connect to " + ip + ":" + port);
     }
   init(lefile, luafile);
 
@@ -158,7 +159,7 @@ Trantorien::Trantorien(const std::string & ip, const std::string & port,
   lua_setglobal(state, "TEAMNAME");
 
   joinTeam(team);
-  this->getline();
+  playerNumber = atoi(this->getline().c_str());
   map_.setSize(this->getline());
 
   lua_pushnumber(state, map_.getSize().first);
@@ -326,7 +327,10 @@ std::string Trantorien::getline()
         }
     }
   else if (!line.compare(0, NEW_LEVEL.length(), NEW_LEVEL))
-    ++level_;
+    {
+      ++level_;
+      line = this->getline();
+    }
   return line;
 }
 
@@ -480,15 +484,29 @@ int Trantorien::tourner(LuaVirtualMachine::VirtualMachine &vm)
  */
 int Trantorien::elevate(LuaVirtualMachine::VirtualMachine &vm)
 {
+//  this->cmd("incantation");
+//  std::string ret = this->getline();
+//  if (ret == CURRENTLY_ELEVATE_STR)
+//    if ((ret = this->getline()) != "ko")
+//      lua_pushstring(vm.getLua(), ret.c_str());
+//  this->cmd("voir");
+//  ret = this->getline();
+//  if (ret == "ko")
+//    ret = this->getline();
+//  map_.voir(ret);
+//  return 1;
+
   this->cmd("incantation");
   std::string ret = this->getline();
   if (ret == CURRENTLY_ELEVATE_STR)
-    if ((ret = this->getline()) != "ko")
-      lua_pushstring(vm.getLua(), ret.c_str());
-  this->cmd("voir");
-  ret = this->getline();
-  if (ret == "ko")
-    ret = this->getline();
+    {
+      this->cmd("voir");
+      ret = this->getline();
+      if (ret == "ko")
+        ret = this->getline();
+      std::cout << "before PARSING TROLOLOO >>><<<<<<<<<<" << std::endl;
+      map_.voir(ret);
+    }
   return 1;
 }
 
