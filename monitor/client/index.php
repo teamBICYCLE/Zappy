@@ -61,6 +61,7 @@
 			<div class="panel-topbar"></div>
 			<div class="panel-stats"></div>
 		</div>
+		<span class="pieNumber"></span>
 		<div class="endGame">
 				<span class="winner"></span>
 				<img src="img/end.gif" />
