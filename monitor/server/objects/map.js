@@ -9,17 +9,6 @@ var Map = function()
 {
 };
 
-Map.prototype.dump = function() {
-	
-	var tmpCase = new Case();
-	
-	for (var i = 0; i != data_.length; i++)
-	{
-		console.log(i);
-		tmpCase.dump(data_[i]);
-	}
-}
-
 Map.prototype.make = function(x, y) {
 	for (var i = 0; i != y; i++)
 	{

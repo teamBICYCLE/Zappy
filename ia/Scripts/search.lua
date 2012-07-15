@@ -3,7 +3,7 @@
 dofile("Scripts/utils.lua")
 gx, gy = 0, 0
 MIN_FOOD = 8
-MAX_FOOD = 35
+MAX_FOOD = 40
 HAS_LAYED = false
 HAS_TO_CALL_PLAYER = false
 NB_PLAYER_TO_CONNECT = 8
@@ -141,7 +141,7 @@ end
 function this.voit_obj(this)
    this:IAVoir()
    print (obj)
-   gx, gy = this:IAGetItemWithLength(obj, 3)
+   gx, gy = this:IAGetItemWithLength(obj, 2)
    if gx == -1 or gy == -1
    then gx, gy = this:IAGetCLosestItem(obj)
    end
