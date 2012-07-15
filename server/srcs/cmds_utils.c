@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Wed Jun 20 15:54:02 2012 lois burg
-** Last update Sun Jul 15 12:07:38 2012 lois burg
+** Last update Sun Jul 15 18:52:00 2012 lois burg
 */
 
 #include <string.h>
@@ -41,6 +41,7 @@ void		assign_pos(t_users *u, t_team *team)
       u->x = ghost->x;
       u->y = ghost->y;
       u->type = TFORMER_GHOST;
+      ++g_info.map->cases[u->y][u->x].elements[PLAYER];
       delete_link(ghost_lnk, &free_users);
       lookup(g_info.users, graphics_ebo(u->id), &notify_graphic);
     }

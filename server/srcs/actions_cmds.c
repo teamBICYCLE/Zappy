@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Tue Jun 12 16:18:42 2012 lois burg
-** Last update Sun Jul 15 17:52:46 2012 lois burg
+** Last update Sun Jul 15 18:51:48 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -88,7 +88,6 @@ static t_cmd_ret	hatch_egg(t_users *usr, char **args, char *orig_cmd)
   if (usr->team)
     ++usr->team->free_slots;
   --g_info.map->cases[usr->y][usr->x].elements[EGG];
-  ++g_info.map->cases[usr->y][usr->x].elements[PLAYER];
   lookup(g_info.users, graphics_eht(usr->id), &notify_graphic);
   return (IGNORE);
 }
