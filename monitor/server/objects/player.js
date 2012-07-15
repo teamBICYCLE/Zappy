@@ -18,8 +18,6 @@ var Player = function(arg, color) {
 	    this.animationLoop_ = [-1, -1, -1, -1];
 		this.inventoryChange_ = false;
 		this.broadcast_ = "";
-		this.animationDrop_ = -1;
-		this.animationGet_ = -1;
 	} 
 };
 
@@ -130,11 +128,11 @@ Player.prototype.setPfk = function() {
 }
 
 Player.prototype.setPdr = function() {
-	/* to do */
+	
 }
 
 Player.prototype.setPgt = function() {
-	/* to do */
+	
 }
 
 /* other */

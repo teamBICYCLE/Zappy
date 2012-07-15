@@ -17,7 +17,6 @@ var socket = io.connect('http://'+$(".ip").text(), {
 	playerFollowed = -1;
 
 socket.on("connect_failed", function(){
-	console.log("CONNECTION FAILED");
 	$('#overlay').fadeIn('fast', function(){
 		$(".error-line1").html("Cannot reach the node server.");
 		$(".error-line2").html("Please check the server's status.");

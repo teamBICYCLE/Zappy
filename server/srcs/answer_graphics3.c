@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Thu Jul  5 17:39:56 2012 lois burg
-** Last update Thu Jul 12 14:45:24 2012 lois burg
+** Last update Sun Jul 15 12:12:04 2012 lois burg
 */
 
 #include <stdio.h>
@@ -99,13 +99,7 @@ void		answer_gsc(t_users *usr, char **args)
     {
       x = strtol(args[0], NULL, 10);
       y = strtol(args[1], NULL, 10);
-      i = 2;
-      while (x < g_info.map->x && y < g_info.map->y &&
-	     args[i] && contains_only_digits(args[i]))
-	{
-	  g_info.map->cases[y][x].elements[i - 2] = strtol(args[i], NULL, 10);
-	  ++i;
-	}
+      i = set_case_content(x, y, args);
       if (i == NB_RESSOURCES + 2)
 	{
 	  msg = NULL;

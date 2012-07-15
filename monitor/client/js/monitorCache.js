@@ -119,8 +119,6 @@ MonitorCache.prototype.getCaseFromPos = function(x, y) {
 
 MonitorCache.prototype.getCase = function(target) {
 	
-	//console.log("size : " + this.map_.length);
-
 	if (target >= 0 && target < this.map_.length)
 		return this.map_[target];
 	displayError("Something wrong in MonitorCache.getCase()");
@@ -128,7 +126,6 @@ MonitorCache.prototype.getCase = function(target) {
 
 MonitorCache.prototype.getSpriteBase = function(aCase) {
 	
-	//console.log(aCase);
 	var sprite = 0,
    		value = aCase.ressources_[0];
    	   	

@@ -63,7 +63,8 @@
 		</div>
 		<div class="endGame">
 				<span class="winner"></span>
-				<span class="newGame">New Game in <span class="timer">5</span> seconds</span>
+				<img src="img/end.gif" />
+				<span class="newGame">New Game in <span class="timer">10</span> seconds</span>
 		</div>
 		<div class="btn-slide"></div>
 		<div id="inventory">
