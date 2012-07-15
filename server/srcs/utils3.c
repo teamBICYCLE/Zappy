@@ -5,7 +5,7 @@
 ** Login   <burg_l@epitech.net>
 **
 ** Started on  Fri Jun 15 12:22:39 2012 lois burg
-** Last update Wed Jul 11 11:16:18 2012 lois burg
+** Last update Sun Jul 15 17:21:04 2012 lois burg
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ void	send_ok_ko(t_users *usr, t_cmd_ret s)
     {
       if (s == SUCCESS)
 	push_back(usr->messages, new_link_by_param(OK, sizeof(OK) + 1));
-      else
+      else if (s == FAILURE)
 	push_back(usr->messages, new_link_by_param(KO, sizeof(KO) + 1));
     }
 }
