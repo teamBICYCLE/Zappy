@@ -96,6 +96,6 @@ std::vector<unsigned int> Inventory::parse(const std::string &values)
     }
   else
     throw TrantorienFailure("Inventory parse",
-                            "Received " + values + " witch does not match with the regex " + REGEX_VALUE);
+                            "Received \"" + values + "\" witch does not match with the regex " + REGEX_VALUE);
   return ret;
 }

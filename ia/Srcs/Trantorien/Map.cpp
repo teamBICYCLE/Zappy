@@ -256,10 +256,10 @@ void Map::voir(const std::string &values)
 
   if (boost::regex_match(values, regex))
       analyse(values);
-//  else
-//    {
-//      throw TrantorienFailure("Map voir", "Received \"" + values + "\" witch does not match with the regex " + REGEX_VALUE);
-//    }
+  else
+    {
+      throw TrantorienFailure("Map voir", "Received \"" + values + "\" witch does not match with the regex " + REGEX_VALUE);
+    }
 }
 
 void Map::prendre(const std::string &value)

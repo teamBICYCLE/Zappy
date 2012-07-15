@@ -90,6 +90,7 @@ private:
   unsigned int		  level_;
   char			  **av_;
   std::string             teamname;
+  int                     playerNumber;
 };
 
 #endif // _TRANDORIEN_HH
