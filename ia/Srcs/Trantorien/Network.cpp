@@ -25,6 +25,8 @@ Network::~Network()
 
 void Network::cmd(const std::string &command)
 {
+  if (!*this)
+    throw std::runtime_error("Network disconnected");
 #ifdef DEBUG
   std::cout << "network out:" << command << std::endl;
 #endif
@@ -36,6 +38,8 @@ std::string Network::getline()
 {
   std::string str;
 
+  if (!*this)
+    throw std::runtime_error("Network disconnected");
   std::getline(*this, str);
 #ifdef DEBUG
   std::cout << "network in: " << str << std::endl;
