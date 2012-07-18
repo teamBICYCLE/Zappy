@@ -5,7 +5,7 @@
 // Login   <carpen_t@epitech.net>
 //
 // Started on  Fri Jul 13 11:39:41 2012 thibault carpentier
-// Last update Sun Jul 15 15:40:18 2012 thibault carpentier
+// Last update Sun Jul 15 20:30:56 2012 romain sylvian
 //
 
 
@@ -303,7 +303,7 @@ std::string Trantorien::getline()
   if (line == PLAYER_DEAD_STRING)
     {
       std::cerr << "MORT" << std::endl;
-      abort();
+      exit(0);
     }
   else if (!line.compare(0, BROADCAST_TEXT_RCV.length(), BROADCAST_TEXT_RCV))
     {
@@ -1091,11 +1091,11 @@ int Trantorien::connectPlayer(LuaVirtualMachine::VirtualMachine &vm)
   for (int i = 0; i < nb; ++i)
     {
       if ((pid = fork()) == -1)
-        abort();
+        exit(0);
       if (pid == 0)
         {
           if (execvp(av_[0], av_) == -1)
-            abort();
+            exit(0);
           exit(0);
         }
     }
